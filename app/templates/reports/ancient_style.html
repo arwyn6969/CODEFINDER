@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Custom Analysis Report</title>
+    <style>
+        body { font-family: 'Times New Roman', serif; margin: 40px; }
+        .header { text-align: center; border-bottom: 3px solid #8B4513; padding: 20px; }
+        .ancient-style { background: #F5F5DC; padding: 20px; border: 2px solid #8B4513; }
+        .pattern { margin: 15px 0; padding: 10px; background: #FFF8DC; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📜 Ancient Text Analysis Report</h1>
+        <h2>{{ data.document_info.filename }}</h2>
+        <p>Generated: {{ generation_time.strftime('%B %d, %Y') }}</p>
+    </div>
+    
+    <div class="ancient-style">
+        <h3>🔍 Analysis Summary</h3>
+        <p><strong>Patterns Discovered:</strong> {{ data.analysis_summary.total_patterns }}</p>
+        <p><strong>Significant Findings:</strong> {{ data.analysis_summary.significant_patterns }}</p>
+        <p><strong>Anomalies Detected:</strong> {{ data.analysis_summary.anomalies_found }}</p>
+    </div>
+    
+    {% if data.pattern_findings %}
+    <h3>📋 Key Pattern Findings</h3>
+    {% for pattern in data.pattern_findings[:5] %}
+    <div class="pattern">
+        <h4>{{ pattern.type }} (Confidence: {{ "%.1f"|format(pattern.confidence * 100) }}%)</h4>
+        <p>{{ pattern.description }}</p>
+        <small>Page {{ pattern.page_number }} | Significance: {{ "%.2f"|format(pattern.significance_score) }}</small>
+    </div>
+    {% endfor %}
+    {% endif %}
+    
+    <div class="ancient-style">
+        <h3>💡 Recommendations</h3>
+        <ul>
+        {% for rec in data.recommendations %}
+            <li>{{ rec }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
+    
