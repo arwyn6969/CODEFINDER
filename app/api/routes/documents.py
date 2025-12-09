@@ -54,23 +54,104 @@ class ProcessingStatusResponse(BaseModel):
     error_message: Optional[str] = None
 
 # File upload settings
+# NOTE: These should match settings in app/core/config.py
 UPLOAD_DIR = Path("uploads")
 UPLOAD_DIR.mkdir(exist_ok=True)
-MAX_FILE_SIZE = 100 * 1024 * 1024  # 100MB
+MAX_FILE_SIZE = 100 * 1024 * 1024  # 100MB (can be overridden by config)
 ALLOWED_EXTENSIONS = {".pdf", ".txt", ".docx", ".png", ".jpg", ".jpeg", ".tiff"}
 
-def validate_file(file: UploadFile) -> bool:
-    """Validate uploaded file"""
+# File type magic numbers for content validation
+# Format: {extension: [magic_number_bytes]}
+FILE_SIGNATURES = {
+    ".pdf": [b"%PDF"],
+    ".png": [b"\x89PNG\r\n\x1a\n"],
+    ".jpg": [b"\xff\xd8\xff"],
+    ".jpeg": [b"\xff\xd8\xff"],
+    ".tiff": [b"II*\x00", b"MM\x00*"],
+    # Text files don't have magic numbers, validate by content
+    ".txt": None,
+    ".docx": [b"PK\x03\x04"],  # DOCX is a ZIP file
+}
+
+async def validate_file(file: UploadFile) -> tuple[bool, str]:
+    """
+    Comprehensive file validation including extension, size, and content.
+    
+    Returns:
+        (is_valid, error_message)
+    """
+    # Check filename is provided
+    if not file.filename:
+        return False, "Filename is required"
+    
     # Check file extension
     file_ext = Path(file.filename).suffix.lower()
     if file_ext not in ALLOWED_EXTENSIONS:
-        return False
+        return False, f"File extension '{file_ext}' not allowed. Allowed: {', '.join(ALLOWED_EXTENSIONS)}"
     
-    # Check file size (this is approximate, actual size checked during upload)
-    if hasattr(file, 'size') and file.size > MAX_FILE_SIZE:
-        return False
+    # Check filename for path traversal attempts
+    if ".." in file.filename or "/" in file.filename or "\\" in file.filename:
+        return False, "Invalid filename: path traversal detected"
     
-    return True
+    # Read first few bytes for content validation
+    try:
+        # Save current position
+        current_pos = await file.seek(0, 1) if hasattr(file, 'seek') else 0
+        
+        # Read first 16 bytes for magic number checking
+        content = await file.read(16)
+        
+        # Reset file position
+        if hasattr(file, 'seek'):
+            await file.seek(0)
+        
+        # Check file size (read content length)
+        if len(content) == 0:
+            return False, "File is empty"
+        
+        # Validate content signature if available
+        if file_ext in FILE_SIGNATURES:
+            signatures = FILE_SIGNATURES[file_ext]
+            if signatures:  # None means no signature check (e.g., .txt)
+                # Check if content matches any expected signature
+                matches = any(content.startswith(sig) for sig in signatures)
+                if not matches:
+                    return False, f"File content does not match expected format for {file_ext}"
+        
+        # For text files, validate it's actually text
+        if file_ext == ".txt":
+            try:
+                content.decode('utf-8')
+            except UnicodeDecodeError:
+                return False, "File does not appear to be valid UTF-8 text"
+        
+    except Exception as e:
+        logger.error(f"Error validating file content: {str(e)}")
+        return False, f"Error reading file: {str(e)}"
+    
+    return True, ""
+
+def validate_file_size(file_size: int, max_size: Optional[int] = None) -> tuple[bool, str]:
+    """
+    Validate file size.
+    
+    Args:
+        file_size: Size of file in bytes
+        max_size: Maximum allowed size (uses MAX_FILE_SIZE if not provided)
+    
+    Returns:
+        (is_valid, error_message)
+    """
+    max_allowed = max_size or MAX_FILE_SIZE
+    if file_size > max_allowed:
+        size_mb = file_size / (1024 * 1024)
+        max_mb = max_allowed / (1024 * 1024)
+        return False, f"File size ({size_mb:.2f}MB) exceeds maximum allowed size ({max_mb:.2f}MB)"
+    
+    if file_size == 0:
+        return False, "File is empty"
+    
+    return True, ""
 
 async def process_document_background(document_id: int, file_path: str):
     """Background task to process uploaded document"""
@@ -118,31 +199,52 @@ async def upload_document(
     db: Session = Depends(get_database)
 ):
     """
-    Upload a document for analysis
-    Supports PDF, text, and image files
+    Upload a document for analysis.
+    
+    Supports PDF, text, and image files.
+    Files are validated for type, size, and content before processing.
     """
+    from app.core.config import settings
+    
     try:
-        # Validate file
-        if not validate_file(file):
+        # Validate file extension and content
+        is_valid, error_message = await validate_file(file)
+        if not is_valid:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
-                detail=f"Invalid file type or size. Allowed: {', '.join(ALLOWED_EXTENSIONS)}"
+                detail=error_message or f"Invalid file. Allowed types: {', '.join(ALLOWED_EXTENSIONS)}"
             )
         
-        # Generate unique filename
+        # Generate unique filename to prevent conflicts and path traversal
         file_ext = Path(file.filename).suffix.lower()
         unique_filename = f"{uuid.uuid4()}{file_ext}"
         file_path = UPLOAD_DIR / unique_filename
         
-        # Save uploaded file
+        # Ensure upload directory exists and is secure
+        UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+        
+        # Save uploaded file with size validation
+        content = await file.read()
+        
+        # Validate file size using config setting
+        max_size = getattr(settings, 'max_file_size', MAX_FILE_SIZE)
+        is_size_valid, size_error = validate_file_size(len(content), max_size)
+        if not is_size_valid:
+            raise HTTPException(
+                status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
+                detail=size_error
+            )
+        
+        # Write file to disk
         with open(file_path, "wb") as buffer:
-            content = await file.read()
-            if len(content) > MAX_FILE_SIZE:
-                raise HTTPException(
-                    status_code=status.HTTP_413_REQUEST_ENTITY_TOO_LARGE,
-                    detail=f"File too large. Maximum size: {MAX_FILE_SIZE // (1024*1024)}MB"
-                )
             buffer.write(content)
+        
+        # Verify file was written correctly
+        if not file_path.exists() or file_path.stat().st_size != len(content):
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Error saving file. Please try again."
+            )
         
         # Create document record
         document = Document(

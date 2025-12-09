@@ -2,11 +2,11 @@
 FastAPI Main Application
 Comprehensive API for Ancient Text Analysis System
 """
-from fastapi import FastAPI, HTTPException, Depends, UploadFile, File, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, HTTPException, Depends, UploadFile, File, WebSocket, WebSocketDisconnect, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, FileResponse
+from fastapi.responses import HTMLResponse, FileResponse, JSONResponse
 from sqlalchemy.orm import Session
 from typing import List, Optional, Dict, Any
 import asyncio
@@ -16,6 +16,7 @@ from pathlib import Path
 
 from app.core.database import get_db, init_db
 from app.core.config import settings
+from app.core.exceptions import CodeFinderException
 from app.api.routes import (
     documents, analysis, patterns, search, reports, 
     visualizations, auth, websocket
@@ -40,6 +41,25 @@ app = FastAPI(
 
 # Setup middleware
 setup_middleware(app)
+
+# Global exception handler for custom exceptions
+@app.exception_handler(CodeFinderException)
+async def codefinder_exception_handler(request: Request, exc: CodeFinderException):
+    """
+    Global exception handler for CodeFinderException and subclasses.
+    
+    Returns standardized error responses with proper status codes.
+    """
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "error": {
+                "code": exc.error_code,
+                "message": exc.message,
+                "details": exc.details
+            }
+        }
+    )
 
 # Ensure database tables exist for local/test environments
 try:
