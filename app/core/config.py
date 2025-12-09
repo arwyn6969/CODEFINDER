@@ -8,7 +8,16 @@ from pydantic_settings import BaseSettings
 from pydantic import Field, field_validator
 from typing import Optional
 import os
-import secrets
+try:
+    import secrets
+except ImportError:
+    # Python < 3.6 fallback (unlikely but safe)
+    import random
+    import string
+    class secrets:
+        @staticmethod
+        def token_urlsafe(nbytes=32):
+            return ''.join(random.choices(string.ascii_letters + string.digits + '-_', k=nbytes))
 
 class Settings(BaseSettings):
     # Database settings
