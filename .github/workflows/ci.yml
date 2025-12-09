@@ -31,5 +31,8 @@ jobs:
           alembic upgrade head
 
       - name: Run tests
-        run: pytest -q
+        run: |
+          pytest -q --cov=app --cov-report=term-missing --cov-report=xml
+          # Note: Coverage threshold disabled for now, enable when coverage improves
+          # pytest -q --cov=app --cov-report=term-missing --cov-fail-under=60
 
