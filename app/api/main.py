@@ -85,11 +85,73 @@ if static_dir.exists():
 # Health check endpoint
 @app.get("/api/health")
 async def health_check():
-    """Health check endpoint"""
+    """
+    Enhanced health check endpoint with component status.
+    
+    Returns health status of all system components including:
+    - Database connectivity
+    - Redis connectivity (if configured)
+    - Tesseract OCR availability
+    - Storage accessibility
+    """
+    from datetime import datetime, timezone
+    from app.core.config import settings
+    
+    checks = {}
+    overall_status = "healthy"
+    
+    # Check database
+    try:
+        db = next(get_db())
+        db.execute("SELECT 1")
+        db.close()
+        checks["database"] = {"status": "healthy", "message": "Database connection successful"}
+    except Exception as e:
+        checks["database"] = {"status": "unhealthy", "message": str(e)}
+        overall_status = "degraded"
+    
+    # Check Redis (optional)
+    if settings.redis_url:
+        try:
+            import redis
+            redis_client = redis.from_url(settings.redis_url)
+            redis_client.ping()
+            checks["redis"] = {"status": "healthy", "message": "Redis connection successful"}
+        except Exception as e:
+            checks["redis"] = {"status": "unhealthy", "message": str(e)}
+            # Redis is optional, so don't fail overall health if it's down
+    else:
+        checks["redis"] = {"status": "not_configured", "message": "Redis not configured"}
+    
+    # Check Tesseract
+    try:
+        import pytesseract
+        # Try to get version
+        version = pytesseract.get_tesseract_version()
+        checks["tesseract"] = {"status": "healthy", "message": f"Tesseract version {version} available"}
+    except Exception as e:
+        checks["tesseract"] = {"status": "unhealthy", "message": str(e)}
+        overall_status = "degraded"
+    
+    # Check storage
+    try:
+        upload_dir = Path(settings.upload_dir)
+        upload_dir.mkdir(parents=True, exist_ok=True)
+        # Test write access
+        test_file = upload_dir / ".health_check"
+        test_file.write_text("test")
+        test_file.unlink()
+        checks["storage"] = {"status": "healthy", "message": f"Storage accessible at {upload_dir}"}
+    except Exception as e:
+        checks["storage"] = {"status": "unhealthy", "message": str(e)}
+        overall_status = "degraded"
+    
     return {
-        "status": "healthy",
+        "status": overall_status,
         "service": "Ancient Text Analysis API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "checks": checks
     }
 
 # Root endpoint - serve React app
