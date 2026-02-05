@@ -58,3 +58,4 @@ reports/resolution_test/
 temp/
 openapi.json
 *.db
+scan_pdf_output.log
