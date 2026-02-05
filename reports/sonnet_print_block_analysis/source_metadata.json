@@ -1,0 +1,16 @@
+{
+  "source": {
+    "name": "Aspley Edition - 1609 Quarto",
+    "edition": "William Aspley copy",
+    "catalog_id": "folger_sonnets_1609",
+    "url": "https://digitalcollections.folger.edu/node/70076",
+    "type": "iiif_images",
+    "notes": "High-resolution IIIF images from Folger Digital Collections"
+  },
+  "scan_results": {
+    "total_pages": 53,
+    "total_characters": 64692,
+    "average_confidence": 78.86,
+    "scan_date": "2026-02-05"
+  }
+}
