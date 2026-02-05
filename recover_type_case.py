@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 def recover():
-    builder = DigitalTypeCaseBuilder("data/sources/SONNETS_QUARTO_1609_NET.pdf")
+    builder = DigitalTypeCaseBuilder("data/sources/archive/SONNETS_QUARTO_1609_NET.pdf")
     
     # Check if images exist
     if not builder.images_dir.exists():

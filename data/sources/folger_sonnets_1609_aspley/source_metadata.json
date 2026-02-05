@@ -1,0 +1,18 @@
+{
+  "source": {
+    "name": "Folger Shakespeare Library",
+    "catalog_id": "STC 22353",
+    "variant": "Aspley",
+    "url": "https://digitalcollections.folger.edu/node/29467",
+    "manifest": "https://digitalcollections.folger.edu/node/29467/manifest",
+    "rights": "https://rightsstatements.org/page/NoC-US/1.0/"
+  },
+  "download": {
+    "total_pages": 67,
+    "downloaded": 67,
+    "skipped": 0,
+    "errors": [],
+    "size_param": "2000,",
+    "format": "jpg"
+  }
+}

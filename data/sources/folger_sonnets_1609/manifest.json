@@ -1,0 +1,3409 @@
+{
+  "@type": "sc:Manifest",
+  "@id": "https://digitalcollections.folger.edu/node/70076/manifest",
+  "label": "Shake-speares sonnets : neuer before imprinted",
+  "@context": "http://iiif.io/api/presentation/2/context.json",
+  "sequences": [
+    {
+      "@context": "http://iiif.io/api/presentation/2/context.json",
+      "@id": "https://digitalcollections.folger.edu/node/70076/sequence/normal",
+      "@type": "sc:Sequence",
+      "canvases": [
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272079",
+          "@type": "sc:Canvas",
+          "label": "front outside cover",
+          "height": 6127,
+          "width": 4743,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272079",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019660.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 6127,
+                "width": 4743,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019660.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272079"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19660"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "1"
+            },
+            {
+              "label": "Title",
+              "value": "front outside cover"
+            },
+            {
+              "label": "Page/opening",
+              "value": "front outside cover"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019660.jpg",
+            "format": "image/jpeg",
+            "height": 480,
+            "width": 372
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272083",
+          "@type": "sc:Canvas",
+          "label": "front inside cover \u2013 front endleaf 1 recto",
+          "height": 4703,
+          "width": 6961,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272083",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019661.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4703,
+                "width": 6961,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019661.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272083"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19661"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "2"
+            },
+            {
+              "label": "Title",
+              "value": "front inside cover \u2013 front endleaf 1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "front inside cover \u2013 front endleaf 1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019661.jpg",
+            "format": "image/jpeg",
+            "height": 324,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272087",
+          "@type": "sc:Canvas",
+          "label": "front endleaf 1 verso \u2013 front endleaf 2 recto",
+          "height": 4728,
+          "width": 6972,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272087",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019662.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4728,
+                "width": 6972,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019662.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272087"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19662"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "3"
+            },
+            {
+              "label": "Title",
+              "value": "front endleaf 1 verso \u2013 front endleaf 2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "front endleaf 1 verso \u2013 front endleaf 2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019662.jpg",
+            "format": "image/jpeg",
+            "height": 326,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272091",
+          "@type": "sc:Canvas",
+          "label": "front endleaf 2 verso \u2013 front endleaf 3 recto",
+          "height": 4691,
+          "width": 6966,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272091",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019663.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4691,
+                "width": 6966,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019663.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272091"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19663"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "4"
+            },
+            {
+              "label": "Title",
+              "value": "front endleaf 2 verso \u2013 front endleaf 3 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "front endleaf 2 verso \u2013 front endleaf 3 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019663.jpg",
+            "format": "image/jpeg",
+            "height": 323,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272095",
+          "@type": "sc:Canvas",
+          "label": "front endleaf 3 verso \u2013 front endleaf 4 recto",
+          "height": 4701,
+          "width": 6975,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272095",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019664.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4701,
+                "width": 6975,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019664.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272095"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19664"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "5"
+            },
+            {
+              "label": "Title",
+              "value": "front endleaf 3 verso \u2013 front endleaf 4 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "front endleaf 3 verso \u2013 front endleaf 4 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019664.jpg",
+            "format": "image/jpeg",
+            "height": 324,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272099",
+          "@type": "sc:Canvas",
+          "label": "front endleaf 4 verso \u2013 front endleaf 5 recto",
+          "height": 4724,
+          "width": 6981,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272099",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019665.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4724,
+                "width": 6981,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019665.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272099"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19665"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "6"
+            },
+            {
+              "label": "Title",
+              "value": "front endleaf 4 verso \u2013 front endleaf 5 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "front endleaf 4 verso \u2013 front endleaf 5 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019665.jpg",
+            "format": "image/jpeg",
+            "height": 325,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272103",
+          "@type": "sc:Canvas",
+          "label": "front endleaf 5 verso \u2013 A1 recto",
+          "height": 4729,
+          "width": 7003,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272103",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019666.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4729,
+                "width": 7003,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019666.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272103"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19666"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "7"
+            },
+            {
+              "label": "Title",
+              "value": "front endleaf 5 verso \u2013 A1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "front endleaf 5 verso \u2013 A1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019666.jpg",
+            "format": "image/jpeg",
+            "height": 324,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272107",
+          "@type": "sc:Canvas",
+          "label": "A1 verso \u2013 A2 recto",
+          "height": 4734,
+          "width": 7015,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272107",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019667.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4734,
+                "width": 7015,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019667.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272107"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19667"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "8"
+            },
+            {
+              "label": "Title",
+              "value": "A1 verso \u2013 A2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "A1 verso \u2013 A2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019667.jpg",
+            "format": "image/jpeg",
+            "height": 324,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272111",
+          "@type": "sc:Canvas",
+          "label": "A2 verso \u2013 B1 recto",
+          "height": 4722,
+          "width": 7015,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272111",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019668.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4722,
+                "width": 7015,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019668.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272111"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19668"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "9"
+            },
+            {
+              "label": "Title",
+              "value": "A2 verso \u2013 B1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "A2 verso \u2013 B1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019668.jpg",
+            "format": "image/jpeg",
+            "height": 323,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272115",
+          "@type": "sc:Canvas",
+          "label": "B1 verso \u2013 B2 recto",
+          "height": 4717,
+          "width": 7027,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272115",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019669.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4717,
+                "width": 7027,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019669.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272115"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19669"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "10"
+            },
+            {
+              "label": "Title",
+              "value": "B1 verso \u2013 B2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "B1 verso \u2013 B2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019669.jpg",
+            "format": "image/jpeg",
+            "height": 322,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272119",
+          "@type": "sc:Canvas",
+          "label": "B2 verso \u2013 B3 recto",
+          "height": 4716,
+          "width": 7038,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272119",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019670.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4716,
+                "width": 7038,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019670.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272119"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19670"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "11"
+            },
+            {
+              "label": "Title",
+              "value": "B2 verso \u2013 B3 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "B2 verso \u2013 B3 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019670.jpg",
+            "format": "image/jpeg",
+            "height": 322,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272123",
+          "@type": "sc:Canvas",
+          "label": "B3 verso \u2013 B4 recto",
+          "height": 4699,
+          "width": 7043,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272123",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019671.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4699,
+                "width": 7043,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019671.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272123"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19671"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "12"
+            },
+            {
+              "label": "Title",
+              "value": "B3 verso \u2013 B4 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "B3 verso \u2013 B4 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019671.jpg",
+            "format": "image/jpeg",
+            "height": 320,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272127",
+          "@type": "sc:Canvas",
+          "label": "B4 verso \u2013 C1 recto",
+          "height": 4699,
+          "width": 7077,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272127",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019672.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4699,
+                "width": 7077,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019672.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272127"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19672"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "13"
+            },
+            {
+              "label": "Title",
+              "value": "B4 verso \u2013 C1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "B4 verso \u2013 C1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019672.jpg",
+            "format": "image/jpeg",
+            "height": 319,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272131",
+          "@type": "sc:Canvas",
+          "label": "C1 verso \u2013 C2 recto",
+          "height": 4688,
+          "width": 7090,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272131",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019673.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4688,
+                "width": 7090,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019673.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272131"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19673"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "14"
+            },
+            {
+              "label": "Title",
+              "value": "C1 verso \u2013 C2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "C1 verso \u2013 C2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019673.jpg",
+            "format": "image/jpeg",
+            "height": 317,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272135",
+          "@type": "sc:Canvas",
+          "label": "C2 verso \u2013 C3 recto",
+          "height": 4683,
+          "width": 7083,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272135",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019674.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4683,
+                "width": 7083,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019674.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272135"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19674"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "15"
+            },
+            {
+              "label": "Title",
+              "value": "C2 verso \u2013 C3 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "C2 verso \u2013 C3 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019674.jpg",
+            "format": "image/jpeg",
+            "height": 317,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272139",
+          "@type": "sc:Canvas",
+          "label": "C3 verso \u2013 C4 recto",
+          "height": 4705,
+          "width": 7106,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272139",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019675.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4705,
+                "width": 7106,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019675.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272139"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19675"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "16"
+            },
+            {
+              "label": "Title",
+              "value": "C3 verso \u2013 C4 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "C3 verso \u2013 C4 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019675.jpg",
+            "format": "image/jpeg",
+            "height": 318,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272143",
+          "@type": "sc:Canvas",
+          "label": "C4 verso \u2013 D1 recto",
+          "height": 4682,
+          "width": 7117,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272143",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019676.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4682,
+                "width": 7117,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019676.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272143"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19676"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "17"
+            },
+            {
+              "label": "Title",
+              "value": "C4 verso \u2013 D1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "C4 verso \u2013 D1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019676.jpg",
+            "format": "image/jpeg",
+            "height": 316,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272147",
+          "@type": "sc:Canvas",
+          "label": "D1 verso \u2013 D2 recto",
+          "height": 4686,
+          "width": 7150,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272147",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019677.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4686,
+                "width": 7150,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019677.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272147"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19677"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "18"
+            },
+            {
+              "label": "Title",
+              "value": "D1 verso \u2013 D2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "D1 verso \u2013 D2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019677.jpg",
+            "format": "image/jpeg",
+            "height": 315,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272151",
+          "@type": "sc:Canvas",
+          "label": "D2 verso \u2013 D3 recto",
+          "height": 4698,
+          "width": 7173,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272151",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019678.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4698,
+                "width": 7173,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019678.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272151"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19678"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "19"
+            },
+            {
+              "label": "Title",
+              "value": "D2 verso \u2013 D3 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "D2 verso \u2013 D3 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019678.jpg",
+            "format": "image/jpeg",
+            "height": 314,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272155",
+          "@type": "sc:Canvas",
+          "label": "D3 verso \u2013 D4 recto",
+          "height": 4686,
+          "width": 7184,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272155",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019679.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4686,
+                "width": 7184,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019679.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272155"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19679"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "20"
+            },
+            {
+              "label": "Title",
+              "value": "D3 verso \u2013 D4 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "D3 verso \u2013 D4 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019679.jpg",
+            "format": "image/jpeg",
+            "height": 313,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272159",
+          "@type": "sc:Canvas",
+          "label": "D4 verso \u2013 E1 recto",
+          "height": 4670,
+          "width": 7144,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272159",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019680.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4670,
+                "width": 7144,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019680.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272159"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19680"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "21"
+            },
+            {
+              "label": "Title",
+              "value": "D4 verso \u2013 E1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "D4 verso \u2013 E1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019680.jpg",
+            "format": "image/jpeg",
+            "height": 314,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272163",
+          "@type": "sc:Canvas",
+          "label": "E1 verso \u2013 E2 recto",
+          "height": 4667,
+          "width": 7162,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272163",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019681.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4667,
+                "width": 7162,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019681.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272163"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19681"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "22"
+            },
+            {
+              "label": "Title",
+              "value": "E1 verso \u2013 E2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "E1 verso \u2013 E2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019681.jpg",
+            "format": "image/jpeg",
+            "height": 313,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272167",
+          "@type": "sc:Canvas",
+          "label": "E2 verso \u2013 E3 recto",
+          "height": 4670,
+          "width": 7176,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272167",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019682.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4670,
+                "width": 7176,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019682.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272167"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19682"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "23"
+            },
+            {
+              "label": "Title",
+              "value": "E2 verso \u2013 E3 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "E2 verso \u2013 E3 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019682.jpg",
+            "format": "image/jpeg",
+            "height": 312,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272171",
+          "@type": "sc:Canvas",
+          "label": "E3 verso \u2013 E4 recto",
+          "height": 4682,
+          "width": 7176,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272171",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019683.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4682,
+                "width": 7176,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019683.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272171"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19683"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "24"
+            },
+            {
+              "label": "Title",
+              "value": "E3 verso \u2013 E4 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "E3 verso \u2013 E4 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019683.jpg",
+            "format": "image/jpeg",
+            "height": 313,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272175",
+          "@type": "sc:Canvas",
+          "label": "E4 verso \u2013 F1 recto",
+          "height": 4644,
+          "width": 7183,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272175",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019684.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4644,
+                "width": 7183,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019684.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272175"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19684"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "25"
+            },
+            {
+              "label": "Title",
+              "value": "E4 verso \u2013 F1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "E4 verso \u2013 F1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019684.jpg",
+            "format": "image/jpeg",
+            "height": 310,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272179",
+          "@type": "sc:Canvas",
+          "label": "F1 verso \u2013 F2 recto",
+          "height": 4669,
+          "width": 7196,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272179",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019685.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4669,
+                "width": 7196,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019685.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272179"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19685"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "26"
+            },
+            {
+              "label": "Title",
+              "value": "F1 verso \u2013 F2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "F1 verso \u2013 F2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019685.jpg",
+            "format": "image/jpeg",
+            "height": 311,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272183",
+          "@type": "sc:Canvas",
+          "label": "F2 verso \u2013 F3 recto",
+          "height": 4669,
+          "width": 7195,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272183",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019686.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4669,
+                "width": 7195,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019686.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272183"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19686"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "27"
+            },
+            {
+              "label": "Title",
+              "value": "F2 verso \u2013 F3 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "F2 verso \u2013 F3 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019686.jpg",
+            "format": "image/jpeg",
+            "height": 311,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272187",
+          "@type": "sc:Canvas",
+          "label": "F3 verso \u2013 F4 recto",
+          "height": 4667,
+          "width": 7235,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272187",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019687.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4667,
+                "width": 7235,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019687.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272187"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19687"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "28"
+            },
+            {
+              "label": "Title",
+              "value": "F3 verso \u2013 F4 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "F3 verso \u2013 F4 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019687.jpg",
+            "format": "image/jpeg",
+            "height": 310,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272191",
+          "@type": "sc:Canvas",
+          "label": "F4 verso \u2013 G1 recto",
+          "height": 4680,
+          "width": 7222,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272191",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019688.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4680,
+                "width": 7222,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019688.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272191"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19688"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "29"
+            },
+            {
+              "label": "Title",
+              "value": "F4 verso \u2013 G1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "F4 verso \u2013 G1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019688.jpg",
+            "format": "image/jpeg",
+            "height": 311,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272195",
+          "@type": "sc:Canvas",
+          "label": "G1 verso \u2013 G2 recto",
+          "height": 4667,
+          "width": 7222,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272195",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019689.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4667,
+                "width": 7222,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019689.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272195"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19689"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "30"
+            },
+            {
+              "label": "Title",
+              "value": "G1 verso \u2013 G2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "G1 verso \u2013 G2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019689.jpg",
+            "format": "image/jpeg",
+            "height": 310,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272199",
+          "@type": "sc:Canvas",
+          "label": "G2 verso \u2013 G3 recto",
+          "height": 4642,
+          "width": 7197,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272199",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019690.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4642,
+                "width": 7197,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019690.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272199"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19690"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "31"
+            },
+            {
+              "label": "Title",
+              "value": "G2 verso \u2013 G3 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "G2 verso \u2013 G3 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019690.jpg",
+            "format": "image/jpeg",
+            "height": 310,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272203",
+          "@type": "sc:Canvas",
+          "label": "G3 verso \u2013 G4 recto",
+          "height": 4655,
+          "width": 7221,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272203",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019691.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4655,
+                "width": 7221,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019691.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272203"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19691"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "32"
+            },
+            {
+              "label": "Title",
+              "value": "G3 verso \u2013 G4 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "G3 verso \u2013 G4 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019691.jpg",
+            "format": "image/jpeg",
+            "height": 309,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272207",
+          "@type": "sc:Canvas",
+          "label": "G4 verso \u2013 H1 recto",
+          "height": 4665,
+          "width": 7229,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272207",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019692.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4665,
+                "width": 7229,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019692.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272207"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19692"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "33"
+            },
+            {
+              "label": "Title",
+              "value": "G4 verso \u2013 H1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "G4 verso \u2013 H1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019692.jpg",
+            "format": "image/jpeg",
+            "height": 310,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272211",
+          "@type": "sc:Canvas",
+          "label": "H1 verso \u2013 H2 recto",
+          "height": 4653,
+          "width": 7241,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272211",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019693.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4653,
+                "width": 7241,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019693.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272211"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19693"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "34"
+            },
+            {
+              "label": "Title",
+              "value": "H1 verso \u2013 H2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "H1 verso \u2013 H2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019693.jpg",
+            "format": "image/jpeg",
+            "height": 308,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272215",
+          "@type": "sc:Canvas",
+          "label": "H2 verso \u2013 H3 recto",
+          "height": 4666,
+          "width": 7242,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272215",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019694.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4666,
+                "width": 7242,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019694.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272215"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19694"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "35"
+            },
+            {
+              "label": "Title",
+              "value": "H2 verso \u2013 H3 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "H2 verso \u2013 H3 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019694.jpg",
+            "format": "image/jpeg",
+            "height": 309,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272219",
+          "@type": "sc:Canvas",
+          "label": "H3 verso \u2013 H4 recto",
+          "height": 4668,
+          "width": 7246,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272219",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019695.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4668,
+                "width": 7246,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019695.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272219"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19695"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "36"
+            },
+            {
+              "label": "Title",
+              "value": "H3 verso \u2013 H4 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "H3 verso \u2013 H4 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019695.jpg",
+            "format": "image/jpeg",
+            "height": 309,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272223",
+          "@type": "sc:Canvas",
+          "label": "H4 verso \u2013 I1 recto",
+          "height": 4681,
+          "width": 7245,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272223",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019696.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4681,
+                "width": 7245,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019696.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272223"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19696"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "37"
+            },
+            {
+              "label": "Title",
+              "value": "H4 verso \u2013 I1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "H4 verso \u2013 I1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019696.jpg",
+            "format": "image/jpeg",
+            "height": 310,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272227",
+          "@type": "sc:Canvas",
+          "label": "I1 verso \u2013 I2 recto",
+          "height": 4681,
+          "width": 7221,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272227",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019697.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4681,
+                "width": 7221,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019697.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272227"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19697"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "38"
+            },
+            {
+              "label": "Title",
+              "value": "I1 verso \u2013 I2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "I1 verso \u2013 I2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019697.jpg",
+            "format": "image/jpeg",
+            "height": 311,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272231",
+          "@type": "sc:Canvas",
+          "label": "I2 verso \u2013 I3 recto",
+          "height": 4668,
+          "width": 7221,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272231",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019698.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4668,
+                "width": 7221,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019698.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272231"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19698"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "39"
+            },
+            {
+              "label": "Title",
+              "value": "I2 verso \u2013 I3 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "I2 verso \u2013 I3 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019698.jpg",
+            "format": "image/jpeg",
+            "height": 310,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272235",
+          "@type": "sc:Canvas",
+          "label": "I3 verso \u2013 I4 recto",
+          "height": 4655,
+          "width": 7209,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272235",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019699.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4655,
+                "width": 7209,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019699.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272235"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19699"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "40"
+            },
+            {
+              "label": "Title",
+              "value": "I3 verso \u2013 I4 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "I3 verso \u2013 I4 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019699.jpg",
+            "format": "image/jpeg",
+            "height": 310,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272239",
+          "@type": "sc:Canvas",
+          "label": "I4 verso \u2013 K1 recto",
+          "height": 4655,
+          "width": 7209,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272239",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019700.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4655,
+                "width": 7209,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019700.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272239"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19700"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "41"
+            },
+            {
+              "label": "Title",
+              "value": "I4 verso \u2013 K1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "I4 verso \u2013 K1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019700.jpg",
+            "format": "image/jpeg",
+            "height": 310,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272243",
+          "@type": "sc:Canvas",
+          "label": "K1 verso \u2013 K2 recto",
+          "height": 4681,
+          "width": 7222,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272243",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019701.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4681,
+                "width": 7222,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019701.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272243"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19701"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "42"
+            },
+            {
+              "label": "Title",
+              "value": "K1 verso \u2013 K2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "K1 verso \u2013 K2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019701.jpg",
+            "format": "image/jpeg",
+            "height": 311,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272247",
+          "@type": "sc:Canvas",
+          "label": "K2 verso \u2013 K3 recto",
+          "height": 4681,
+          "width": 7209,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272247",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019702.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4681,
+                "width": 7209,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019702.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272247"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19702"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "43"
+            },
+            {
+              "label": "Title",
+              "value": "K2 verso \u2013 K3 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "K2 verso \u2013 K3 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019702.jpg",
+            "format": "image/jpeg",
+            "height": 312,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272251",
+          "@type": "sc:Canvas",
+          "label": "K3 verso \u2013 K4 recto",
+          "height": 4692,
+          "width": 7197,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272251",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019703.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4692,
+                "width": 7197,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019703.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272251"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19703"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "44"
+            },
+            {
+              "label": "Title",
+              "value": "K3 verso \u2013 K4 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "K3 verso \u2013 K4 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019703.jpg",
+            "format": "image/jpeg",
+            "height": 313,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272255",
+          "@type": "sc:Canvas",
+          "label": "K4 verso \u2013 L1 recto",
+          "height": 4693,
+          "width": 7184,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272255",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019704.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4693,
+                "width": 7184,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019704.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272255"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19704"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "45"
+            },
+            {
+              "label": "Title",
+              "value": "K4 verso \u2013 L1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "K4 verso \u2013 L1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019704.jpg",
+            "format": "image/jpeg",
+            "height": 314,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272259",
+          "@type": "sc:Canvas",
+          "label": "L1 verso \u2013 L2 recto",
+          "height": 4683,
+          "width": 7170,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272259",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019705.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4683,
+                "width": 7170,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019705.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272259"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19705"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "46"
+            },
+            {
+              "label": "Title",
+              "value": "L1 verso \u2013 L2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "L1 verso \u2013 L2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019705.jpg",
+            "format": "image/jpeg",
+            "height": 314,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272263",
+          "@type": "sc:Canvas",
+          "label": "L2 verso \u2013 back endleaf 1 recto",
+          "height": 4670,
+          "width": 7170,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272263",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019706.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4670,
+                "width": 7170,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019706.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272263"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19706"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "47"
+            },
+            {
+              "label": "Title",
+              "value": "L2 verso \u2013 back endleaf 1 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "L2 verso \u2013 back endleaf 1 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019706.jpg",
+            "format": "image/jpeg",
+            "height": 313,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272267",
+          "@type": "sc:Canvas",
+          "label": "back endleaf 1 verso \u2013 back endleaf 2 recto",
+          "height": 4694,
+          "width": 7146,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272267",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019707.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4694,
+                "width": 7146,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019707.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272267"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19707"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "48"
+            },
+            {
+              "label": "Title",
+              "value": "back endleaf 1 verso \u2013 back endleaf 2 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "back endleaf 1 verso \u2013 back endleaf 2 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019707.jpg",
+            "format": "image/jpeg",
+            "height": 315,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272271",
+          "@type": "sc:Canvas",
+          "label": "back endleaf 2 verso \u2013 back endleaf 3 recto",
+          "height": 4695,
+          "width": 7121,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272271",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019708.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4695,
+                "width": 7121,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019708.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272271"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19708"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "49"
+            },
+            {
+              "label": "Title",
+              "value": "back endleaf 2 verso \u2013 back endleaf 3 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "back endleaf 2 verso \u2013 back endleaf 3 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019708.jpg",
+            "format": "image/jpeg",
+            "height": 316,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272275",
+          "@type": "sc:Canvas",
+          "label": "back endleaf 3 verso \u2013 back endleaf 4 recto",
+          "height": 4696,
+          "width": 7112,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272275",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019709.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4696,
+                "width": 7112,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019709.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272275"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19709"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "50"
+            },
+            {
+              "label": "Title",
+              "value": "back endleaf 3 verso \u2013 back endleaf 4 recto"
+            },
+            {
+              "label": "Page/opening",
+              "value": "back endleaf 3 verso \u2013 back endleaf 4 recto"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019709.jpg",
+            "format": "image/jpeg",
+            "height": 317,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272279",
+          "@type": "sc:Canvas",
+          "label": "back endleaf 4 verso \u2013 back inside cover",
+          "height": 4696,
+          "width": 7124,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272279",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019710.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 4696,
+                "width": 7124,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019710.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272279"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19710"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "51"
+            },
+            {
+              "label": "Title",
+              "value": "back endleaf 4 verso \u2013 back inside cover"
+            },
+            {
+              "label": "Page/opening",
+              "value": "back endleaf 4 verso \u2013 back inside cover"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019710.jpg",
+            "format": "image/jpeg",
+            "height": 316,
+            "width": 480
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272283",
+          "@type": "sc:Canvas",
+          "label": "back outside cover",
+          "height": 6130,
+          "width": 4686,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272283",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019711.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 6130,
+                "width": 4686,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F019711.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272283"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "19711"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "52"
+            },
+            {
+              "label": "Title",
+              "value": "back outside cover"
+            },
+            {
+              "label": "Page/opening",
+              "value": "back outside cover"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/019711.jpg",
+            "format": "image/jpeg",
+            "height": 480,
+            "width": 367
+          }
+        },
+        {
+          "@id": "https://digitalcollections.folger.edu/node/70076/canvas/272287",
+          "@type": "sc:Canvas",
+          "label": "spine",
+          "height": 8290,
+          "width": 837,
+          "images": [
+            {
+              "@id": "https://digitalcollections.folger.edu/node/70076/annotation/272287",
+              "@type": "oa:Annotation",
+              "motivation": "sc:painting",
+              "resource": {
+                "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F029955.tif/full/full/0/default.jpg",
+                "@type": "dctypes:Image",
+                "format": "image/tiff",
+                "height": 8290,
+                "width": 837,
+                "service": {
+                  "@id": "https://digitalcollections.folger.edu/cantaloupe/iiif/2/https%3A%2F%2Fdigitalcollections.folger.edu%2F_flysystem%2Ffedora%2F2023-08%2F029955.tif",
+                  "@context": "http://iiif.io/api/image/2/context.json",
+                  "profile": "http://iiif.io/api/image/2/profiles/level2.json"
+                }
+              },
+              "on": "https://digitalcollections.folger.edu/node/70076/canvas/272287"
+            }
+          ],
+          "metadata": [
+            {
+              "label": "Digital image file name",
+              "value": "29955"
+            },
+            {
+              "label": "Member of",
+              "value": "Shake-speares sonnets : neuer before imprinted"
+            },
+            {
+              "label": "Resource Type",
+              "value": "Still Image"
+            },
+            {
+              "label": "Rights",
+              "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+            },
+            {
+              "label": "Sort order",
+              "value": "53"
+            },
+            {
+              "label": "Title",
+              "value": "spine"
+            },
+            {
+              "label": "Page/opening",
+              "value": "spine"
+            }
+          ],
+          "thumbnail": {
+            "@id": "https://digitalcollections.folger.edu/sites/default/files/2023-08/029955.jpg",
+            "format": "image/jpeg",
+            "height": 480,
+            "width": 48
+          }
+        }
+      ]
+    }
+  ],
+  "attribution": "Digital Collections",
+  "metadata": [
+    {
+      "label": "Date",
+      "value": "1609"
+    },
+    {
+      "label": "Printer",
+      "value": "Eld, George, -1624"
+    },
+    {
+      "label": "Author",
+      "value": "Shakespeare, William, 1564-1616"
+    },
+    {
+      "label": "Member of",
+      "value": "STC imprints"
+    },
+    {
+      "label": "Resource Type",
+      "value": "Collection"
+    },
+    {
+      "label": "Rights",
+      "value": "https://rightsstatements.org/page/NoC-US/1.0/"
+    },
+    {
+      "label": "Genre/form(s)",
+      "value": "Poems"
+    },
+    {
+      "label": "Place of creation",
+      "value": "Great Britain"
+    },
+    {
+      "label": "Call number",
+      "value": "STC 22353a"
+    },
+    {
+      "label": "Note(s)",
+      "value": "Reference citation note: English short title catalogue, S121830"
+    },
+    {
+      "label": "Title",
+      "value": "Shake-speares sonnets : neuer before imprinted"
+    },
+    {
+      "label": "Created/published",
+      "value": "At London : By G. Eld for T.T., and are to be solde by Iohn Wright, dwelling at Christ Church gate, 1609"
+    }
+  ],
+  "behavior": [
+    "individuals",
+    "paged"
+  ]
+}

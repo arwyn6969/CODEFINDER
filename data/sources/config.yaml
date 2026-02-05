@@ -1,0 +1,97 @@
+# Shakespeare Sonnets 1609 - Source Configuration
+# ================================================
+# This file defines the available facsimile sources for OCR analysis.
+# The active_source determines which source is used by default.
+
+sources:
+  # PRIMARY SOURCE: Folger Shakespeare Library Digital Collections
+  # High-resolution IIIF-compliant facsimile with scholarly provenance
+  # WRIGHT VERSION (STC 22353a) - "to be solde by John Wright"
+  folger_iiif:
+    path: "folger_sonnets_1609/"
+    type: "iiif_images"
+    provenance:
+      name: "Folger Shakespeare Library"
+      catalog_id: "STC 22353a"
+      variant: "Wright"
+      url: "https://digitalcollections.folger.edu/bib169144-164315"
+      manifest: "https://digitalcollections.folger.edu/node/70076/manifest"
+      catalog_record: "https://catalog.folger.edu/record/169144"
+      rights: "https://rightsstatements.org/page/NoC-US/1.0/"
+      download_date: null  # Set automatically during download
+    metadata:
+      title: "Shake-speares sonnets : neuer before imprinted"
+      date: "1609"
+      author: "Shakespeare, William, 1564-1616"
+      printer: "Eld, George, -1624"
+      publisher: "Thorpe, Thomas, 1570?-1635?"
+      seller: "Wright, John, -1646"
+      place: "London"
+    quality:
+      resolution: "native"  # ~7000x4700 pixels
+      format: "tiff"
+      total_pages: 53
+      includes_covers: true
+      includes_endleaves: true
+  
+  # ASPLEY VERSION (STC 22353) - "to be solde by William Aspley"
+  # Different seller imprint, same printer and publisher
+  folger_iiif_aspley:
+    path: "folger_sonnets_1609_aspley/"
+    type: "iiif_images"
+    provenance:
+      name: "Folger Shakespeare Library"
+      catalog_id: "STC 22353"
+      variant: "Aspley"
+      url: "https://digitalcollections.folger.edu/node/29467"
+      manifest: "https://digitalcollections.folger.edu/node/29467/manifest"
+      rights: "https://rightsstatements.org/page/NoC-US/1.0/"
+      download_date: "2026-02-05"
+    metadata:
+      title: "Shake-speares sonnets. : Neuer before imprinted"
+      date: "1609"
+      author: "Shakespeare, William, 1564-1616"
+      printer: "Eld, George, -1624"
+      publisher: "Thorpe, Thomas, 1570?-1635?"
+      seller: "Aspley, William, -1640"
+      place: "London"
+    quality:
+      resolution: "2000px"
+      format: "jpg"
+      total_pages: 67
+      includes_covers: true
+      includes_endleaves: true
+
+  
+  # ARCHIVED: Legacy PDF source (unknown provenance)
+  # Kept for comparison with Folger source
+  legacy_pdf:
+    path: "archive/SONNETS_QUARTO_1609_NET.pdf"
+    type: "pdf"
+    status: "archived"
+    provenance:
+      name: "Unknown (likely Internet Archive)"
+      url: null
+      download_date: "2024-01-01"  # Approximate
+    quality:
+      resolution: "unknown"
+      total_pages: 80  # Includes blank pages
+      notes: "PDF quality and provenance unverified"
+  
+  # REFERENCE: Project Gutenberg plain text
+  # Modern transcription, not facsimile
+  gutenberg_text:
+    path: "shakespeare_sonnets_text.txt"
+    type: "text"
+    provenance:
+      name: "Project Gutenberg"
+      url: "https://www.gutenberg.org/ebooks/1041"
+      ebook_id: 1041
+    notes: "Modern transcription, not useful for OCR analysis"
+
+# Default source for analysis
+active_source: "folger_iiif"
+
+# Source switching notes:
+# To switch sources, change active_source above or pass --source flag to scripts.
+# The legacy PDF is archived but accessible for comparative analysis.

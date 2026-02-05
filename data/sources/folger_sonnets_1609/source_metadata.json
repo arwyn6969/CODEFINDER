@@ -1,0 +1,17 @@
+{
+  "source": {
+    "name": "Folger Shakespeare Library",
+    "catalog_id": "STC 22353a",
+    "url": "https://digitalcollections.folger.edu/bib169144-164315",
+    "manifest": "https://digitalcollections.folger.edu/node/70076/manifest",
+    "rights": "https://rightsstatements.org/page/NoC-US/1.0/"
+  },
+  "download": {
+    "total_pages": 53,
+    "downloaded": 53,
+    "skipped": 0,
+    "errors": [],
+    "size_param": "2000,",
+    "format": "jpg"
+  }
+}

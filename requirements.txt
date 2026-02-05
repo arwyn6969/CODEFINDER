@@ -37,6 +37,7 @@ httpx>=0.24.0
 
 # Template Engine and Reporting
 jinja2>=3.0.0
+weasyprint>=68.0
 
 # Authentication and Security
 PyJWT>=2.6.0
