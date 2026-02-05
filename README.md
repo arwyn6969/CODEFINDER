@@ -62,6 +62,7 @@ docker-compose up -d
 ## 📋 Documentation
 
 - **[📘 User Guide](./CODEFINDER_USER_GUIDE.md)** – Comprehensive feature documentation
+- **[🔬 Research Compendium](./docs/RESEARCH_COMPENDIUM.md)** – Consolidated research findings
 - **[🔧 API Reference](http://localhost:8000/api/docs)** – Interactive Swagger UI
 
 ---
@@ -163,6 +164,8 @@ CODEFINDER/
 │   ├── models/             # SQLAlchemy models
 │   ├── services/           # Business logic (26 services)
 │   └── templates/          # Report templates
+├── archive/                # Archived research scripts
+├── docs/                   # Research documentation
 ├── frontend/               # React application
 ├── tests/                  # Pytest test suite (600+ tests)
 ├── alembic/                # Database migrations
