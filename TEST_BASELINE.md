@@ -14,7 +14,7 @@
 ### Test Framework
 - **Framework**: pytest 8.3.5
 - **Python**: 3.9.6
-- **Total Tests**: 620 (as of baseline)
+- **Total Tests**: 674 (620 core + 54 scanner tests)
 - **Collection Errors**: 0 ✅ (fixed in this commit)
 
 ### Scan Progress (Sonnet Print Block Analysis)
@@ -207,11 +207,11 @@ class TestFullScanIntegration:
 
 | Criterion | Target | Current |
 |-----------|--------|---------|
-| Total tests collected | 620 | 620 ✅ |
+| Total tests collected | 674 | 674 ✅ |
 | No collection errors | 0 | 0 ✅ |
-| Tests passing | 100% | 551/620 (89%) ⚠️ |
-| Print block scanner tests | ≥20 | 0 ⚠️ |
-| Coverage for scanner | ≥80% | 0% ⚠️ |
+| Tests passing | 100% | 605/674 (90%) ⚠️ |
+| Print block scanner tests | ≥20 | 54 ✅ |
+| Coverage for scanner | ≥80% | In progress |
 
 **Note**: Some tests fail due to starlette/httpx version incompatibility in the local environment (see Section 5.3).
 
@@ -279,7 +279,7 @@ python3 sonnet_print_block_scanner.py --pages 1-3 --test
 ## 7. Next Steps (Priority Order)
 
 1. ~~**IMMEDIATE**: Fix 2 pytest collection errors~~ ✅ DONE
-2. **HIGH**: Create `test_sonnet_print_block_scanner.py` with core tests
+2. ~~**HIGH**: Create `test_sonnet_print_block_scanner.py` with core tests~~ ✅ DONE (54 tests)
 3. **HIGH**: Complete full 53-page scan with current scanner
 4. **MEDIUM**: Add tests for OCR engine abstraction layer
 5. **MEDIUM**: Add tests for digital type case builder
