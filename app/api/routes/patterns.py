@@ -92,3 +92,70 @@ async def get_pattern_detail(
         )
     
     return PatternResponse.from_orm(pattern)
+
+
+# Import geometric pipeline for new endpoint
+try:
+    from app.services.geometric_pipeline import analyze_page_geometry
+    from app.services.geometric_visualization_adapter import generate_visualization_json
+    GEOMETRIC_PIPELINE_AVAILABLE = True
+except ImportError:
+    GEOMETRIC_PIPELINE_AVAILABLE = False
+    logger.warning("Geometric pipeline not available")
+
+
+class GeometricAnalysisResponse(BaseModel):
+    """Response model for geometric analysis."""
+    document_id: int
+    page_number: int
+    total_characters: int
+    patterns_count: int
+    visualization_json: str
+
+
+@router.get("/geometric/{document_id}/{page_number}")
+async def get_geometric_analysis(
+    document_id: int,
+    page_number: int,
+    filter_significant: bool = True,
+    max_patterns: int = 20,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_database)
+):
+    """
+    Run geometric pattern analysis on a specific page.
+    
+    Returns D3.js-compatible JSON visualization data with detected patterns
+    (Golden Ratio distances, Right Angles, etc.)
+    """
+    if not GEOMETRIC_PIPELINE_AVAILABLE:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Geometric analysis pipeline not available"
+        )
+    
+    try:
+        result = analyze_page_geometry(
+            db=db,
+            document_id=document_id,
+            page_number=page_number,
+            filter_significant=filter_significant,
+            max_patterns=max_patterns
+        )
+        
+        visualization_json = generate_visualization_json(result)
+        
+        return GeometricAnalysisResponse(
+            document_id=document_id,
+            page_number=page_number,
+            total_characters=result.total_characters,
+            patterns_count=len(result.patterns_found),
+            visualization_json=visualization_json
+        )
+        
+    except Exception as e:
+        logger.error(f"Geometric analysis error: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Geometric analysis failed: {str(e)}"
+        )
