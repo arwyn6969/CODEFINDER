@@ -163,7 +163,7 @@ class SonnetPrintBlockScanner:
         'special': {LONG_S, '&', '§', '¶', '†', '‡', '*', '/', '\\'},
     }
     
-    def __init__(self, source_path: str, output_dir: str = None, ocr_engine=None):
+    def __init__(self, source_path: str, output_dir: str = None, ocr_engine=None, min_confidence: float = 40.0):
         """
         Initialize scanner with source path.
         
@@ -171,8 +171,10 @@ class SonnetPrintBlockScanner:
             source_path: Path to PDF file OR directory of IIIF images
             output_dir: Directory for output (default: reports/sonnet_print_block_analysis)
             ocr_engine: Optional OCR engine instance (from app.services.ocr_factory)
+            min_confidence: Minimum confidence threshold (0-100) for accepting characters
         """
         self.ocr_engine = ocr_engine  # May be None for legacy mode
+        self.min_confidence = min_confidence
         self.source_path = Path(source_path)
         
         # Detect source type
@@ -519,8 +521,7 @@ class SonnetPrintBlockScanner:
                 
                 # Phase 1 OCR Quality: Skip low-confidence detections
                 # These are typically artifacts from decorative elements, borders, or noise
-                MIN_CONFIDENCE = 40  # Reject detections below 40%
-                if conf < MIN_CONFIDENCE:
+                if conf < self.min_confidence:
                     continue
                 
                 # Track blocks and lines
@@ -1495,6 +1496,12 @@ def main():
         default=None,
         help="API key for Gemini (or set GEMINI_API_KEY env var)"
     )
+    parser.add_argument(
+        "--min-confidence",
+        type=float,
+        default=40.0,
+        help="Minimum confidence threshold (0-100) for accepting characters. Default: 40"
+    )
     
     args = parser.parse_args()
     
@@ -1527,7 +1534,13 @@ def main():
     print()
     
     try:
-        scanner = SonnetPrintBlockScanner(args.source, args.output, ocr_engine=ocr_engine)
+        scanner = SonnetPrintBlockScanner(
+            args.source, 
+            args.output, 
+            ocr_engine=ocr_engine,
+            min_confidence=args.min_confidence
+        )
+        print(f"🎯 Confidence threshold: {args.min_confidence}%")
         
         # Determine page range
         if args.test:

@@ -1,0 +1,51 @@
+{
+  "comparison_date": "2026-02-05T16:26:54.177216",
+  "source1": {
+    "name": "Source 1 (IIIF)",
+    "file": "data/sources/folger_sonnets_1609",
+    "total_pages": 53,
+    "total_characters": 38909,
+    "unique_characters": 75,
+    "average_confidence": 90.29594695314708,
+    "long_s_count": 811,
+    "ligatures_found": 1890,
+    "anomalies_detected": 780
+  },
+  "source2": {
+    "name": "Source 2 (PDF)",
+    "file": "data/sources/folger_sonnets_1609_aspley",
+    "total_pages": 67,
+    "total_characters": 48142,
+    "unique_characters": 81,
+    "average_confidence": 91.31955465082464,
+    "long_s_count": 1305,
+    "ligatures_found": 2277,
+    "anomalies_detected": 459
+  },
+  "deltas": {
+    "page_delta": 14,
+    "character_delta": 9233,
+    "word_delta": 2019,
+    "confidence_delta": 1.02,
+    "anomaly_delta": -321
+  },
+  "unique_characters": {
+    "only_in_source1": [],
+    "only_in_source2": []
+  },
+  "top_character_deltas": [
+    {
+      "character": "",
+      "category": "unknown",
+      "source1_count": 0,
+      "source2_count": 0,
+      "delta": 0
+    }
+  ],
+  "notes": [
+    "Source 2 has 14 more pages than Source 1. This indicates different digitization approaches or source coverage.",
+    "Character density: Source 1 = 734.1 chars/page, Source 2 = 718.5 chars/page",
+    "Long-s (ſ) count: Source 1 = 811, Source 2 = 1305",
+    "Ligatures found: Source 1 = 1890, Source 2 = 2277"
+  ]
+}

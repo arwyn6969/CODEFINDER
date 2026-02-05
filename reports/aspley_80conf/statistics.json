@@ -1,0 +1,135 @@
+{
+  "scan_info": {
+    "source_file": "data/sources/folger_sonnets_1609_aspley",
+    "scan_date": "2026-02-05T16:26:42.286722",
+    "scanner_version": "1.0.0"
+  },
+  "statistics": {
+    "total_pages": 67,
+    "pages_scanned": 53,
+    "total_characters": 48142,
+    "unique_characters": 81,
+    "total_words": 11506,
+    "total_lines": 1540,
+    "total_blocks": 52,
+    "ligatures_found": 2277,
+    "long_s_count": 1305,
+    "anomalies_detected": 459,
+    "scan_duration_seconds": 117.52519297599792,
+    "average_confidence": 91.31955465082464,
+    "_confidence_sum": 4396306.0
+  },
+  "character_summary": {
+    "by_category": {
+      "digit": 173,
+      "punctuation": 1481,
+      "other": 57,
+      "special": 4,
+      "uppercase": 1889,
+      "lowercase": 43233,
+      "long_s": 1305
+    },
+    "top_20": [
+      {
+        "character": "e",
+        "count": 6291,
+        "category": "lowercase"
+      },
+      {
+        "character": "t",
+        "count": 4241,
+        "category": "lowercase"
+      },
+      {
+        "character": "o",
+        "count": 3560,
+        "category": "lowercase"
+      },
+      {
+        "character": "h",
+        "count": 3423,
+        "category": "lowercase"
+      },
+      {
+        "character": "i",
+        "count": 2902,
+        "category": "lowercase"
+      },
+      {
+        "character": "a",
+        "count": 2878,
+        "category": "lowercase"
+      },
+      {
+        "character": "n",
+        "count": 2828,
+        "category": "lowercase"
+      },
+      {
+        "character": "r",
+        "count": 2641,
+        "category": "lowercase"
+      },
+      {
+        "character": "l",
+        "count": 1778,
+        "category": "lowercase"
+      },
+      {
+        "character": "d",
+        "count": 1745,
+        "category": "lowercase"
+      },
+      {
+        "character": "u",
+        "count": 1657,
+        "category": "lowercase"
+      },
+      {
+        "character": "m",
+        "count": 1312,
+        "category": "lowercase"
+      },
+      {
+        "character": "\u017f",
+        "count": 1305,
+        "category": "long_s"
+      },
+      {
+        "character": "y",
+        "count": 1221,
+        "category": "lowercase"
+      },
+      {
+        "character": "s",
+        "count": 1214,
+        "category": "lowercase"
+      },
+      {
+        "character": "w",
+        "count": 1124,
+        "category": "lowercase"
+      },
+      {
+        "character": ",",
+        "count": 1088,
+        "category": "punctuation"
+      },
+      {
+        "character": "f",
+        "count": 933,
+        "category": "lowercase"
+      },
+      {
+        "character": "g",
+        "count": 851,
+        "category": "lowercase"
+      },
+      {
+        "character": "c",
+        "count": 834,
+        "category": "lowercase"
+      }
+    ]
+  }
+}

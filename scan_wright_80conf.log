@@ -1,0 +1,192 @@
+2026-02-05 16:22:50,385 - INFO - Source type: IIIF images (53 files)
+2026-02-05 16:22:50,385 - INFO - Initialized scanner for: folger_sonnets_1609
+2026-02-05 16:22:50,385 - INFO - Total pages: 53
+2026-02-05 16:22:50,385 - INFO - Output directory: reports/wright_80conf
+2026-02-05 16:22:50,385 - INFO - Starting scan of pages 1 to 53...
+2026-02-05 16:22:50,386 - INFO - Scanning page 1/53...
+2026-02-05 16:22:51,829 - INFO -   Page 1: 1 chars, avg confidence: 86.0%
+2026-02-05 16:22:51,830 - INFO - Progress: 1.9% (1 characters found)
+2026-02-05 16:22:51,830 - INFO - Scanning page 2/53...
+2026-02-05 16:22:54,817 - INFO -   Page 2: 5 chars, avg confidence: 86.0%
+2026-02-05 16:22:54,818 - INFO - Progress: 3.8% (6 characters found)
+2026-02-05 16:22:54,818 - INFO - Scanning page 3/53...
+2026-02-05 16:22:56,036 - INFO - Progress: 5.7% (6 characters found)
+2026-02-05 16:22:56,036 - INFO - Scanning page 4/53...
+2026-02-05 16:22:57,286 - INFO - Progress: 7.5% (6 characters found)
+2026-02-05 16:22:57,286 - INFO - Scanning page 5/53...
+2026-02-05 16:22:58,402 - INFO - Progress: 9.4% (6 characters found)
+2026-02-05 16:22:58,402 - INFO - Scanning page 6/53...
+2026-02-05 16:22:59,560 - INFO - Progress: 11.3% (6 characters found)
+2026-02-05 16:22:59,560 - INFO - Scanning page 7/53...
+2026-02-05 16:23:00,817 - INFO -   Page 7: 77 chars, avg confidence: 91.7%
+2026-02-05 16:23:00,817 - INFO - Progress: 13.2% (83 characters found)
+2026-02-05 16:23:00,817 - INFO - Scanning page 8/53...
+2026-02-05 16:23:02,041 - INFO -   Page 8: 112 chars, avg confidence: 89.1%
+2026-02-05 16:23:02,042 - INFO - Progress: 15.1% (195 characters found)
+2026-02-05 16:23:02,042 - INFO - Scanning page 9/53...
+2026-02-05 16:23:03,492 - INFO -   Page 9: 493 chars, avg confidence: 90.7%
+2026-02-05 16:23:03,492 - INFO - Progress: 17.0% (688 characters found)
+2026-02-05 16:23:03,492 - INFO - Scanning page 10/53...
+2026-02-05 16:23:05,447 - INFO -   Page 10: 1096 chars, avg confidence: 90.3%
+2026-02-05 16:23:05,447 - INFO - Progress: 18.9% (1784 characters found)
+2026-02-05 16:23:05,447 - INFO - Scanning page 11/53...
+2026-02-05 16:23:07,373 - INFO -   Page 11: 1427 chars, avg confidence: 90.6%
+2026-02-05 16:23:07,373 - INFO - Progress: 20.8% (3211 characters found)
+2026-02-05 16:23:07,373 - INFO - Scanning page 12/53...
+2026-02-05 16:23:09,274 - INFO -   Page 12: 1259 chars, avg confidence: 90.4%
+2026-02-05 16:23:09,274 - INFO - Progress: 22.6% (4470 characters found)
+2026-02-05 16:23:09,274 - INFO - Scanning page 13/53...
+2026-02-05 16:23:11,190 - INFO -   Page 13: 1528 chars, avg confidence: 90.3%
+2026-02-05 16:23:11,190 - INFO - Progress: 24.5% (5998 characters found)
+2026-02-05 16:23:11,190 - INFO - Scanning page 14/53...
+2026-02-05 16:23:13,165 - INFO -   Page 14: 1278 chars, avg confidence: 90.5%
+2026-02-05 16:23:13,165 - INFO - Progress: 26.4% (7276 characters found)
+2026-02-05 16:23:13,165 - INFO - Scanning page 15/53...
+2026-02-05 16:23:15,116 - INFO -   Page 15: 1208 chars, avg confidence: 90.6%
+2026-02-05 16:23:15,117 - INFO - Progress: 28.3% (8484 characters found)
+2026-02-05 16:23:15,117 - INFO - Scanning page 16/53...
+2026-02-05 16:23:17,031 - INFO -   Page 16: 1166 chars, avg confidence: 90.3%
+2026-02-05 16:23:17,032 - INFO - Progress: 30.2% (9650 characters found)
+2026-02-05 16:23:17,032 - INFO - Scanning page 17/53...
+2026-02-05 16:23:18,968 - INFO -   Page 17: 1443 chars, avg confidence: 90.2%
+2026-02-05 16:23:18,968 - INFO - Progress: 32.1% (11093 characters found)
+2026-02-05 16:23:18,968 - INFO - Scanning page 18/53...
+2026-02-05 16:23:20,977 - INFO -   Page 18: 746 chars, avg confidence: 90.5%
+2026-02-05 16:23:20,977 - INFO - Progress: 34.0% (11839 characters found)
+2026-02-05 16:23:20,977 - INFO - Scanning page 19/53...
+2026-02-05 16:23:22,947 - INFO -   Page 19: 1299 chars, avg confidence: 90.3%
+2026-02-05 16:23:22,947 - INFO - Progress: 35.8% (13138 characters found)
+2026-02-05 16:23:22,947 - INFO - Scanning page 20/53...
+2026-02-05 16:23:24,905 - INFO -   Page 20: 1117 chars, avg confidence: 90.7%
+2026-02-05 16:23:24,906 - INFO - Progress: 37.7% (14255 characters found)
+2026-02-05 16:23:24,906 - INFO - Scanning page 21/53...
+2026-02-05 16:23:26,915 - INFO -   Page 21: 1445 chars, avg confidence: 90.2%
+2026-02-05 16:23:26,915 - INFO - Progress: 39.6% (15700 characters found)
+2026-02-05 16:23:26,915 - INFO - Scanning page 22/53...
+2026-02-05 16:23:28,873 - INFO -   Page 22: 157 chars, avg confidence: 89.2%
+2026-02-05 16:23:28,873 - INFO - Progress: 41.5% (15857 characters found)
+2026-02-05 16:23:28,873 - INFO - Scanning page 23/53...
+2026-02-05 16:23:30,931 - INFO -   Page 23: 527 chars, avg confidence: 90.2%
+2026-02-05 16:23:30,931 - INFO - Progress: 43.4% (16384 characters found)
+2026-02-05 16:23:30,931 - INFO - Scanning page 24/53...
+2026-02-05 16:23:32,913 - INFO -   Page 24: 1096 chars, avg confidence: 90.7%
+2026-02-05 16:23:32,914 - INFO - Progress: 45.3% (17480 characters found)
+2026-02-05 16:23:32,914 - INFO - Scanning page 25/53...
+2026-02-05 16:23:34,847 - INFO -   Page 25: 933 chars, avg confidence: 90.4%
+2026-02-05 16:23:34,847 - INFO - Progress: 47.2% (18413 characters found)
+2026-02-05 16:23:34,847 - INFO - Scanning page 26/53...
+2026-02-05 16:23:36,867 - INFO -   Page 26: 784 chars, avg confidence: 90.4%
+2026-02-05 16:23:36,867 - INFO - Progress: 49.1% (19197 characters found)
+2026-02-05 16:23:36,867 - INFO - Scanning page 27/53...
+2026-02-05 16:23:38,849 - INFO -   Page 27: 1592 chars, avg confidence: 90.7%
+2026-02-05 16:23:38,850 - INFO - Progress: 50.9% (20789 characters found)
+2026-02-05 16:23:38,850 - INFO - Scanning page 28/53...
+2026-02-05 16:23:40,790 - INFO -   Page 28: 1156 chars, avg confidence: 90.1%
+2026-02-05 16:23:40,790 - INFO - Progress: 52.8% (21945 characters found)
+2026-02-05 16:23:40,790 - INFO - Scanning page 29/53...
+2026-02-05 16:23:42,744 - INFO -   Page 29: 1396 chars, avg confidence: 90.4%
+2026-02-05 16:23:42,745 - INFO - Progress: 54.7% (23341 characters found)
+2026-02-05 16:23:42,745 - INFO - Scanning page 30/53...
+2026-02-05 16:23:44,650 - INFO -   Page 30: 958 chars, avg confidence: 90.3%
+2026-02-05 16:23:44,651 - INFO - Progress: 56.6% (24299 characters found)
+2026-02-05 16:23:44,651 - INFO - Scanning page 31/53...
+2026-02-05 16:23:46,627 - INFO -   Page 31: 1423 chars, avg confidence: 90.2%
+2026-02-05 16:23:46,627 - INFO - Progress: 58.5% (25722 characters found)
+2026-02-05 16:23:46,627 - INFO - Scanning page 32/53...
+2026-02-05 16:23:48,537 - INFO -   Page 32: 1252 chars, avg confidence: 90.2%
+2026-02-05 16:23:48,537 - INFO - Progress: 60.4% (26974 characters found)
+2026-02-05 16:23:48,538 - INFO - Scanning page 33/53...
+2026-02-05 16:23:50,445 - INFO -   Page 33: 626 chars, avg confidence: 88.7%
+2026-02-05 16:23:50,445 - INFO - Progress: 62.3% (27600 characters found)
+2026-02-05 16:23:50,445 - INFO - Scanning page 34/53...
+2026-02-05 16:23:52,406 - INFO -   Page 34: 1275 chars, avg confidence: 90.5%
+2026-02-05 16:23:52,406 - INFO - Progress: 64.2% (28875 characters found)
+2026-02-05 16:23:52,406 - INFO - Scanning page 35/53...
+2026-02-05 16:23:54,362 - INFO -   Page 35: 1016 chars, avg confidence: 90.1%
+2026-02-05 16:23:54,362 - INFO - Progress: 66.0% (29891 characters found)
+2026-02-05 16:23:54,362 - INFO - Scanning page 36/53...
+2026-02-05 16:23:56,272 - INFO -   Page 36: 1084 chars, avg confidence: 90.8%
+2026-02-05 16:23:56,272 - INFO - Progress: 67.9% (30975 characters found)
+2026-02-05 16:23:56,272 - INFO - Scanning page 37/53...
+2026-02-05 16:23:58,258 - INFO -   Page 37: 714 chars, avg confidence: 90.0%
+2026-02-05 16:23:58,259 - INFO - Progress: 69.8% (31689 characters found)
+2026-02-05 16:23:58,259 - INFO - Scanning page 38/53...
+2026-02-05 16:24:00,256 - INFO -   Page 38: 947 chars, avg confidence: 90.1%
+2026-02-05 16:24:00,257 - INFO - Progress: 71.7% (32636 characters found)
+2026-02-05 16:24:00,257 - INFO - Scanning page 39/53...
+2026-02-05 16:24:02,237 - INFO -   Page 39: 663 chars, avg confidence: 89.5%
+2026-02-05 16:24:02,237 - INFO - Progress: 73.6% (33299 characters found)
+2026-02-05 16:24:02,237 - INFO - Scanning page 40/53...
+2026-02-05 16:24:04,182 - INFO -   Page 40: 717 chars, avg confidence: 89.2%
+2026-02-05 16:24:04,183 - INFO - Progress: 75.5% (34016 characters found)
+2026-02-05 16:24:04,183 - INFO - Scanning page 41/53...
+2026-02-05 16:24:05,936 - INFO -   Page 41: 610 chars, avg confidence: 90.0%
+2026-02-05 16:24:05,936 - INFO - Progress: 77.4% (34626 characters found)
+2026-02-05 16:24:05,936 - INFO - Scanning page 42/53...
+2026-02-05 16:24:07,700 - INFO -   Page 42: 418 chars, avg confidence: 89.8%
+2026-02-05 16:24:07,701 - INFO - Progress: 79.2% (35044 characters found)
+2026-02-05 16:24:07,701 - INFO - Scanning page 43/53...
+2026-02-05 16:24:09,530 - INFO -   Page 43: 687 chars, avg confidence: 90.8%
+2026-02-05 16:24:09,530 - INFO - Progress: 81.1% (35731 characters found)
+2026-02-05 16:24:09,530 - INFO - Scanning page 44/53...
+2026-02-05 16:24:11,416 - INFO -   Page 44: 872 chars, avg confidence: 90.6%
+2026-02-05 16:24:11,417 - INFO - Progress: 83.0% (36603 characters found)
+2026-02-05 16:24:11,417 - INFO - Scanning page 45/53...
+2026-02-05 16:24:13,305 - INFO -   Page 45: 822 chars, avg confidence: 90.6%
+2026-02-05 16:24:13,305 - INFO - Progress: 84.9% (37425 characters found)
+2026-02-05 16:24:13,305 - INFO - Scanning page 46/53...
+2026-02-05 16:24:15,198 - INFO -   Page 46: 1237 chars, avg confidence: 89.8%
+2026-02-05 16:24:15,198 - INFO - Progress: 86.8% (38662 characters found)
+2026-02-05 16:24:15,198 - INFO - Scanning page 47/53...
+2026-02-05 16:24:16,981 - INFO -   Page 47: 237 chars, avg confidence: 89.8%
+2026-02-05 16:24:16,982 - INFO - Progress: 88.7% (38899 characters found)
+2026-02-05 16:24:16,982 - INFO - Scanning page 48/53...
+2026-02-05 16:24:18,159 - INFO - Progress: 90.6% (38899 characters found)
+2026-02-05 16:24:18,159 - INFO - Scanning page 49/53...
+2026-02-05 16:24:19,113 - INFO - Progress: 92.5% (38899 characters found)
+2026-02-05 16:24:19,113 - INFO - Scanning page 50/53...
+2026-02-05 16:24:20,339 - INFO - Progress: 94.3% (38899 characters found)
+2026-02-05 16:24:20,339 - INFO - Scanning page 51/53...
+2026-02-05 16:24:22,613 - INFO -   Page 51: 1 chars, avg confidence: 90.0%
+2026-02-05 16:24:22,613 - INFO - Progress: 96.2% (38900 characters found)
+2026-02-05 16:24:22,613 - INFO - Scanning page 52/53...
+2026-02-05 16:24:24,098 - INFO -   Page 52: 2 chars, avg confidence: 80.0%
+2026-02-05 16:24:24,098 - INFO - Progress: 98.1% (38902 characters found)
+2026-02-05 16:24:24,098 - INFO - Scanning page 53/53...
+2026-02-05 16:24:32,392 - INFO -   Page 53: 7 chars, avg confidence: 88.0%
+2026-02-05 16:24:32,395 - INFO - Progress: 100.0% (38909 characters found)
+2026-02-05 16:24:32,397 - INFO - Scan complete in 102.0s
+2026-02-05 16:24:32,397 - INFO - Total characters: 38909
+2026-02-05 16:24:32,397 - INFO - Unique characters: 75
+2026-02-05 16:24:32,410 - INFO - Character frequency CSV saved to: reports/wright_80conf/character_frequency.csv
+2026-02-05 16:24:32,410 - INFO - Statistics JSON saved to: reports/wright_80conf/statistics.json
+2026-02-05 16:24:32,417 - INFO - HTML report saved to: reports/wright_80conf/print_block_report.html
+============================================================
+🔍 SONNET PRINT BLOCK SCANNER
+============================================================
+Source: data/sources/folger_sonnets_1609
+🔧 OCR Engine: legacy Tesseract
+
+🎯 Confidence threshold: 80.0%
+📄 Scanning pages 1 to 53
+
+
+============================================================
+📊 GENERATING REPORTS
+============================================================
+
+============================================================
+✅ SCAN COMPLETE
+============================================================
+Pages scanned: 53
+Total characters: 38,909
+Unique characters: 75
+Long-s found: 811
+Ligatures found: 1890
+Duration: 102.0s
+
+📁 Output files:
+   - reports/wright_80conf/print_block_report.html
+   - reports/wright_80conf/character_frequency.csv
+   - reports/wright_80conf/statistics.json
+   - reports/wright_80conf/character_atlas/

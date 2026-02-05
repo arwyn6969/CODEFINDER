@@ -1,0 +1,134 @@
+{
+  "scan_info": {
+    "source_file": "data/sources/folger_sonnets_1609",
+    "scan_date": "2026-02-05T16:24:32.410597",
+    "scanner_version": "1.0.0"
+  },
+  "statistics": {
+    "total_pages": 53,
+    "pages_scanned": 53,
+    "total_characters": 38909,
+    "unique_characters": 75,
+    "total_words": 9487,
+    "total_lines": 1523,
+    "total_blocks": 53,
+    "ligatures_found": 1890,
+    "long_s_count": 811,
+    "anomalies_detected": 780,
+    "scan_duration_seconds": 102.00938487052917,
+    "average_confidence": 90.29594695314708,
+    "_confidence_sum": 3513325.0
+  },
+  "character_summary": {
+    "by_category": {
+      "lowercase": 35218,
+      "uppercase": 1492,
+      "punctuation": 1134,
+      "long_s": 811,
+      "digit": 140,
+      "other": 114
+    },
+    "top_20": [
+      {
+        "character": "e",
+        "count": 5108,
+        "category": "lowercase"
+      },
+      {
+        "character": "t",
+        "count": 3252,
+        "category": "lowercase"
+      },
+      {
+        "character": "o",
+        "count": 2920,
+        "category": "lowercase"
+      },
+      {
+        "character": "h",
+        "count": 2828,
+        "category": "lowercase"
+      },
+      {
+        "character": "n",
+        "count": 2362,
+        "category": "lowercase"
+      },
+      {
+        "character": "a",
+        "count": 2328,
+        "category": "lowercase"
+      },
+      {
+        "character": "i",
+        "count": 2320,
+        "category": "lowercase"
+      },
+      {
+        "character": "r",
+        "count": 2056,
+        "category": "lowercase"
+      },
+      {
+        "character": "d",
+        "count": 1470,
+        "category": "lowercase"
+      },
+      {
+        "character": "u",
+        "count": 1411,
+        "category": "lowercase"
+      },
+      {
+        "character": "l",
+        "count": 1359,
+        "category": "lowercase"
+      },
+      {
+        "character": "m",
+        "count": 1098,
+        "category": "lowercase"
+      },
+      {
+        "character": "y",
+        "count": 1074,
+        "category": "lowercase"
+      },
+      {
+        "character": "s",
+        "count": 994,
+        "category": "lowercase"
+      },
+      {
+        "character": "w",
+        "count": 960,
+        "category": "lowercase"
+      },
+      {
+        "character": ",",
+        "count": 863,
+        "category": "punctuation"
+      },
+      {
+        "character": "\u017f",
+        "count": 811,
+        "category": "long_s"
+      },
+      {
+        "character": "f",
+        "count": 755,
+        "category": "lowercase"
+      },
+      {
+        "character": "c",
+        "count": 744,
+        "category": "lowercase"
+      },
+      {
+        "character": "g",
+        "count": 701,
+        "category": "lowercase"
+      }
+    ]
+  }
+}
