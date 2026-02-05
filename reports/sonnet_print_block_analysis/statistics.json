@@ -1,131 +1,133 @@
 {
   "scan_info": {
     "source_file": "data/sources/folger_sonnets_1609",
-    "scan_date": "2026-02-05T15:41:22.478557",
+    "scan_date": "2026-02-05T16:09:12.954633",
     "scanner_version": "1.0.0"
   },
   "statistics": {
     "total_pages": 53,
-    "pages_scanned": 3,
-    "total_characters": 7886,
-    "unique_characters": 67,
-    "total_words": 0,
-    "total_lines": 0,
-    "total_blocks": 0,
-    "ligatures_found": 92,
-    "long_s_count": 506,
-    "anomalies_detected": 0,
-    "scan_duration_seconds": 218.23878383636475,
-    "average_confidence": 98.0,
-    "_confidence_sum": 772828.0
+    "pages_scanned": 53,
+    "total_characters": 64692,
+    "unique_characters": 84,
+    "total_words": 16367,
+    "total_lines": 2016,
+    "total_blocks": 53,
+    "ligatures_found": 2812,
+    "long_s_count": 1549,
+    "anomalies_detected": 2356,
+    "scan_duration_seconds": 104.06163597106934,
+    "average_confidence": 78.85525258146293,
+    "_confidence_sum": 5101304.0
   },
   "character_summary": {
     "by_category": {
-      "uppercase": 251,
-      "lowercase": 6791,
-      "punctuation": 530,
-      "long_s": 287,
-      "digit": 27
+      "uppercase": 2833,
+      "other": 342,
+      "lowercase": 57319,
+      "digit": 306,
+      "punctuation": 2335,
+      "special": 8,
+      "long_s": 1549
     },
     "top_20": [
       {
         "character": "e",
-        "count": 993,
+        "count": 8659,
         "category": "lowercase"
       },
       {
         "character": "t",
-        "count": 690,
+        "count": 5172,
         "category": "lowercase"
       },
       {
         "character": "o",
-        "count": 515,
+        "count": 4527,
         "category": "lowercase"
       },
       {
         "character": "i",
-        "count": 512,
+        "count": 4325,
         "category": "lowercase"
       },
       {
         "character": "h",
-        "count": 479,
-        "category": "lowercase"
-      },
-      {
-        "character": "n",
-        "count": 409,
-        "category": "lowercase"
-      },
-      {
-        "character": "l",
-        "count": 390,
+        "count": 4095,
         "category": "lowercase"
       },
       {
         "character": "a",
-        "count": 383,
+        "count": 3861,
+        "category": "lowercase"
+      },
+      {
+        "character": "n",
+        "count": 3719,
         "category": "lowercase"
       },
       {
         "character": "r",
-        "count": 370,
+        "count": 3358,
+        "category": "lowercase"
+      },
+      {
+        "character": "l",
+        "count": 2562,
+        "category": "lowercase"
+      },
+      {
+        "character": "d",
+        "count": 2292,
         "category": "lowercase"
       },
       {
         "character": "u",
-        "count": 316,
-        "category": "lowercase"
-      },
-      {
-        "character": "\u017f",
-        "count": 287,
-        "category": "long_s"
-      },
-      {
-        "character": "d",
-        "count": 253,
+        "count": 2255,
         "category": "lowercase"
       },
       {
         "character": "s",
-        "count": 247,
-        "category": "lowercase"
-      },
-      {
-        "character": "g",
-        "count": 216,
-        "category": "lowercase"
-      },
-      {
-        "character": "y",
-        "count": 165,
-        "category": "lowercase"
-      },
-      {
-        "character": "w",
-        "count": 161,
+        "count": 1672,
         "category": "lowercase"
       },
       {
         "character": "m",
-        "count": 150,
+        "count": 1621,
+        "category": "lowercase"
+      },
+      {
+        "character": "\u017f",
+        "count": 1549,
+        "category": "long_s"
+      },
+      {
+        "character": ",",
+        "count": 1546,
+        "category": "punctuation"
+      },
+      {
+        "character": "y",
+        "count": 1515,
         "category": "lowercase"
       },
       {
         "character": "f",
-        "count": 147,
+        "count": 1466,
         "category": "lowercase"
       },
       {
-        "character": ",",
-        "count": 137,
-        "category": "punctuation"
+        "character": "w",
+        "count": 1370,
+        "category": "lowercase"
       },
       {
         "character": "c",
-        "count": 127,
+        "count": 1308,
+        "category": "lowercase"
+      },
+      {
+        "character": "g",
+        "count": 1084,
         "category": "lowercase"
       }
     ]
