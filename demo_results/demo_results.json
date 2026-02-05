@@ -1,0 +1,368 @@
+{
+  "timestamp": "2026-01-14T10:51:35.112746",
+  "summary": {
+    "features_tested": 5,
+    "total_samples": 13,
+    "total_time": 0.14711594581604004
+  },
+  "gematria": {
+    "feature": "Gematria Engine",
+    "samples_analyzed": 6,
+    "total_time_seconds": 0.0,
+    "calculations_per_second": 224444.4,
+    "results": [
+      {
+        "input": "Francis Bacon",
+        "calculation_time_ms": 0.038,
+        "ciphers": {
+          "english_ordinal": {
+            "score": 105,
+            "significance": null
+          },
+          "english_standard": {
+            "score": 375,
+            "significance": null
+          },
+          "english_sumerian": {
+            "score": 630,
+            "significance": null
+          },
+          "francis_bacon_simple": {
+            "score": 100,
+            "significance": "Francis Bacon (Simple)"
+          },
+          "francis_bacon_reverse": {
+            "score": 200,
+            "significance": null
+          },
+          "francis_bacon_kay": {
+            "score": 412,
+            "significance": null
+          },
+          "hebrew_standard": {
+            "score": 0,
+            "significance": null
+          },
+          "greek_isopsephy": {
+            "score": 0,
+            "significance": null
+          }
+        }
+      },
+      {
+        "input": "Shakespeare",
+        "calculation_time_ms": 0.022,
+        "ciphers": {
+          "english_ordinal": {
+            "score": 108,
+            "significance": null
+          },
+          "english_standard": {
+            "score": 405,
+            "significance": null
+          },
+          "english_sumerian": {
+            "score": 648,
+            "significance": null
+          },
+          "francis_bacon_simple": {
+            "score": 103,
+            "significance": null
+          },
+          "francis_bacon_reverse": {
+            "score": 172,
+            "significance": null
+          },
+          "francis_bacon_kay": {
+            "score": 389,
+            "significance": null
+          },
+          "hebrew_standard": {
+            "score": 0,
+            "significance": null
+          },
+          "greek_isopsephy": {
+            "score": 0,
+            "significance": null
+          }
+        }
+      },
+      {
+        "input": "JESUS",
+        "calculation_time_ms": 0.018,
+        "ciphers": {
+          "english_ordinal": {
+            "score": 74,
+            "significance": null
+          },
+          "english_standard": {
+            "score": 515,
+            "significance": null
+          },
+          "english_sumerian": {
+            "score": 444,
+            "significance": null
+          },
+          "francis_bacon_simple": {
+            "score": 70,
+            "significance": null
+          },
+          "francis_bacon_reverse": {
+            "score": 55,
+            "significance": null
+          },
+          "francis_bacon_kay": {
+            "score": 200,
+            "significance": null
+          },
+          "hebrew_standard": {
+            "score": 0,
+            "significance": null
+          },
+          "greek_isopsephy": {
+            "score": 0,
+            "significance": null
+          }
+        }
+      },
+      {
+        "input": "CODEFINDER",
+        "calculation_time_ms": 0.015,
+        "ciphers": {
+          "english_ordinal": {
+            "score": 83,
+            "significance": null
+          },
+          "english_standard": {
+            "score": 236,
+            "significance": null
+          },
+          "english_sumerian": {
+            "score": 498,
+            "significance": null
+          },
+          "francis_bacon_simple": {
+            "score": 80,
+            "significance": null
+          },
+          "francis_bacon_reverse": {
+            "score": 170,
+            "significance": null
+          },
+          "francis_bacon_kay": {
+            "score": 340,
+            "significance": null
+          },
+          "hebrew_standard": {
+            "score": 0,
+            "significance": null
+          },
+          "greek_isopsephy": {
+            "score": 0,
+            "significance": null
+          }
+        }
+      },
+      {
+        "input": "In the beginning",
+        "calculation_time_ms": 0.019,
+        "ciphers": {
+          "english_ordinal": {
+            "score": 137,
+            "significance": null
+          },
+          "english_standard": {
+            "score": 461,
+            "significance": null
+          },
+          "english_sumerian": {
+            "score": 822,
+            "significance": null
+          },
+          "francis_bacon_simple": {
+            "score": 132,
+            "significance": null
+          },
+          "francis_bacon_reverse": {
+            "score": 218,
+            "significance": null
+          },
+          "francis_bacon_kay": {
+            "score": 496,
+            "significance": null
+          },
+          "hebrew_standard": {
+            "score": 0,
+            "significance": null
+          },
+          "greek_isopsephy": {
+            "score": 0,
+            "significance": null
+          }
+        }
+      },
+      {
+        "input": "Fra Rosicrosse",
+        "calculation_time_ms": 0.025,
+        "ciphers": {
+          "english_ordinal": {
+            "score": 165,
+            "significance": null
+          },
+          "english_standard": {
+            "score": 714,
+            "significance": null
+          },
+          "english_sumerian": {
+            "score": 990,
+            "significance": null
+          },
+          "francis_bacon_simple": {
+            "score": 157,
+            "significance": "Fra Rosicrosse (Simple)"
+          },
+          "francis_bacon_reverse": {
+            "score": 168,
+            "significance": null
+          },
+          "francis_bacon_kay": {
+            "score": 495,
+            "significance": null
+          },
+          "hebrew_standard": {
+            "score": 0,
+            "significance": null
+          },
+          "greek_isopsephy": {
+            "score": 0,
+            "significance": null
+          }
+        }
+      }
+    ]
+  },
+  "els": {
+    "feature": "ELS Analyzer",
+    "corpus_length": 304805,
+    "terms_searched": [
+      "TORAH",
+      "GOD",
+      "CODE",
+      "ROSE",
+      "BACON"
+    ],
+    "skip_range": [
+      2,
+      50
+    ],
+    "matches_found": 0,
+    "analysis_time_seconds": 0.145,
+    "characters_per_second": 2096189.0,
+    "sample_matches": []
+  },
+  "cipher": {
+    "feature": "Cipher Detection",
+    "samples_analyzed": 4,
+    "cipher_types_tested": [
+      "caesar",
+      "atbash"
+    ],
+    "results": [
+      {
+        "name": "Caesar Cipher (Shift 3)",
+        "input": "WKLVLVDVHFUHWPHVVDJH",
+        "expected": "THISISASECRETMESSAGE",
+        "analysis_time_ms": 0.21,
+        "detections": [
+          {
+            "cipher_type": "caesar",
+            "confidence": 0.7819495032881558,
+            "key": "shift-3",
+            "decoded": "THISISASECRETMESSAGE"
+          }
+        ]
+      },
+      {
+        "name": "Atbash Cipher",
+        "input": "GSRHRHZHVXIVG",
+        "expected": "THISISASECRET",
+        "analysis_time_ms": 0.15,
+        "detections": [
+          {
+            "cipher_type": "atbash",
+            "confidence": 0.8552320533968906,
+            "key": "A\u2194Z",
+            "decoded": "THISISASECRET"
+          },
+          {
+            "cipher_type": "caesar",
+            "confidence": 0.7765325296625439,
+            "key": "shift-3",
+            "decoded": "DPOEOEWESUFSD"
+          }
+        ]
+      },
+      {
+        "name": "ROT13 Cipher",
+        "input": "GUVFVFNFRPERGZRFFNTR",
+        "expected": "THISISASECRETMESSAGE",
+        "analysis_time_ms": 0.17,
+        "detections": [
+          {
+            "cipher_type": "caesar",
+            "confidence": 0.7819495032881558,
+            "key": "shift-13",
+            "decoded": "THISISASECRETMESSAGE"
+          }
+        ]
+      },
+      {
+        "name": "Plain English",
+        "input": "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG",
+        "expected": null,
+        "analysis_time_ms": 0.24,
+        "detections": []
+      }
+    ]
+  },
+  "geometric": {
+    "feature": "Geometric Analyzer",
+    "positions_analyzed": 7,
+    "patterns_detected": 66,
+    "pattern_types": {
+      "triangle": 31,
+      "rectangle": 35
+    },
+    "analysis_time_ms": 0.04,
+    "sample_patterns": [
+      {
+        "type": "triangle"
+      },
+      {
+        "type": "triangle"
+      },
+      {
+        "type": "triangle"
+      },
+      {
+        "type": "triangle"
+      },
+      {
+        "type": "triangle"
+      }
+    ]
+  },
+  "bardcode": {
+    "feature": "BardCode Analyzer",
+    "sacred_geometry_tests": {
+      "vesica_piscis": true,
+      "pythagorean_patterns": 1
+    },
+    "capabilities": [
+      "Vesica Piscis detection",
+      "Pythagorean triple detection",
+      "Geographic coordinate mapping",
+      "Mathematical constant detection"
+    ]
+  }
+}

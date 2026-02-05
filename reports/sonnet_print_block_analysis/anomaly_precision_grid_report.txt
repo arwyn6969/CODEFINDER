@@ -1,0 +1,33 @@
+# Anomaly Precision Grid Report
+## Axiom of Intent Verification
+
+Total Anomalies Mapped: 4139
+Coordinate Precision: Floating point (e.g., X=1204.00, Y=59.00)
+
+## Anomaly Types (Entropy Signals)
+- suspicious_mark_or_noise: 598
+- invalid_character_symbol: 3541
+
+## Top 10 Pages by Anomaly Density
+- Page 80: 285 anomalies
+- Page 71: 79 anomalies
+- Page 72: 79 anomalies
+- Page 34: 75 anomalies
+- Page 73: 75 anomalies
+- Page 74: 75 anomalies
+- Page 40: 72 anomalies
+- Page 48: 66 anomalies
+- Page 16: 65 anomalies
+- Page 44: 65 anomalies
+
+## Top 10 Affected Characters
+- '|': 2077
+- '=': 306
+- 'l': 237
+- '_': 197
+- '{': 168
+- '}': 121
+- '>': 116
+- '*': 79
+- '©': 70
+- '1': 60

@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CODEFINDER Analysis Report</title>
+    <style>
+        @page { 
+            size: A4; 
+            margin: 2cm; 
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+            padding: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 28px;
+            color: #1a365d;
+            text-align: center;
+            border-bottom: 3px double #2c5282;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        h2 {
+            font-size: 20px;
+            color: #2c5282;
+            margin: 25px 0 15px 0;
+            padding-left: 10px;
+            border-left: 4px solid #4299e1;
+        }
+        
+        h3 {
+            font-size: 16px;
+            color: #2d3748;
+            margin: 20px 0 10px 0;
+        }
+        
+        .meta {
+            text-align: center;
+            color: #718096;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .summary-box {
+            background: linear-gradient(135deg, #ebf8ff 0%, #e6fffa 100%);
+            border: 1px solid #90cdf4;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .finding {
+            background: #f7fafc;
+            border-left: 4px solid #48bb78;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .finding.significant {
+            border-left-color: #ed8936;
+            background: #fffaf0;
+        }
+        
+        .finding.highly-significant {
+            border-left-color: #e53e3e;
+            background: #fff5f5;
+        }
+        
+        .stars {
+            color: #d69e2e;
+            font-size: 18px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        th {
+            background: #2c5282;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        tr:nth-child(even) {
+            background: #f7fafc;
+        }
+        
+        .p-value {
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+        
+        .interpretation {
+            background: #edf2f7;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-style: italic;
+        }
+        
+        .grid-section {
+            margin: 30px 0;
+            page-break-inside: avoid;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            color: #718096;
+            font-size: 12px;
+        }
+        
+        @media print {
+            body { padding: 0; }
+            .no-print { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 CODEFINDER Analysis Report</h1>
+    
+    <div class="meta">
+        <strong>Source:</strong> Shakespeare Sonnets Dedication + Sonnet 1<br>
+        <strong>Analyzed:</strong> 2026-01-14T11:03:28.804170<br>
+        <strong>Text Length:</strong> 661 characters
+    </div>
+    
+    <div class="summary-box">
+        <h3>📊 Executive Summary</h3>
+        <p>This analysis examines the text for hidden patterns using multiple cipher systems, 
+        equidistant letter sequences (ELS), and structural analysis. Statistical significance 
+        is calculated to distinguish intentional encoding from random chance.</p>
+    </div>
+
+    <h2>🔢 Gematria Analysis</h2>
+    <p>Words matching "sacred numbers" in Francis Bacon's Simple Cipher:</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Word</th>
+                <th>Value</th>
+                <th>Meaning</th>
+                <th>Significance</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr class="">
+                <td><strong>SONNETS</strong></td>
+                <td>100</td>
+                <td>Francis Bacon (Simple)</td>
+                <td><span class="stars">○</span> NOTABLE</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>cruell</strong></td>
+                <td>67</td>
+                <td>Francis (Simple)</td>
+                <td><span class="stars">○</span> NOTABLE</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>world</strong></td>
+                <td>67</td>
+                <td>Francis (Simple)</td>
+                <td><span class="stars">○</span> NOTABLE</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <h2>🔍 ELS (Equidistant Letter Sequence) Analysis</h2>
+    <p>Hidden words found by reading every Nth letter:</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Term</th>
+                <th>Skip</th>
+                <th>Expected by Chance</th>
+                <th>P-Value</th>
+                <th>Significance</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td><strong>POET</strong></td>
+                <td>9</td>
+                <td class="p-value">0.010007</td>
+                <td class="p-value">0.009957</td>
+                <td><span class="stars">★★</span> VERY SIGNIFICANT (p < 0.01)</td>
+            </tr>
+
+            <tr>
+                <td><strong>ROSE</strong></td>
+                <td>29</td>
+                <td class="p-value">0.019647</td>
+                <td class="p-value">0.019455</td>
+                <td><span class="stars">★</span> SIGNIFICANT (p < 0.05)</td>
+            </tr>
+
+            <tr>
+                <td><strong>ROSE</strong></td>
+                <td>11</td>
+                <td class="p-value">0.021495</td>
+                <td class="p-value">0.021265</td>
+                <td><span class="stars">★</span> SIGNIFICANT (p < 0.05)</td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <div class="grid-section">
+        <h2>📊 ELS Grid Visualization</h2>
+        <p>Visual representation of ELS patterns in the text grid:</p>
+        
+        <style>
+            .els-grid { 
+                font-family: 'Courier New', monospace; 
+                font-size: 12px; 
+                line-height: 1.8;
+                background: #1e1e1e;
+                color: #d4d4d4;
+                padding: 20px;
+                border-radius: 8px;
+                overflow-x: auto;
+            }
+            .els-grid .row { white-space: pre; }
+            .els-grid .row-num { color: #666; margin-right: 10px; }
+            .els-grid .highlight { 
+                padding: 2px 4px; 
+                border-radius: 3px; 
+                font-weight: bold;
+                color: #000;
+            }
+            .els-legend {
+                margin-bottom: 15px;
+                padding: 10px;
+                background: #2d2d2d;
+                border-radius: 5px;
+            }
+            .els-legend span {
+                margin-right: 15px;
+                padding: 3px 8px;
+                border-radius: 3px;
+                color: #000;
+            }
+        </style>
+        <div class="els-grid">
+            <div class="els-legend">
+                <strong>Legend:</strong>
+        <span style="background:#ff6b6b">POET (skip 9)</span><span style="background:#4ecdc4">ROSE (skip 29)</span>
+            </div>
+            <div class="grid-content">
+        <div class="row"><span class="row-num">  0:</span>TOTHEONLIEBEGETTEROFTHESEINSVINGSONNETSMRWHALLHAPPINESSEANDT</div><div class="row"><span class="row-num">  1:</span>HATETERNITIEPROMISEDBYOVREVERLIVINGPOETWISHETHTHEWELLWISHING</div><div class="row"><span class="row-num">  2:</span>ADVENTVRE<span class="highlight" style="background:#45b7d1" title="ROSE">R</span>INSETTINGF<span class="highlight" style="background:#45b7d1" title="ROSE">O</span>RTHTTSHAKE<span class="highlight" style="background:#45b7d1" title="ROSE">S</span>PEARESSONN<span class="highlight" style="background:#45b7d1" title="ROSE">E</span>TSFROMFAIRESTCREA</div><div class="row"><span class="row-num">  3:</span>TURESWEDESIREINCREASETHATTHEREBYBEAUTIESROSEMIGHTNEVERDIEBUT</div><div class="row"><span class="row-num">  4:</span>ASTHERIPERSHOULDBYTIMEDECEASEHISTENDERHEI<span class="highlight" style="background:#4ecdc4" title="ROSE">R</span>EMIGHTBEAREHISMEMO</div><div class="row"><span class="row-num">  5:</span>RYBUTTHOUC<span class="highlight" style="background:#4ecdc4" title="ROSE">O</span>NTRACTEDTOTHINEOWNEBRIGHTEYE<span class="highlight" style="background:#4ecdc4" title="ROSE">S</span>FEEDSTTHYLIGHTSFLAME</div><div class="row"><span class="row-num">  6:</span>WITHSELF<span class="highlight" style="background:#4ecdc4" title="ROSE">E</span>SUBSTANTIALLFEWELLMAKINGAFAMINEWHEREABOUNDANCELIEST</div><div class="row"><span class="row-num">  7:</span>HYSELFETHYFOETOTHYSWEETSELFETOOCRUELLTHOUTHATARTNOWTHEWORLDS</div><div class="row"><span class="row-num">  8:</span>FRESHORNAMENTANDONLYHERAULDTOTHEGAUDYSPRINGWITHINTHINEOWNEBU</div><div class="row"><span class="row-num">  9:</span>DBURIESTTHYCONTENTANDTENDERCHORLEMAKSTWASTINNIGGARDING<span class="highlight" style="background:#ff6b6b" title="POET">P</span>ITTYT</div><div class="row"><span class="row-num"> 10:</span>HEW<span class="highlight" style="background:#ff6b6b" title="POET">O</span>RLDORELS<span class="highlight" style="background:#ff6b6b" title="POET">E</span>THISGLUT<span class="highlight" style="background:#ff6b6b" title="POET">T</span>ONBETOEATETHEWORLDSDUEBYTHEGRAVEANDTHE</div><div class="row"><span class="row-num"> 11:</span>E</div>
+            </div>
+        </div>
+        
+    </div>
+
+    <div class="interpretation">
+        <h3>📖 Interpretation Guidelines</h3>
+        <ul>
+            <li><strong>★★★ Highly Significant (p < 0.001):</strong> Extremely unlikely to occur by chance. Strong evidence of intentional encoding.</li>
+            <li><strong>★★ Very Significant (p < 0.01):</strong> Very unlikely random occurrence. Warrants serious investigation.</li>
+            <li><strong>★ Significant (p < 0.05):</strong> Standard threshold for statistical significance.</li>
+            <li><strong>○ Marginally Significant (p < 0.10):</strong> Suggestive but not conclusive.</li>
+            <li><strong>No stars:</strong> Could easily occur by random chance.</li>
+        </ul>
+    </div>
+
+    <div class="footer">
+        <p>Generated by CODEFINDER v1.0</p>
+        <p>For research purposes. Cross-reference findings with historical context.</p>
+    </div>
+</body>
+</html>

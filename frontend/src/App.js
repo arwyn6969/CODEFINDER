@@ -17,6 +17,7 @@ import DocumentList from './pages/DocumentList';
 import DocumentAnalysis from './pages/DocumentAnalysis';
 import SearchPage from './pages/SearchPage';
 import Login from './pages/Login';
+import ResearchDashboard from './pages/research/ResearchDashboard';
 import AuthService from './services/AuthService';
 import WebSocketService from './services/WebSocketService';
 
@@ -212,6 +213,7 @@ function App() {
             <Route path="/documents" element={<DocumentList />} />
             <Route path="/documents/:id" element={<DocumentAnalysis />} />
             <Route path="/search" element={<SearchPage />} />
+            <Route path="/research" element={<ResearchDashboard />} />
             <Route path="/analysis" element={<Navigate to="/documents" />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>

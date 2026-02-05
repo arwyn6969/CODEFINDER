@@ -1,0 +1,51 @@
+# V vs VV vs W Analysis
+
+Total 'W' blocks (single sort): 2415
+Total 'V' blocks: 449
+Total 'VV' sequences (adjacent sorts): 14
+
+## 'VV' Sequences Found
+These are instances where two 'V' blocks appear immediately next to each other within the same word context.
+
+- Page 7: Word 'VV' (Chars: VV)
+  - Image 1: reports/digital_type_case/images/V_upper/V_upper_7_296_0.png
+  - Image 2: reports/digital_type_case/images/V_upper/V_upper_7_296_1.png
+- Page 8: Word 'VV' (Chars: VV)
+  - Image 1: reports/digital_type_case/images/V_upper/V_upper_8_223_0.png
+  - Image 2: reports/digital_type_case/images/V_upper/V_upper_8_223_1.png
+- Page 9: Word 'VVie' (Chars: VV)
+  - Image 1: reports/digital_type_case/images/V_upper/V_upper_9_316_0.png
+  - Image 2: reports/digital_type_case/images/V_upper/V_upper_9_316_1.png
+- Page 17: Word 'VV' (Chars: VV)
+  - Image 1: reports/digital_type_case/images/V_upper/V_upper_17_10_0.png
+  - Image 2: reports/digital_type_case/images/V_upper/V_upper_17_10_1.png
+- Page 19: Word 'VVhich' (Chars: VV)
+  - Image 1: reports/digital_type_case/images/V_upper/V_upper_19_172_0.png
+  - Image 2: reports/digital_type_case/images/V_upper/V_upper_19_172_1.png
+- Page 26: Word 'VVhen' (Chars: VV)
+  - Image 1: reports/digital_type_case/images/V_upper/V_upper_26_337_0.png
+  - Image 2: reports/digital_type_case/images/V_upper/V_upper_26_337_1.png
+- Page 26: Word 'VVhere' (Chars: VV)
+  - Image 1: reports/digital_type_case/images/V_upper/V_upper_26_362_2.png
+  - Image 2: reports/digital_type_case/images/V_upper/V_upper_26_362_3.png
+- Page 29: Word 'VV' (Chars: VV)
+  - Image 1: reports/digital_type_case/images/V_upper/V_upper_29_181_0.png
+  - Image 2: reports/digital_type_case/images/V_upper/V_upper_29_181_1.png
+- Page 52: Word 'VV' (Chars: VV)
+  - Image 1: reports/digital_type_case/images/V_upper/V_upper_52_182_0.png
+  - Image 2: reports/digital_type_case/images/V_upper/V_upper_52_182_1.png
+- Page 58: Word '2vvied' (Chars: vv)
+  - Image 1: reports/digital_type_case/images/v/v_58_64_1.png
+  - Image 2: reports/digital_type_case/images/v/v_58_64_2.png
+- Page 65: Word 'VVith' (Chars: VV)
+  - Image 1: reports/digital_type_case/images/V_upper/V_upper_65_155_0.png
+  - Image 2: reports/digital_type_case/images/V_upper/V_upper_65_155_1.png
+- Page 65: Word 'VVith' (Chars: VV)
+  - Image 1: reports/digital_type_case/images/V_upper/V_upper_65_268_0.png
+  - Image 2: reports/digital_type_case/images/V_upper/V_upper_65_268_1.png
+- Page 73: Word 'yovve.' (Chars: vv)
+  - Image 1: reports/digital_type_case/images/v/v_73_360_2.png
+  - Image 2: reports/digital_type_case/images/v/v_73_360_3.png
+- Page 80: Word 'vv' (Chars: vv)
+  - Image 1: reports/digital_type_case/images/v/v_80_946_0.png
+  - Image 2: reports/digital_type_case/images/v/v_80_946_1.png

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CODEFINDER Full Sonnets Analysis</title>
+    <style>
+        @page { size: A4; margin: 1.5cm; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.5;
+            color: #333;
+            background: #fff;
+            padding: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 24px;
+            color: #1a365d;
+            text-align: center;
+            border-bottom: 3px double #2c5282;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+        }
+        h2 {
+            font-size: 18px;
+            color: #2c5282;
+            margin: 20px 0 12px 0;
+            padding-left: 10px;
+            border-left: 4px solid #4299e1;
+        }
+        .meta {
+            text-align: center;
+            color: #666;
+            margin-bottom: 25px;
+            font-size: 14px;
+        }
+        .summary {
+            background: linear-gradient(135deg, #ebf8ff, #e6fffa);
+            border: 1px solid #90cdf4;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .stat-box {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .stat-value {
+            font-size: 28px;
+            font-weight: bold;
+            color: #2c5282;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #666;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+        th {
+            background: #2c5282;
+            color: white;
+            padding: 10px 8px;
+            text-align: left;
+        }
+        td {
+            padding: 8px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        tr:nth-child(even) { background: #f7fafc; }
+        .stars { color: #d69e2e; font-size: 16px; }
+        .highlight { background: #fef3c7; }
+        .highly-sig { background: #fed7d7; }
+        .very-sig { background: #feebc8; }
+        .sig { background: #fefcbf; }
+        .footer {
+            margin-top: 30px;
+            padding-top: 15px;
+            border-top: 1px solid #e2e8f0;
+            text-align: center;
+            color: #666;
+            font-size: 11px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 CODEFINDER Full Sonnets Analysis</h1>
+    
+    <div class="meta">
+        <strong>Source:</strong> Shakespeare Sonnets (Project Gutenberg)<br>
+        <strong>Analyzed:</strong> 2026-01-14T11:20:33.646003<br>
+        <strong>Total Letters:</strong> 73,439
+    </div>
+    
+    <div class="summary">
+        <h3>📊 Analysis Summary</h3>
+        <div class="summary-grid">
+            <div class="stat-box">
+                <div class="stat-value">154</div>
+                <div class="stat-label">Sonnets Analyzed</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">73,439</div>
+                <div class="stat-label">Letters Searched</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">50</div>
+                <div class="stat-label">Significant ELS</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value">2755</div>
+                <div class="stat-label">Sacred Numbers</div>
+            </div>
+        </div>
+    </div>
+
+    <h2>🔍 Most Significant ELS Findings</h2>
+    <p>Equidistant Letter Sequences with statistical significance:</p>
+    <table>
+        <thead>
+            <tr><th>Term</th><th>Skip</th><th>Expected</th><th>P-Value</th><th>Significance</th></tr>
+        </thead>
+        <tbody>
+
+            <tr class="very-sig">
+                <td><strong>CHRIST</strong></td>
+                <td>39</td>
+                <td>0.0030</td>
+                <td>0.002965</td>
+                <td><span class="stars">★★</span> VERY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="very-sig">
+                <td><strong>HIDDEN</strong></td>
+                <td>36</td>
+                <td>0.0046</td>
+                <td>0.004547</td>
+                <td><span class="stars">★★</span> VERY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="very-sig">
+                <td><strong>DERBY</strong></td>
+                <td>26</td>
+                <td>0.0066</td>
+                <td>0.006565</td>
+                <td><span class="stars">★★</span> VERY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>ARWYN</strong></td>
+                <td>12</td>
+                <td>0.0112</td>
+                <td>0.011140</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>BACON</strong></td>
+                <td>10</td>
+                <td>0.0125</td>
+                <td>0.012437</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>SONNET</strong></td>
+                <td>84</td>
+                <td>0.0172</td>
+                <td>0.017076</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>SONNET</strong></td>
+                <td>36</td>
+                <td>0.0173</td>
+                <td>0.017132</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>LIGHT</strong></td>
+                <td>22</td>
+                <td>0.0230</td>
+                <td>0.022702</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>LIGHT</strong></td>
+                <td>9</td>
+                <td>0.0230</td>
+                <td>0.022718</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>LIGHT</strong></td>
+                <td>2</td>
+                <td>0.0230</td>
+                <td>0.022726</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>CROSS</strong></td>
+                <td>12</td>
+                <td>0.0368</td>
+                <td>0.036108</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>VERSE</strong></td>
+                <td>99</td>
+                <td>0.0392</td>
+                <td>0.038455</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>VERSE</strong></td>
+                <td>90</td>
+                <td>0.0392</td>
+                <td>0.038474</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>VERSE</strong></td>
+                <td>87</td>
+                <td>0.0392</td>
+                <td>0.038480</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>VERSE</strong></td>
+                <td>64</td>
+                <td>0.0393</td>
+                <td>0.038528</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>VERSE</strong></td>
+                <td>45</td>
+                <td>0.0393</td>
+                <td>0.038567</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>VERSE</strong></td>
+                <td>34</td>
+                <td>0.0394</td>
+                <td>0.038590</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>TWINS</strong></td>
+                <td>100</td>
+                <td>0.0465</td>
+                <td>0.045444</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>TWINS</strong></td>
+                <td>91</td>
+                <td>0.0465</td>
+                <td>0.045466</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>TWINS</strong></td>
+                <td>67</td>
+                <td>0.0466</td>
+                <td>0.045524</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>TWINS</strong></td>
+                <td>37</td>
+                <td>0.0467</td>
+                <td>0.045597</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="sig">
+                <td><strong>TWINS</strong></td>
+                <td>31</td>
+                <td>0.0467</td>
+                <td>0.045612</td>
+                <td><span class="stars">★</span> SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>SPEAR</strong></td>
+                <td>81</td>
+                <td>0.0522</td>
+                <td>0.050882</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>SPEAR</strong></td>
+                <td>14</td>
+                <td>0.0524</td>
+                <td>0.051064</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>TABOT</strong></td>
+                <td>74</td>
+                <td>0.0546</td>
+                <td>0.053091</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>TABOT</strong></td>
+                <td>37</td>
+                <td>0.0547</td>
+                <td>0.053195</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>TABOT</strong></td>
+                <td>11</td>
+                <td>0.0547</td>
+                <td>0.053269</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>TABOT</strong></td>
+                <td>10</td>
+                <td>0.0547</td>
+                <td>0.053272</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>TRUTH</strong></td>
+                <td>82</td>
+                <td>0.0604</td>
+                <td>0.058632</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>TRUTH</strong></td>
+                <td>73</td>
+                <td>0.0605</td>
+                <td>0.058660</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>TRUTH</strong></td>
+                <td>60</td>
+                <td>0.0605</td>
+                <td>0.058701</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>TRUTH</strong></td>
+                <td>51</td>
+                <td>0.0605</td>
+                <td>0.058729</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>TRUTH</strong></td>
+                <td>39</td>
+                <td>0.0606</td>
+                <td>0.058766</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>TRUTH</strong></td>
+                <td>35</td>
+                <td>0.0606</td>
+                <td>0.058779</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>TRUTH</strong></td>
+                <td>14</td>
+                <td>0.0606</td>
+                <td>0.058844</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>WRITE</strong></td>
+                <td>76</td>
+                <td>0.0785</td>
+                <td>0.075475</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>WRITE</strong></td>
+                <td>65</td>
+                <td>0.0785</td>
+                <td>0.075518</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>WRITE</strong></td>
+                <td>57</td>
+                <td>0.0786</td>
+                <td>0.075550</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>WRITE</strong></td>
+                <td>57</td>
+                <td>0.0786</td>
+                <td>0.075550</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+
+            <tr class="">
+                <td><strong>WRITE</strong></td>
+                <td>51</td>
+                <td>0.0786</td>
+                <td>0.075574</td>
+                <td><span class="stars">○</span> MARGINALLY SIGNIFICANT</td>
+            </tr>
+</tbody></table>
+    <h2>📈 Terms Found (Frequency)</h2>
+    <table>
+        <thead><tr><th>Term</th><th>Occurrences</th></tr></thead>
+        <tbody>
+<tr><td><strong>WRITE</strong></td><td>10</td></tr><tr><td><strong>TRUTH</strong></td><td>7</td></tr><tr><td><strong>VERSE</strong></td><td>6</td></tr><tr><td><strong>TWINS</strong></td><td>5</td></tr><tr><td><strong>DARK</strong></td><td>5</td></tr><tr><td><strong>TABOT</strong></td><td>4</td></tr><tr><td><strong>LIGHT</strong></td><td>3</td></tr><tr><td><strong>SPEAR</strong></td><td>2</td></tr><tr><td><strong>SONNET</strong></td><td>2</td></tr><tr><td><strong>ORDER</strong></td><td>2</td></tr><tr><td><strong>BACON</strong></td><td>1</td></tr><tr><td><strong>HIDDEN</strong></td><td>1</td></tr><tr><td><strong>ARWYN</strong></td><td>1</td></tr><tr><td><strong>DERBY</strong></td><td>1</td></tr><tr><td><strong>CROSS</strong></td><td>1</td></tr><tr><td><strong>CHRIST</strong></td><td>1</td></tr></tbody></table>
+    <h2>🔢 Gematria Findings (Sacred Numbers)</h2>
+    <table>
+        <thead><tr><th>Word</th><th>Value</th><th>Meaning</th></tr></thead>
+        <tbody>
+<tr><td>be, bad, Be (+140 more)</td><td><strong>7</strong></td><td>Divine Completion</td></tr><tr><td>Ah, add, ah (+3 more)</td><td><strong>9</strong></td><td>Completion</td></tr><tr><td>bed</td><td><strong>11</strong></td><td>Master Number</td></tr><tr><td>CI</td><td><strong>12</strong></td><td>Tribes / Apostles</td></tr><tr><td>did, can, Each, Mad, Me, Can, mad, each (+246 more)</td><td><strong>17</strong></td><td>Bacon's Favorite Number</td></tr><tr><td>made, died, heed, Made, In, end, in (+346 more)</td><td><strong>22</strong></td><td>Master Builder</td></tr><tr><td>off, bud, call, hide, we, bay, lamb, hand (+77 more)</td><td><strong>26</strong></td><td>YHWH (Tetragrammaton)</td></tr><tr><td>hate, Hate, LX, bids, lend, chance, heat, to (+565 more)</td><td><strong>33</strong></td><td>FB initials / Masonic</td></tr><tr><td>glance, sin, neer, Book, gilded, huge, lease, moan (+149 more)</td><td><strong>40</strong></td><td>Testing / Trial</td></tr><tr><td>amends, Lest, seals, lookd, wink, foot, Drink, weeds (+125 more)</td><td><strong>53</strong></td><td>MARY (Simple)</td></tr><tr><td>theft, Herein, vacant, accident, sadly, twice, took, believe (+391 more)</td><td><strong>57</strong></td><td>KEVIN (Simple)</td></tr><tr><td>wombs, whats, world, spoil, Gainst, wont, better, Seeking (+117 more)</td><td><strong>67</strong></td><td>FRANCIS (Simple)</td></tr><tr><td>power, CXVIII, slight, Until, XCVIII, contain, suffer, delighted (+84 more)</td><td><strong>72</strong></td><td>Shem HaMephorash</td></tr><tr><td>Creating, sickly, thereof, flower, CXLVII, seemly, longing, Your (+183 more)</td><td><strong>74</strong></td><td>WILLIAM (Simple)</td></tr><tr><td>Nature, nature, proved, despite, separable, invoked, evident, party (+159 more)</td><td><strong>75</strong></td><td>ARWYN (Simple)</td></tr><tr><td>victors, express, SONNETS, injuries, constant, tresses, twenty, overgoes (+29 more)</td><td><strong>100</strong></td><td>FRANCIS BACON (Simple)</td></tr><tr><td>youngly, progress, unthrift, imprisond, selfexample, trespass, servants, perceivst (+9 more)</td><td><strong>111</strong></td><td>Triple Unity</td></tr><tr><td>truetelling, obsequious</td><td><strong>136</strong></td><td>SHAKESPEARE (partial)</td></tr><tr><td>suretylike, insufficiency, distillation, virtuous</td><td><strong>137</strong></td><td>Fine Structure Constant / Kabbalah</td></tr><tr><td>descriptions</td><td><strong>144</strong></td><td>Light / 12x12</td></tr></tbody></table>
+    <div class="footer">
+        <p>Generated by CODEFINDER v1.0 • 2026-01-14 11:20</p>
+        <p>Statistical significance based on expected probability of random occurrence</p>
+    </div>
+</body>
+</html>

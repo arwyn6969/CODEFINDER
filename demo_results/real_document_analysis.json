@@ -1,0 +1,705 @@
+{
+  "source": "Sample: Sonnets Dedication + Sonnet 1",
+  "timestamp": "2026-01-14T10:57:56.766448",
+  "text_preview": "TO.THE.ONLIE.BEGETTER.OF.\nTHESE.INSVING.SONNETS.\nMr.W.H. ALL.HAPPINESSE.\nAND.THAT.ETERNITIE.\nPROMISED.\nBY.\nOVR.EVER-LIVING.POET.\nWISHETH.\nTHE.WELL-WISHING.\nADVENTVRER.IN.\nSETTING.\nFORTH.\nT. T.\n\n\nSHAKE-SPEARES\nSONNETS.\n\nFrom fairest creatures we desire increase,\nThat thereby beauties Rose might never die,\nBut as the riper should by time decease,\nHis tender heire might beare his memory:\nBut thou contracted to thine owne bright eyes,\nFeed'st thy lights flame with selfe substantiall fewell,\nMaking a",
+  "analyses": {
+    "gematria": {
+      "full_text": {
+        "simple": 7936,
+        "bacon_simple": 7544
+      },
+      "words": [
+        {
+          "word": "TOTHEONLIEBEGETTEROF",
+          "simple": 226,
+          "bacon": 216
+        },
+        {
+          "word": "THESEINSVINGSONNETS",
+          "simple": 257,
+          "bacon": 244
+        },
+        {
+          "word": "MrWH",
+          "simple": 62,
+          "bacon": 58
+        },
+        {
+          "word": "ALLHAPPINESSE",
+          "simple": 137,
+          "bacon": 130
+        },
+        {
+          "word": "ANDTHATETERNITIE",
+          "simple": 173,
+          "bacon": 166
+        },
+        {
+          "word": "PROMISED",
+          "simple": 99,
+          "bacon": 94
+        },
+        {
+          "word": "OVREVERLIVINGPOET",
+          "simple": 234,
+          "bacon": 220
+        },
+        {
+          "word": "WISHETH",
+          "simple": 92,
+          "bacon": 88
+        },
+        {
+          "word": "THEWELLWISHING",
+          "simple": 174,
+          "bacon": 165
+        },
+        {
+          "word": "ADVENTVRERIN",
+          "simple": 152,
+          "bacon": 143
+        },
+        {
+          "word": "SETTING",
+          "simple": 94,
+          "bacon": 90
+        },
+        {
+          "word": "FORTH",
+          "simple": 67,
+          "bacon": 64,
+          "significance": "Francis (Simple)"
+        },
+        {
+          "word": "SHAKESPEARES",
+          "simple": 127,
+          "bacon": 121
+        },
+        {
+          "word": "SONNETS",
+          "simple": 106,
+          "bacon": 100,
+          "significance": "Francis Bacon (Simple)"
+        },
+        {
+          "word": "From",
+          "simple": 52,
+          "bacon": 49
+        },
+        {
+          "word": "fairest",
+          "simple": 78,
+          "bacon": 75
+        },
+        {
+          "word": "creatures",
+          "simple": 110,
+          "bacon": 105
+        },
+        {
+          "word": "desire",
+          "simple": 60,
+          "bacon": 58
+        },
+        {
+          "word": "increase",
+          "simple": 74,
+          "bacon": 71
+        },
+        {
+          "word": "That",
+          "simple": 49,
+          "bacon": 47
+        },
+        {
+          "word": "thereby",
+          "simple": 83,
+          "bacon": 79
+        },
+        {
+          "word": "beauties",
+          "simple": 82,
+          "bacon": 79
+        },
+        {
+          "word": "Rose",
+          "simple": 57,
+          "bacon": 54
+        },
+        {
+          "word": "might",
+          "simple": 57,
+          "bacon": 55
+        },
+        {
+          "word": "never",
+          "simple": 64,
+          "bacon": 60
+        },
+        {
+          "word": "die",
+          "simple": 18,
+          "bacon": 18
+        },
+        {
+          "word": "But",
+          "simple": 43,
+          "bacon": 41
+        },
+        {
+          "word": "the",
+          "simple": 33,
+          "bacon": 32,
+          "significance": "Bacon (Simple FB initials)"
+        },
+        {
+          "word": "riper",
+          "simple": 66,
+          "bacon": 63
+        },
+        {
+          "word": "should",
+          "simple": 79,
+          "bacon": 75
+        },
+        {
+          "word": "time",
+          "simple": 47,
+          "bacon": 45
+        },
+        {
+          "word": "decease",
+          "simple": 42,
+          "bacon": 41
+        },
+        {
+          "word": "His",
+          "simple": 36,
+          "bacon": 35
+        },
+        {
+          "word": "tender",
+          "simple": 66,
+          "bacon": 63
+        },
+        {
+          "word": "heire",
+          "simple": 45,
+          "bacon": 44
+        },
+        {
+          "word": "might",
+          "simple": 57,
+          "bacon": 55
+        },
+        {
+          "word": "beare",
+          "simple": 31,
+          "bacon": 30
+        },
+        {
+          "word": "his",
+          "simple": 36,
+          "bacon": 35
+        },
+        {
+          "word": "memory",
+          "simple": 89,
+          "bacon": 83
+        },
+        {
+          "word": "But",
+          "simple": 43,
+          "bacon": 41
+        },
+        {
+          "word": "thou",
+          "simple": 64,
+          "bacon": 61
+        },
+        {
+          "word": "contracted",
+          "simple": 103,
+          "bacon": 98
+        },
+        {
+          "word": "thine",
+          "simple": 56,
+          "bacon": 54
+        },
+        {
+          "word": "owne",
+          "simple": 57,
+          "bacon": 53
+        },
+        {
+          "word": "bright",
+          "simple": 64,
+          "bacon": 62
+        },
+        {
+          "word": "eyes",
+          "simple": 54,
+          "bacon": 51
+        },
+        {
+          "word": "Feedst",
+          "simple": 59,
+          "bacon": 57
+        },
+        {
+          "word": "thy",
+          "simple": 53,
+          "bacon": 50
+        },
+        {
+          "word": "lights",
+          "simple": 75,
+          "bacon": 72
+        },
+        {
+          "word": "flame",
+          "simple": 37,
+          "bacon": 35
+        },
+        {
+          "word": "with",
+          "simple": 60,
+          "bacon": 57
+        },
+        {
+          "word": "selfe",
+          "simple": 47,
+          "bacon": 45
+        },
+        {
+          "word": "substantiall",
+          "simple": 150,
+          "bacon": 142
+        },
+        {
+          "word": "fewell",
+          "simple": 63,
+          "bacon": 59
+        },
+        {
+          "word": "Making",
+          "simple": 55,
+          "bacon": 52
+        },
+        {
+          "word": "famine",
+          "simple": 48,
+          "bacon": 46
+        },
+        {
+          "word": "where",
+          "simple": 59,
+          "bacon": 56
+        },
+        {
+          "word": "aboundance",
+          "simple": 80,
+          "bacon": 76
+        },
+        {
+          "word": "lies",
+          "simple": 45,
+          "bacon": 43
+        },
+        {
+          "word": "Thy",
+          "simple": 53,
+          "bacon": 50
+        },
+        {
+          "word": "selfe",
+          "simple": 47,
+          "bacon": 45
+        },
+        {
+          "word": "thy",
+          "simple": 53,
+          "bacon": 50
+        },
+        {
+          "word": "foe",
+          "simple": 26,
+          "bacon": 25
+        },
+        {
+          "word": "thy",
+          "simple": 53,
+          "bacon": 50
+        },
+        {
+          "word": "sweet",
+          "simple": 72,
+          "bacon": 68
+        },
+        {
+          "word": "selfe",
+          "simple": 47,
+          "bacon": 45
+        },
+        {
+          "word": "too",
+          "simple": 50,
+          "bacon": 47
+        },
+        {
+          "word": "cruell",
+          "simple": 71,
+          "bacon": 67,
+          "significance": "Francis (Simple)"
+        },
+        {
+          "word": "Thou",
+          "simple": 64,
+          "bacon": 61
+        },
+        {
+          "word": "that",
+          "simple": 49,
+          "bacon": 47
+        },
+        {
+          "word": "art",
+          "simple": 39,
+          "bacon": 37
+        },
+        {
+          "word": "now",
+          "simple": 52,
+          "bacon": 48
+        },
+        {
+          "word": "the",
+          "simple": 33,
+          "bacon": 32,
+          "significance": "Bacon (Simple FB initials)"
+        },
+        {
+          "word": "worlds",
+          "simple": 91,
+          "bacon": 85
+        },
+        {
+          "word": "fresh",
+          "simple": 56,
+          "bacon": 54
+        },
+        {
+          "word": "ornament",
+          "simple": 100,
+          "bacon": 94,
+          "significance": "Francis Bacon (Simple)"
+        },
+        {
+          "word": "And",
+          "simple": 19,
+          "bacon": 18
+        },
+        {
+          "word": "only",
+          "simple": 66,
+          "bacon": 61
+        },
+        {
+          "word": "herauld",
+          "simple": 69,
+          "bacon": 66
+        },
+        {
+          "word": "the",
+          "simple": 33,
+          "bacon": 32,
+          "significance": "Bacon (Simple FB initials)"
+        },
+        {
+          "word": "gaudy",
+          "simple": 58,
+          "bacon": 55
+        },
+        {
+          "word": "spring",
+          "simple": 83,
+          "bacon": 79
+        },
+        {
+          "word": "Within",
+          "simple": 83,
+          "bacon": 79
+        },
+        {
+          "word": "thine",
+          "simple": 56,
+          "bacon": 54
+        },
+        {
+          "word": "owne",
+          "simple": 57,
+          "bacon": 53
+        },
+        {
+          "word": "bud",
+          "simple": 27,
+          "bacon": 26
+        },
+        {
+          "word": "buriest",
+          "simple": 94,
+          "bacon": 90
+        },
+        {
+          "word": "thy",
+          "simple": 53,
+          "bacon": 50
+        },
+        {
+          "word": "content",
+          "simple": 91,
+          "bacon": 86
+        },
+        {
+          "word": "And",
+          "simple": 19,
+          "bacon": 18
+        },
+        {
+          "word": "tender",
+          "simple": 66,
+          "bacon": 63
+        },
+        {
+          "word": "chorle",
+          "simple": 61,
+          "bacon": 58
+        },
+        {
+          "word": "makst",
+          "simple": 64,
+          "bacon": 60
+        },
+        {
+          "word": "wast",
+          "simple": 63,
+          "bacon": 59
+        },
+        {
+          "word": "niggarding",
+          "simple": 90,
+          "bacon": 87
+        },
+        {
+          "word": "Pitty",
+          "simple": 90,
+          "bacon": 85
+        },
+        {
+          "word": "the",
+          "simple": 33,
+          "bacon": 32,
+          "significance": "Bacon (Simple FB initials)"
+        },
+        {
+          "word": "world",
+          "simple": 72,
+          "bacon": 67,
+          "significance": "Francis (Simple)"
+        },
+        {
+          "word": "else",
+          "simple": 41,
+          "bacon": 39
+        },
+        {
+          "word": "this",
+          "simple": 56,
+          "bacon": 54
+        },
+        {
+          "word": "glutton",
+          "simple": 109,
+          "bacon": 103
+        },
+        {
+          "word": "eate",
+          "simple": 31,
+          "bacon": 30
+        },
+        {
+          "word": "the",
+          "simple": 33,
+          "bacon": 32,
+          "significance": "Bacon (Simple FB initials)"
+        },
+        {
+          "word": "worlds",
+          "simple": 91,
+          "bacon": 85
+        },
+        {
+          "word": "due",
+          "simple": 30,
+          "bacon": 29
+        },
+        {
+          "word": "the",
+          "simple": 33,
+          "bacon": 32,
+          "significance": "Bacon (Simple FB initials)"
+        },
+        {
+          "word": "grave",
+          "simple": 53,
+          "bacon": 50
+        },
+        {
+          "word": "and",
+          "simple": 19,
+          "bacon": 18
+        },
+        {
+          "word": "thee",
+          "simple": 38,
+          "bacon": 37
+        }
+      ],
+      "significant_findings": [
+        {
+          "word": "FORTH",
+          "value": 67,
+          "cipher": "simple",
+          "meaning": "Francis (Simple)"
+        },
+        {
+          "word": "SONNETS",
+          "value": 100,
+          "cipher": "bacon",
+          "meaning": "Francis Bacon (Simple)"
+        },
+        {
+          "word": "the",
+          "value": 33,
+          "cipher": "simple",
+          "meaning": "Bacon (Simple FB initials)"
+        },
+        {
+          "word": "cruell",
+          "value": 67,
+          "cipher": "bacon",
+          "meaning": "Francis (Simple)"
+        },
+        {
+          "word": "the",
+          "value": 33,
+          "cipher": "simple",
+          "meaning": "Bacon (Simple FB initials)"
+        },
+        {
+          "word": "ornament",
+          "value": 100,
+          "cipher": "simple",
+          "meaning": "Francis Bacon (Simple)"
+        },
+        {
+          "word": "the",
+          "value": 33,
+          "cipher": "simple",
+          "meaning": "Bacon (Simple FB initials)"
+        },
+        {
+          "word": "the",
+          "value": 33,
+          "cipher": "simple",
+          "meaning": "Bacon (Simple FB initials)"
+        },
+        {
+          "word": "world",
+          "value": 67,
+          "cipher": "bacon",
+          "meaning": "Francis (Simple)"
+        },
+        {
+          "word": "the",
+          "value": 33,
+          "cipher": "simple",
+          "meaning": "Bacon (Simple FB initials)"
+        },
+        {
+          "word": "the",
+          "value": 33,
+          "cipher": "simple",
+          "meaning": "Bacon (Simple FB initials)"
+        }
+      ]
+    },
+    "cipher": {
+      "line_count": 29,
+      "acrostic": "TTMAPBOWTASFTSSFTBHBFMTTAWAPT",
+      "telestich": "FSEEDYTHGNGHTSSEEEYSLSLTGTGEE",
+      "acrostic_words": [],
+      "telestich_words": []
+    },
+    "els": {
+      "text_length": 661,
+      "terms_searched": [
+        "BACON",
+        "SHAKE",
+        "SPEAR",
+        "WILL",
+        "POET",
+        "AUTHOR",
+        "HIDDEN",
+        "SECRET",
+        "CIPHER",
+        "CODE",
+        "VERSE",
+        "SONNET",
+        "LOVE",
+        "ROSE",
+        "BEAUTY"
+      ],
+      "matches_found": 4,
+      "matches": [
+        {
+          "term": "POET",
+          "skip": 9,
+          "start": 594,
+          "direction": "forward"
+        },
+        {
+          "term": "ROSE",
+          "skip": 11,
+          "start": 129,
+          "direction": "forward"
+        },
+        {
+          "term": "ROSE",
+          "skip": 13,
+          "start": 172,
+          "direction": "backward"
+        },
+        {
+          "term": "ROSE",
+          "skip": 29,
+          "start": 281,
+          "direction": "forward"
+        }
+      ]
+    },
+    "structure": {
+      "line_count": 29,
+      "word_count": 124,
+      "letter_count": 661,
+      "avg_words_per_line": 4.3,
+      "avg_letters_per_word": 5.3,
+      "line_count_reduced": 2,
+      "word_count_reduced": 7,
+      "letter_count_reduced": 4,
+      "is_14_lines": false,
+      "divisible_by_17": false
+    }
+  }
+}

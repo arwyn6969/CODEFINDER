@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CODEFINDER Feature Demonstration Report</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --success: #16a34a;
+            --warning: #d97706;
+            --bg-dark: #1e293b;
+            --bg-card: #334155;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: var(--bg-card);
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+        .header .subtitle { color: var(--text-muted); font-size: 1.1rem; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+        .stat-value { font-size: 2rem; font-weight: bold; color: var(--primary); }
+        .stat-label { color: var(--text-muted); font-size: 0.9rem; }
+        .section {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .section h2 {
+            color: #60a5fa;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #3b82f6;
+        }
+        table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+        th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid #475569; }
+        th { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+        tr:hover { background: rgba(255,255,255,0.05); }
+        .tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+        .tag-success { background: rgba(22, 163, 74, 0.2); color: #4ade80; }
+        .tag-warning { background: rgba(217, 119, 6, 0.2); color: #fbbf24; }
+        .tag-info { background: rgba(37, 99, 235, 0.2); color: #60a5fa; }
+        .code {
+            background: #0f172a;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+        .footer { text-align: center; padding: 2rem; color: var(--text-muted); }
+        @media print {
+            body { background: white; color: black; }
+            .header, .section, .stat-card { box-shadow: none; border: 1px solid #ddd; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 CODEFINDER</h1>
+            <p class="subtitle">Feature Demonstration Report</p>
+            <p style="margin-top: 0.5rem; color: var(--text-muted);">Generated: 2026-01-14T10:51:35.112746</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">5</div>
+                <div class="stat-label">Features Tested</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">13</div>
+                <div class="stat-label">Total Samples</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">0.15s</div>
+                <div class="stat-label">Total Runtime</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">✓</div>
+                <div class="stat-label">All Features Working</div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔢 1. Gematria Engine</h2>
+            <p>Calculated numerical values across <strong>8 cipher systems</strong> for 6 samples.</p>
+            <p><span class="tag tag-info">224444.4 calculations/second</span></p>
+            <table>
+                <thead>
+                    <tr><th>Text</th><th>Ordinal</th><th>Bacon Simple</th><th>Bacon Kay</th><th>Sumerian</th><th>Significant?</th></tr>
+                </thead>
+                <tbody>
+<tr><td><strong>Francis Bacon</strong></td><td>105</td><td>100</td><td>412</td><td>630</td><td><span class='tag tag-success'>⭐ Yes</span></td></tr><tr><td><strong>Shakespeare</strong></td><td>108</td><td>103</td><td>389</td><td>648</td><td><span class='tag '>-</span></td></tr><tr><td><strong>JESUS</strong></td><td>74</td><td>70</td><td>200</td><td>444</td><td><span class='tag '>-</span></td></tr><tr><td><strong>CODEFINDER</strong></td><td>83</td><td>80</td><td>340</td><td>498</td><td><span class='tag '>-</span></td></tr><tr><td><strong>In the beginning</strong></td><td>137</td><td>132</td><td>496</td><td>822</td><td><span class='tag '>-</span></td></tr><tr><td><strong>Fra Rosicrosse</strong></td><td>165</td><td>157</td><td>495</td><td>990</td><td><span class='tag tag-success'>⭐ Yes</span></td></tr></tbody></table></div>
+        <div class="section">
+            <h2>🔍 2. ELS Analyzer</h2>
+            <p>Searched 304,805 characters for hidden patterns.</p>
+            <p><span class="tag tag-success">0 matches</span> <span class="tag tag-info">2,096,189 chars/sec</span></p>
+            <table><thead><tr><th>Term</th><th>Skip</th><th>Direction</th></tr></thead><tbody>
+</tbody></table></div>
+        <div class="section">
+            <h2>🧩 3. Cipher Detection</h2>
+            <p>Analyzed 4 samples.</p>
+            <table><thead><tr><th>Sample</th><th>Type</th><th>Confidence</th><th>Decoded</th></tr></thead><tbody>
+<tr><td>Caesar Cipher (Shift 3)</td><td>caesar</td><td><span class='tag tag-success'>78%</span></td><td>THISISASECRETMESSAGE...</td></tr><tr><td>Atbash Cipher</td><td>atbash</td><td><span class='tag tag-success'>86%</span></td><td>THISISASECRET...</td></tr><tr><td>ROT13 Cipher</td><td>caesar</td><td><span class='tag tag-success'>78%</span></td><td>THISISASECRETMESSAGE...</td></tr><tr><td>Plain English</td><td colspan='3'><em>Plaintext</em></td></tr></tbody></table></div>
+        <div class="section">
+            <h2>📐 4. Geometric Analyzer</h2>
+            <p>66 patterns in 7 positions (0.04ms)</p>
+            <div class="code">{
+  "triangle": 31,
+  "rectangle": 35
+}</div>
+        </div>
+
+        <div class="section">
+            <h2>🌍 5. BardCode Analyzer</h2>
+            <div class="code">{
+  "vesica_piscis": true,
+  "pythagorean_patterns": 1
+}</div>
+        </div>
+        
+        <div class="section">
+            <h2>💡 Recommendations</h2>
+            <table><thead><tr><th>Feature</th><th>Status</th><th>Next Steps</th></tr></thead>
+            <tbody>
+            <tr><td>Gematria</td><td><span class="tag tag-success">Excellent</span></td><td>Add Kabbalah number patterns</td></tr>
+            <tr><td>ELS</td><td><span class="tag tag-success">Excellent</span></td><td>Add matrix visualization</td></tr>
+            <tr><td>Cipher</td><td><span class="tag tag-success">Good</span></td><td>Add Vigenère detection</td></tr>
+            <tr><td>Geometric</td><td><span class="tag tag-info">Good</span></td><td>Test with real OCR data</td></tr>
+            <tr><td>BardCode</td><td><span class="tag tag-success">Good</span></td><td>Add more coordinate systems</td></tr>
+            </tbody></table>
+        </div>
+        
+        <div class="footer">
+            <p>CODEFINDER v1.0 • Feature Demonstration Report</p>
+            <p style="font-size: 0.8rem;">Built for historical text researchers</p>
+        </div>
+    </div>
+</body>
+</html>

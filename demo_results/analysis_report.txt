@@ -1,0 +1,46 @@
+======================================================================
+CODEFINDER ANALYSIS REPORT
+======================================================================
+
+Source: Sample: Sonnets Dedication + Sonnet 1
+Analyzed: 2026-01-14T10:57:56.766448
+
+──────────────────────────────────────────────────────────────────────
+KEY FINDINGS
+──────────────────────────────────────────────────────────────────────
+• GEMATRIA: 'FORTH' = 67 (Francis (Simple))
+• GEMATRIA: 'SONNETS' = 100 (Francis Bacon (Simple))
+• GEMATRIA: 'the' = 33 (Bacon (Simple FB initials))
+• GEMATRIA: 'cruell' = 67 (Francis (Simple))
+• GEMATRIA: 'the' = 33 (Bacon (Simple FB initials))
+• GEMATRIA: 'ornament' = 100 (Francis Bacon (Simple))
+• GEMATRIA: 'the' = 33 (Bacon (Simple FB initials))
+• GEMATRIA: 'the' = 33 (Bacon (Simple FB initials))
+• GEMATRIA: 'world' = 67 (Francis (Simple))
+• GEMATRIA: 'the' = 33 (Bacon (Simple FB initials))
+• GEMATRIA: 'the' = 33 (Bacon (Simple FB initials))
+• ELS: 4 sequences found for terms: POET, ROSE
+
+──────────────────────────────────────────────────────────────────────
+RESEARCHER INTERPRETATION
+──────────────────────────────────────────────────────────────────────
+
+The findings above should be interpreted in context:
+
+1. GEMATRIA values matching "sacred numbers" may indicate intentional
+   encoding, especially in Renaissance-era texts where such practices
+   were common among Rosicrucians and Freemasons.
+
+2. ACROSTIC/TELESTICH patterns spelling meaningful words suggest
+   deliberate hidden messages embedded by the author.
+
+3. ELS (Equidistant Letter Sequences) at low skip values (2-10) are
+   more statistically significant than those at higher intervals.
+
+4. Structural features like 17-divisibility are associated with
+   Francis Bacon, who used 17 as a signature number.
+
+For definitive conclusions, cross-reference findings with:
+- Other pages/documents
+- Historical context
+- Multiple cipher systems

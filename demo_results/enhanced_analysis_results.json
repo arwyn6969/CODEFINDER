@@ -1,0 +1,593 @@
+{
+  "source": "Shakespeare Sonnets Dedication + Sonnet 1",
+  "timestamp": "2026-01-14T11:03:28.804170",
+  "text_length": 661,
+  "gematria": {
+    "total_words": 124,
+    "significant_findings": [
+      {
+        "word": "SONNETS",
+        "value": 100,
+        "meaning": "Francis Bacon (Simple)",
+        "p_value": 0.08,
+        "significance": "NOTABLE",
+        "stars": "\u25cb"
+      },
+      {
+        "word": "cruell",
+        "value": 67,
+        "meaning": "Francis (Simple)",
+        "p_value": 0.08,
+        "significance": "NOTABLE",
+        "stars": "\u25cb"
+      },
+      {
+        "word": "world",
+        "value": 67,
+        "meaning": "Francis (Simple)",
+        "p_value": 0.08,
+        "significance": "NOTABLE",
+        "stars": "\u25cb"
+      }
+    ],
+    "all_words": [
+      {
+        "word": "TOTHEONLIEBEGETTEROF",
+        "value": 216
+      },
+      {
+        "word": "THESEINSVINGSONNETS",
+        "value": 244
+      },
+      {
+        "word": "MrWH",
+        "value": 58
+      },
+      {
+        "word": "ALLHAPPINESSE",
+        "value": 130
+      },
+      {
+        "word": "ANDTHATETERNITIE",
+        "value": 166
+      },
+      {
+        "word": "PROMISED",
+        "value": 94
+      },
+      {
+        "word": "OVREVERLIVINGPOET",
+        "value": 220
+      },
+      {
+        "word": "WISHETH",
+        "value": 88
+      },
+      {
+        "word": "THEWELLWISHING",
+        "value": 165
+      },
+      {
+        "word": "ADVENTVRERIN",
+        "value": 143
+      },
+      {
+        "word": "SETTING",
+        "value": 90
+      },
+      {
+        "word": "FORTH",
+        "value": 64
+      },
+      {
+        "word": "SHAKESPEARES",
+        "value": 121
+      },
+      {
+        "word": "SONNETS",
+        "value": 100
+      },
+      {
+        "word": "From",
+        "value": 49
+      },
+      {
+        "word": "fairest",
+        "value": 75
+      },
+      {
+        "word": "creatures",
+        "value": 105
+      },
+      {
+        "word": "desire",
+        "value": 58
+      },
+      {
+        "word": "increase",
+        "value": 71
+      },
+      {
+        "word": "That",
+        "value": 47
+      },
+      {
+        "word": "thereby",
+        "value": 79
+      },
+      {
+        "word": "beauties",
+        "value": 79
+      },
+      {
+        "word": "Rose",
+        "value": 54
+      },
+      {
+        "word": "might",
+        "value": 55
+      },
+      {
+        "word": "never",
+        "value": 60
+      },
+      {
+        "word": "die",
+        "value": 18
+      },
+      {
+        "word": "But",
+        "value": 41
+      },
+      {
+        "word": "the",
+        "value": 32
+      },
+      {
+        "word": "riper",
+        "value": 63
+      },
+      {
+        "word": "should",
+        "value": 75
+      },
+      {
+        "word": "time",
+        "value": 45
+      },
+      {
+        "word": "decease",
+        "value": 41
+      },
+      {
+        "word": "His",
+        "value": 35
+      },
+      {
+        "word": "tender",
+        "value": 63
+      },
+      {
+        "word": "heire",
+        "value": 44
+      },
+      {
+        "word": "might",
+        "value": 55
+      },
+      {
+        "word": "beare",
+        "value": 30
+      },
+      {
+        "word": "his",
+        "value": 35
+      },
+      {
+        "word": "memory",
+        "value": 83
+      },
+      {
+        "word": "But",
+        "value": 41
+      },
+      {
+        "word": "thou",
+        "value": 61
+      },
+      {
+        "word": "contracted",
+        "value": 98
+      },
+      {
+        "word": "thine",
+        "value": 54
+      },
+      {
+        "word": "owne",
+        "value": 53
+      },
+      {
+        "word": "bright",
+        "value": 62
+      },
+      {
+        "word": "eyes",
+        "value": 51
+      },
+      {
+        "word": "Feedst",
+        "value": 57
+      },
+      {
+        "word": "thy",
+        "value": 50
+      },
+      {
+        "word": "lights",
+        "value": 72
+      },
+      {
+        "word": "flame",
+        "value": 35
+      },
+      {
+        "word": "with",
+        "value": 57
+      },
+      {
+        "word": "selfe",
+        "value": 45
+      },
+      {
+        "word": "substantiall",
+        "value": 142
+      },
+      {
+        "word": "fewell",
+        "value": 59
+      },
+      {
+        "word": "Making",
+        "value": 52
+      },
+      {
+        "word": "famine",
+        "value": 46
+      },
+      {
+        "word": "where",
+        "value": 56
+      },
+      {
+        "word": "aboundance",
+        "value": 76
+      },
+      {
+        "word": "lies",
+        "value": 43
+      },
+      {
+        "word": "Thy",
+        "value": 50
+      },
+      {
+        "word": "selfe",
+        "value": 45
+      },
+      {
+        "word": "thy",
+        "value": 50
+      },
+      {
+        "word": "foe",
+        "value": 25
+      },
+      {
+        "word": "thy",
+        "value": 50
+      },
+      {
+        "word": "sweet",
+        "value": 68
+      },
+      {
+        "word": "selfe",
+        "value": 45
+      },
+      {
+        "word": "too",
+        "value": 47
+      },
+      {
+        "word": "cruell",
+        "value": 67
+      },
+      {
+        "word": "Thou",
+        "value": 61
+      },
+      {
+        "word": "that",
+        "value": 47
+      },
+      {
+        "word": "art",
+        "value": 37
+      },
+      {
+        "word": "now",
+        "value": 48
+      },
+      {
+        "word": "the",
+        "value": 32
+      },
+      {
+        "word": "worlds",
+        "value": 85
+      },
+      {
+        "word": "fresh",
+        "value": 54
+      },
+      {
+        "word": "ornament",
+        "value": 94
+      },
+      {
+        "word": "And",
+        "value": 18
+      },
+      {
+        "word": "only",
+        "value": 61
+      },
+      {
+        "word": "herauld",
+        "value": 66
+      },
+      {
+        "word": "the",
+        "value": 32
+      },
+      {
+        "word": "gaudy",
+        "value": 55
+      },
+      {
+        "word": "spring",
+        "value": 79
+      },
+      {
+        "word": "Within",
+        "value": 79
+      },
+      {
+        "word": "thine",
+        "value": 54
+      },
+      {
+        "word": "owne",
+        "value": 53
+      },
+      {
+        "word": "bud",
+        "value": 26
+      },
+      {
+        "word": "buriest",
+        "value": 90
+      },
+      {
+        "word": "thy",
+        "value": 50
+      },
+      {
+        "word": "content",
+        "value": 86
+      },
+      {
+        "word": "And",
+        "value": 18
+      },
+      {
+        "word": "tender",
+        "value": 63
+      },
+      {
+        "word": "chorle",
+        "value": 58
+      },
+      {
+        "word": "makst",
+        "value": 60
+      },
+      {
+        "word": "wast",
+        "value": 59
+      },
+      {
+        "word": "niggarding",
+        "value": 87
+      },
+      {
+        "word": "Pitty",
+        "value": 85
+      },
+      {
+        "word": "the",
+        "value": 32
+      },
+      {
+        "word": "world",
+        "value": 67
+      },
+      {
+        "word": "else",
+        "value": 39
+      },
+      {
+        "word": "this",
+        "value": 54
+      },
+      {
+        "word": "glutton",
+        "value": 103
+      },
+      {
+        "word": "eate",
+        "value": 30
+      },
+      {
+        "word": "the",
+        "value": 32
+      },
+      {
+        "word": "worlds",
+        "value": 85
+      },
+      {
+        "word": "due",
+        "value": 29
+      },
+      {
+        "word": "the",
+        "value": 32
+      },
+      {
+        "word": "grave",
+        "value": 50
+      },
+      {
+        "word": "and",
+        "value": 18
+      },
+      {
+        "word": "thee",
+        "value": 37
+      }
+    ]
+  },
+  "els": {
+    "text_length": 661,
+    "terms_searched": [
+      "BACON",
+      "SHAKE",
+      "SPEAR",
+      "WILL",
+      "POET",
+      "AUTHOR",
+      "HIDDEN",
+      "SECRET",
+      "CIPHER",
+      "CODE",
+      "VERSE",
+      "SONNET",
+      "LOVE",
+      "ROSE",
+      "BEAUTY"
+    ],
+    "matches_found": 3,
+    "matches": [
+      {
+        "term": "POET",
+        "skip": 9,
+        "start": 594,
+        "direction": "forward",
+        "significance": {
+          "term": "POET",
+          "skip": 9,
+          "text_length": 661,
+          "expected_occurrences": 0.010007,
+          "found_count": 1,
+          "p_value": 0.009957,
+          "significance": "VERY SIGNIFICANT (p < 0.01)",
+          "stars": "\u2605\u2605"
+        }
+      },
+      {
+        "term": "ROSE",
+        "skip": 29,
+        "start": 281,
+        "direction": "forward",
+        "significance": {
+          "term": "ROSE",
+          "skip": 29,
+          "text_length": 661,
+          "expected_occurrences": 0.019647,
+          "found_count": 1,
+          "p_value": 0.019455,
+          "significance": "SIGNIFICANT (p < 0.05)",
+          "stars": "\u2605"
+        }
+      },
+      {
+        "term": "ROSE",
+        "skip": 11,
+        "start": 129,
+        "direction": "forward",
+        "significance": {
+          "term": "ROSE",
+          "skip": 11,
+          "text_length": 661,
+          "expected_occurrences": 0.021495,
+          "found_count": 1,
+          "p_value": 0.021265,
+          "significance": "SIGNIFICANT (p < 0.05)",
+          "stars": "\u2605"
+        }
+      }
+    ],
+    "most_significant": [
+      {
+        "term": "POET",
+        "skip": 9,
+        "start": 594,
+        "direction": "forward",
+        "significance": {
+          "term": "POET",
+          "skip": 9,
+          "text_length": 661,
+          "expected_occurrences": 0.010007,
+          "found_count": 1,
+          "p_value": 0.009957,
+          "significance": "VERY SIGNIFICANT (p < 0.01)",
+          "stars": "\u2605\u2605"
+        }
+      },
+      {
+        "term": "ROSE",
+        "skip": 29,
+        "start": 281,
+        "direction": "forward",
+        "significance": {
+          "term": "ROSE",
+          "skip": 29,
+          "text_length": 661,
+          "expected_occurrences": 0.019647,
+          "found_count": 1,
+          "p_value": 0.019455,
+          "significance": "SIGNIFICANT (p < 0.05)",
+          "stars": "\u2605"
+        }
+      },
+      {
+        "term": "ROSE",
+        "skip": 11,
+        "start": 129,
+        "direction": "forward",
+        "significance": {
+          "term": "ROSE",
+          "skip": 11,
+          "text_length": 661,
+          "expected_occurrences": 0.021495,
+          "found_count": 1,
+          "p_value": 0.021265,
+          "significance": "SIGNIFICANT (p < 0.05)",
+          "stars": "\u2605"
+        }
+      }
+    ]
+  }
+}
