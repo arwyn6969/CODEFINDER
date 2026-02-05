@@ -207,10 +207,13 @@ class TestFullScanIntegration:
 
 | Criterion | Target | Current |
 |-----------|--------|---------|
-| Total tests passing | 100% | 620/620 (to be verified) |
+| Total tests collected | 620 | 620 ✅ |
 | No collection errors | 0 | 0 ✅ |
+| Tests passing | 100% | 551/620 (89%) ⚠️ |
 | Print block scanner tests | ≥20 | 0 ⚠️ |
 | Coverage for scanner | ≥80% | 0% ⚠️ |
+
+**Note**: Some tests fail due to starlette/httpx version incompatibility in the local environment (see Section 5.3).
 
 ---
 
@@ -226,7 +229,17 @@ class TestFullScanIntegration:
 - `digital_type_case_builder.py` - 0% test coverage
 - `folio_comparison_engine.py` - 0% test coverage
 
-### 5.3 OCR Engine Abstraction
+### 5.3 Environment Dependency Issue
+**54 tests fail** due to starlette/httpx version incompatibility:
+```
+TypeError: __init__() got an unexpected keyword argument 'app'
+```
+This is a system-level package conflict, not a code issue. To fix:
+```bash
+pip install --upgrade starlette httpx
+```
+
+### 5.4 OCR Engine Abstraction
 - New OCR interface in `app/services/ocr_interface.py` (untested)
 - Gemini engine in `app/services/gemini_engine.py` (untested)
 - Tesseract engine in `app/services/tesseract_engine.py` (untested)
