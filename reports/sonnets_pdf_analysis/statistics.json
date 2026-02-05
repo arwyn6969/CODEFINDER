@@ -1,0 +1,135 @@
+{
+  "scan_info": {
+    "source_file": "data/sources/archive/SONNETS_QUARTO_1609_NET.pdf",
+    "scan_date": "2026-02-05T15:24:47.440192",
+    "scanner_version": "1.0.0"
+  },
+  "statistics": {
+    "total_pages": 80,
+    "pages_scanned": 80,
+    "total_characters": 103660,
+    "unique_characters": 85,
+    "total_words": 28427,
+    "total_lines": 2844,
+    "total_blocks": 80,
+    "ligatures_found": 4019,
+    "long_s_count": 3100,
+    "anomalies_detected": 5698,
+    "scan_duration_seconds": 1353.7400391101837,
+    "average_confidence": 66.83887709820567,
+    "_confidence_sum": 6928518.0
+  },
+  "character_summary": {
+    "by_category": {
+      "uppercase": 5341,
+      "lowercase": 88109,
+      "punctuation": 5468,
+      "other": 664,
+      "long_s": 3100,
+      "digit": 939,
+      "special": 39
+    },
+    "top_20": [
+      {
+        "character": "e",
+        "count": 13657,
+        "category": "lowercase"
+      },
+      {
+        "character": "t",
+        "count": 8217,
+        "category": "lowercase"
+      },
+      {
+        "character": "o",
+        "count": 6837,
+        "category": "lowercase"
+      },
+      {
+        "character": "i",
+        "count": 6618,
+        "category": "lowercase"
+      },
+      {
+        "character": "a",
+        "count": 6517,
+        "category": "lowercase"
+      },
+      {
+        "character": "h",
+        "count": 6049,
+        "category": "lowercase"
+      },
+      {
+        "character": "n",
+        "count": 5556,
+        "category": "lowercase"
+      },
+      {
+        "character": "r",
+        "count": 5168,
+        "category": "lowercase"
+      },
+      {
+        "character": "l",
+        "count": 3877,
+        "category": "lowercase"
+      },
+      {
+        "character": "d",
+        "count": 3410,
+        "category": "lowercase"
+      },
+      {
+        "character": "u",
+        "count": 3345,
+        "category": "lowercase"
+      },
+      {
+        "character": "\u017f",
+        "count": 3100,
+        "category": "long_s"
+      },
+      {
+        "character": "s",
+        "count": 2768,
+        "category": "lowercase"
+      },
+      {
+        "character": "m",
+        "count": 2398,
+        "category": "lowercase"
+      },
+      {
+        "character": ",",
+        "count": 2324,
+        "category": "punctuation"
+      },
+      {
+        "character": "y",
+        "count": 2295,
+        "category": "lowercase"
+      },
+      {
+        "character": "w",
+        "count": 2009,
+        "category": "lowercase"
+      },
+      {
+        "character": "f",
+        "count": 1925,
+        "category": "lowercase"
+      },
+      {
+        "character": "c",
+        "count": 1785,
+        "category": "lowercase"
+      },
+      {
+        "character": "g",
+        "count": 1664,
+        "category": "lowercase"
+      }
+    ]
+  }
+}

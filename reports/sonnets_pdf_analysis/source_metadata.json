@@ -1,0 +1,20 @@
+{
+  "source": {
+    "name": "Wright Edition - 1609 Quarto",
+    "edition": "John Wright copy",
+    "catalog_id": "SONNETS_QUARTO_1609_WRIGHT",
+    "original_file": "SONNETS_QUARTO_1609_NET.pdf (archived)",
+    "type": "pdf",
+    "notes": "Scanned from legacy PDF. Original PDF deleted after OCR extraction."
+  },
+  "comparison": {
+    "compare_to": "Aspley Edition (folger_sonnets_1609)",
+    "comparison_purpose": "Cross-edition typographical analysis between Aspley and Wright copies to identify compositor differences and print variants"
+  },
+  "scan_results": {
+    "total_pages": 80,
+    "total_characters": 103660,
+    "average_confidence": 66.84,
+    "scan_date": "2026-02-05"
+  }
+}

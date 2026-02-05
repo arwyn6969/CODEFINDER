@@ -1,0 +1,52 @@
+{
+  "comparison_date": "2026-02-05T15:27:01.093260",
+  "source1": {
+    "name": "Aspley Edition (IIIF)",
+    "file": "data/sources/folger_sonnets_1609",
+    "total_pages": 53,
+    "total_characters": 64692,
+    "unique_characters": 84,
+    "average_confidence": 78.85525258146293,
+    "long_s_count": 1549,
+    "ligatures_found": 2812,
+    "anomalies_detected": 2356
+  },
+  "source2": {
+    "name": "Wright Edition (PDF)",
+    "file": "data/sources/archive/SONNETS_QUARTO_1609_NET.pdf",
+    "total_pages": 80,
+    "total_characters": 103660,
+    "unique_characters": 85,
+    "average_confidence": 66.83887709820567,
+    "long_s_count": 3100,
+    "ligatures_found": 4019,
+    "anomalies_detected": 5698
+  },
+  "deltas": {
+    "page_delta": 27,
+    "character_delta": 38968,
+    "word_delta": 12060,
+    "confidence_delta": -12.02,
+    "anomaly_delta": 3342
+  },
+  "unique_characters": {
+    "only_in_source1": [],
+    "only_in_source2": []
+  },
+  "top_character_deltas": [
+    {
+      "character": "",
+      "category": "unknown",
+      "source1_count": 0,
+      "source2_count": 0,
+      "delta": 0
+    }
+  ],
+  "notes": [
+    "Source 2 has 27 more pages than Source 1. This indicates different digitization approaches or source coverage.",
+    "Character density: Source 1 = 1220.6 chars/page, Source 2 = 1295.8 chars/page",
+    "Source 1 has significantly higher OCR confidence (Δ = 12.0%)",
+    "Long-s (ſ) count: Source 1 = 1549, Source 2 = 3100",
+    "Ligatures found: Source 1 = 2812, Source 2 = 4019"
+  ]
+}
