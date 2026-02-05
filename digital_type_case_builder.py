@@ -23,17 +23,6 @@ class DigitalTypeCaseBuilder:
     - No mark is considered 'noise'.
     - 'Outliers' are classified as 'Unique Variants'.
     """
-    def __init__(self, pdf_path, output_dir="reports/digital_type_case"):
-        self.doc = fitz.open(pdf_path)
-        self.output_dir = Path(output_dir)
-        if self.output_dir.exists():
-            shutil.rmtree(self.output_dir)
-        self.output_dir.mkdir(parents=True)
-        (self.output_dir / "images").mkdir()
-        
-        # Validation set (Strict 1609)
-        self.valid_chars = set('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789.,:;!?"\'()[]-&')
-        
     def __init__(self, pdf_path, output_dir="reports/digital_type_case", clean=True):
         self.doc = fitz.open(pdf_path)
         self.output_dir = Path(output_dir)
@@ -56,6 +45,58 @@ class DigitalTypeCaseBuilder:
         # Add ligatures if possible? Tesseract usually splits them or gives 'ae'.
         
         self.metadata = []
+        
+        # Standard size for normalized character blocks
+        self.target_size = (48, 64)  # width, height
+    
+    def normalize_character_block(self, crop: Image.Image) -> Image.Image:
+        """
+        Normalize a character crop to a standard size with centered placement.
+        
+        This ensures all character blocks have consistent dimensions for:
+        - Clean grid layouts in HTML reports
+        - Consistent visual comparison
+        - Better clustering results
+        
+        Args:
+            crop: PIL Image of the extracted character (variable size)
+            
+        Returns:
+            PIL Image of standardized size with character centered on white background
+        """
+        target_w, target_h = self.target_size
+        
+        # Create white background
+        normalized = Image.new('RGB', self.target_size, (255, 255, 255))
+        
+        # Get current dimensions
+        char_w, char_h = crop.size
+        
+        # Handle edge cases
+        if char_w <= 0 or char_h <= 0:
+            return normalized
+        
+        # Calculate scale to fit while preserving aspect ratio
+        # Use 85% to leave a margin around the character
+        scale = min(target_w / char_w, target_h / char_h) * 0.85
+        
+        new_w = max(1, int(char_w * scale))
+        new_h = max(1, int(char_h * scale))
+        
+        # Resize with high-quality resampling
+        try:
+            resized = crop.resize((new_w, new_h), Image.Resampling.LANCZOS)
+        except AttributeError:
+            # Fallback for older Pillow versions
+            resized = crop.resize((new_w, new_h), Image.LANCZOS)
+        
+        # Center on background
+        x_offset = (target_w - new_w) // 2
+        y_offset = (target_h - new_h) // 2
+        
+        normalized.paste(resized, (x_offset, y_offset))
+        
+        return normalized
 
     def scan_full_corpus(self):
         """Extract valid blocks from ALL pages."""
@@ -156,7 +197,9 @@ class DigitalTypeCaseBuilder:
                     fname = f"{safe_char}_{page_num+1}_{i}_{char_idx}.png"
                     save_path = char_dir / fname
                     
-                    crop.save(save_path)
+                    # Normalize to standard size before saving
+                    normalized_crop = self.normalize_character_block(crop)
+                    normalized_crop.save(save_path)
                     
                     blocks.append({
                         "char": char,
@@ -183,16 +226,149 @@ class DigitalTypeCaseBuilder:
         for b in self.metadata:
             char_groups[b['char']].append(b)
             
-        html = """<html><body><h1>Full Digital Type Case</h1>
-                  <style>
-                  .char-block { margin-bottom: 30px; border-bottom: 1px solid #444; padding-bottom: 20px; }
-                  .cluster { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
-                  .cluster-title { font-weight: bold; margin-top: 10px; color: #aaa; }
-                  img { height: 40px; border: 1px solid #333; }
-                  </style>"""
+        html = """<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Type Case - 1609 Shakespeare Sonnets</title>
+    <style>
+        :root {
+            --bg-dark: #1a1a2e;
+            --bg-card: #16213e;
+            --accent: #e94560;
+            --text: #eaeaea;
+            --text-muted: #888;
+            --border: #0f3460;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--accent), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        
+        h2 {
+            color: var(--accent);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .char-block {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            scroll-margin-top: 80px;
+        }
+        
+        /* Table of Contents */
+        #toc {
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--border);
+            z-index: 1000;
+        }
+        #toc h2 { margin: 0 0 0.5rem; font-size: 1rem; }
+        .toc-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            max-height: 120px;
+            overflow-y: auto;
+        }
+        .toc-grid a {
+            padding: 4px 8px;
+            background: var(--bg-card);
+            border-radius: 4px;
+            color: var(--text);
+            text-decoration: none;
+            font-family: monospace;
+        }
+        .toc-grid a:hover {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .cluster-title {
+            font-weight: bold;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .cluster {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 52px);
+            gap: 8px;
+            margin-top: 0.5rem;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        
+        .cluster img {
+            width: 48px;
+            height: 64px;
+            object-fit: contain;
+            background: white;
+            border: 1px solid #333;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .cluster img:hover {
+            transform: scale(2);
+            box-shadow: 0 4px 20px rgba(233, 69, 96, 0.5);
+            z-index: 100;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<h1>Full Digital Type Case</h1>
+<nav id="toc">
+    <h2>📑 Table of Contents</h2>
+    <div class="toc-grid"></div>
+</nav>"""
         
         # Sort characters for consistent report
         sorted_chars = sorted(char_groups.keys())
+        
+        # Build TOC entries
+        toc_entries = []
+        for char in sorted_chars:
+            group = char_groups[char]
+            if len(group) < 5: continue
+            safe_id = f"char-{ord(char)}"
+            display = char if char.isprintable() else f"U+{ord(char):04X}"
+            toc_entries.append(f"<a href='#{safe_id}'>{display} ({len(group)})</a>")
+        
+        # Insert TOC
+        toc_html = " • ".join(toc_entries)
+        html = html.replace('<div class="toc-grid"></div>', f'<div class="toc-grid">{toc_html}</div>')
         
         for char in sorted_chars:
             group = char_groups[char]
@@ -233,7 +409,8 @@ class DigitalTypeCaseBuilder:
                 labels = db.labels_
                 
                 # HTML
-                html += f"<div class='char-block'><h2>Character '{char}' ({len(group)} total)</h2>"
+                safe_id = f"char-{ord(char)}"
+                html += f"<div class='char-block' id='{safe_id}'><h2>Character '{char}' ({len(group)} total)</h2>"
                 
                 unique_labels = set(labels)
                 for label in sorted(unique_labels):
@@ -247,7 +424,7 @@ class DigitalTypeCaseBuilder:
                     for idx in indices[:15]: # Show 15 samples per cluster
                          item = subset[idx]
                          rel = Path(item['path']).relative_to(self.output_dir)
-                         html += f"<img src='{rel}' title='Pg {item['page']}'>"
+                         html += f"<img src='{rel}' title='Pg {item['page']}' loading='lazy'>"
                     html += "</div>"
                 html += "</div>"
                     
@@ -259,7 +436,8 @@ class DigitalTypeCaseBuilder:
             f.write(html)
 
 if __name__ == "__main__":
-    builder = DigitalTypeCaseBuilder("data/sources/SONNETS_QUARTO_1609_NET.pdf")
+    # Updated to use archived path - for IIIF images, consider using SonnetPrintBlockScanner
+    builder = DigitalTypeCaseBuilder("data/sources/archive/SONNETS_QUARTO_1609_NET.pdf")
     builder.scan_full_corpus()
     builder.cluster_and_report_full()
     import json

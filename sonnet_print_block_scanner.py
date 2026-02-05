@@ -49,6 +49,14 @@ except ImportError:
     TESSERACT_AVAILABLE = False
     print("Warning: pytesseract not available. Using PyMuPDF text extraction only.")
 
+# Optional: New OCR engine abstraction
+try:
+    from app.services.ocr_factory import get_ocr_engine, list_available_engines
+    from app.services.ocr_interface import OCRPageResult
+    OCR_ENGINES_AVAILABLE = True
+except ImportError:
+    OCR_ENGINES_AVAILABLE = False
+
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
@@ -126,6 +134,7 @@ class ScanStatistics:
     anomalies_detected: int = 0
     scan_duration_seconds: float = 0.0
     average_confidence: float = 0.0
+    _confidence_sum: float = 0.0  # Internal accumulator for calculating average
 
 
 # ============================================================================
@@ -154,17 +163,44 @@ class SonnetPrintBlockScanner:
         'special': {LONG_S, '&', '§', '¶', '†', '‡', '*', '/', '\\'},
     }
     
-    def __init__(self, pdf_path: str, output_dir: str = None):
+    def __init__(self, source_path: str, output_dir: str = None, ocr_engine=None):
         """
-        Initialize scanner with PDF path.
+        Initialize scanner with source path.
         
         Args:
-            pdf_path: Path to the 1609 Sonnets PDF
+            source_path: Path to PDF file OR directory of IIIF images
             output_dir: Directory for output (default: reports/sonnet_print_block_analysis)
+            ocr_engine: Optional OCR engine instance (from app.services.ocr_factory)
         """
-        self.pdf_path = Path(pdf_path)
-        if not self.pdf_path.exists():
-            raise FileNotFoundError(f"PDF not found: {pdf_path}")
+        self.ocr_engine = ocr_engine  # May be None for legacy mode
+        self.source_path = Path(source_path)
+        
+        # Detect source type
+        if self.source_path.is_dir():
+            self.source_type = "iiif_images"
+            # Find image files in directory
+            self.image_files = sorted(
+                list(self.source_path.glob("*.jpg")) +
+                list(self.source_path.glob("*.png")) +
+                list(self.source_path.glob("*.tif")) +
+                list(self.source_path.glob("*.tiff"))
+            )
+            if not self.image_files:
+                raise FileNotFoundError(f"No image files found in: {source_path}")
+            self.doc = None
+            logger.info(f"Source type: IIIF images ({len(self.image_files)} files)")
+        elif self.source_path.suffix.lower() == '.pdf':
+            self.source_type = "pdf"
+            if not self.source_path.exists():
+                raise FileNotFoundError(f"PDF not found: {source_path}")
+            self.doc = fitz.open(str(self.source_path))
+            self.image_files = None
+            logger.info(f"Source type: PDF")
+        else:
+            raise ValueError(f"Unsupported source type: {source_path}")
+        
+        # For backwards compatibility
+        self.pdf_path = self.source_path
         
         # Setup output directory
         if output_dir:
@@ -180,11 +216,13 @@ class SonnetPrintBlockScanner:
         self.anomalies: List[AnomalyEntry] = []
         self.statistics = ScanStatistics()
         
-        # Open PDF
-        self.doc = fitz.open(str(self.pdf_path))
-        self.statistics.total_pages = len(self.doc)
+        # Set total pages based on source type
+        if self.source_type == "pdf":
+            self.statistics.total_pages = len(self.doc)
+        else:
+            self.statistics.total_pages = len(self.image_files)
         
-        logger.info(f"Initialized scanner for: {self.pdf_path.name}")
+        logger.info(f"Initialized scanner for: {self.source_path.name}")
         logger.info(f"Total pages: {self.statistics.total_pages}")
         logger.info(f"Output directory: {self.output_dir}")
     
@@ -205,6 +243,176 @@ class SonnetPrintBlockScanner:
         ]
         for d in dirs:
             d.mkdir(parents=True, exist_ok=True)
+    
+    def _scan_page_with_engine(self, page_image: Image.Image, page_num: int, 
+                                save_images: bool, scale: int) -> List[CharacterInstance]:
+        """
+        Scan a page using the new OCR engine abstraction.
+        
+        This method is called when self.ocr_engine is set (non-legacy mode).
+        It uses Gemini or the new Tesseract wrapper for better Long-s and ligature detection.
+        
+        Args:
+            page_image: PIL Image of the page
+            page_num: 0-indexed page number
+            save_images: Whether to save character images
+            scale: Scale factor for coordinate conversion
+            
+        Returns:
+            List of CharacterInstance objects
+        """
+        instances = []
+        
+        try:
+            # Run OCR with the new engine
+            result = self.ocr_engine.analyze_page(page_image, page_number=page_num + 1)
+            
+            # Log the results
+            engine_name = result.engine_name
+            confidence = result.average_confidence
+            long_s = result.long_s_count
+            ligatures = result.total_ligatures
+            
+            logger.info(f"  Page {page_num + 1}: {len(result.text)} chars, "
+                       f"conf={confidence:.1f}%, Long-s={long_s}, Ligatures={ligatures}")
+            
+            # For VLM engines, use Long-s count directly from result
+            if long_s > 0:
+                self.statistics.long_s_count += long_s
+            
+            # Handle character-level data if available (Tesseract engine)
+            if result.has_character_boxes:
+                for ocr_char in result.characters:
+                    char = ocr_char.character
+                    
+                    # Skip whitespace
+                    if char.isspace():
+                        continue
+                    
+                    # Create CharacterInstance
+                    instance = CharacterInstance(
+                        character=char,
+                        page_number=page_num + 1,
+                        x=ocr_char.x / scale,
+                        y=ocr_char.y / scale,
+                        width=ocr_char.width / scale,
+                        height=ocr_char.height / scale,
+                        confidence=ocr_char.confidence,
+                        block_id=ocr_char.block_id,
+                        line_id=ocr_char.line_id,
+                        word_id=ocr_char.word_id,
+                        is_long_s=ocr_char.is_long_s,
+                        is_ligature=ocr_char.is_ligature,
+                    )
+                    
+                    instances.append(instance)
+                    self.statistics.total_characters += 1
+                    
+                    # Track Long-s
+                    if ocr_char.is_long_s or char == self.LONG_S:
+                        instance.is_long_s = True
+                        self.statistics.long_s_count += 1
+                    
+                    # Track ligatures
+                    if ocr_char.is_ligature:
+                        self.statistics.ligatures_found += 1
+                    
+                    # Track confidence
+                    self.statistics._confidence_sum += ocr_char.confidence
+                    
+                    # Update catalogue
+                    self._update_catalogue(instance)
+            
+            else:
+                # VLM engines (Gemini) don't provide character boxes
+                # Extract characters from text and update statistics
+                for char in result.text:
+                    if char.isspace():
+                        continue
+                    
+                    # Create basic instance (no positional data)
+                    instance = CharacterInstance(
+                        character=char,
+                        page_number=page_num + 1,
+                        x=0, y=0, width=0, height=0,
+                        confidence=confidence,
+                        is_long_s=(char == self.LONG_S),
+                    )
+                    
+                    instances.append(instance)
+                    self.statistics.total_characters += 1
+                    
+                    if char == self.LONG_S:
+                        self.statistics.long_s_count += 1
+                    
+                    # Track confidence (same for all chars on this page)
+                    self.statistics._confidence_sum += confidence
+                    
+                    # Update catalogue (without image saving for VLM)
+                    self._update_catalogue(instance)
+                
+                # Update ligature count from engine result
+                self.statistics.ligatures_found += result.total_ligatures
+            
+            self.statistics.pages_scanned += 1
+            return instances
+            
+        except Exception as e:
+            logger.error(f"OCR engine failed on page {page_num + 1}: {e}")
+            self.statistics.pages_scanned += 1
+            return instances
+    
+    # Standard size for normalized character blocks
+    TARGET_SIZE = (48, 64)  # width, height
+    
+    def normalize_character_block(self, crop: Image.Image) -> Image.Image:
+        """
+        Normalize a character crop to a standard size with centered placement.
+        
+        This ensures all character blocks have consistent dimensions for:
+        - Clean grid layouts in HTML reports
+        - Consistent visual comparison
+        - Better clustering results
+        
+        Args:
+            crop: PIL Image of the extracted character (variable size)
+            
+        Returns:
+            PIL Image of standardized size with character centered on white background
+        """
+        target_w, target_h = self.TARGET_SIZE
+        
+        # Create white background
+        normalized = Image.new('RGB', self.TARGET_SIZE, (255, 255, 255))
+        
+        # Get current dimensions
+        char_w, char_h = crop.size
+        
+        # Handle edge cases
+        if char_w <= 0 or char_h <= 0:
+            return normalized
+        
+        # Calculate scale to fit while preserving aspect ratio
+        # Use 85% to leave a margin around the character
+        scale = min(target_w / char_w, target_h / char_h) * 0.85
+        
+        new_w = max(1, int(char_w * scale))
+        new_h = max(1, int(char_h * scale))
+        
+        # Resize with high-quality resampling
+        try:
+            resized = crop.resize((new_w, new_h), Image.Resampling.LANCZOS)
+        except AttributeError:
+            # Fallback for older Pillow versions
+            resized = crop.resize((new_w, new_h), Image.LANCZOS)
+        
+        # Center on background
+        x_offset = (target_w - new_w) // 2
+        y_offset = (target_h - new_h) // 2
+        
+        normalized.paste(resized, (x_offset, y_offset))
+        
+        return normalized
     
     def _get_character_category(self, char: str) -> str:
         """Determine category for a character."""
@@ -238,23 +446,40 @@ class SonnetPrintBlockScanner:
         Returns:
             List of CharacterInstance objects
         """
-        page = self.doc[page_num]
         instances = []
         
         logger.info(f"Scanning page {page_num + 1}/{self.statistics.total_pages}...")
         
         # Get page as high-resolution image for OCR
-        # Use 3x zoom for better OCR accuracy on historical text
-        mat = fitz.Matrix(3, 3)
-        pix = page.get_pixmap(matrix=mat)
-        page_image = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+        if self.source_type == "pdf":
+            # PDF source: use PyMuPDF with 3x zoom
+            page = self.doc[page_num]
+            mat = fitz.Matrix(3, 3)
+            pix = page.get_pixmap(matrix=mat)
+            page_image = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+            page_width = page.rect.width
+            page_height = page.rect.height
+            # Scale factor is 3 for PDF
+            scale = 3
+        else:
+            # IIIF image source: load image directly
+            image_path = self.image_files[page_num]
+            page_image = Image.open(image_path).convert("RGB")
+            page_width = page_image.width
+            page_height = page_image.height
+            # No additional scaling needed - images are already high-res
+            scale = 1
         
         # Save full page image
         if save_images:
             page_img_path = self.output_dir / "page_images" / f"page_{page_num + 1:03d}.png"
             page_image.save(page_img_path, optimize=True)
         
-        # Use Tesseract OCR to extract character-level data
+        # Use new OCR engine if available
+        if self.ocr_engine is not None:
+            return self._scan_page_with_engine(page_image, page_num, save_images, scale)
+        
+        # Legacy: Use Tesseract OCR directly
         if not TESSERACT_AVAILABLE:
             logger.warning("Tesseract not available - skipping OCR")
             self.statistics.pages_scanned += 1
@@ -281,10 +506,21 @@ class SonnetPrintBlockScanner:
             
             for i in range(n_boxes):
                 text = ocr_data['text'][i]
-                conf = int(ocr_data['conf'][i]) if ocr_data['conf'][i] != '-1' else 0
+                # Fix confidence handling - convert to float and handle -1 (non-text blocks)
+                raw_conf = ocr_data['conf'][i]
+                if raw_conf == '-1' or raw_conf == -1:
+                    conf = 0.0
+                else:
+                    conf = float(raw_conf)
                 
                 # Skip empty results
                 if not text or text.isspace():
+                    continue
+                
+                # Phase 1 OCR Quality: Skip low-confidence detections
+                # These are typically artifacts from decorative elements, borders, or noise
+                MIN_CONFIDENCE = 40  # Reject detections below 40%
+                if conf < MIN_CONFIDENCE:
                     continue
                 
                 # Track blocks and lines
@@ -328,7 +564,7 @@ class SonnetPrintBlockScanner:
                         if not self._is_valid_character(char):
                             is_anomaly = True
                             anomaly_type = "invalid_character_symbol"
-                        elif self._is_noise(char, char_x/3, char_y/3, char_width/3, h/3, page.rect.width, page.rect.height):
+                        elif self._is_noise(char, char_x/scale, char_y/scale, char_width/scale, h/scale, page_width, page_height):
                             is_anomaly = True
                             anomaly_type = "suspicious_mark_or_noise"
                             
@@ -340,15 +576,15 @@ class SonnetPrintBlockScanner:
                             temp_inst = CharacterInstance(
                                 character=char,
                                 page_number=page_num + 1,
-                                x=char_x/3, y=char_y/3, width=char_width/3, height=h/3
+                                x=char_x/scale, y=char_y/scale, width=char_width/scale, height=h/scale
                             )
-                            # Custom save for anomalies
-                            img_path = self._save_anomaly_image(page_image, temp_inst, page_num, char)
+                            # Custom save for anomalies - pass scale for proper coordinates
+                            img_path = self._save_anomaly_image(page_image, temp_inst, page_num, char, scale=scale)
                             
                             self.anomalies.append(AnomalyEntry(
                                 anomaly_type=anomaly_type,
                                 page_number=page_num + 1,
-                                x=char_x/3, y=char_y/3, width=char_width/3, height=h/3,
+                                x=char_x/scale, y=char_y/scale, width=char_width/scale, height=h/scale,
                                 description=f"Suspicious print block identified as '{char}'",
                                 severity="high",  # User considers these cornerstone
                                 image_path=img_path,
@@ -361,7 +597,6 @@ class SonnetPrintBlockScanner:
                         is_long_s = False
                         if char == 'f':
                             # Crop for analysis
-                            scale = 3
                             x1 = int(char_x) - 1
                             y1 = int(char_y) - 1
                             x2 = int(char_x + char_width) + 1
@@ -391,10 +626,10 @@ class SonnetPrintBlockScanner:
                         instance = CharacterInstance(
                             character=char,
                             page_number=page_num + 1,
-                            x=char_x / 3,  # Convert back to original scale
-                            y=char_y / 3,
-                            width=char_width / 3,
-                            height=h / 3,
+                            x=char_x / scale,  # Convert back to original scale
+                            y=char_y / scale,
+                            width=char_width / scale,
+                            height=h / scale,
                             confidence=conf,
                             block_id=block_id,
                             line_id=line_id,
@@ -406,11 +641,12 @@ class SonnetPrintBlockScanner:
                         # Save character image samples
                         if save_images and self._should_save_image(char):
                             instance.image_path = self._save_character_image(
-                                page_image, instance, page_num, scale=3
+                                page_image, instance, page_num, scale=scale
                             )
                         
                         instances.append(instance)
                         self.statistics.total_characters += 1
+                        self.statistics._confidence_sum += conf  # Accumulate for average
                         
                         # Update catalogue
                         self._update_catalogue(instance)
@@ -524,20 +760,25 @@ class SonnetPrintBlockScanner:
     def _is_noise(self, char: str, x: float, y: float, w: float, h: float, page_w: float, page_h: float) -> bool:
         """
         Determine if a character is likely scanner noise/borders.
+        v2: Less aggressive filtering to reduce false positives.
         """
-        # ... existing checks ...
+        # Check 0: Minimum size threshold (micro-marks are noise)
+        if w < 2 or h < 3:
+            return True
         
-        # Check 1: Edge proximity (Margins)
-        # If char implies a vertical line and is at the edge
+        # Check 1: Edge proximity (Margins) - only for specific chars
+        # More forgiving: only flag if BOTH at edge AND very small
         if char in '|/\\lI1':
-            margin_threshold = 0.05 * page_w
+            margin_threshold = 0.03 * page_w  # Reduced from 5% to 3%
             if x < margin_threshold or x > (page_w - margin_threshold):
-                return True
+                # Only flag as noise if also small
+                if w < 8 and h < 15:
+                    return True
                 
         # Check 2: Aspect Ratio Extremes
-        # If it's a "flat" char like - or _ but very tall -> Noise
+        # Very tall and thin vertical lines are likely scanner artifacts
         ratio = h / w if w > 0 else 0
-        if ratio > 10: # Extremely tall and thin vertical line
+        if ratio > 15:  # Increased threshold from 10 to 15
              return True
              
         return False
@@ -603,7 +844,9 @@ class SonnetPrintBlockScanner:
         filepath = self.output_dir / "character_atlas" / subdir / filename
         
         try:
-            char_img.save(filepath)
+            # Normalize to standard size before saving
+            normalized = self.normalize_character_block(char_img)
+            normalized.save(filepath)
             return str(filepath)
         except Exception as e:
             logger.warning(f"Failed to save character image: {e}")
@@ -612,19 +855,36 @@ class SonnetPrintBlockScanner:
     def _save_anomaly_image(self, page_image: Image.Image, 
                            instance: CharacterInstance, 
                            page_num: int,
-                           char_label: str) -> str:
-        """Save image of an anomaly."""
-        scale = 3
+                           char_label: str,
+                           scale: int = 1) -> str:
+        """
+        Save image of an anomaly.
+        v2: Fixed to use dynamic scale and validate bounds before cropping.
+        """
+        # Calculate crop bounds
         x1 = int(instance.x * scale) - 2
         y1 = int(instance.y * scale) - 2
         x2 = int((instance.x + instance.width) * scale) + 2
         y2 = int((instance.y + instance.height) * scale) + 2
         
-        # Ensure bounds
+        # Validate bounds BEFORE clamping - detect micro-marks
+        if x2 <= x1 or y2 <= y1:
+            # This is likely a micro-mark or OCR error, skip silently
+            return None
+        
+        if instance.width < 2 or instance.height < 2:
+            # Too small to be meaningful
+            return None
+        
+        # Clamp to image bounds
         x1 = max(0, x1)
         y1 = max(0, y1)
         x2 = min(page_image.width, x2)
         y2 = min(page_image.height, y2)
+        
+        # Final validation after clamping
+        if x2 <= x1 or y2 <= y1:
+            return None
         
         try:
             crop = page_image.crop((x1, y1, x2, y2))
@@ -700,6 +960,12 @@ class SonnetPrintBlockScanner:
         # Finalize statistics
         self.statistics.scan_duration_seconds = time.time() - start_time
         self.statistics.unique_characters = len(self.character_catalogue)
+        
+        # Calculate average confidence from accumulated sum
+        if self.statistics.total_characters > 0:
+            self.statistics.average_confidence = (
+                self.statistics._confidence_sum / self.statistics.total_characters
+            )
         
         # Calculate average dimensions
         for entry in self.character_catalogue.values():
@@ -939,17 +1205,31 @@ class SonnetPrintBlockScanner:
         }}
         
         .sample-images {{
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 52px);
+            gap: 8px;
             margin-top: 1rem;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
         }}
         
         .sample-images img {{
-            height: 40px;
+            width: 48px;
+            height: 64px;
+            object-fit: contain;
             background: white;
             border-radius: 4px;
             padding: 2px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }}
+        
+        .sample-images img:hover {{
+            transform: scale(2);
+            box-shadow: 0 4px 20px rgba(233, 69, 96, 0.5);
+            z-index: 100;
+            position: relative;
         }}
         
         .category-badge {{
@@ -1042,7 +1322,7 @@ class SonnetPrintBlockScanner:
             for img_path in entry.sample_images[:5]:
                 rel_path = Path(img_path).relative_to(self.output_dir) if img_path else ""
                 if rel_path:
-                    sample_imgs += f'<img src="{rel_path}" alt="{char}" title="Sample from document">'
+                    sample_imgs += f'<img src="{rel_path}" alt="{char}" title="Sample from document" loading="lazy">'
             
             percentage = (entry.total_count / max(self.statistics.total_characters, 1)) * 100
             
@@ -1179,9 +1459,9 @@ def main():
         description="Exhaustive OCR scanner for 1609 Shakespeare Sonnets"
     )
     parser.add_argument(
-        "--pdf", 
-        default="data/sources/SONNETS_QUARTO_1609_NET.pdf",
-        help="Path to the Sonnets PDF"
+        "--source", 
+        default="data/sources/folger_sonnets_1609",
+        help="Path to source (PDF file or directory of IIIF images)"
     )
     parser.add_argument(
         "--pages",
@@ -1203,17 +1483,51 @@ def main():
         action="store_true",
         help="Test mode - scan first 3 pages only"
     )
+    parser.add_argument(
+        "--engine",
+        choices=["tesseract", "gemini", "auto", "legacy"],
+        default="legacy",
+        help="OCR engine: tesseract, gemini, auto (best available), or legacy (original)"
+    )
+    parser.add_argument(
+        "--api-key",
+        type=str,
+        default=None,
+        help="API key for Gemini (or set GEMINI_API_KEY env var)"
+    )
     
     args = parser.parse_args()
     
     print("=" * 60)
     print("🔍 SONNET PRINT BLOCK SCANNER")
     print("=" * 60)
-    print(f"Source: {args.pdf}")
+    print(f"Source: {args.source}")
+    
+    # Initialize OCR engine
+    ocr_engine = None
+    if args.engine != "legacy" and OCR_ENGINES_AVAILABLE:
+        try:
+            if args.api_key:
+                import os
+                os.environ["GEMINI_API_KEY"] = args.api_key
+            ocr_engine = get_ocr_engine(args.engine)
+            print(f"🤖 OCR Engine: {ocr_engine.name} (v{ocr_engine.version})")
+            if hasattr(ocr_engine, 'supports_long_s') and ocr_engine.supports_long_s:
+                print("   ✓ Long-s detection enabled")
+            if hasattr(ocr_engine, 'supports_ligatures') and ocr_engine.supports_ligatures:
+                print("   ✓ Ligature detection enabled")
+        except Exception as e:
+            print(f"⚠️  Engine '{args.engine}' not available: {e}")
+            print("   Falling back to legacy Tesseract")
+            ocr_engine = None
+    elif args.engine != "legacy":
+        print("⚠️  OCR engine abstraction not available, using legacy Tesseract")
+    else:
+        print("🔧 OCR Engine: legacy Tesseract")
     print()
     
     try:
-        scanner = SonnetPrintBlockScanner(args.pdf, args.output)
+        scanner = SonnetPrintBlockScanner(args.source, args.output, ocr_engine=ocr_engine)
         
         # Determine page range
         if args.test:
