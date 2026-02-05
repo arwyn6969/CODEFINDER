@@ -43,3 +43,18 @@ data/sources/*.pdf
 BIBLE OCR/
 pepe_monte_carlo_results.json
 scan_output.log
+
+# Large generated outputs (keep locally, not in repo)
+reports/digital_type_case/images/
+reports/sonnet_print_block_analysis/anomalies/
+reports/sonnet_print_block_analysis/page_images/
+reports/sonnet_print_block_analysis/character_atlas/
+reports/resolution_test/
+
+# Generated visualizations
+*.svg
+
+# Temporary and auto-generated
+temp/
+openapi.json
+*.db
