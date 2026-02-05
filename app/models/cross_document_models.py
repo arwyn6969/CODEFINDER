@@ -318,7 +318,7 @@ class SharedConstruction(Base):
         Index('idx_construction_type', 'construction_type'),
         Index('idx_construction_significance', 'significance_score'),
         Index('idx_construction_signature', 'construction_signature'),
-        Index('idx_construction_documents', 'document_ids'),  # GIN index for JSON array
+        # Index('idx_construction_documents', 'document_ids'),  # GIN index for JSON array - disabled for compatibility
     )
     
     def __repr__(self):

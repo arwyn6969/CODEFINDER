@@ -16,7 +16,9 @@ router = APIRouter()
 
 class PatternResponse(BaseModel):
     id: int
+    document_id: int
     pattern_type: str
+    pattern_name: Optional[str] = None
     description: str
     confidence: float
     page_number: int
@@ -24,6 +26,27 @@ class PatternResponse(BaseModel):
     
     class Config:
         from_attributes = True
+
+@router.get("/", response_model=List[PatternResponse])
+async def list_all_patterns(
+    skip: int = 0,
+    limit: int = 100,
+    pattern_type: Optional[str] = None,
+    min_confidence: float = 0.0,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_database)
+):
+    """List all patterns across the library"""
+    query = db.query(Pattern)
+    
+    if pattern_type:
+        query = query.filter(Pattern.pattern_type == pattern_type)
+        
+    if min_confidence > 0:
+        query = query.filter(Pattern.confidence >= min_confidence)
+        
+    patterns = query.offset(skip).limit(limit).all()
+    return [PatternResponse.from_orm(p) for p in patterns]
 
 @router.get("/{document_id}", response_model=List[PatternResponse])
 async def get_patterns(

@@ -39,6 +39,8 @@ from app.services.cipher_explanation_validator import CipherExplanationValidator
 from app.services.cross_reference_visualizer import CrossReferenceVisualizer
 from app.services.anomaly_detector import AnomalyDetector
 from app.services.pattern_significance_ranker import PatternSignificanceRanker
+from app.services.gematria_engine import GematriaEngine
+from app.services.els_analyzer import ELSAnalyzer
 
 
 class ProcessingStage(Enum):
@@ -51,6 +53,8 @@ class ProcessingStage(Enum):
     GRID_GENERATION = "grid_generation"
     GEOMETRIC_ANALYSIS = "geometric_analysis"
     ETYMOLOGY_ANALYSIS = "etymology_analysis"
+    GEMATRIA_ANALYSIS = "gematria_analysis"
+    ELS_ANALYSIS = "els_analysis"
     CIPHER_DETECTION = "cipher_detection"
     BARDCODE_ANALYSIS = "bardcode_analysis"
     RELATIONSHIP_ANALYSIS = "relationship_analysis"
@@ -130,6 +134,10 @@ class ProcessingConfiguration:
     # BardCode analysis settings
     enable_bardcode_analysis: bool = True
     bardcode_precision: float = 0.01
+
+    # New Research Engines
+    enable_gematria_analysis: bool = True
+    enable_els_analysis: bool = True
     
     # Cross-document analysis settings
     enable_cross_document_analysis: bool = True
@@ -215,6 +223,9 @@ class ProcessingPipeline:
                 self.pattern_ranker = PatternSignificanceRanker(self.db)
             except Exception:
                 self.pattern_ranker = PatternSignificanceRanker()
+
+            self.gematria_engine = GematriaEngine()
+            self.els_analyzer = ELSAnalyzer()
             
             self.logger.info("All analysis services initialized successfully")
             
@@ -332,6 +343,23 @@ class ProcessingPipeline:
                     pipeline_results['text_analysis'], document.id
                 )
                 pipeline_results['etymology_analysis'] = etymology_result.data
+            # Stage 7.5: Gematria Analysis
+            if self.config.enable_gematria_analysis:
+                gematria_result = await self._execute_stage(
+                    ProcessingStage.GEMATRIA_ANALYSIS,
+                    self._analyze_gematria,
+                    pipeline_results['text_analysis'], document.id
+                )
+                pipeline_results['gematria_analysis'] = gematria_result.data
+
+            # Stage 7.6: ELS Analysis
+            if self.config.enable_els_analysis:
+                els_result = await self._execute_stage(
+                    ProcessingStage.ELS_ANALYSIS,
+                    self._analyze_els,
+                    pipeline_results['text_analysis'], document.id
+                )
+                pipeline_results['els_analysis'] = els_result.data
             
             # Stage 8: Cipher Detection
             if self.config.enable_cipher_detection:
@@ -878,6 +906,106 @@ class ProcessingPipeline:
             self.logger.error(f"Cipher detection failed: {str(e)}")
             raise
     
+    async def _analyze_gematria(self, text_data: Dict[str, Any], document_id: int) -> Dict[str, Any]:
+        """Analyze text for Gematria values and persist significant patterns"""
+        try:
+            # 1. Analyze Document Title/Filename (Most relevant for Gematria)
+            document = self.db.query(Document).get(document_id)
+            target_text = document.filename
+            
+            # 2. Analyze first 100 chars (Incipit)
+            content = text_data.get('full_text', '') or (document.content if document else '')
+            incipit = content[:100] if content else ""
+            
+            results = {}
+            if target_text:
+                results['filename'] = self.gematria_engine.calculate_all(target_text)
+            if incipit:
+                results['incipit'] = self.gematria_engine.calculate_all(incipit)
+            
+            # 3. Detect "Interesting" Numbers (Baconian/Rosicrucian/Biblical)
+            INTERESTING_NUMBERS = {
+                33: "Bacon (Simple)",
+                67: "Francis (Simple)",
+                100: "Francis Bacon (Simple)",
+                157: "Fra Rosicrosse (Simple)",
+                287: "Fra Rosicrosse (Kay)",
+                888: "Jesus (Greek)"
+            }
+            
+            significant_patterns = []
+            
+            for source, data in results.items():
+                for cipher_name, val_data in data.items():
+                    score = val_data.get('score')
+                    if score in INTERESTING_NUMBERS:
+                        desc = INTERESTING_NUMBERS[score]
+                        
+                        # Create Pattern
+                        pattern = Pattern(
+                            document_id=document_id,
+                            pattern_type="gematria_match",
+                            pattern_name=f"Gematria: {score} ({cipher_name})",
+                            description=f"Significant Gematria value found in {source}: {score} ({desc})",
+                            confidence=1.0,
+                            severity=0.8,
+                            significance_score=0.8, # High significance
+                            pattern_data={
+                                "cipher": cipher_name,
+                                "score": score,
+                                "source": source,
+                                "meaning": desc
+                            }
+                        )
+                        self.db.add(pattern)
+                        significant_patterns.append(pattern)
+            
+            if significant_patterns:
+                self.db.commit()
+                self.logger.info(f"Persisted {len(significant_patterns)} Gematria patterns along with full results.")
+
+            return results
+        except Exception as e:
+            self.logger.error(f"Gematria analysis failed: {str(e)}")
+            # Don't fail the pipeline for this
+            return {'error': str(e)}
+
+    async def _analyze_els(self, text_data: Dict[str, Any], document_id: int) -> Dict[str, Any]:
+        """Analyze text for Equidistant Letter Sequences and persist matches"""
+        try:
+            document = self.db.query(Document).get(document_id)
+            text_content = text_data.get('full_text', '') or (document.content if document else '')
+            
+            if not text_content:
+                return {'error': 'No text content available'}
+                
+            # Default scan range (can be configured later)
+            results = self.els_analyzer.analyze_text(text_content, min_skip=2, max_skip=150)
+            
+            if results and 'matches' in results and results['matches']:
+                for match in results['matches']:
+                    # Create ELS Pattern
+                    pattern = Pattern(
+                        document_id=document_id,
+                        pattern_type="els_match",
+                        pattern_name=f"ELS: {match['term']}",
+                        description=f"ELS Found: {match['term']} at skip {match['skip']} ({match['direction']})",
+                        confidence=1.0,
+                        severity=0.5,
+                        significance_score=0.7,
+                        pattern_data=match
+                    )
+                    self.db.add(pattern)
+                
+                self.db.commit()
+                self.logger.info(f"Persisted {len(results['matches'])} ELS patterns.")
+                
+            return results
+        except Exception as e:
+            self.logger.error(f"ELS analysis failed: {str(e)}")
+            # Don't fail pipeline
+            return {'error': str(e)}
+
     async def _analyze_bardcode(self, text_data: Dict[str, Any], document_id: int) -> Dict[str, Any]:
         """Perform BardCode-style analysis"""
         try:

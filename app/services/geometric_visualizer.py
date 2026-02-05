@@ -1415,7 +1415,8 @@ class GeometricVisualizer:
                     'radians': a.angle_radians,
                     'type': a.angle_type,
                     'significance': a.significance,
-                    'sacred_angle': a.sacred_angle
+                    'sacred_angle': a.sacred_angle,
+                    'svg_path': f"M {a.point1.x} {a.point1.y} L {a.vertex.x} {a.vertex.y} L {a.point2.x} {a.point2.y}"
                 }
                 for a in angles
             ],
@@ -1432,7 +1433,8 @@ class GeometricVisualizer:
                     'distance': d.distance,
                     'ratio_to_golden': d.ratio_to_golden,
                     'significance': d.significance,
-                    'pattern_context': d.pattern_context
+                    'pattern_context': d.pattern_context,
+                    'svg_path': f"M {d.point1.x} {d.point1.y} L {d.point2.x} {d.point2.y}"
                 }
                 for d in distances
             ],
@@ -1441,10 +1443,56 @@ class GeometricVisualizer:
     
     def _generate_sacred_geometry_export_data(self, patterns: List[Dict[str, Any]]) -> Dict[str, Any]:
         """Generate export data for sacred geometry patterns"""
+        enriched_patterns = []
+        for p in patterns:
+            p_copy = p.copy()
+            p_copy['svg_path'] = self._generate_svg_path_for_pattern(p)
+            enriched_patterns.append(p_copy)
+            
         return {
-            'patterns': patterns,
+            'patterns': enriched_patterns,
             'summary': self._generate_sacred_geometry_summary(patterns)
         }
+
+    def _generate_svg_path_for_pattern(self, pattern: Dict[str, Any]) -> str:
+        """Generate SVG path data for a pattern dict"""
+        try:
+            points = pattern.get('points', [])
+            if not points:
+                return ""
+                
+            element_type = pattern.get('element_type', 'polygon')
+            
+            if element_type == 'polygon':
+                # M x1 y1 L x2 y2 ... Z
+                path = f"M {points[0]['x']} {points[0]['y']}"
+                for pt in points[1:]:
+                    path += f" L {pt['x']} {pt['y']}"
+                path += " Z"
+                return path
+            
+            elif element_type == 'circles':
+                # Vesica Piscis: 2 circles
+                # We need radius. It's in measurements['radius']
+                radius = pattern.get('measurements', {}).get('radius', 10)
+                path = ""
+                for pt in points:
+                    # Circle path: M cx cy m -r, 0 a r,r 0 1,0 (r*2),0 a r,r 0 1,0 -(r*2),0
+                    cx, cy = pt['x'], pt['y']
+                    path += f"M {cx} {cy} m -{radius}, 0 a {radius},{radius} 0 1,0 {radius*2},0 a {radius},{radius} 0 1,0 -{radius*2},0 "
+                return path.strip()
+                
+            elif element_type == 'spiral':
+                # Spiral approximation using lines or curves
+                # For now, polyline
+                path = f"M {points[0]['x']} {points[0]['y']}"
+                for pt in points[1:]:
+                    path += f" L {pt['x']} {pt['y']}"
+                return path
+            
+            return ""
+        except Exception:
+            return ""
     
     def _generate_comprehensive_export_data(self, points: List[Point], 
                                           angles: List[AngleMeasurement],

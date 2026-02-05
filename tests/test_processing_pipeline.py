@@ -317,8 +317,9 @@ class TestProcessingPipeline:
         # Mock database query for documents
         mock_db_session.query.return_value.all.return_value = [Mock(id=1), Mock(id=2)]
         
-        # Mock anomaly detector
-        pipeline.anomaly_detector.build_statistical_models.return_value = None
+        # Mock anomaly detector - use MagicMock behavior (already set via patch)
+        # The pipeline calls detect_text_anomalies, detect_pattern_anomalies, etc.
+        pipeline.anomaly_detector = MagicMock()
         pipeline.anomaly_detector.detect_text_anomalies.return_value = [{"anomaly": "text"}]
         pipeline.anomaly_detector.detect_pattern_anomalies.return_value = [{"anomaly": "pattern"}]
         pipeline.anomaly_detector.detect_cipher_anomalies.return_value = [{"anomaly": "cipher"}]
@@ -339,10 +340,11 @@ class TestProcessingPipeline:
     @pytest.mark.asyncio
     async def test_rank_patterns_stage(self, pipeline):
         """Test pattern ranking stage"""
-        # Mock pattern ranker
-        mock_ranking_result = Mock()
-        mock_ranking_result.ranked_patterns = [Mock(), Mock(), Mock()]
+        # Mock pattern ranker - use MagicMock
+        mock_ranking_result = MagicMock()
+        mock_ranking_result.ranked_patterns = [MagicMock(), MagicMock(), MagicMock()]
         
+        pipeline.pattern_ranker = MagicMock()
         pipeline.pattern_ranker.rank_patterns_by_significance.return_value = mock_ranking_result
         pipeline.pattern_ranker.rank_anomalies_by_significance.return_value = mock_ranking_result
         
@@ -483,18 +485,26 @@ class TestProcessingPipeline:
         pipeline.grid_generator.generate_grids.return_value = []
         pipeline.geometric_analyzer.analyze_character_positions.return_value = []
         pipeline.cipher_detector.analyze_text.return_value = []
+        
+        # Use MagicMock for services with dynamic method access
+        pipeline.relationship_analyzer = MagicMock()
         pipeline.relationship_analyzer.analyze_pattern_relationships.return_value = []
+        pipeline.relationship_analyzer.find_analysis_correlations.return_value = {}
+        
+        pipeline.anomaly_detector = MagicMock()
         pipeline.anomaly_detector.detect_text_anomalies.return_value = []
         pipeline.anomaly_detector.detect_pattern_anomalies.return_value = []
         pipeline.anomaly_detector.detect_cipher_anomalies.return_value = []
         pipeline.anomaly_detector.detect_geometric_anomalies.return_value = []
         pipeline.anomaly_detector.generate_anomaly_report.return_value = {}
         
-        mock_ranking = Mock()
+        mock_ranking = MagicMock()
         mock_ranking.ranked_patterns = []
+        pipeline.pattern_ranker = MagicMock()
         pipeline.pattern_ranker.rank_patterns_by_significance.return_value = mock_ranking
         pipeline.pattern_ranker.rank_anomalies_by_significance.return_value = mock_ranking
         
+        pipeline.visualizer = MagicMock()
         pipeline.visualizer.create_comprehensive_visualization.return_value = []
         
         # Process document

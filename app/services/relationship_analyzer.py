@@ -915,18 +915,34 @@ class RelationshipAnalyzer:
     # Additional helper methods for feature extraction and analysis
     
     def _get_document_pattern_signatures(self, document_id: int) -> Dict[str, float]:
-        """Get pattern signatures for a document"""
+        """Get pattern signatures for a document, merging CrossPatternInstance and local Pattern"""
         try:
+            signatures = {}
+            
+            # 1. Get CrossPatternInstances (Existing logic)
             instances = self.db.query(CrossPatternInstance).filter(
                 CrossPatternInstance.document_id == document_id
             ).all()
             
-            signatures = {}
             for instance in instances:
                 pattern = instance.cross_pattern
                 if pattern:
                     signature_key = f"{pattern.pattern_type}_{pattern.pattern_subtype or 'default'}"
                     signatures[signature_key] = pattern.significance_score or 0.5
+            
+            # 2. Get Local Patterns (New Logic for Gematria/ELS)
+            local_patterns = self.db.query(Pattern).filter(
+                Pattern.document_id == document_id
+            ).all()
+            
+            for p in local_patterns:
+                # Include specific pattern types that are significant for direct matching
+                if p.pattern_type in ['gematria_match', 'els_match']:
+                    # Use pattern_name as key to ensure exact match across documents
+                    # e.g., "Gematria: 100 (francis_bacon_simple)"
+                    signature_key = p.pattern_name
+                    # Use higher weight if available
+                    signatures[signature_key] = p.significance_score or 0.8
             
             return signatures
             

@@ -12,6 +12,7 @@ from scipy.stats import pearsonr
 import itertools
 
 from app.models.database_models import Page, Character, Word, Pattern
+from app.services.geometric_index import GeometricIndex
 
 
 class Point(NamedTuple):
@@ -135,7 +136,12 @@ class BardCodeAnalyzer:
             'significance_scores': {}
         }
         
-        # Find triangular constructions
+        # Find triangular constructions using optimized search
+        # Convert points relative to page dimensions for better indexing
+        # Note: normalized_points are already Point objects (named tuples)
+        point_tuples = [(p.x, p.y) for p in normalized_points]
+        self.geometric_index = GeometricIndex(point_tuples)
+        
         triangles = self._find_significant_triangles(normalized_points)
         analysis_results['triangular_constructions'] = triangles
         
@@ -1357,23 +1363,64 @@ class BardCodeAnalyzer:
         }
     
     def _find_significant_triangles(self, points: List[Point]) -> List[Dict[str, Any]]:
-        """Find triangles with significant geometric properties"""
-        triangles = self.construct_triangles(points)
+        """
+        Find triangles with significant geometric properties using optimized spatial indexing
+        """
         significant_triangles = []
+        n_points = len(points)
         
-        for triangle in triangles:
-            # Check for special properties
-            properties = self._analyze_triangle_properties(triangle)
+        # Optimize: If too many points, limit search to significant points + neighbors
+        # Limit processing for performance
+        MAX_TRIANGLES = 2000
+        
+        checked_signatures = set()
+        
+        # Strategy: Iterate through points, find neighbors, form triangles locally
+        for i in range(n_points):
+            # Get neighbors from index (K=15 nearest neighbors + self)
+            neighbors = self.geometric_index.find_nearest_neighbors((points[i].x, points[i].y), k=16)
             
-            if properties['significance_score'] >= self.min_significance:
-                triangle_data = {
-                    'points': [{'x': p.x, 'y': p.y} for p in [triangle.p1, triangle.p2, triangle.p3]],
-                    'sides': triangle.sides,
-                    'angles': triangle.angles,
-                    'ratios': triangle.ratios,
-                    'properties': properties
-                }
-                significant_triangles.append(triangle_data)
+            # Extract indices, excluding self
+            neighbor_indices = [idx for dist, idx in neighbors if idx != i]
+            
+            # Also invoke "Far Search" -> check points that might form large Right Triangles?
+            # For "Bard Code", we want local clusters for efficiency, but maybe specific "Line of Sight"
+            # For now, local clustering + random sampling or specific grid points is better than N^3
+            
+            # Form pairs from neighbors
+            for j in neighbor_indices:
+                for k in neighbor_indices:
+                    if j >= k: continue
+                    
+                    # Create signature to avoid duplicates (sorted indices)
+                    sig = tuple(sorted([i, j, k]))
+                    if sig in checked_signatures:
+                        continue
+                    checked_signatures.add(sig)
+                    
+                    # Create triangle
+                    triangle = Triangle(points[i], points[j], points[k])
+                    
+                    # Check properties
+                    # Skip degenerate triangles (collinear) early
+                    if self._are_collinear(points[i], points[j], points[k], 0.001):
+                        continue
+
+                    # Analyze properties
+                    properties = self._analyze_triangle_properties(triangle)
+                    
+                    if properties['significance_score'] >= self.min_significance:
+                        triangle_data = {
+                            'points': [{'x': p.x, 'y': p.y} for p in [triangle.p1, triangle.p2, triangle.p3]],
+                            'sides': triangle.sides,
+                            'angles': triangle.angles,
+                            'ratios': triangle.ratios,
+                            'properties': properties
+                        }
+                        significant_triangles.append(triangle_data)
+                        
+                        if len(significant_triangles) >= MAX_TRIANGLES:
+                            return significant_triangles
         
         return significant_triangles
     

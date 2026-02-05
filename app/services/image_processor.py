@@ -34,6 +34,133 @@ class QualityMetrics:
     text_clarity_score: float
     overall_score: float
 
+
+@dataclass
+class LayoutRegion:
+    """Represents a detected layout region (column, line, etc.)"""
+    x: int
+    y: int
+    width: int
+    height: int
+    region_type: str  # 'column', 'line', 'block'
+    confidence: float
+
+
+class LayoutAnalyzer:
+    """
+    Analyzes document layout using projection profiles.
+    Integrated from BIBLE OCR project for enhanced column/line detection.
+    """
+
+    def __init__(self):
+        self.min_column_width = 100
+        self.min_line_height = 20
+        self.text_threshold = 50
+
+    def detect_columns(self, image: Image.Image) -> List[LayoutRegion]:
+        """Detect columns using vertical projection profile"""
+        gray = np.array(image.convert('L'))
+        _, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+
+        vertical_proj = np.sum(binary, axis=0)
+        kernel = np.ones(10) / 10
+        smoothed_proj = np.convolve(vertical_proj, kernel, mode='same')
+
+        height, width = binary.shape
+        threshold = np.mean(smoothed_proj) * 0.3
+
+        columns = []
+        in_column = False
+        start_x = 0
+
+        for x in range(width):
+            has_content = smoothed_proj[x] > threshold
+            if has_content and not in_column:
+                start_x = x
+                in_column = True
+            elif not has_content and in_column:
+                col_width = x - start_x
+                if col_width > self.min_column_width:
+                    columns.append(LayoutRegion(
+                        x=start_x, y=0, width=col_width, height=height,
+                        region_type='column',
+                        confidence=smoothed_proj[start_x:x].mean() / 255.0
+                    ))
+                in_column = False
+
+        if in_column:
+            col_width = width - start_x
+            if col_width > self.min_column_width:
+                columns.append(LayoutRegion(
+                    x=start_x, y=0, width=col_width, height=height,
+                    region_type='column',
+                    confidence=smoothed_proj[start_x:].mean() / 255.0
+                ))
+
+        return columns
+
+    def detect_lines(self, image: Image.Image) -> List[LayoutRegion]:
+        """Detect text lines using horizontal projection profile"""
+        gray = np.array(image.convert('L'))
+        _, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)
+
+        horizontal_proj = np.sum(binary, axis=1)
+        kernel = np.ones(5) / 5
+        smoothed_proj = np.convolve(horizontal_proj, kernel, mode='same')
+
+        height, width = binary.shape
+        threshold = np.mean(smoothed_proj) * 0.2
+
+        lines = []
+        in_line = False
+        start_y = 0
+
+        for y in range(height):
+            has_content = smoothed_proj[y] > threshold
+            if has_content and not in_line:
+                start_y = y
+                in_line = True
+            elif not has_content and in_line:
+                line_height = y - start_y
+                if line_height > self.min_line_height:
+                    lines.append(LayoutRegion(
+                        x=0, y=start_y, width=width, height=line_height,
+                        region_type='line',
+                        confidence=smoothed_proj[start_y:y].mean() / 255.0
+                    ))
+                in_line = False
+
+        if in_line:
+            line_height = height - start_y
+            if line_height > self.min_line_height:
+                lines.append(LayoutRegion(
+                    x=0, y=start_y, width=width, height=line_height,
+                    region_type='line',
+                    confidence=smoothed_proj[start_y:].mean() / 255.0
+                ))
+
+        return lines
+
+    def segment_layout(self, image: Image.Image) -> Dict[str, List[LayoutRegion]]:
+        """Perform complete layout segmentation"""
+        logger.info("Starting layout segmentation...")
+        columns = self.detect_columns(image)
+        logger.info(f"Detected {len(columns)} columns")
+
+        all_lines = []
+        for col in columns:
+            col_image = image.crop((col.x, col.y, col.x + col.width, col.y + col.height))
+            lines = self.detect_lines(col_image)
+            for line in lines:
+                all_lines.append(LayoutRegion(
+                    x=col.x + line.x, y=col.y + line.y,
+                    width=line.width, height=line.height,
+                    region_type='line', confidence=line.confidence
+                ))
+
+        logger.info(f"Detected {len(all_lines)} lines across all columns")
+        return {'columns': columns, 'lines': all_lines}
+
 class ImageProcessor:
     """
     Advanced image processor for historical document enhancement
@@ -42,6 +169,7 @@ class ImageProcessor:
     
     def __init__(self):
         self.preprocessing_steps = []
+        self.layout_analyzer = LayoutAnalyzer()
         
     def preprocess_image(self, page_image: PageImage) -> ProcessedImage:
         """
@@ -415,3 +543,82 @@ class ImageProcessor:
         except Exception as e:
             logger.warning(f"Quality assessment failed: {e}")
             return 0.5  # Default middle score
+
+    def ocr_with_layout(self, image: Image.Image, timeout_seconds: int = 15) -> Dict[str, Any]:
+        """
+        Perform layout-aware OCR using detected columns and lines.
+        Returns detailed results with confidence metrics.
+        Integrated from BIBLE OCR project.
+        """
+        import pytesseract
+        from pytesseract import Output
+        from concurrent.futures import ThreadPoolExecutor, TimeoutError as FutureTimeoutError
+
+        logger.info("Starting layout-aware OCR...")
+        layout = self.layout_analyzer.segment_layout(image)
+
+        all_text = []
+        all_confidences = []
+        line_results = []
+
+        for i, line_region in enumerate(layout['lines']):
+            if i >= 20:  # Limit for performance
+                break
+
+            line_img = image.crop((
+                line_region.x, line_region.y,
+                line_region.x + line_region.width,
+                line_region.y + line_region.height
+            ))
+
+            def ocr_line():
+                config = "--oem 3 --psm 7"
+                data = pytesseract.image_to_data(line_img, config=config, output_type=Output.DICT)
+                text = pytesseract.image_to_string(line_img, config=config).strip()
+                return text, data
+
+            try:
+                with ThreadPoolExecutor(max_workers=1) as executor:
+                    future = executor.submit(ocr_line)
+                    text, data = future.result(timeout=timeout_seconds)
+
+                    confs = [int(c) for c in data.get('conf', []) if str(c).isdigit() and int(c) >= 0]
+                    words = [w for w in data.get('text', []) if w and w.strip()]
+
+                    if text and words:
+                        line_results.append({
+                            'line_number': i + 1,
+                            'region': {
+                                'x': line_region.x, 'y': line_region.y,
+                                'width': line_region.width, 'height': line_region.height
+                            },
+                            'text': text,
+                            'words': words,
+                            'confidences': confs,
+                            'avg_conf': sum(confs) / len(confs) if confs else 0,
+                            'word_count': len(words)
+                        })
+                        all_text.append(text)
+                        all_confidences.extend(confs)
+
+            except FutureTimeoutError:
+                logger.warning(f"Line {i+1} OCR timed out")
+            except Exception as e:
+                logger.warning(f"Line {i+1} OCR failed: {e}")
+
+        combined_text = '\n'.join(all_text)
+        avg_conf = sum(all_confidences) / len(all_confidences) if all_confidences else 0
+        median_conf = sorted(all_confidences)[len(all_confidences)//2] if all_confidences else 0
+
+        return {
+            'combined_text': combined_text,
+            'total_words': sum(r['word_count'] for r in line_results),
+            'total_lines': len(line_results),
+            'avg_confidence': avg_conf,
+            'median_confidence': median_conf,
+            'line_results': line_results,
+            'layout_info': {
+                'columns_detected': len(layout['columns']),
+                'lines_detected': len(layout['lines'])
+            }
+        }

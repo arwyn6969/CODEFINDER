@@ -13,7 +13,7 @@ from datetime import datetime, timezone
 import uuid
 
 from app.api.dependencies import get_current_active_user, get_database, User, rate_limit_dependency
-from app.models.database_models import Document
+from app.models.database_models import Document, Page
 from app.services.processing_pipeline import ProcessingPipeline
 
 logger = logging.getLogger(__name__)
@@ -52,6 +52,10 @@ class ProcessingStatusResponse(BaseModel):
     current_step: str
     estimated_completion: Optional[datetime] = None
     error_message: Optional[str] = None
+
+class DocumentContentResponse(BaseModel):
+    id: int
+    content: str
 
 # File upload settings
 UPLOAD_DIR = Path("uploads")
@@ -255,6 +259,38 @@ async def get_document(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to retrieve document"
+        )
+
+@router.get("/{document_id}/content", response_model=DocumentContentResponse, dependencies=[Depends(rate_limit_dependency)])
+async def get_document_content(
+    document_id: int,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_database)
+):
+    """
+    Get full text content of a document
+    """
+    try:
+        document = db.query(Document).filter(Document.id == document_id).first()
+        
+        if not document:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Document not found"
+            )
+        
+        pages = db.query(Page).filter(Page.document_id == document_id).order_by(Page.page_number).all()
+        content = "\n\n".join([p.extracted_text for p in pages if p.extracted_text])
+        
+        return DocumentContentResponse(id=document_id, content=content)
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error retrieving content for document {document_id}: {str(e)}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to retrieve document content"
         )
 
 @router.get("/{document_id}/status", response_model=ProcessingStatusResponse, dependencies=[Depends(rate_limit_dependency)])

@@ -646,7 +646,8 @@ class GridGenerator:
             escaped_row = []
             for cell in row:
                 if ',' in cell or '"' in cell:
-                    escaped_row.append(f'"{cell.replace('"', '""')}"')
+                    escaped = cell.replace('"', '""')
+                    escaped_row.append(f'"{escaped}"')
                 else:
                     escaped_row.append(cell)
             lines.append(','.join(escaped_row))

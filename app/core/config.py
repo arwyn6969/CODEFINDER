@@ -28,7 +28,7 @@ class Settings(BaseSettings):
     # Security settings
     secret_key: str = "your-secret-key-change-in-production"
     debug: bool = True
-    allowed_origins: str | None = None  # Comma-separated list
+    allowed_origins: Optional[str] = None  # Comma-separated list
     
     # Logging settings
     log_level: str = "INFO"

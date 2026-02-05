@@ -16,6 +16,7 @@ from app.services.processing_pipeline import ProcessingPipeline
 from app.services.pattern_significance_ranker import PatternSignificanceRanker
 from app.services.anomaly_detector import AnomalyDetector
 from app.services.geometric_analyzer import GeometricAnalyzer
+from app.services.bardcode_analyzer import BardCodeAnalyzer
 
 logger = logging.getLogger(__name__)
 
@@ -55,6 +56,7 @@ class AnalysisResults(BaseModel):
     top_patterns: List[PatternSummary]
     page_summaries: List[PageAnalysis]
     statistical_summary: Dict[str, Any]
+    bardcode_analysis: Optional[Dict[str, Any]] = None
 
 class AnalysisRequest(BaseModel):
     confidence_threshold: float = 0.7
@@ -229,11 +231,30 @@ async def analyze_document(
             confidence_threshold=request.confidence_threshold
         )
         
+        # Run BardCode Analysis if geometric analysis is requested
+        bardcode_data = None
+        if request.include_geometric:
+            try:
+                bard_analyzer = BardCodeAnalyzer()
+                # Run standard analysis
+                bardcode_results = bard_analyzer.analyze_page_layout(document_id)
+                # Run advanced coordinate extraction
+                measurements = [] # Need to fetch measurements or calculate them
+                # For now, just return the main results
+                bardcode_data = {
+                    "summary": bardcode_results, 
+                    "mathematical_constants": bard_analyzer.detect_mathematical_constants(bardcode_results.get('measurements', []) if isinstance(bardcode_results, dict) else [])
+                }
+            except Exception as e:
+                logger.error(f"BardCode analysis failed for doc {document_id}: {e}")
+                bardcode_data = {"error": str(e)}
+
         return AnalysisResults(
             overview=overview,
             top_patterns=top_patterns,
             page_summaries=page_summaries,
-            statistical_summary=statistical_summary
+            statistical_summary=statistical_summary,
+            bardcode_analysis=bardcode_data
         )
         
     except HTTPException:

@@ -55,3 +55,13 @@ try:
     router.include_router(search_router, prefix="/search", tags=["search"])
 except ImportError:
     pass
+
+try:
+    from .relationships import router as relationships_router
+    router.include_router(relationships_router, prefix="/relationships", tags=["relationships"])
+except ImportError:
+    pass
+
+# Research routes
+from .research import router as research_router
+router.include_router(research_router, prefix="/research", tags=["research"])

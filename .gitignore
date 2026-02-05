@@ -35,3 +35,9 @@ frontend/node_modules/
 
 # IDE
 .vscode/
+
+# Source documents (large PDFs - keep locally, not in repo)
+data/sources/*.pdf
+
+# BIBLE OCR legacy (integration complete - keep locally for reference only)
+BIBLE OCR/
