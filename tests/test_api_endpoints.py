@@ -13,8 +13,26 @@ from datetime import datetime
 from app.api.main import app
 from app.models.database_models import Document, Pattern, Page
 
-# Test client
-client = TestClient(app)
+
+# Lazy client initialization to avoid module-level instantiation errors
+_client = None
+
+
+def get_client():
+    """Get or create the test client."""
+    global _client
+    if _client is None:
+        _client = TestClient(app)
+    return _client
+
+
+# Create a proxy object that lazily accesses the client
+class LazyClient:
+    def __getattr__(self, name):
+        return getattr(get_client(), name)
+
+
+client = LazyClient()
 
 class TestAuthEndpoints:
     """Test authentication endpoints"""
