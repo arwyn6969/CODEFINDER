@@ -5,7 +5,7 @@ import sys
 import os
 
 def analyze_resolution(page_num):
-    pdf_path = "data/sources/SONNETS_QUARTO_1609_NET.pdf"
+    pdf_path = "data/sources/archive/SONNETS_QUARTO_1609_NET.pdf"
     doc = fitz.open(pdf_path)
     page = doc[page_num]
     

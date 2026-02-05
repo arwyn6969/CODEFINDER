@@ -171,7 +171,7 @@ class VariantAnalyzer(SonnetPrintBlockScanner):
 
 if __name__ == "__main__":
     from collections import defaultdict
-    analyzer = VariantAnalyzer("data/sources/SONNETS_QUARTO_1609_NET.pdf")
+    analyzer = VariantAnalyzer("data/sources/archive/SONNETS_QUARTO_1609_NET.pdf")
     # Scan first 10 pages for sample
     print("Scanning Pages 1-10 for variations...")
     for p in range(10):

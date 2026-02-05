@@ -541,7 +541,7 @@ def main():
     print("=" * 70)
     
     # Try to extract from actual PDF
-    sonnets_pdf = PROJECT_ROOT / "data/sources/SONNETS_QUARTO_1609_NET.pdf"
+    sonnets_pdf = PROJECT_ROOT / "data/sources/archive/SONNETS_QUARTO_1609_NET.pdf"
     
     text = None
     page_info = ""

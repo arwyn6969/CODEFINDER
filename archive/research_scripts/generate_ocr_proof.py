@@ -90,7 +90,7 @@ if __name__ == "__main__":
     import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("page", type=int, help="Page number to generate proof for")
-    parser.add_argument("--pdf", default="data/sources/SONNETS_QUARTO_1609_NET.pdf", help="Path to PDF")
+    parser.add_argument("--pdf", default="data/sources/archive/SONNETS_QUARTO_1609_NET.pdf", help="Path to PDF")
     args = parser.parse_args()
     
     out_path = f"reports/sonnet_print_block_analysis/visual_proof_page_{args.page:03d}.png"

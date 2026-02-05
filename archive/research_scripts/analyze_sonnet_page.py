@@ -131,7 +131,7 @@ class SVGGenerator:
 # 4. MAIN LOGIC
 # ----------------------------------------------------------------------------
 def analyze_page():
-    pdf_path = "data/sources/SONNETS_QUARTO_1609_NET.pdf"
+    pdf_path = "data/sources/archive/SONNETS_QUARTO_1609_NET.pdf"
     page_index = 11 # "Page 12"
     
     print(f"📖 Opening PDF: {pdf_path}")

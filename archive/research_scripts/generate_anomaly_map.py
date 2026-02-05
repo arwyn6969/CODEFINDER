@@ -17,7 +17,7 @@ class FastAnomalyMapper(SonnetPrintBlockScanner):
         return "skipped_for_map"
 
 def generate_map():
-    pdf_path = "data/sources/SONNETS_QUARTO_1609_NET.pdf"
+    pdf_path = "data/sources/archive/SONNETS_QUARTO_1609_NET.pdf"
     output_dir = "reports/sonnet_print_block_analysis"
     
     print("Starting Fast Anomaly Mapping...")
