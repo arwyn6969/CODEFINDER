@@ -41,3 +41,5 @@ data/sources/*.pdf
 
 # BIBLE OCR legacy (integration complete - keep locally for reference only)
 BIBLE OCR/
+pepe_monte_carlo_results.json
+scan_output.log
