@@ -1,0 +1,33 @@
+{
+  "analysis_date": "2026-02-05T16:33:09.181081",
+  "summary": {
+    "edition_1": "Wright (STC 22353a)",
+    "edition_2": "Aspley (STC 22353)",
+    "common_characters": 75,
+    "only_in_ed1": 0,
+    "only_in_ed2": 6,
+    "overall_scale_factor": 1.6184,
+    "scale_interpretation": "Images have different resolutions",
+    "high_significance_count": 73,
+    "medium_significance_count": 2,
+    "low_significance_count": 0
+  },
+  "key_findings": [
+    {
+      "type": "resolution_difference",
+      "description": "Character dimensions differ significantly (73 chars)",
+      "implication": "The source images likely have different resolutions or the editions use different type sizes"
+    },
+    {
+      "type": "long_s_comparison",
+      "description": "Long-s (\u017f) appears 811 times in Wright (STC 22353a), 1305 times in Aspley (STC 22353)",
+      "ratio": 1.61,
+      "implication": "Different Long-s counts may indicate different compositor habits or text variations"
+    },
+    {
+      "type": "vv_w_analysis",
+      "description": "W width (Wright (STC 22353a)): 10.24, V\u00d72: 29.60",
+      "implication": "VV used as W if W width \u2248 2\u00d7V width suggests ligated VV type"
+    }
+  ]
+}

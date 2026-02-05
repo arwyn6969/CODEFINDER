@@ -1,0 +1,56 @@
+================================================================================
+CHARACTER GEOMETRY ANALYSIS REPORT
+================================================================================
+Analysis Date: 2026-02-05 16:33
+Edition 1: Wright (STC 22353a)
+Edition 2: Aspley (STC 22353)
+
+SUMMARY
+--------------------------------------------------------------------------------
+Common characters analyzed: 75
+Overall scale factor: 1.6184 (Images have different resolutions)
+High significance differences: 73
+Medium significance differences: 2
+
+KEY CHARACTER COMPARISONS
+--------------------------------------------------------------------------------
+Char     Cat            Wright (   Aspley (    Δ Width Significance
+--------------------------------------------------------------
+'e'      lowercase          7.98      13.40      +5.42         high
+'t'      lowercase          7.48      12.69      +5.21         high
+'o'      lowercase          8.13      12.64      +4.51         high
+'a'      lowercase          8.14      13.06      +4.92         high
+'s'      lowercase          7.38      12.21      +4.83         high
+'ſ'      long_s             7.14      11.30      +4.16         high
+'f'      lowercase          6.96      11.05      +4.09         high
+'W'      uppercase         10.24      17.40      +7.16         high
+'V'      uppercase         14.80      22.99      +8.19         high
+'w'      lowercase          8.45      13.25      +4.80         high
+'.'      punctuation        9.04      11.86      +2.82         high
+','      punctuation        7.29      11.57      +4.28         high
+
+KEY FINDINGS
+--------------------------------------------------------------------------------
+1. RESOLUTION_DIFFERENCE
+   Character dimensions differ significantly (73 chars)
+   Implication: The source images likely have different resolutions or the editions use different type sizes
+
+2. LONG_S_COMPARISON
+   Long-s (ſ) appears 811 times in Wright (STC 22353a), 1305 times in Aspley (STC 22353)
+   Implication: Different Long-s counts may indicate different compositor habits or text variations
+
+3. VV_W_ANALYSIS
+   W width (Wright (STC 22353a)): 10.24, V×2: 29.60
+   Implication: VV used as W if W width ≈ 2×V width suggests ligated VV type
+
+
+INTERPRETATION
+--------------------------------------------------------------------------------
+The scale factor of 1.6184 suggests the Aspley source images
+are approximately 60% larger in pixel dimensions than the Wright images.
+
+To perform a true forensic comparison of type dimensions, the images
+should be normalized to the same DPI or physical scale.
+
+Current differences in character geometry are dominated by this
+resolution difference rather than actual print block variations.
