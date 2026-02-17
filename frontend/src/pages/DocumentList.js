@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { 
   Card, 
   Table, 
@@ -14,9 +14,7 @@ import {
 import { 
   EyeOutlined, 
   DeleteOutlined, 
-  ReloadOutlined,
-  SearchOutlined,
-  DownloadOutlined
+  ReloadOutlined
 } from '@ant-design/icons';
 import axios from 'axios';
 
@@ -35,17 +33,14 @@ const DocumentList = () => {
     status: null,
     search: ''
   });
+  const { current, pageSize } = pagination;
 
-  useEffect(() => {
-    loadDocuments();
-  }, [pagination.current, pagination.pageSize, filters]);
-
-  const loadDocuments = async () => {
+  const loadDocuments = useCallback(async () => {
     try {
       setLoading(true);
       const params = {
-        page: pagination.current,
-        per_page: pagination.pageSize,
+        page: current,
+        per_page: pageSize,
         ...(filters.status && { status_filter: filters.status })
       };
 
@@ -62,7 +57,11 @@ const DocumentList = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [current, pageSize, filters.status]);
+
+  useEffect(() => {
+    loadDocuments();
+  }, [loadDocuments]);
 
   const handleDelete = async (documentId) => {
     try {

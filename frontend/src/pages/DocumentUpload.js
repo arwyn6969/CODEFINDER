@@ -12,7 +12,6 @@ import {
 } from 'antd';
 import { 
   InboxOutlined, 
-  UploadOutlined, 
   FileTextOutlined,
   CheckCircleOutlined,
   CloseCircleOutlined
@@ -24,13 +23,11 @@ const { Dragger } = Upload;
 const { Title, Text } = Typography;
 
 const DocumentUpload = () => {
-  const [uploading, setUploading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
   const handleUpload = useCallback(async (file) => {
-    setUploading(true);
     setError('');
     setSuccess('');
 
@@ -57,7 +54,7 @@ const DocumentUpload = () => {
         },
       });
 
-      const { document_id, filename, message } = response.data;
+      const { document_id, filename } = response.data;
 
       // Add to uploaded files list
       const newFile = {
@@ -127,8 +124,6 @@ const DocumentUpload = () => {
             : f
         )
       );
-    } finally {
-      setUploading(false);
     }
   }, []);
 
@@ -197,14 +192,6 @@ const DocumentUpload = () => {
       case 'failed': return 'error';
       default: return 'default';
     }
-  };
-
-  const formatFileSize = (bytes) => {
-    if (bytes === 0) return '0 Bytes';
-    const k = 1024;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
   return (

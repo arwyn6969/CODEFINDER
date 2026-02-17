@@ -8,11 +8,11 @@ from typing import List, Optional
 from pydantic import BaseModel
 import logging
 from pathlib import Path
-import shutil
 from datetime import datetime, timezone
 import uuid
 
 from app.api.dependencies import get_current_active_user, get_database, User, rate_limit_dependency
+from app.core.database import SessionLocal
 from app.models.database_models import Document, Page
 from app.services.processing_pipeline import ProcessingPipeline
 
@@ -78,9 +78,9 @@ def validate_file(file: UploadFile) -> bool:
 
 async def process_document_background(document_id: int, file_path: str):
     """Background task to process uploaded document"""
+    db = SessionLocal()
     try:
         # Initialize processing pipeline
-        db = next(get_database())
         pipeline = ProcessingPipeline(db)
         
         # Update document status
@@ -90,29 +90,46 @@ async def process_document_background(document_id: int, file_path: str):
             db.commit()
         
         # Process the document
-        result = await pipeline.process_document_async(file_path, document_id)
+        document_name = document.filename if document else Path(file_path).stem
+        result = await pipeline.process_document(file_path, document_name=document_name)
+        success = isinstance(result, dict) and "error" not in result
+        total_pages = (
+            result.get("detailed_results", {})
+            .get("ocr_extraction", {})
+            .get("total_pages")
+            if isinstance(result, dict) else None
+        )
         
         # Update final status
+        document = db.query(Document).filter(Document.id == document_id).first()
         if document:
-            document.processing_status = "completed" if result.success else "failed"
-            document.total_pages = result.total_pages
-            document.analysis_complete = result.success
+            document.processing_status = "completed" if success else "failed"
+            if isinstance(total_pages, int):
+                document.total_pages = total_pages
+            document.analysis_complete = success
+            if not success:
+                if isinstance(result, dict):
+                    document.error_message = result.get("error", "Document processing failed")
+                else:
+                    document.error_message = "Document processing failed"
             db.commit()
         
-        logger.info(f"Document {document_id} processing completed: {result.success}")
+        logger.info(f"Document {document_id} processing completed: {success}")
         
     except Exception as e:
         logger.error(f"Error processing document {document_id}: {str(e)}")
         
         # Update error status
         try:
-            db = next(get_database())
             document = db.query(Document).filter(Document.id == document_id).first()
             if document:
                 document.processing_status = "failed"
+                document.error_message = str(e)
                 db.commit()
         except Exception as db_error:
             logger.error(f"Error updating document status: {str(db_error)}")
+    finally:
+        db.close()
 
 @router.post("/upload", response_model=DocumentUploadResponse, dependencies=[Depends(rate_limit_dependency)])
 async def upload_document(
@@ -151,6 +168,7 @@ async def upload_document(
         # Create document record
         document = Document(
             filename=file.filename,
+            original_filename=file.filename,
             file_path=str(file_path),
             file_size=len(content),
             upload_date=datetime.now(timezone.utc),

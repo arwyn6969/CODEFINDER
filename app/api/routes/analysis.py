@@ -92,20 +92,12 @@ async def get_analysis_overview(
     Get high-level analysis overview for a document
     """
     try:
-        # Verify document exists (tolerant in tests: return empty if missing)
-        try:
-            document = db.query(Document).filter(Document.id == document_id).first()
-        except Exception:
-            document = object()  # any truthy value
+        # Verify document exists
+        document = db.query(Document).filter(Document.id == document_id).first()
         if not document:
-            return GeometricAnalysisResponse(
-                document_id=document_id,
-                total_measurements=0,
-                angle_measurements=0,
-                distance_measurements=0,
-                sacred_geometry_patterns=0,
-                mathematical_constants_found=[],
-                significance_scores={}
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail="Document not found"
             )
         
         # Get patterns and pages
@@ -355,8 +347,10 @@ async def get_cipher_analysis(
         # Get potential methods from pattern metadata
         potential_methods = []
         for pattern in cipher_patterns:
-            if pattern.metadata and 'cipher_method' in pattern.metadata:
-                potential_methods.append(pattern.metadata['cipher_method'])
+            if isinstance(pattern.pattern_data, dict) and 'cipher_method' in pattern.pattern_data:
+                potential_methods.append(pattern.pattern_data['cipher_method'])
+            if isinstance(pattern.context_data, dict) and 'cipher_method' in pattern.context_data:
+                potential_methods.append(pattern.context_data['cipher_method'])
         
         return CipherAnalysisResponse(
             document_id=document_id,

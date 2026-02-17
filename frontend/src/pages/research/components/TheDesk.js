@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Layout, Card, Empty, Button, Upload, List, Typography, Spin, message, Row, Col, Tabs, Statistic, Tag, Input } from 'antd';
+import { Layout, Card, Empty, Button, Upload, List, Typography, Spin, message, Row, Col, Statistic, Tag } from 'antd';
 import { FileImageOutlined, UploadOutlined, CloseOutlined, CalculatorOutlined, FileTextOutlined } from '@ant-design/icons';
 import researchService from '../../../services/researchService';
 
@@ -7,7 +7,6 @@ import DocumentViewer from './DocumentViewer';
 
 const { Content, Sider } = Layout;
 const { Title, Paragraph, Text } = Typography;
-const { TabPane } = Tabs;
 
 const TheDesk = ({ currentDocument, onSetDocument }) => {
   const [documents, setDocuments] = useState([]);
@@ -61,7 +60,7 @@ const TheDesk = ({ currentDocument, onSetDocument }) => {
 
   const handleUpload = async (file) => {
     try {
-      const response = await researchService.uploadDocument(file);
+      await researchService.uploadDocument(file);
       message.success('Upload successful');
       fetchDocuments();
       return false; // Prevent auto upload by antd

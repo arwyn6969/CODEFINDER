@@ -1,0 +1,24 @@
+PAGE OFFSET ANALYSIS
+==================================================
+
+Sonnets with same page number: 12
+Sonnets with Aspley LATER: 43
+Sonnets with Aspley EARLIER: 24
+
+Offset range: -40 to +53
+Mean offset: 4.8
+
+
+Sonnets on SAME PAGE:
+  Sonnet 2 - Page 9
+  Sonnet 6 - Page 10
+  Sonnet 13 - Page 12
+  Sonnet 25 - Page 14
+  Sonnet 41 - Page 23
+  Sonnet 43 - Page 18
+  Sonnet 53 - Page 20
+  Sonnet 57 - Page 21
+  Sonnet 63 - Page 22
+  Sonnet 104 - Page 31
+  Sonnet 123 - Page 22
+  Sonnet 133 - Page 37

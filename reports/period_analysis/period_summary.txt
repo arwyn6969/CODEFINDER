@@ -1,0 +1,24 @@
+PERIOD ANALYSIS SUMMARY
+========================================
+
+ASPLEY:
+  count: 218
+  mean: 23.50
+  std_dev: 4.10
+  min: 6
+  max: 30
+  median: 23.00
+
+WRIGHT:
+  count: 238
+  mean: 15.95
+  std_dev: 3.90
+  min: 5
+  max: 28
+  median: 15.00
+
+HYPOTHESIS RESULTS:
+  H1_aspley: False
+  H1_wright: False
+  H2: False
+  mean_difference: 7.546218487394958

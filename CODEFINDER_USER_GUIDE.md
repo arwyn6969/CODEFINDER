@@ -147,8 +147,8 @@ docker-compose up -d
 | Service | URL |
 |---------|-----|
 | **Frontend Dashboard** | http://localhost:3000 |
-| **API Docs (Swagger)** | http://localhost:8000/docs |
-| **Health Check** | http://localhost:8000/health |
+| **API Docs (Swagger)** | http://localhost:8000/api/docs |
+| **Health Check** | http://localhost:8000/api/health |
 
 ### 3. First Steps
 
@@ -265,9 +265,8 @@ docker-compose up -d --build
 
 | Service | Port | Description |
 |---------|------|-------------|
-| `postgres` | 5432 | PostgreSQL database |
-| `redis` | 6379 | Redis cache |
-| `api` | 8000 | FastAPI backend |
+| `db` | 5432 | PostgreSQL database |
+| `backend` | 8000 | FastAPI backend |
 | `frontend` | 3000 | React dashboard |
 
 ### Running API Only (Development)
@@ -278,7 +277,6 @@ pip install -r requirements.txt
 
 # Set environment variables
 export DATABASE_URL="postgresql://analyzer:analyzer_pass@localhost:5432/ancient_text_analyzer"
-export REDIS_URL="redis://localhost:6379"
 
 # Run the API server
 uvicorn app.api.main:app --reload --port 8000
@@ -289,7 +287,7 @@ uvicorn app.api.main:app --reload --port 8000
 ```bash
 cd frontend
 npm install
-npm run dev
+npm start
 ```
 
 ---
@@ -401,21 +399,19 @@ This protocol overrides standard bibliographic assumptions within the CODEFINDER
 ## API Reference
 
 ### Base URL
-```
-http://localhost:8000/api/v1
-```
+`http://localhost:8000/api`
 
 ### Authentication
-All endpoints (except `/auth` and `/health`) require JWT authentication.
+All endpoints (except `/api/auth` and `/api/health`) require JWT authentication.
 
 ```bash
 # Login
-curl -X POST http://localhost:8000/api/v1/auth/login \
+curl -X POST http://localhost:8000/api/auth/login \
   -H "Content-Type: application/json" \
-  -d '{"username": "demo", "password": "demo"}'
+  -d '{"username": "demo", "password": "demo123"}'
 
 # Use token
-curl http://localhost:8000/api/v1/documents \
+curl http://localhost:8000/api/documents \
   -H "Authorization: Bearer <your-token>"
 ```
 
@@ -459,7 +455,7 @@ curl http://localhost:8000/api/v1/documents \
 ### Example: Gematria Calculation
 
 ```bash
-curl -X POST http://localhost:8000/api/v1/research/gematria \
+curl -X POST http://localhost:8000/api/research/gematria \
   -H "Authorization: Bearer <token>" \
   -H "Content-Type: application/json" \
   -d '{
@@ -487,7 +483,7 @@ curl -X POST http://localhost:8000/api/v1/research/gematria \
 ### Example: ELS Search in Torah
 
 ```bash
-curl -X POST http://localhost:8000/api/v1/research/els \
+curl -X POST http://localhost:8000/api/research/els \
   -H "Authorization: Bearer <token>" \
   -H "Content-Type: application/json" \
   -d '{
@@ -543,14 +539,14 @@ curl -X POST http://localhost:8000/api/v1/research/els \
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                    DATA LAYER                                    │
-│  ┌──────────────────────────┐  ┌─────────────────────────────┐  │
-│  │ PostgreSQL               │  │ Redis                       │  │
-│  │ • Documents              │  │ • Session cache             │  │
-│  │ • Patterns               │  │ • Rate limiting             │  │
-│  │ • Pages                  │  │ • Background jobs           │  │
-│  │ • Users                  │  │                             │  │
-│  │ Port 5432                │  │ Port 6379                   │  │
-│  └──────────────────────────┘  └─────────────────────────────┘  │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │ PostgreSQL (Docker) / SQLite (local default)             │  │
+│  │ • Documents                                               │  │
+│  │ • Patterns                                                │  │
+│  │ • Pages                                                   │  │
+│  │ • Users                                                   │  │
+│  │ • Processing metadata                                     │  │
+│  └───────────────────────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -558,6 +554,6 @@ curl -X POST http://localhost:8000/api/v1/research/els \
 
 ## Need Help?
 
-- **API Documentation**: http://localhost:8000/docs (Swagger UI)
-- **OpenAPI Spec**: `openapi.json` in project root
+- **API Documentation**: http://localhost:8000/api/docs (Swagger UI)
+- **OpenAPI Spec**: http://localhost:8000/api/openapi.json
 - **GitHub Issues**: Report bugs or request features

@@ -1,28 +1,25 @@
-"""
-FastAPI Main Application
-Comprehensive API for Ancient Text Analysis System
-"""
-from fastapi import FastAPI, HTTPException, Depends, UploadFile, File, WebSocket, WebSocketDisconnect
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-from fastapi.staticfiles import StaticFiles
-from fastapi.responses import HTMLResponse, FileResponse
-from sqlalchemy.orm import Session
-from typing import List, Optional, Dict, Any
-import asyncio
-import json
+"""Canonical FastAPI application for CODEFINDER."""
 import logging
 from pathlib import Path
 
-from app.core.database import get_db, init_db
-from app.core.config import settings
-from app.api.routes import (
-    documents, analysis, patterns, search, reports, 
-    visualizations, auth, websocket
-)
+from fastapi import FastAPI, HTTPException
+from fastapi.responses import HTMLResponse, RedirectResponse
+from fastapi.staticfiles import StaticFiles
+
 from app.api.middleware import setup_middleware
-from app.api.dependencies import get_current_user
-from app.models.database_models import Document
+from app.api.routes import (
+    analysis,
+    auth,
+    documents,
+    patterns,
+    relationships,
+    reports,
+    research,
+    search,
+    visualizations,
+    websocket,
+)
+from app.core.database import init_db
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -47,15 +44,27 @@ try:
 except Exception as e:
     logger.warning(f"Database init warning: {e}")
 
-# Include API routes
-app.include_router(auth.router, prefix="/api/auth", tags=["Authentication"])
-app.include_router(documents.router, prefix="/api/documents", tags=["Documents"])
-app.include_router(analysis.router, prefix="/api/analysis", tags=["Analysis"])
-app.include_router(patterns.router, prefix="/api/patterns", tags=["Patterns"])
-app.include_router(search.router, prefix="/api/search", tags=["Search"])
-app.include_router(reports.router, prefix="/api/reports", tags=["Reports"])
-app.include_router(visualizations.router, prefix="/api/visualizations", tags=["Visualizations"])
-app.include_router(websocket.router, prefix="/api/ws", tags=["WebSocket"])
+# Include canonical API routes.
+route_specs = [
+    (auth.router, "/auth", "Authentication"),
+    (documents.router, "/documents", "Documents"),
+    (analysis.router, "/analysis", "Analysis"),
+    (patterns.router, "/patterns", "Patterns"),
+    (search.router, "/search", "Search"),
+    (reports.router, "/reports", "Reports"),
+    (visualizations.router, "/visualizations", "Visualizations"),
+    (research.router, "/research", "Research"),
+    (relationships.router, "/relationships", "Relationships"),
+    (websocket.router, "/ws", "WebSocket"),
+]
+
+for router, suffix, tag in route_specs:
+    app.include_router(router, prefix=f"/api{suffix}", tags=[tag])
+
+# Backward compatibility for legacy clients that still call /api/v1/*.
+# Keep these out of the OpenAPI schema to avoid route duplication in docs.
+for router, suffix, _ in route_specs:
+    app.include_router(router, prefix=f"/api/v1{suffix}", include_in_schema=False)
 
 # Mount static files for frontend
 static_dir = Path("frontend/build")
@@ -71,6 +80,16 @@ async def health_check():
         "service": "Ancient Text Analysis API",
         "version": "1.0.0"
     }
+
+@app.get("/health", include_in_schema=False)
+async def health_check_legacy():
+    """Legacy health endpoint maintained for compatibility."""
+    return await health_check()
+
+@app.get("/docs", include_in_schema=False)
+async def docs_redirect():
+    """Legacy docs endpoint redirect."""
+    return RedirectResponse(url="/api/docs")
 
 # Root endpoint - serve React app
 @app.get("/", response_class=HTMLResponse)

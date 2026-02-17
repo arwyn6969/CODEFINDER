@@ -63,6 +63,7 @@ docker-compose up -d
 
 - **[📘 User Guide](./CODEFINDER_USER_GUIDE.md)** – Comprehensive feature documentation
 - **[🔬 Research Compendium](./docs/RESEARCH_COMPENDIUM.md)** – Consolidated research findings
+- **[🧭 Repo Audit (2026-02-15)](./docs/REPO_AUDIT_2026-02-15.md)** – Runtime consistency and cleanup status
 - **[🔧 API Reference](http://localhost:8000/api/docs)** – Interactive Swagger UI
 
 ---
@@ -85,7 +86,7 @@ docker-compose up -d
                               │
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
-│                    SERVICES (26+)                                │
+│                    SERVICES (40+)                                │
 │  OCR • PDF • Image • Text • Grid • Geometry • Etymology         │
 │  Gematria • ELS • Cipher • BardCode • Cross-Document            │
 │  Anomaly Detection • Pattern Ranking • Visualization            │
@@ -94,8 +95,8 @@ docker-compose up -d
                               ▼
 ┌─────────────────────────────────────────────────────────────────┐
 │                    DATA LAYER                                    │
-│  PostgreSQL (Port 5432)    │    Redis (Port 6379)               │
-│  Documents • Patterns      │    Session Cache • Jobs            │
+│  PostgreSQL (Port 5432) / SQLite (local default)                │
+│  Documents • Pages • Patterns • Analysis metadata               │
 └─────────────────────────────────────────────────────────────────┘
 ```
 
@@ -117,7 +118,8 @@ pytest tests/test_api_endpoints.py
 pytest --cov=app --cov-report=html
 ```
 
-**Test Coverage**: 600+ tests across API endpoints, services, and models.
+**Current test snapshot (February 15, 2026)**: `679` collected, `668` passed, `11` skipped.
+**GitHub CI gates**: backend tests on Python `3.9` and `3.11`, plus frontend production build.
 
 ---
 
@@ -131,7 +133,6 @@ pip install -r requirements.txt
 
 # Set environment variables
 export DATABASE_URL="postgresql://analyzer:analyzer_pass@localhost:5432/ancient_text_analyzer"
-export REDIS_URL="redis://localhost:6379"
 
 # Run the API server
 uvicorn app.api.main:app --reload --port 8000
@@ -139,7 +140,7 @@ uvicorn app.api.main:app --reload --port 8000
 # Run frontend (separate terminal)
 cd frontend
 npm install
-npm run dev
+npm start
 ```
 
 ### Tech Stack
@@ -147,8 +148,7 @@ npm run dev
 - **Backend**: FastAPI + SQLAlchemy + Alembic
 - **OCR**: Tesseract (via pytesseract)
 - **Frontend**: React + D3.js + Ant Design
-- **Database**: PostgreSQL
-- **Cache**: Redis
+- **Database**: PostgreSQL (Docker) or SQLite (local default)
 - **CI/CD**: GitHub Actions
 
 ---
@@ -162,12 +162,12 @@ CODEFINDER/
 │   ├── api/                # FastAPI routes and middleware
 │   ├── core/               # Database and config
 │   ├── models/             # SQLAlchemy models
-│   ├── services/           # Business logic (26 services)
+│   ├── services/           # Business logic (41 service modules)
 │   └── templates/          # Report templates
 ├── archive/                # Archived research scripts
 ├── docs/                   # Research documentation
 ├── frontend/               # React application
-├── tests/                  # Pytest test suite (600+ tests)
+├── tests/                  # Pytest test suite (679 collected)
 ├── alembic/                # Database migrations
 └── docker-compose.yml      # Container orchestration
 ```

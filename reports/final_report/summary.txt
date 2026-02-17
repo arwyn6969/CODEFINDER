@@ -1,0 +1,50 @@
+CODEFINDER — FORENSIC PRINT BLOCK ANALYSIS SUMMARY
+============================================================
+Generated: 2026-02-16 16:40
+
+DATA INVENTORY
+----------------------------------------
+  BSB Munich                      200 pages   3111 chars
+  GDZ Göttingen                    52 pages   1696 chars
+  Google Books (Tractatus)         94 pages   1361 chars
+  HAB Wolfenbüttel                298 pages   7997 chars
+  TOTAL                           644 pages  14165 chars
+
+GREENMAN WOODBLOCK ANALYSIS
+----------------------------------------
+  Verdict: SAME WOODBLOCK across BSB, GDZ, HAB
+  Best SIFT: 12,228 keypoint matches (GDZ)
+  Best Fingerprint: 0.998 (GDZ)
+  Total ornament matches: 2,463
+
+CHARACTER SORT MATCHING  
+----------------------------------------
+  Characters compared: 46
+  BSB Munich vs GDZ Göttingen                        0.671  SAME
+  BSB Munich vs Google Books (Tractatus)             0.687  SAME
+  BSB Munich vs HAB Wolfenbüttel                     0.682  SAME
+  GDZ Göttingen vs Google Books (Tractatus)          0.641  SAME
+  GDZ Göttingen vs HAB Wolfenbüttel                  0.655  SAME
+  Google Books (Tractatus) vs HAB Wolfenbüttel       0.641  SAME
+
+STATISTICAL TESTS
+----------------------------------------
+  Bootstrap: BSB Munich vs GDZ Göttingen              0.688 [0.647, 0.735]
+  Bootstrap: BSB Munich vs Google Books (Tractatus)   0.788 [0.732, 0.847]
+  Bootstrap: BSB Munich vs HAB Wolfenbüttel           0.913 [0.872, 0.957]
+  Bootstrap: GDZ Göttingen vs Google Books (Tractatus) 0.874 [0.807, 0.943]
+  Bootstrap: GDZ Göttingen vs HAB Wolfenbüttel        0.627 [0.598, 0.657]
+  Bootstrap: Google Books (Tractatus) vs HAB Wolfenbüttel 0.719 [0.675, 0.767]
+
+FINAL VERDICT
+----------------------------------------
+  Strong evidence that these publications share physical printing materials.
+  The Greenman woodblock match is definitive.
+  Character sort evidence corroborates.
+  
+REPORTS
+----------------------------------------
+  reports/final_report/final_report.html (this summary)
+  reports/greenman_scan/greenman_report.html
+  reports/character_sort_match/sort_report.html
+  reports/statistical_analysis/stats_report.html

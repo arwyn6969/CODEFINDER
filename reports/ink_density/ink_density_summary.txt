@@ -1,0 +1,21 @@
+INK DENSITY ANALYSIS SUMMARY
+========================================
+
+ASPLEY:
+  count: 500
+  mean: 26.64%
+  std_dev: 8.79%
+  median: 25.67%
+  min: 3.61%
+  max: 59.89%
+
+WRIGHT:
+  count: 500
+  mean: 27.93%
+  std_dev: 9.19%
+  median: 27.02%
+  min: 8.27%
+  max: 55.56%
+
+H4 Result: PASS
+Mean Difference: 1.29%

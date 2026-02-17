@@ -1,0 +1,3 @@
+Scan V3 Complete
+Total Anomalies: 77592
+Handwriting Restorations Detected: 8465

@@ -1,0 +1,26 @@
+{
+  "source": {
+    "name": "Folger Shakespeare Library",
+    "catalog_id": "STC 22353a",
+    "url": "https://digitalcollections.folger.edu/bib169144-164315",
+    "manifest": "https://digitalcollections.folger.edu/node/70076/manifest",
+    "rights": "https://rightsstatements.org/page/NoC-US/1.0/"
+  },
+  "download": {
+    "total_pages": 784,
+    "downloaded": 782,
+    "skipped": 0,
+    "errors": [
+      {
+        "page": "105 (0123)",
+        "error": "502 Server Error: Bad Gateway for url: https://api.digitale-sammlungen.de/iiif/image/v2/bsb10057380_00123/full/full/0/default.jpg"
+      },
+      {
+        "page": "177 (0195)",
+        "error": "502 Server Error: Bad Gateway for url: https://api.digitale-sammlungen.de/iiif/image/v2/bsb10057380_00195/full/full/0/default.jpg"
+      }
+    ],
+    "size_param": "full",
+    "format": "jpg"
+  }
+}

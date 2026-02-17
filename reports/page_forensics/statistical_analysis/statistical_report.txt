@@ -1,0 +1,25 @@
+================================================================================
+STATISTICAL SIGNIFICANCE REPORT
+Wright (STC 22353a) vs Aspley (STC 22353)
+================================================================================
+
+Total Wright characters: 48,426
+Total Aspley characters: 63,742
+Overall ratio: 1.3163
+Overall difference: +15,316
+
+INTERPRETATION:
+--------------------------------------------------------------------------------
+If the character ratio matches the overall ratio (1.237), variance is
+explained by OCR quality differences, NOT typographical variation.
+Characters with ratios significantly different from 1.237 indicate
+potential REAL typographical differences worth investigation.
+
+CRITICAL FINDINGS (|z| > 2.58, p < 0.01):
+--------------------------------------------------------------------------------
+  ‘: Wright=159, Aspley=11, Z=+13.27, Ratio=0.06918238993710692
+  f: Wright=2076, Aspley=3068, Z=-4.17, Ratio=1.4778420038535645
+  O: Wright=60, Aspley=132, Z=-3.34, Ratio=2.2
+  {: Wright=8, Aspley=33, Z=-3.06, Ratio=4.125
+  -: Wright=26, Aspley=65, Z=-2.81, Ratio=2.5
+  ;: Wright=12, Aspley=37, Z=-2.64, Ratio=3.0833333333333335

@@ -60,39 +60,41 @@ class FolgerSource:
     total_pages: int = 52
 
 
-class FolgerIIIFClient:
+class IIIFClient:
     """
-    Client for Folger Digital Collections IIIF Image API.
+    Generic Client for IIIF Image API.
     
-    Provides access to high-resolution facsimile images of the 1609
-    Shakespeare Sonnets Quarto via the IIIF Image API v2.
+    Provides access to high-resolution facsimile images via IIIF Image API v2/v3.
+    Defaults to Folger Shakespeare Library Sonnets 1609 if no manifest provided.
     
     Example usage:
-        client = FolgerIIIFClient()
+        client = IIIFClient(manifest_url="...")
         pages = client.get_page_list()
-        client.download_all_pages(Path("data/sources/folger_sonnets_1609/"))
+        client.download_all_pages(Path("output_dir/"))
     """
     
     # IIIF Image API size parameters
-    SIZE_FULL = "full"          # Native resolution (~7000x4700)
+    SIZE_FULL = "full"          # Native resolution
     SIZE_2000 = "2000,"         # Max 2000px width
     SIZE_1000 = "1000,"         # Max 1000px width  
     SIZE_THUMBNAIL = "480,"     # Thumbnail size
     
-    def __init__(self, cache_dir: Optional[Path] = None):
+    def __init__(self, manifest_url: Optional[str] = None, cache_dir: Optional[Path] = None):
         """
         Initialize the IIIF client.
         
         Args:
+            manifest_url: URL to IIIF manifest. If None, defaults to Folger Sonnets.
             cache_dir: Optional directory for caching manifest and metadata
         """
-        self.source = FolgerSource()
+        self.source = FolgerSource() # Keep for metadata defaults/legacy
+        self.manifest_url = manifest_url if manifest_url else self.source.manifest_url
         self.cache_dir = cache_dir
         self._manifest: Optional[Dict[str, Any]] = None
         self._pages: Optional[List[PageMetadata]] = None
         self.session = requests.Session()
         self.session.headers.update({
-            'User-Agent': 'CODEFINDER-Research/1.0 (Shakespeare OCR Analysis)'
+            'User-Agent': 'CODEFINDER-Research/1.0 (Forensic Print Analysis)'
         })
     
     def fetch_manifest(self, use_cache: bool = True) -> Dict[str, Any]:
@@ -107,23 +109,29 @@ class FolgerIIIFClient:
         """
         # Check cache first
         if use_cache and self.cache_dir:
-            cache_path = self.cache_dir / "manifest.json"
+            cache_hash = hashlib.md5(self.manifest_url.encode()).hexdigest()
+            cache_path = self.cache_dir / f"manifest_{cache_hash}.json"
             if cache_path.exists():
                 logger.info(f"Loading cached manifest from {cache_path}")
                 with open(cache_path) as f:
                     self._manifest = json.load(f)
                 return self._manifest
         
-        # Fetch from Folger
-        logger.info(f"Fetching IIIF manifest from {self.source.manifest_url}")
-        response = self.session.get(self.source.manifest_url, timeout=30)
-        response.raise_for_status()
-        self._manifest = response.json()
+        # Fetch from Source
+        logger.info(f"Fetching IIIF manifest from {self.manifest_url}")
+        try:
+            response = self.session.get(self.manifest_url, timeout=30)
+            response.raise_for_status()
+            self._manifest = response.json()
+        except Exception as e:
+            logger.error(f"Failed to fetch manifest: {e}")
+            raise
         
         # Cache if directory specified
         if self.cache_dir:
             self.cache_dir.mkdir(parents=True, exist_ok=True)
-            cache_path = self.cache_dir / "manifest.json"
+            cache_hash = hashlib.md5(self.manifest_url.encode()).hexdigest()
+            cache_path = self.cache_dir / f"manifest_{cache_hash}.json"
             with open(cache_path, 'w') as f:
                 json.dump(self._manifest, f, indent=2)
             logger.info(f"Cached manifest to {cache_path}")
@@ -151,35 +159,68 @@ class FolgerIIIFClient:
         canvases = sequences[0].get("canvases", [])
         logger.info(f"Found {len(canvases)} canvases in manifest")
         
-        for canvas in canvases:
+        for i, canvas in enumerate(canvases):
             # Extract metadata from canvas
             canvas_id = canvas.get("@id", "")
-            label = canvas.get("label", "unknown")
+            label = canvas.get("label", f"page_{i+1}")
             width = canvas.get("width", 0)
             height = canvas.get("height", 0)
             
             # Get image service URL from first image
             images = canvas.get("images", [])
             if not images:
+                # Some manifests put service directly on canvas (less common in v2)
+                # or structure it differently. Fallback logic could go here.
+                # For now, skip empty canvases unless we find a service block elsehwere.
                 continue
                 
             resource = images[0].get("resource", {})
             service = resource.get("service", {})
-            image_service_url = service.get("@id", "")
             
+            # Handle list of services or single service dict
+            if isinstance(service, list):
+                if service:
+                    image_service_url = service[0].get("@id", "")
+                else:
+                    image_service_url = ""
+            else:
+                image_service_url = service.get("@id", "")
+
             # Get thumbnail
             thumbnail = canvas.get("thumbnail", {})
-            thumbnail_url = thumbnail.get("@id", "")
+            if isinstance(thumbnail, str): # sometimes just a URL string
+                thumbnail_url = thumbnail
+            else:
+                thumbnail_url = thumbnail.get("@id", "")
             
             # Extract metadata fields
-            metadata = {m.get("label"): m.get("value") 
-                       for m in canvas.get("metadata", [])}
-            sort_order = int(metadata.get("Sort order", 0))
+            metadata_list = canvas.get("metadata", [])
+            metadata = {}
+            if isinstance(metadata_list, list):
+                for m in metadata_list:
+                    if isinstance(m, dict):
+                         # Handle label/value pairs which can be strings or lists
+                         l = m.get("label", "")
+                         v = m.get("value", "")
+                         if isinstance(l, list): l = " ".join(str(x) for x in l)
+                         if isinstance(v, list): v = " ".join(str(x) for x in v)
+                         metadata[str(l)] = str(v)
+
+            # Try to get specific metadata with fallbacks
+            # Folger has "Sort order", others might not
+            try:
+                if "Sort order" in metadata:
+                    sort_order = int(metadata["Sort order"])
+                else:
+                    sort_order = i + 1
+            except (ValueError, TypeError):
+                sort_order = i + 1
+
             digital_file_name = metadata.get("Digital image file name", "")
             
             page = PageMetadata(
                 canvas_id=canvas_id,
-                label=label,
+                label=str(label),
                 sort_order=sort_order,
                 width=width,
                 height=height,
@@ -379,9 +420,109 @@ class FolgerIIIFClient:
             for chunk in iter(lambda: f.read(8192), b''):
                 sha256.update(chunk)
         return sha256.hexdigest()
+    
+    def download_at_max_resolution(self, output_dir: Path,
+                                    format: str = "jpg",
+                                    force: bool = False) -> Dict[str, Any]:
+        """
+        Download (or re-download) all pages at native full resolution.
+        
+        This is critical for sort-level analysis — the default 2000px Aspley
+        downloads are too low for wear-mark comparison.
+        
+        Args:
+            output_dir: Directory for full-resolution images
+            format: Output format ('jpg' or 'tif'; tif is lossless but large)
+            force: If True, re-download even if files already exist
+            
+        Returns:
+            Download summary dict
+        """
+        pages = self.get_page_list()
+        output_dir.mkdir(parents=True, exist_ok=True)
+        
+        downloaded = 0
+        for page in pages:
+            filename = f"{page.safe_filename}.{format}"
+            output_path = output_dir / filename
+            
+            if output_path.exists() and not force:
+                continue
+            
+            url = self.get_image_url(page, size=self.SIZE_FULL, format=format)
+            logger.info(f"Downloading MAX-RES: {page.label} -> {filename}")
+            
+            try:
+                response = self.session.get(url, timeout=300, stream=True)
+                response.raise_for_status()
+                
+                with open(output_path, 'wb') as f:
+                    for chunk in response.iter_content(chunk_size=8192):
+                        f.write(chunk)
+                downloaded += 1
+                
+            except Exception as e:
+                logger.error(f"Failed to download {page.label} at max res: {e}")
+        
+        logger.info(f"Max-resolution download: {downloaded} new files to {output_dir}")
+        return {"downloaded": downloaded, "total_pages": len(pages), "format": format}
+
+    @classmethod
+    def download_source_by_config(cls, source_key: str,
+                                   config_path: str = None,
+                                   max_resolution: bool = True) -> Dict[str, Any]:
+        """
+        Download a source defined in config.yaml.
+        
+        Args:
+            source_key: Key from config.yaml (e.g., 'folger_iiif', 'folger_iiif_aspley')
+            config_path: Path to config.yaml (default: data/sources/config.yaml)
+            max_resolution: If True, download at full native resolution
+            
+        Returns:
+            Download summary dict
+        """
+        import yaml
+        
+        if config_path is None:
+            config_path = Path(__file__).parent.parent.parent / "data" / "sources" / "config.yaml"
+        else:
+            config_path = Path(config_path)
+        
+        with open(config_path) as f:
+            config = yaml.safe_load(f)
+        
+        sources = config.get("sources", {})
+        if source_key not in sources:
+            available = list(sources.keys())
+            raise ValueError(f"Unknown source '{source_key}'. Available: {available}")
+        
+        source_config = sources[source_key]
+        
+        if source_config.get("type") != "iiif_images":
+            raise ValueError(f"Source '{source_key}' is not an IIIF source (type: {source_config.get('type')})")
+        
+        manifest_url = source_config.get("provenance", {}).get("manifest")
+        if not manifest_url:
+            raise ValueError(f"No manifest URL in config for '{source_key}'")
+        
+        # Create client with custom manifest URL
+        client = cls(manifest_url=manifest_url)
+        
+        # Determine output directory
+        base_dir = config_path.parent
+        output_dir = base_dir / source_config["path"]
+        
+        size = cls.SIZE_FULL if max_resolution else "2000,"
+        
+        return client.download_all_pages(output_dir, size=size)
 
 
 # Convenience function for quick access
-def get_folger_sonnets_client(cache_dir: Optional[Path] = None) -> FolgerIIIFClient:
+def get_folger_sonnets_client(cache_dir: Optional[Path] = None) -> IIIFClient:
     """Get a configured FolgerIIIFClient instance."""
-    return FolgerIIIFClient(cache_dir=cache_dir)
+    return IIIFClient(cache_dir=cache_dir)
+
+# Backwards compatibility alias
+FolgerIIIFClient = IIIFClient
+

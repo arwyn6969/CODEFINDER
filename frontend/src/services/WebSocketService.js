@@ -135,5 +135,6 @@ class WebSocketService {
     return this.ws && this.ws.readyState === WebSocket.OPEN;
   }
 }
+const webSocketService = new WebSocketService();
 
-export default new WebSocketService();
+export default webSocketService;

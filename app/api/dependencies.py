@@ -5,7 +5,7 @@ Authentication, database sessions, and other shared dependencies
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, Generator
 import jwt
 from datetime import datetime, timedelta, timezone
 import logging
@@ -107,9 +107,9 @@ async def get_current_active_user(
         )
     return current_user
 
-def get_database() -> Session:
-    """Get database session dependency"""
-    return next(get_db())
+def get_database() -> Generator[Session, None, None]:
+    """Get database session dependency with proper lifecycle management."""
+    yield from get_db()
 
 # Rate limiting (simple in-memory implementation)
 request_counts = {}

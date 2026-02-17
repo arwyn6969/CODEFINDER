@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Layout, Tabs } from 'antd';
-import { SearchOutlined, TranslationOutlined, ShareAltOutlined, BookOutlined, DesktopOutlined } from '@ant-design/icons';
+import { SearchOutlined, ShareAltOutlined, BookOutlined, DesktopOutlined } from '@ant-design/icons';
 
 import TheScope from './components/TheScope';
 import TheDesk from './components/TheDesk';

@@ -15,7 +15,7 @@ fi
 # 2. Start Backend (Background)
 echo "💎 Starting Backend API (Port 8000)..."
 source .venv/bin/activate
-uvicorn app.main:app --host 0.0.0.0 --port 8000 &
+uvicorn app.api.main:app --host 0.0.0.0 --port 8000 &
 BACKEND_PID=$!
 
 # 3. Start Frontend
@@ -34,7 +34,7 @@ trap "kill $BACKEND_PID $FRONTEND_PID; exit" SIGINT SIGTERM
 
 echo "✅ Systems are GO!"
 echo "👉 Dashboard: http://localhost:3000"
-echo "👉 API Docs:  http://localhost:8000/docs"
+echo "👉 API Docs:  http://localhost:8000/api/docs"
 echo "Press CTRL+C to stop all services."
 
 wait

@@ -137,7 +137,8 @@ class ELSVisualizer:
             })
             
             current_idx += skip
-            
+        
+        return path
 
     @staticmethod
     def generate_html_matrix(

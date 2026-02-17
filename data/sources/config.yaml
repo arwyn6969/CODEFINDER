@@ -89,9 +89,96 @@ sources:
       ebook_id: 1041
     notes: "Modern transcription, not useful for OCR analysis"
 
+  # ============================================================================
+  # GREENMAN WOODBLOCK ANALYSIS SOURCES
+  # ============================================================================
+  
+  # BSB MUNICH: "Sehr Herrliche, Schöne und Warhaffte Gedicht" (Vol. 4)
+  bsb_munich_10057380:
+    path: "bsb_10057380/"
+    type: "iiif_images"
+    provenance:
+      name: "Bayerische Staatsbibliothek (BSB)"
+      id: "bsb10057380"
+      url: "https://mdz-nbn-resolving.de/details:bsb10057380"
+      manifest: "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10057380/manifest"
+    metadata:
+      title: "Sehr Herrliche, Schöne und Warhaffte Gedicht"
+      date: "1609"  # Approximate
+      place: "Germany"
+    quality:
+      resolution: "full"
+      format: "jpg"
+
+  # GDZ GÖTTINGEN: "Vita, Non Vita" (VD17)
+  gdz_goettingen_ppn777246686:
+    path: "gdz_ppn777246686/"
+    type: "iiif_images"
+    provenance:
+      name: "Göttinger Digitalisierungszentrum (GDZ)"
+      id: "PPN777246686"
+      url: "http://resolver.sub.uni-goettingen.de/purl?PPN777246686"
+      manifest: "https://manifests.sub.uni-goettingen.de/iiif/presentation/PPN777246686/manifest"
+    metadata:
+      title: "Vita, Non Vita"
+      date: "1614"
+      place: "Tübingen"
+    quality:
+      resolution: "full"
+      format: "jpg"
+
+  # HAB WOLFENBÜTTEL: Theology Print (Manual Download)
+  hab_wolfenbuettel_178_1_theol_1s:
+    path: "hab_178_1_theol_1s/"
+    type: "html_scrape"
+    provenance:
+      name: "Herzog August Bibliothek (HAB)"
+      id: "178-1-theol-1s"
+      url: "http://diglib.hab.de/drucke/178-1-theol-1s/start.htm"
+    metadata:
+      title: "Drucke 178-1-theol-1s"
+      date: "1600-1620"  # Estimate
+      note: "Requires custom scraper"
+
+  # GOOGLE BOOKS: Tractatus Brevis (Antonio degli Albizzi)
+  google_books_tractatus_brevis:
+    path: "google_books_tractatus_brevis.pdf"
+    type: "pdf"
+    provenance:
+      name: "Google Books"
+      id: "uThoAAAAcAAJ"
+      url: "https://books.google.co.uk/books?id=uThoAAAAcAAJ"
+    metadata:
+      title: "Tractatus brevis: continens decem principia doctrinae christianae"
+      author: "Antonio degli Albizzi"
+      date: "1613"
+      place: "Kempten"
+    quality:
+      resolution: "pdf"
+      note: "Manually downloaded PDF"
+
+  # ACADEMIA.EDU: Adam Haslmayr (Rosicrucian Target)
+  academia_edu_haslmayr:
+    path: "academia_edu_haslmayr.pdf"
+    type: "pdf"
+    provenance:
+      name: "Academia.edu"
+      id: "34709320"
+      url: "https://www.academia.edu/34709320"
+    metadata:
+      title: "Adam Haslmayr (1) Der erste Verkünder der Rosenkreuzer"
+      date: "1612"
+      note: "Target publication for provenance matching"
+    quality:
+      resolution: "low"
+      note: "Poor quality scans expected"
+
 # Default source for analysis
 active_source: "folger_iiif"
 
 # Source switching notes:
 # To switch sources, change active_source above or pass --source flag to scripts.
 # The legacy PDF is archived but accessible for comparative analysis.
+
+
+

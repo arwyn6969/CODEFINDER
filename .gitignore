@@ -50,6 +50,10 @@ reports/sonnet_print_block_analysis/anomalies/
 reports/sonnet_print_block_analysis/page_images/
 reports/sonnet_print_block_analysis/character_atlas/
 reports/resolution_test/
+reports/**/*
+!reports/**/
+!reports/**/*.md
+!reports/**/*.txt
 
 # Generated visualizations
 *.svg
@@ -59,3 +63,9 @@ temp/
 openapi.json
 *.db
 scan_pdf_output.log
+scan_*.log
+page_forensics.log
+debug_*.txt
+
+# Derived data
+data/sources/folger_sonnets_1609_aspley_normalized/

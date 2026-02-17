@@ -530,7 +530,7 @@ class ProductionManager:
         guide['sections']['api_deployment'] = {
             'endpoints': [
                 {
-                    'path': '/api/v1/process',
+                    'path': '/api/process',
                     'method': 'POST',
                     'description': 'Submit OCR job',
                     'parameters': {
@@ -540,17 +540,17 @@ class ProductionManager:
                     }
                 },
                 {
-                    'path': '/api/v1/status/{job_id}',
+                    'path': '/api/status/{job_id}',
                     'method': 'GET',
                     'description': 'Check job status'
                 },
                 {
-                    'path': '/api/v1/result/{job_id}',
+                    'path': '/api/result/{job_id}',
                     'method': 'GET',
                     'description': 'Get OCR result'
                 },
                 {
-                    'path': '/api/v1/metrics',
+                    'path': '/api/metrics',
                     'method': 'GET',
                     'description': 'System metrics'
                 }

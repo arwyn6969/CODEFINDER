@@ -1,305 +1,87 @@
 # CODEFINDER Test Baseline
-> **Established**: 2026-02-05T15:53 CST
-> **Purpose**: Clear documentation of all tests, expected outcomes, and acceptance criteria for the Print Block Scanner and related systems.
+> **Last Verified**: 2026-02-15 (local)
+> **Purpose**: Ground-truth snapshot of test health and high-risk technical gaps.
 
 ---
 
-## 1. Current State Summary
+## 1. Verification Snapshot
 
-### Git Status
-- **Branch**: `main`
-- **Commits ahead of origin**: 5
-- **Last commit**: `14e483b Archive all experiment scripts`
+### Runtime Entry Point
+- **Canonical app**: `app.api.main:app`
+- **Compatibility entrypoint**: `app.main:app` (shim to canonical app)
 
-### Test Framework
-- **Framework**: pytest 8.3.5
-- **Python**: 3.9.6
-- **Total Tests**: 674 (620 core + 54 scanner tests)
-- **Collection Errors**: 0 ✅ (fixed in this commit)
+### Test Collection and Result
+- **Command**: `pytest -q`
+- **Collected**: `679`
+- **Passed**: `668`
+- **Skipped**: `11`
+- **Failed**: `0`
 
-### Scan Progress (Sonnet Print Block Analysis)
-- **Source**: `data/sources/folger_sonnets_1609/` (IIIF images, 53 pages)
-- **Pages Scanned**: 53 of 53 ✅ **COMPLETE**
-- **Characters Extracted**: 64,692
-- **Unique Characters**: 84
-- **Long-s (ſ) Count**: 1,549
-- **Ligatures Found**: 2,812
-- **Average Confidence**: 78.9%
-- **Scan Duration**: 104.1 seconds
+### Environment Notes from Latest Run
+- Python runtime reported via local environment: `3.9.x`
+- Warnings still present (non-failing):
+  - `pytest-asyncio` loop-scope deprecation warning
+  - `pydantic` v2 class-config deprecation warning
+  - SQLAlchemy `Query.get()` legacy warning in some services
 
 ---
 
-## 2. Test Inventory
+## 2. Current Test Layout
 
-### 2.1 Core Test Suites
+### Collected by `pytest.ini`
+- `testpaths = tests`
+- `python_files = test_*.py`
 
-| Test File | Component | Tests | Status |
-|-----------|-----------|-------|--------|
-| `test_ocr_engine.py` | AdvancedOCR | 16 | ✅ Passing |
-| `test_anomaly_detector.py` | AnomalyDetector | 27 | ✅ Passing |
-| `test_bardcode_analyzer.py` | BardCode/Geometry | 21 | ✅ Passing |
-| `test_cipher_detector.py` | CipherDetector | 24 | ✅ Passing |
-| `test_cipher_explanation_validator.py` | CipherValidator | ~25 | ✅ Passing |
-| `test_cross_document_analyzer.py` | CrossDocument | ~20 | ✅ Passing |
-| `test_cross_document_pattern_database.py` | PatternDB | ~20 | ✅ Passing |
-| `test_cross_reference_visualizer.py` | CrossRef Viz | ~20 | ✅ Passing |
-| `test_database_models.py` | Database Models | ~25 | ✅ Passing |
-| `test_etymology_engine.py` | Etymology | ~15 | ✅ Passing |
-| `test_geometric_analyzer.py` | GeometricAnalyzer | ~15 | ✅ Passing |
-| `test_geometric_index.py` | GeometricIndex | ~5 | ✅ Passing |
-| `test_geometric_visualizer.py` | GeometricViz | ~30 | ✅ Passing |
-| `test_grid_generator.py` | GridGenerator | ~15 | ✅ Passing |
-| `test_image_processor.py` | ImageProcessor | ~10 | ✅ Passing |
-| `test_pattern_significance_ranker.py` | PatternRanker | ~20 | ✅ Passing |
-| `test_pdf_processor.py` | PDFProcessor | ~10 | ✅ Passing |
-| `test_processing_pipeline.py` | Pipeline | ~25 | ✅ Passing |
-| `test_processing_pipeline_basic.py` | Pipeline Basic | ~10 | ✅ Passing |
-| `test_relationship_analyzer.py` | Relationships | ~25 | ✅ Passing |
-| `test_report_generator.py` | Reports | ~25 | ✅ Passing |
-| `test_sacred_geometry.py` | SacredGeometry | ~15 | ✅ Passing |
-| `test_search_service.py` | Search | ~15 | ✅ Passing |
-| `test_text_analyzer.py` | TextAnalyzer | ~15 | ✅ Passing |
-| `test_text_grid_visualizer.py` | TextGridViz | ~20 | ✅ Passing |
-| `test_api_endpoints.py` | API Routes | ~20 | ✅ Passing |
-
-### 2.2 Missing Tests (TO BE CREATED)
-
-| Component | Priority | Reason |
-|-----------|----------|--------|
-| `test_sonnet_print_block_scanner.py` | 🔴 HIGH | Core scanner has NO dedicated tests |
-| `test_digital_type_case_builder.py` | 🟡 MEDIUM | Type case builder untested |
-| `test_folio_comparison_engine.py` | 🟡 MEDIUM | Comparison engine untested |
-| `test_ocr_interface.py` | 🟡 MEDIUM | New OCR abstraction untested |
-| `test_gemini_engine.py` | 🟡 MEDIUM | Gemini OCR integration untested |
-| `test_tesseract_engine.py` | 🟡 MEDIUM | New Tesseract wrapper untested |
+### Impact
+- Files named `verify_*.py` are **not** collected by default and should be treated as ad-hoc verification scripts unless renamed or explicitly invoked.
 
 ---
 
-## 3. Print Block Scanner - Test Requirements
+## 3. High-Risk Gaps Remaining
 
-### 3.1 Unit Tests to Create
+1. API surface consistency
+- Canonical `/api/*` routes are active.
+- Legacy `/api/v1/*` aliases are maintained for compatibility.
+- Keep all new feature development targeting `/api/*` only.
 
-```python
-# test_sonnet_print_block_scanner.py - REQUIRED TESTS
+2. Research feature contract drift risk
+- Research/relationship endpoints are now mounted in canonical app.
+- Keep frontend service paths aligned with backend route registration.
 
-class TestSonnetPrintBlockScanner:
-    """Core scanner functionality tests."""
-    
-    def test_init_with_pdf_source(self):
-        """Scanner initializes correctly with PDF source."""
-        
-    def test_init_with_iiif_images(self):
-        """Scanner initializes correctly with IIIF image directory."""
-        
-    def test_init_invalid_source_raises(self):
-        """Scanner raises on invalid source path."""
-        
-    def test_directory_structure_created(self):
-        """Output directory structure is created correctly."""
-        
-    def test_scan_page_returns_character_instances(self):
-        """Single page scan returns list of CharacterInstance."""
-        
-    def test_scan_page_with_ocr_engine(self):
-        """Page scan works with injected OCR engine."""
-        
-    def test_scan_page_legacy_tesseract(self):
-        """Page scan works with legacy Tesseract mode."""
-
-
-class TestCharacterProcessing:
-    """Character extraction and classification tests."""
-    
-    def test_long_s_detection(self):
-        """Long-s (ſ) correctly detected and classified."""
-        
-    def test_f_vs_long_s_disambiguation(self):
-        """Visual analysis correctly distinguishes f from ſ."""
-        
-    def test_ligature_detection(self):
-        """Common ligatures (ff, fi, fl, ffi, ffl, st, ct) detected."""
-        
-    def test_character_category_assignment(self):
-        """Characters assigned to correct categories."""
-        
-    def test_valid_character_filtering(self):
-        """Invalid/modern characters flagged correctly."""
-        
-    def test_noise_detection(self):
-        """Scanner noise/artifact detection works."""
-        
-    def test_anomaly_cataloguing(self):
-        """Anomalies catalogued (not discarded per AXIOM_OF_INTENT)."""
-
-
-class TestCharacterNormalization:
-    """Character image normalization tests."""
-    
-    def test_normalize_character_block_standard_size(self):
-        """Normalized blocks are 48x64 pixels."""
-        
-    def test_normalize_character_block_centered(self):
-        """Character is centered in normalized block."""
-        
-    def test_normalize_character_block_preserves_aspect(self):
-        """Aspect ratio preserved during normalization."""
-        
-    def test_normalize_character_block_handles_edge_cases(self):
-        """Normalization handles zero-size inputs."""
-
-
-class TestReportGeneration:
-    """Report output tests."""
-    
-    def test_generate_frequency_csv(self):
-        """Character frequency CSV generated correctly."""
-        
-    def test_generate_statistics_json(self):
-        """Statistics JSON contains required fields."""
-        
-    def test_generate_html_report(self):
-        """HTML report generates with character atlas."""
-        
-    def test_report_includes_long_s_stats(self):
-        """Reports include Long-s (ſ) statistics."""
-        
-    def test_report_includes_ligature_stats(self):
-        """Reports include ligature statistics."""
-```
-
-### 3.2 Integration Tests to Create
-
-```python
-class TestFullScanIntegration:
-    """End-to-end scan integration tests."""
-    
-    def test_full_scan_iiif_source(self):
-        """Full scan of IIIF images produces valid output."""
-        
-    def test_full_scan_pdf_source(self):
-        """Full scan of PDF produces valid output."""
-        
-    def test_scan_with_gemini_engine(self):
-        """Scan using Gemini OCR engine integration."""
-        
-    def test_scan_with_tesseract_engine(self):
-        """Scan using new Tesseract OCR engine wrapper."""
-        
-    def test_scan_resume_capability(self):
-        """Scan can resume from partial progress."""
-```
+3. Deprecation cleanup backlog
+- Replace deprecated `from_orm` usage with `model_validate` where practical.
+- Replace SQLAlchemy `Query.get()` with `Session.get()`.
+- Set explicit `pytest-asyncio` loop scope in config.
 
 ---
 
-## 4. Acceptance Criteria
+## 4. Practical Next Testing Steps
 
-### 4.1 Print Block Scanner - Pass Criteria
+1. Compatibility smoke tests are now present in `tests/test_api_route_compatibility.py` for:
+- legacy docs/health aliases
+- `/api/v1/auth/login`
+- `/api` and `/api/v1` research/relationship route availability
 
-| Criterion | Metric | Target | Current |
-|-----------|--------|--------|---------|
-| All pages scanned | Pages | 53/53 | 53/53 ✅ |
-| Long-s detection rate | % of actual ſ | ≥90% | 1,549 found ✅ |
-| False positive rate (f→ſ) | % | ≤10% | TBD (review needed) |
-| Character confidence | Average % | ≥95% | 78.9% ⚠️ |
-| Report generation | All 3 files | Generated | All 3 ✅ |
-| No data loss | Anomalies preserved | 100% | 2,356 anomalies ✅ |
+2. Convert critical `verify_*.py` flows into collected tests (`test_*.py`).
 
-### 4.2 Test Suite - Pass Criteria
-
-| Criterion | Target | Current |
-|-----------|--------|---------|
-| Total tests collected | 674 | 674 ✅ |
-| No collection errors | 0 | 0 ✅ |
-| Tests passing | 100% | 605/674 (90%) ⚠️ |
-| Print block scanner tests | ≥20 | 54 ✅ |
-| Coverage for scanner | ≥80% | In progress |
-
-**Note**: Some tests fail due to starlette/httpx version incompatibility in the local environment (see Section 5.3).
+3. Add a CI smoke check that fails on route-registration drift between frontend expected paths and backend mounted prefixes.
 
 ---
 
-## 5. Known Issues & Technical Debt
+## 5. Quick Commands
 
-### 5.1 Collection Errors - FIXED ✅
-- 2 test collection errors fixed by implementing lazy client initialization
-- `test_api_endpoints.py`: LazyClient proxy pattern for deferred TestClient creation  
-- `test_main.py`: Converted to use pytest fixture
-
-### 5.2 Missing Test Coverage
-- `sonnet_print_block_scanner.py` - 0% test coverage
-- `digital_type_case_builder.py` - 0% test coverage
-- `folio_comparison_engine.py` - 0% test coverage
-
-### 5.3 Environment Dependency Issue
-**54 tests fail** due to starlette/httpx version incompatibility:
-```
-TypeError: __init__() got an unexpected keyword argument 'app'
-```
-This is a system-level package conflict, not a code issue. To fix:
 ```bash
-pip install --upgrade starlette httpx
+# Full suite
+pytest -q
+
+# Verbose
+pytest -v
+
+# One module
+pytest tests/test_api_endpoints.py -v
+
+# Markers
+pytest -m unit
+pytest -m integration
+pytest -m "not slow"
 ```
-
-### 5.4 OCR Engine Abstraction
-- New OCR interface in `app/services/ocr_interface.py` (untested)
-- Gemini engine in `app/services/gemini_engine.py` (untested)
-- Tesseract engine in `app/services/tesseract_engine.py` (untested)
-
----
-
-## 6. Execution Commands
-
-### Run All Tests
-```bash
-cd /Users/arwynhughes/Documents/CODEFINDER_PUBLISH
-pytest --tb=short -v
-```
-
-### Run Tests with Coverage
-```bash
-pytest --cov=app --cov=sonnet_print_block_scanner --cov-report=html
-```
-
-### Run Specific Test File
-```bash
-pytest tests/test_ocr_engine.py -v
-```
-
-### Run Print Block Scanner (Full Scan)
-```bash
-python3 sonnet_print_block_scanner.py
-```
-
-### Run Print Block Scanner (Test Mode - First 3 Pages)
-```bash
-python3 sonnet_print_block_scanner.py --pages 1-3 --test
-```
-
----
-
-## 7. Next Steps (Priority Order)
-
-1. ~~**IMMEDIATE**: Fix 2 pytest collection errors~~ ✅ DONE
-2. ~~**HIGH**: Create `test_sonnet_print_block_scanner.py` with core tests~~ ✅ DONE (54 tests)
-3. ~~**HIGH**: Complete full 53-page scan with current scanner~~ ✅ DONE (64,692 chars)
-4. **MEDIUM**: Add tests for OCR engine abstraction layer
-5. **MEDIUM**: Add tests for digital type case builder
-6. **LOW**: Add tests for folio comparison engine
-
----
-
-## 8. Commit Checklist
-
-Before committing this baseline:
-
-- [x] Git status reviewed
-- [x] Test inventory documented
-- [x] Missing tests identified
-- [x] Acceptance criteria defined
-- [x] Execution commands documented
-- [x] Collection errors investigated and **FIXED**
-- [ ] Full test run completed
-
----
-
-*This baseline document serves as the source of truth for test expectations and acceptance criteria for the CODEFINDER Print Block Scanner system.*

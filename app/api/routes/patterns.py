@@ -84,6 +84,7 @@ async def get_pattern_detail(
     if pattern is None:
         return PatternResponse(
             id=pattern_id,
+            document_id=0,
             pattern_type="test",
             description="",
             confidence=0.0,
