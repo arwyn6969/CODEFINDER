@@ -43,8 +43,8 @@ class GreenmanScanner:
     """Cross-source scanner for matching a specific woodblock across books."""
     
     SIFT_GOOD_THRESHOLD = 0.7       # Lowe's ratio test threshold
-    MIN_SIFT_MATCHES = 8            # Minimum good SIFT matches to consider
-    FINGERPRINT_THRESHOLD = 0.55    # Minimum aggregate fingerprint similarity
+    MIN_SIFT_MATCHES = 50           # Drastically increased minimum good SIFT matches to consider
+    FINGERPRINT_THRESHOLD = 0.90    # Increased minimum aggregate fingerprint similarity
     
     def __init__(self, reference_path: str):
         self.reference_img = cv2.imread(reference_path)
@@ -168,8 +168,9 @@ class GreenmanScanner:
         cand_fp = self.fingerprinter.fingerprint(crop_img, block_type="device")
         fp_scores = self.fingerprinter.compare(self.reference_fp, cand_fp)
         
-        # Decision: match if either SIFT is strong OR fingerprint aggregate is high
-        is_match = (sift_score >= self.MIN_SIFT_MATCHES or 
+        # Decision: match if BOTH SIFT is strong AND fingerprint aggregate is high
+        # (This prevents high SIFT match counts from random text blobs causing false positives)
+        is_match = (sift_score >= self.MIN_SIFT_MATCHES and 
                     fp_scores.get('aggregate', 0) >= self.FINGERPRINT_THRESHOLD)
         
         if not is_match:
@@ -361,7 +362,7 @@ def main():
     parser = argparse.ArgumentParser(description="Cross-source Greenman scanner")
     parser.add_argument("--reference", default="data/greenman_reference.jpg",
                         help="Path to reference greenman crop")
-    parser.add_argument("--threshold", type=float, default=0.55,
+    parser.add_argument("--threshold", type=float, default=0.90,
                         help="Fingerprint similarity threshold")
     args = parser.parse_args()
     

@@ -120,9 +120,14 @@ def isolate_sonnets():
         w_y = w_info.get('y')
         a_y = a_info.get('y')
         
+        
         # Safety for inferred
         if not w_page or not a_page:
             continue
+            
+        # Enforce strict 1:1 pagination index map
+        if abs(int(w_page) - int(a_page)) > 1:
+            raise ValueError(f"Pagination Alignment Error: Sonnet {s_id} maps Wright Page {w_page} to Aspley Page {a_page}. Strict 1:1 mapping required.")
             
         is_inferred = w_info.get('inferred', False) or a_info.get('inferred', False)
 

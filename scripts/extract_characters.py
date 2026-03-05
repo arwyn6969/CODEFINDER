@@ -64,6 +64,18 @@ class CharacterExtractor:
         self.psm = psm
         self.min_confidence = min_confidence
 
+        self._preflight_check()
+
+    def _preflight_check(self):
+        """Ensure the required Tesseract language models are installed."""
+        try:
+            available_langs = pytesseract.get_languages(config='')
+            for expected_lang in self.lang.split('+'):
+                if expected_lang not in available_langs:
+                    raise RuntimeError(f"Missing required Tesseract language model: '{expected_lang}'. Please install it first.")
+        except pytesseract.TesseractNotFoundError:
+            raise RuntimeError("Tesseract OCR is not installed or not in PATH.")
+
     def get_connection(self):
         import sqlite3
         conn = sqlite3.connect(self.db_path)
@@ -243,8 +255,8 @@ def main():
     parser = argparse.ArgumentParser(description="Extract characters from pages (v2 — Fraktur + DPI Norm)")
     parser.add_argument("--source", required=True, help="Source key from config")
     parser.add_argument("--limit", type=int, help="Limit number of pages")
-    parser.add_argument("--lang", default="Fraktur+frk+eng",
-                       help="Tesseract language model(s) (default: Fraktur+frk+eng)")
+    parser.add_argument("--lang", default="deu_frak",
+                       help="Tesseract language model(s) (default: deu_frak)")
     parser.add_argument("--normalize-height", type=int, default=2400,
                        help="Normalise image height in pixels before OCR (0=off, default=2400)")
     parser.add_argument("--psm", type=int, default=6,

@@ -70,10 +70,19 @@ class ForensicStatistics:
                 WHERE p.source_id = ?
             """, (src_id,)).fetchall()
             
+            w_list = [r['width'] for r in instances if r['width'] and r['width'] > 0 and r['height'] and r['height'] > 0]
+            h_list = [r['height'] for r in instances if r['width'] and r['width'] > 0 and r['height'] and r['height'] > 0]
+            
+            med_w = float(np.median(w_list)) if w_list else 1.0
+            med_h = float(np.median(h_list)) if h_list else 1.0
+
             sources[src_name] = {
                 'instances': [dict(r) for r in instances],
-                'widths': [r['width'] for r in instances if r['width'] and r['width'] > 0],
-                'heights': [r['height'] for r in instances if r['height'] and r['height'] > 0],
+                'widths': w_list,
+                'heights': h_list,
+                'aspect_ratios': [w/h for w, h in zip(w_list, h_list)],
+                'norm_widths': [w/med_w for w in w_list],
+                'norm_heights': [h/med_h for h in h_list],
                 'chars': [r['character'] for r in instances],
             }
         
@@ -98,8 +107,8 @@ class ForensicStatistics:
             for j in range(i+1, len(source_names)):
                 s1, s2 = source_names[i], source_names[j]
                 
-                w1, w2 = np.array(sources[s1]['widths']), np.array(sources[s2]['widths'])
-                h1, h2 = np.array(sources[s1]['heights']), np.array(sources[s2]['heights'])
+                w1, w2 = np.array(sources[s1]['norm_widths']), np.array(sources[s2]['norm_widths'])
+                h1, h2 = np.array(sources[s1]['norm_heights']), np.array(sources[s2]['norm_heights'])
                 
                 if len(w1) < 5 or len(w2) < 5:
                     continue
@@ -228,8 +237,8 @@ class ForensicStatistics:
             for j in range(i+1, len(source_names)):
                 s1, s2 = source_names[i], source_names[j]
                 
-                w1 = np.array(sources[s1]['widths'], dtype=float)
-                w2 = np.array(sources[s2]['widths'], dtype=float)
+                w1 = np.array(sources[s1]['norm_widths'], dtype=float)
+                w2 = np.array(sources[s2]['norm_widths'], dtype=float)
                 
                 if len(w1) < 5 or len(w2) < 5:
                     continue
@@ -292,8 +301,8 @@ class ForensicStatistics:
             for j in range(i+1, len(source_names)):
                 s1, s2 = source_names[i], source_names[j]
                 
-                w1 = np.array(sources[s1]['widths'], dtype=float)
-                w2 = np.array(sources[s2]['widths'], dtype=float)
+                w1 = np.array(sources[s1]['norm_widths'], dtype=float)
+                w2 = np.array(sources[s2]['norm_widths'], dtype=float)
                 
                 if len(w1) < 10 or len(w2) < 10:
                     continue

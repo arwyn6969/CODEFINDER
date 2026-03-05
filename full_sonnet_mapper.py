@@ -299,6 +299,11 @@ def main():
         
         if isinstance(w_page, int) and isinstance(a_page, int):
             offset = a_page - w_page
+            
+            # Enforce 1:1 pagination index map
+            if abs(offset) > 1:
+                raise ValueError(f"Pagination Alignment Error: Sonnet {num} maps Wright Page {w_page} to Aspley Page {a_page}. Strict 1:1 mapping required.")
+                
             offsets.append(offset)
             
             if offset == 0:

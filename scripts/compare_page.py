@@ -78,7 +78,7 @@ class ForensicComparator:
                 # Let's use a direct SIFT match check as a quick heuristic
                 score, match_img = self._match_images(ref["image"], cand.crop_image)
                 
-                if score > 10: # Threshold for "good matches" count
+                if score > 50: # Threshold for "good matches" count
                     matches.append({
                         "candidate": cand.to_dict(),
                         "reference": ref["label"],
@@ -129,7 +129,7 @@ class ForensicComparator:
         
         # Draw matches if significant
         img_matches = None
-        if score > 10:
+        if score > 50:
             img_matches = cv2.drawMatches(img1, kp1, img2, kp2, good, None, 
                                         flags=cv2.DrawMatchesFlags_NOT_DRAW_SINGLE_POINTS)
                                         
