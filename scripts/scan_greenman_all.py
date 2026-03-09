@@ -26,6 +26,7 @@ import json
 import cv2
 import numpy as np
 import logging
+import yaml
 from pathlib import Path
 from typing import List, Dict, Any, Tuple
 from datetime import datetime
@@ -45,6 +46,8 @@ class GreenmanScanner:
     SIFT_GOOD_THRESHOLD = 0.7       # Lowe's ratio test threshold
     MIN_SIFT_MATCHES = 50           # Drastically increased minimum good SIFT matches to consider
     FINGERPRINT_THRESHOLD = 0.90    # Increased minimum aggregate fingerprint similarity
+    MIN_CANDIDATE_AREA = 8_000      # Reject tiny noise blobs
+    MAX_CANDIDATE_AREA = 3_000_000  # Reject full-page captures and similar artefacts
     
     def __init__(self, reference_path: str):
         self.reference_img = cv2.imread(reference_path)
@@ -64,9 +67,14 @@ class GreenmanScanner:
         logger.info(f"Loaded reference: {reference_path} "
                      f"({self.reference_img.shape[1]}x{self.reference_img.shape[0]}, "
                      f"{len(self.ref_kp)} SIFT keypoints)")
+
+    @classmethod
+    def _candidate_area_is_viable(cls, area: int) -> bool:
+        """Reject candidates that are too small or so large they span most of a page."""
+        return cls.MIN_CANDIDATE_AREA <= area <= cls.MAX_CANDIDATE_AREA
     
     def scan_source(self, source_name: str, image_dir: Path, 
-                     output_dir: Path) -> List[Dict[str, Any]]:
+                     output_dir: Path, limit: int = 0) -> List[Dict[str, Any]]:
         """
         Scan all pages of a source for the greenman.
         
@@ -75,7 +83,7 @@ class GreenmanScanner:
         output_dir.mkdir(parents=True, exist_ok=True)
         
         # Get all ornament candidates from cached results if available
-        cached_candidates = output_dir.parent.parent / "ornaments" / source_name / "candidates.jsonl"
+        cached_candidates = output_dir.parent / "ornaments" / source_name / "candidates.jsonl"
         
         matches = []
         
@@ -87,11 +95,23 @@ class GreenmanScanner:
         else:
             logger.info(f"No cached candidates found. Running fresh extraction on {image_dir}")
             extractor = OrnamentExtractor()
-            image_files = sorted(list(image_dir.glob("*.jpg")))
+            image_files = []
+            for pattern in ("*.jpg", "*.jpeg", "*.png", "*.tif", "*.tiff"):
+                image_files.extend(image_dir.glob(pattern))
+            image_files = sorted(set(image_files))
+            if limit > 0:
+                image_files = image_files[:limit]
             
             for img_path in image_files:
                 candidates = extractor.extract_from_page(img_path)
                 for cand in candidates:
+                    if not self._candidate_area_is_viable(cand.area):
+                        logger.debug(
+                            "Skipping candidate outside area bounds on %s: area=%s",
+                            img_path.name,
+                            cand.area,
+                        )
+                        continue
                     if cand.crop_image is not None:
                         result = self._evaluate_candidate(
                             cand.crop_image, source_name, 
@@ -129,12 +149,7 @@ class GreenmanScanner:
                 if crop is None:
                     continue
                 
-                # Skip full-page captures (too large, definitely not greenman)
-                if cand.get('area', 0) > 3_000_000:
-                    continue
-                
-                # Skip very tiny blobs
-                if cand.get('area', 0) < 8_000:
+                if not self._candidate_area_is_viable(cand.get('area', 0)):
                     continue
                 
                 result = self._evaluate_candidate(
@@ -306,14 +321,14 @@ def generate_html_report(all_matches: List[Dict], output_dir: Path):
         strong_sources = [s for s, m in sources.items() 
                          if any(x['aggregate_score'] > 0.6 for x in m)]
         if len(strong_sources) >= 2:
-            html += '<div class="verdict positive">✅ SAME WOODBLOCK DETECTED across ' + \
-                    f'{len(strong_sources)} sources: {", ".join(strong_sources)}' + \
-                    '<br>Evidence strongly suggests common printer origin.</div>'
+            html += '<div class="verdict positive">✅ Multiple sources contain high-scoring candidates under the current workflow' + \
+                    f'<br>Sources: {", ".join(strong_sources)}' + \
+                    '<br>This still requires manual validation before any shared-woodblock claim.</div>'
         else:
             html += '<div class="verdict inconclusive">⚠️ INCONCLUSIVE — Matches found but ' + \
-                    'cross-source evidence insufficient for definitive attribution.</div>'
+                    'cross-source evidence remains insufficient for a shared-woodblock claim.</div>'
     elif len(sources) == 1:
-        html += '<div class="verdict inconclusive">⚠️ Only one source scanned so far.</div>'
+        html += '<div class="verdict inconclusive">⚠️ Only one source produced candidates under the current thresholds.</div>'
     else:
         html += '<div class="verdict negative">❌ No matches found.</div>'
     
@@ -364,22 +379,39 @@ def main():
                         help="Path to reference greenman crop")
     parser.add_argument("--threshold", type=float, default=0.90,
                         help="Fingerprint similarity threshold")
+    parser.add_argument("--limit", type=int, default=0,
+                        help="Max pages to scan per source (0 for unlimited)")
+    parser.add_argument("--source", action="append",
+                        help="Specific source key from data/sources/config.yaml; repeatable")
+    parser.add_argument("--output-dir", default="reports/greenman_scan",
+                        help="Output directory for scan artifacts")
     args = parser.parse_args()
     
     base_dir = Path(__file__).parent.parent
-    output_dir = base_dir / "reports" / "greenman_scan"
+    output_dir = base_dir / args.output_dir
     output_dir.mkdir(parents=True, exist_ok=True)
     
     # Initialize scanner
     scanner = GreenmanScanner(args.reference)
     scanner.FINGERPRINT_THRESHOLD = args.threshold
     
-    # Define sources to scan
-    source_dirs = {
-        'gdz_goettingen_ppn777246686': base_dir / "data/sources/gdz_ppn777246686",
-        'hab_wolfenbuettel_178_1_theol_1s': base_dir / "data/sources/hab_178_1_theol_1s",
-        'bsb_munich_10057380': base_dir / "data/sources/bsb_10057380",
-    }
+    config_path = base_dir / "data" / "sources" / "config.yaml"
+    with open(config_path) as handle:
+        config = yaml.safe_load(handle)
+
+    default_sources = [
+        'gdz_goettingen_ppn777246686',
+        'hab_wolfenbuettel_178_1_theol_1s',
+        'bsb_munich_10057380',
+    ]
+    source_keys = args.source or default_sources
+    source_dirs = {}
+    for source_key in source_keys:
+        source_cfg = config.get("sources", {}).get(source_key)
+        if not source_cfg:
+            logger.warning("Source %s not found in config", source_key)
+            continue
+        source_dirs[source_key] = base_dir / "data" / "sources" / source_cfg["path"]
     
     all_matches = []
     
@@ -392,7 +424,7 @@ def main():
         logger.info(f"Scanning: {source_name}")
         logger.info(f"{'='*60}")
         
-        matches = scanner.scan_source(source_name, image_dir, output_dir)
+        matches = scanner.scan_source(source_name, image_dir, output_dir, limit=args.limit)
         all_matches.extend(matches)
     
     # Save JSON results

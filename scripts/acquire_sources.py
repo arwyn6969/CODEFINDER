@@ -39,7 +39,7 @@ def load_config(config_path: Path) -> Dict[str, Any]:
     with open(config_path) as f:
         return yaml.safe_load(f)
 
-def download_iiif_source(source_key: str, config: Dict[str, Any], output_root: Path, force: bool):
+def download_iiif_source(source_key: str, config: Dict[str, Any], output_root: Path, force: bool, limit: int = 0):
     """Download a source using IIIF."""
     logger.info(f"Starting IIIF download for {source_key}...")
     
@@ -58,10 +58,17 @@ def download_iiif_source(source_key: str, config: Dict[str, Any], output_root: P
     output_dir = output_root / source_path
     output_dir.mkdir(parents=True, exist_ok=True)
     
-    # Download
-    # Use max resolution
-    client.download_all_pages(output_dir, size=IIIFClient.SIZE_FULL)
-    logger.info(f"Finished IIIF download: {source_key}")
+    pages = client.get_page_list()
+    if limit > 0:
+        logger.info(f"Downloading first {limit} IIIF pages for {source_key}")
+        pages = pages[:limit]
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    downloaded = 0
+    for page in pages:
+        client.download_page(page, output_dir, size=IIIFClient.SIZE_FULL)
+        downloaded += 1
+    logger.info(f"Finished IIIF download: {source_key} ({downloaded}/{len(pages)} pages)")
 
 def download_hab_scrape(source_key: str, config: Dict[str, Any], output_root: Path, force: bool):
     """Scrape images from HAB Wolfenbüttel."""
@@ -156,6 +163,7 @@ def main():
     parser = argparse.ArgumentParser(description="Acquire Greenman sources")
     parser.add_argument("--source", help="Specific source key to download")
     parser.add_argument("--force", action="store_true", help="Force re-download")
+    parser.add_argument("--limit", type=int, default=0, help="Limit IIIF/HAB downloads to the first N pages")
     args = parser.parse_args()
     
     base_dir = Path(__file__).parent.parent
@@ -186,7 +194,7 @@ def main():
              
         try:
             if src_type == "iiif_images":
-                download_iiif_source(key, src_config, data_sources_dir, args.force)
+                download_iiif_source(key, src_config, data_sources_dir, args.force, args.limit)
             elif src_type == "html_scrape":
                 download_hab_scrape(key, src_config, data_sources_dir, args.force)
             elif src_type == "pdf":

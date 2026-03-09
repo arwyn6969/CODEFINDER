@@ -225,6 +225,36 @@ class TestCharacterInstanceCRUD:
             assert len(results) == 2  # 'e' at 90 and 't' at 91
             conn.close()
 
+    def test_replacing_page_instances_clears_sort_artifacts(self, temp_db):
+        with patch("db_persistence.DB_PATH", temp_db):
+            import db_persistence
+            conn = db_persistence.get_connection()
+            page_id = self._create_page(conn, db_persistence)
+
+            db_persistence.save_character_instances(conn, page_id, [
+                {'character': 'A', 'category': 'uppercase', 'x': 100, 'y': 200, 'width': 30, 'height': 40, 'confidence': 95.0},
+                {'character': 'B', 'category': 'uppercase', 'x': 140, 'y': 200, 'width': 30, 'height': 40, 'confidence': 94.0},
+            ])
+
+            cursor = conn.cursor()
+            cursor.execute("SELECT id FROM character_instances WHERE page_id = ? ORDER BY id", (page_id,))
+            first_id, second_id = [row['id'] for row in cursor.fetchall()]
+
+            first_sort_id = db_persistence.save_sort_image(conn, first_id, "/sorts/A_001.png")
+            second_sort_id = db_persistence.save_sort_image(conn, second_id, "/sorts/B_001.png")
+            db_persistence.save_sort_fingerprint(conn, first_sort_id, {'feature_vector': [1.0]})
+            db_persistence.save_sort_match(conn, first_sort_id, second_sort_id, 0.91, "same_sort")
+
+            db_persistence.save_character_instances(conn, page_id, [
+                {'character': 'C', 'category': 'uppercase', 'x': 180, 'y': 200, 'width': 30, 'height': 40, 'confidence': 96.0},
+            ])
+
+            assert conn.execute("SELECT COUNT(*) FROM character_instances WHERE page_id = ?", (page_id,)).fetchone()[0] == 1
+            assert conn.execute("SELECT COUNT(*) FROM sort_images").fetchone()[0] == 0
+            assert conn.execute("SELECT COUNT(*) FROM sort_fingerprints").fetchone()[0] == 0
+            assert conn.execute("SELECT COUNT(*) FROM sort_matches").fetchone()[0] == 0
+            conn.close()
+
 
 # ── Test: Sort-Level CRUD ───────────────────────────────────────────────────
 

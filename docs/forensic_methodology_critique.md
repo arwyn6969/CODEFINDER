@@ -1,5 +1,8 @@
 # Forensic Analysis Methodology Critique
 
+> Status: Control document for the Shakespeare cleanup lane
+> Companion summary: `docs/SHAKESPEARE_INTERNAL_SUMMARY.md`
+
 ## 📋 Document Purpose
 This document critically examines the forensic analysis methodology used to compare the Wright (STC 22353a) and Aspley (STC 22353) editions of Shakespeare's Sonnets.
 

@@ -37,6 +37,7 @@ from datetime import datetime
 sys.path.append(str(Path(__file__).parent.parent))
 
 from app.services.block_fingerprinter import BlockFingerprinter, BlockFingerprint
+from app.services.sort_metric import SORT_METRIC_VERSION, metric_descriptor, score_components
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(message)s')
 logger = logging.getLogger("sort_matcher")
@@ -84,6 +85,8 @@ class CharacterSortMatcher:
         data = defaultdict(lambda: defaultdict(list))
         for row in cursor.fetchall():
             char = row['character']
+            if char not in self.TARGET_CHARS:
+                continue
             source = row['source_name']
             data[char][source].append(dict(row))
         
@@ -224,8 +227,10 @@ class CharacterSortMatcher:
                     'avg_fingerprint_score': float(avg_fp_score),
                     'max_fingerprint_score': float(max_fp_score),
                     'dimension_similarity': float(dim_similarity),
-                    'combined_score': float(
-                        0.3 * cosine_sim + 0.4 * avg_fp_score + 0.3 * dim_similarity
+                    'combined_score': score_components(
+                        cosine_similarity=cosine_sim,
+                        avg_fingerprint_score=avg_fp_score,
+                        dimension_similarity=dim_similarity,
                     ),
                 }
         
@@ -274,6 +279,7 @@ class CharacterSortMatcher:
         print(f"CHARACTER SORT MATCHING — CROSS-SOURCE RESULTS")
         print(f"{'='*70}")
         print(f"Characters compared: {len(results)}")
+        print(f"Metric version: {SORT_METRIC_VERSION} ({metric_descriptor()})")
         
         # Aggregate scores per pair
         pair_scores = defaultdict(list)
@@ -285,7 +291,11 @@ class CharacterSortMatcher:
         for pair, scores in sorted(pair_scores.items()):
             avg = np.mean(scores)
             std = np.std(scores)
-            verdict = "✅ SAME TYPE" if avg > 0.6 else ("⚠️ UNCLEAR" if avg > 0.4 else "❌ DIFFERENT TYPE")
+            verdict = (
+                "✅ STRONG FORMAL SIMILARITY"
+                if avg > 0.6
+                else ("⚠️ UNCLEAR" if avg > 0.4 else "❌ LOW FORMAL SIMILARITY")
+            )
             print(f"  {pair}: {avg:.3f} ± {std:.3f}  {verdict}")
         
         # Top matching characters
@@ -331,6 +341,7 @@ class CharacterSortMatcher:
 <body>
 <h1>🔤 Character Sort Matching — Cross-Source Forensic Report</h1>
 <p>Generated: """ + datetime.now().strftime("%Y-%m-%d %H:%M") + """</p>
+<p>Metric: """ + SORT_METRIC_VERSION + " (" + metric_descriptor() + """)</p>
 """
         
         # Aggregate pair scores
@@ -343,11 +354,17 @@ class CharacterSortMatcher:
         for pair, scores in pair_scores.items():
             avg = np.mean(scores)
             if avg > 0.6:
-                html += f'<div class="verdict same">✅ {pair}: Average similarity {avg:.3f} — Evidence suggests SAME TYPE SET</div>'
+                html += (
+                    f'<div class="verdict same">✅ {pair}: Average similarity {avg:.3f} '
+                    '— Strong formal similarity in printed letterforms</div>'
+                )
             elif avg > 0.4:
                 html += f'<div class="verdict unclear">⚠️ {pair}: Average similarity {avg:.3f} — INCONCLUSIVE</div>'
             else:
-                html += f'<div class="verdict different">❌ {pair}: Average similarity {avg:.3f} — Evidence suggests DIFFERENT TYPE</div>'
+                html += (
+                    f'<div class="verdict different">❌ {pair}: Average similarity {avg:.3f} '
+                    '— Low formal similarity under the current workflow</div>'
+                )
         
         # Summary table
         html += "<h2>Pairwise Summary</h2>"
@@ -396,8 +413,17 @@ class CharacterSortMatcher:
 
 
 def main():
-    output_dir = Path("reports/character_sort_match")
-    matcher = CharacterSortMatcher()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Compare character sorts across sources")
+    parser.add_argument("--db-path", default="data/forensic.db",
+                        help="SQLite database path to analyze")
+    parser.add_argument("--output-dir", default="reports/character_sort_match",
+                        help="Output directory for comparison artifacts")
+    args = parser.parse_args()
+
+    output_dir = Path(args.output_dir)
+    matcher = CharacterSortMatcher(db_path=args.db_path)
     matcher.run_full_comparison(output_dir)
 
 

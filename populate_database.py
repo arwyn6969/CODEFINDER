@@ -298,7 +298,7 @@ def main():
     # Define sources
     sources = [
         ("data/sources/folger_sonnets_1609", "wright"),
-        ("data/sources/folger_sonnets_1609_aspley", "aspley"),
+        ("data/sources/folger_sonnets_1609_aspley_normalized", "aspley"),
     ]
     
     # Check if we want quick mode (fewer pages)

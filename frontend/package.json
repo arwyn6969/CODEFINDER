@@ -1,7 +1,7 @@
 {
   "name": "ancient-text-analyzer-frontend",
   "version": "1.0.0",
-  "description": "React frontend for Ancient Text Analysis System",
+  "description": "React frontend for CODEFINDER document analysis and historical-print research",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.6.1",

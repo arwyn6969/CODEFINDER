@@ -7,14 +7,14 @@ Extracts individual character sorts from page images using OCR bounding boxes.
 Core of Phase 2A "Complete Typographic Inventory".
 
 Improvements over v1:
-- Fraktur OCR: Uses Fraktur+frk+deu+eng combined model for blackletter
+- Fraktur OCR: Uses frk+deu+eng combined model for blackletter
 - DPI Normalisation: Rescales all images to common height before OCR
 - Expanded PSM: Configurable page segmentation mode
 - Lower threshold: 50% confidence (Fraktur model is lower-confidence but correct)
 
 Usage:
     python scripts/extract_characters.py --source <source_key> --limit <N>
-    python scripts/extract_characters.py --source bsb_munich_10057380 --lang Fraktur+frk+eng
+    python scripts/extract_characters.py --source bsb_munich_10057380 --lang frk+deu+eng
     python scripts/extract_characters.py --source hab_wolfenbuettel_178_1_theol_1s --normalize-height 2400
 """
 
@@ -49,7 +49,7 @@ class CharacterInstance:
 
 class CharacterExtractor:
     def __init__(self, db_path: str = "data/forensic.db",
-                 lang: str = "Fraktur+frk+eng",
+                 lang: str = "frk+deu+eng",
                  normalize_height: int = 0,
                  psm: int = 6,
                  min_confidence: float = 50.0):
@@ -67,19 +67,24 @@ class CharacterExtractor:
         self._preflight_check()
 
     def _preflight_check(self):
-        """Ensure the required Tesseract language models are installed."""
+        """Ensure Tesseract has the necessary language models (especially frk)."""
         try:
-            available_langs = pytesseract.get_languages(config='')
-            for expected_lang in self.lang.split('+'):
-                if expected_lang not in available_langs:
+            expected_langs = self.lang.split('+')
+            installed_langs = pytesseract.get_languages(config='')
+            
+            for expected_lang in expected_langs:
+                if expected_lang not in installed_langs:
+                    logger.error(f"Missing Tesseract language model: {expected_lang}")
+                    logger.error(f"Installed models: {installed_langs}")
                     raise RuntimeError(f"Missing required Tesseract language model: '{expected_lang}'. Please install it first.")
         except pytesseract.TesseractNotFoundError:
             raise RuntimeError("Tesseract OCR is not installed or not in PATH.")
 
     def get_connection(self):
         import sqlite3
-        conn = sqlite3.connect(self.db_path)
+        conn = sqlite3.connect(self.db_path, timeout=60)
         conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA busy_timeout=60000")
         return conn
 
     def _normalize_image(self, img):
@@ -200,6 +205,18 @@ class CharacterExtractor:
                 crops_to_save.append(roi)
 
             if not instances_to_save:
+                page_id = save_page(
+                    conn,
+                    source_id,
+                    page_num,
+                    str(image_path),
+                    orig_w,
+                    orig_h,
+                    0,
+                    0.0,
+                )
+                save_character_instances(conn, page_id, [])
+                logger.info(f"Saved 0 character sorts for page {page_num}")
                 return
 
             # Save Page
@@ -240,12 +257,42 @@ class CharacterExtractor:
 
     def _parse_page_number(self, filename: str) -> int:
         nums = re.findall(r'\d+', filename)
-        return int(nums[-1]) if nums else 0
+        if not nums:
+            return 0
+        return int(max(enumerate(nums), key=lambda item: (len(item[1]), item[0]))[1])
 
-    def run_batch(self, input_dir: Path, source_name: str, limit: int = None):
-        files = sorted(list(input_dir.glob("*.jpg")))
+    def run_batch(
+        self,
+        input_dir: Path,
+        source_name: str,
+        limit: int = None,
+        page_start: int = None,
+        page_end: int = None,
+    ):
+        all_files = sorted(
+            list(input_dir.glob("*.jpg")),
+            key=lambda path: (self._parse_page_number(path.name), path.name),
+        )
+        files = all_files
+        if page_start is not None:
+            files = [path for path in files if self._parse_page_number(path.name) >= page_start]
+        if page_end is not None:
+            files = [path for path in files if self._parse_page_number(path.name) <= page_end]
         if limit:
             files = files[:limit]
+
+        conn = self.get_connection()
+        try:
+            from db_persistence import get_or_create_source
+            cursor = conn.cursor()
+            source_id = get_or_create_source(conn, source_name, str(input_dir), len(all_files))
+            cursor.execute(
+                "UPDATE sources SET total_pages = ? WHERE id = ?",
+                (len(all_files), source_id),
+            )
+            conn.commit()
+        finally:
+            conn.close()
 
         for f in files:
             self.process_page(f, source_name)
@@ -254,15 +301,21 @@ class CharacterExtractor:
 def main():
     parser = argparse.ArgumentParser(description="Extract characters from pages (v2 — Fraktur + DPI Norm)")
     parser.add_argument("--source", required=True, help="Source key from config")
+    parser.add_argument("--db-path", default="data/forensic.db",
+                       help="SQLite database path for extracted character data")
     parser.add_argument("--limit", type=int, help="Limit number of pages")
-    parser.add_argument("--lang", default="deu_frak",
-                       help="Tesseract language model(s) (default: deu_frak)")
+    parser.add_argument("--lang", type=str, default="frk+deu+eng",
+                       help="Tesseract language model(s) (default: frk+deu+eng)")
     parser.add_argument("--normalize-height", type=int, default=2400,
                        help="Normalise image height in pixels before OCR (0=off, default=2400)")
     parser.add_argument("--psm", type=int, default=6,
                        help="Tesseract page segmentation mode (default: 6)")
     parser.add_argument("--min-confidence", type=float, default=50.0,
                        help="Minimum OCR confidence threshold (default: 50)")
+    parser.add_argument("--page-start", type=int,
+                       help="Only process pages with parsed page number >= this value")
+    parser.add_argument("--page-end", type=int,
+                       help="Only process pages with parsed page number <= this value")
     args = parser.parse_args()
 
     # Load config to get path
@@ -278,12 +331,19 @@ def main():
     input_dir = Path("data/sources") / src_config["path"]
 
     extractor = CharacterExtractor(
+        db_path=args.db_path,
         lang=args.lang,
         normalize_height=args.normalize_height,
         psm=args.psm,
         min_confidence=args.min_confidence,
     )
-    extractor.run_batch(input_dir, args.source, args.limit)
+    extractor.run_batch(
+        input_dir,
+        args.source,
+        args.limit,
+        args.page_start,
+        args.page_end,
+    )
 
 
 if __name__ == "__main__":

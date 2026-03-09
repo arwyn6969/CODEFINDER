@@ -104,8 +104,8 @@ sources:
       manifest: "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10057380/manifest"
     metadata:
       title: "Sehr Herrliche, Schöne und Warhaffte Gedicht"
-      date: "1609"  # Approximate
-      place: "Germany"
+      date: "1616"
+      place: "Kempten"
     quality:
       resolution: "full"
       format: "jpg"
@@ -121,8 +121,8 @@ sources:
       manifest: "https://manifests.sub.uni-goettingen.de/iiif/presentation/PPN777246686/manifest"
     metadata:
       title: "Vita, Non Vita"
-      date: "1614"
-      place: "Tübingen"
+      date: "1609"
+      place: "Kempten"
     quality:
       resolution: "full"
       format: "jpg"
@@ -136,14 +136,16 @@ sources:
       id: "178-1-theol-1s"
       url: "http://diglib.hab.de/drucke/178-1-theol-1s/start.htm"
     metadata:
-      title: "Drucke 178-1-theol-1s"
-      date: "1600-1620"  # Estimate
+      title: "Exercitationum theologicarum pars prima"
+      author: "Antonio Albizzi"
+      date: "1616"
+      place: "Kempten"
       note: "Requires custom scraper"
 
   # GOOGLE BOOKS: Tractatus Brevis (Antonio degli Albizzi)
   google_books_tractatus_brevis:
-    path: "google_books_tractatus_brevis.pdf"
-    type: "pdf"
+    path: "google_books_tractatus/"
+    type: "pdf_images"
     provenance:
       name: "Google Books"
       id: "uThoAAAAcAAJ"
@@ -154,8 +156,70 @@ sources:
       date: "1613"
       place: "Kempten"
     quality:
-      resolution: "pdf"
-      note: "Manually downloaded PDF"
+      resolution: "jpg"
+      note: "Page images extracted locally from the downloaded PDF"
+
+  # PUBLICATION-GRADE NEGATIVE CONTROL CANDIDATE
+  negative_control_bsb10222478:
+    path: "negative_control_bsb10222478/"
+    type: "iiif_images"
+    provenance:
+      name: "Bayerische Staatsbibliothek (BSB)"
+      id: "bsb10222478"
+      url: "https://mdz-nbn-resolving.de/details:bsb10222478"
+      manifest: "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10222478/manifest"
+      catalog_record: "https://api.digitale-sammlungen.de/metadata/bsb10222478"
+    metadata:
+      title: "Het Schilder Boeck. 2,2. Het leven der moderne oft deestijtsche doorluchtighe italiaensche schilders"
+      author: "Karel van Mander"
+      date: "1616"
+      place: "Amsterdam"
+      printer: "Jacob Pietersz Wachter"
+      note: "Unrelated BSB IIIF comparator for the German/Kempten negative-control run"
+    quality:
+      resolution: "full"
+      format: "jpg"
+      total_pages: 190
+
+  negative_control_bsb10326315:
+    path: "negative_control_bsb10326315/"
+    type: "iiif_images"
+    provenance:
+      name: "Bayerische Staatsbibliothek (BSB)"
+      id: "bsb10326315"
+      url: "https://mdz-nbn-resolving.de/details:bsb10326315"
+      manifest: "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb10326315/manifest"
+      catalog_record: "https://api.digitale-sammlungen.de/metadata/bsb10326315"
+    metadata:
+      title: "Continuatio J. Sleidani"
+      date: "1613"
+      place: "Frankfurt am Main"
+      printer: "Richter"
+      note: "Fallback BSB IIIF comparator if the primary publication-grade negative control candidate is rejected"
+    quality:
+      resolution: "full"
+      format: "jpg"
+      total_pages: 520
+
+  negative_control_bsb00090503:
+    path: "negative_control_bsb00090503/"
+    type: "iiif_images"
+    provenance:
+      name: "Bayerische Staatsbibliothek (BSB)"
+      id: "bsb00090503"
+      url: "https://mdz-nbn-resolving.de/details:bsb00090503"
+      manifest: "https://api.digitale-sammlungen.de/iiif/presentation/v2/bsb00090503/manifest"
+    metadata:
+      title: "Jan Peter Sweelincks ... Sechs-stimmige Psalmen"
+      author: "Jan Pieterszoon Sweelinck"
+      date: "1616"
+      place: "Berlin"
+      printer: "Georg Runge"
+      note: "Music-print fallback comparator with early modern lyrics and materially different page layout"
+    quality:
+      resolution: "full"
+      format: "jpg"
+      total_pages: 329
 
   # ACADEMIA.EDU: Adam Haslmayr (Rosicrucian Target)
   academia_edu_haslmayr:
@@ -179,6 +243,3 @@ active_source: "folger_iiif"
 # Source switching notes:
 # To switch sources, change active_source above or pass --source flag to scripts.
 # The legacy PDF is archived but accessible for comparative analysis.
-
-
-

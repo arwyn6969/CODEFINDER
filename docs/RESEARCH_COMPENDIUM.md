@@ -1,7 +1,16 @@
-# CODEFINDER Research Compendium
-> **Version**: 1.0 | **Established**: February 5, 2026
+# CODEFINDER Internal Research Notebook
+> **Status**: Internal working notebook only
+> **External circulation**: Do not cite, distribute, or submit in this form
+> **Role in the project**: Preserves speculative leads, abandoned hypotheses, and exploratory patterning notes
 
-This document consolidates all research findings from the CODEFINDER analytical suite.
+This file is retained as a research notebook, not as an academic manuscript. It deliberately preserves material from earlier investigative phases, including speculative frameworks, cipher hypotheses, and interpretive language that should not appear in external scholarly circulation.
+
+For book-history-facing writing, use these documents instead:
+
+- `docs/BOOK_HISTORY_MANUSCRIPT.md` for the external draft
+- `docs/BOOK_HISTORY_METHODS_APPENDIX.md` for methods, reproducibility, and validation requirements
+
+The material below is preserved for internal idea generation and auditability. It should be mined for leads only.
 
 ---
 

@@ -85,7 +85,7 @@ def main():
     
     aspley_count = populate_edition(
         db,
-        "data/sources/folger_sonnets_1609_aspley",
+        "data/sources/folger_sonnets_1609_aspley_normalized",
         "aspley"
     )
     

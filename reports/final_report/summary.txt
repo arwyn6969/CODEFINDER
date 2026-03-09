@@ -1,46 +1,46 @@
 CODEFINDER — FORENSIC PRINT BLOCK ANALYSIS SUMMARY
 ============================================================
-Generated: 2026-02-16 16:40
+Generated: 2026-03-08 19:44
 
 DATA INVENTORY
 ----------------------------------------
-  BSB Munich                      200 pages   3111 chars
-  GDZ Göttingen                    52 pages   1696 chars
-  Google Books (Tractatus)         94 pages   1361 chars
-  HAB Wolfenbüttel                298 pages   7997 chars
-  TOTAL                           644 pages  14165 chars
+  BSB Munich                      782 pages  15320 chars
+  GDZ Göttingen                    60 pages   1979 chars
+  Google Books (Tractatus)         97 pages   1843 chars
+  HAB Wolfenbüttel                298 pages   8571 chars
+  TOTAL                          1237 pages  27713 chars
 
 GREENMAN WOODBLOCK ANALYSIS
 ----------------------------------------
-  Verdict: SAME WOODBLOCK across BSB, GDZ, HAB
-  Best SIFT: 12,228 keypoint matches (GDZ)
-  Best Fingerprint: 0.998 (GDZ)
-  Total ornament matches: 2,463
+  Verdict: One verified Greenman candidate in GDZ Göttingen under the current thresholds
+  Best SIFT: 13,215 keypoint matches (GDZ Göttingen)
+  Best Fingerprint: 1.000 (GDZ Göttingen)
 
 CHARACTER SORT MATCHING  
 ----------------------------------------
-  Characters compared: 46
-  BSB Munich vs GDZ Göttingen                        0.671  SAME
-  BSB Munich vs Google Books (Tractatus)             0.687  SAME
-  BSB Munich vs HAB Wolfenbüttel                     0.682  SAME
-  GDZ Göttingen vs Google Books (Tractatus)          0.641  SAME
-  GDZ Göttingen vs HAB Wolfenbüttel                  0.655  SAME
-  Google Books (Tractatus) vs HAB Wolfenbüttel       0.641  SAME
+  Characters compared: 40
+  BSB Munich vs GDZ Göttingen                        0.688  SIMILAR FORMS
+  BSB Munich vs Google Books (Tractatus)             0.663  SIMILAR FORMS
+  BSB Munich vs HAB Wolfenbüttel                     0.709  SIMILAR FORMS
+  GDZ Göttingen vs Google Books (Tractatus)          0.621  SIMILAR FORMS
+  GDZ Göttingen vs HAB Wolfenbüttel                  0.669  SIMILAR FORMS
+  Google Books (Tractatus) vs HAB Wolfenbüttel       0.660  SIMILAR FORMS
 
 STATISTICAL TESTS
 ----------------------------------------
-  Bootstrap: BSB Munich vs GDZ Göttingen              0.688 [0.647, 0.735]
-  Bootstrap: BSB Munich vs Google Books (Tractatus)   0.788 [0.732, 0.847]
-  Bootstrap: BSB Munich vs HAB Wolfenbüttel           0.913 [0.872, 0.957]
-  Bootstrap: GDZ Göttingen vs Google Books (Tractatus) 0.874 [0.807, 0.943]
-  Bootstrap: GDZ Göttingen vs HAB Wolfenbüttel        0.627 [0.598, 0.657]
-  Bootstrap: Google Books (Tractatus) vs HAB Wolfenbüttel 0.719 [0.675, 0.767]
+  Bootstrap: BSB Munich vs GDZ Göttingen              0.949 [0.908, 0.991]
+  Bootstrap: BSB Munich vs Google Books (Tractatus)   0.982 [0.948, 0.999]
+  Bootstrap: BSB Munich vs HAB Wolfenbüttel           0.840 [0.820, 0.860]
+  Bootstrap: GDZ Göttingen vs Google Books (Tractatus) 0.950 [0.896, 0.995]
+  Bootstrap: GDZ Göttingen vs HAB Wolfenbüttel        0.798 [0.765, 0.832]
+  Bootstrap: Google Books (Tractatus) vs HAB Wolfenbüttel 0.839 [0.801, 0.875]
 
 FINAL VERDICT
 ----------------------------------------
-  Strong evidence that these publications share physical printing materials.
-  The Greenman woodblock match is definitive.
-  Character sort evidence corroborates.
+  Current computational evidence supports a provisional shared-materials hypothesis.
+  Character sort evidence is strong; woodblock evidence is currently source-specific.
+  Manual review of the top 60 matches is complete, but no publication-grade negative control has yet been accepted and the calibration sweep did not resolve the blocker.
+  Present this as a cleaned computational draft, not a settled attribution claim.
   
 REPORTS
 ----------------------------------------

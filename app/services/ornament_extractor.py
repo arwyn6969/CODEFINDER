@@ -161,16 +161,8 @@ class OrnamentExtractor:
             import re
             nums = re.findall(r'\d+', filename)
             if nums:
-                # Use the last number explicitly for HAB/BSB style '000_0001'
-                # But for '001_page.jpg' logic?
-                # BSB: 000_0001.jpg -> 1. 000 is likely batch/volume or dummy.
-                # GDZ: 001_.jpg -> 1.
-                # HAB: 00001.jpg -> 1.
-                # Heuristic: verify if it looks like a page number (1-1000)
-                # If multiple groups, maybe pick the one that increments
-                
-                # Default: use the last numeric group found
-                return int(nums[-1])
+                # Prefer the longest numeric group; on ties, prefer the later group.
+                return int(max(enumerate(nums), key=lambda item: (len(item[1]), item[0]))[1])
         except:
             pass
         return 0

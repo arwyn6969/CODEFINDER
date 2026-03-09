@@ -1,5 +1,7 @@
 # OS
 .DS_Store
+.agent/
+.rerun_backup/
 
 # Python
 __pycache__/

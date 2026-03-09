@@ -4,18 +4,11 @@ Damage Evolution Tracker
 ========================
 
 Compares damage patterns (nicks, cracks, ink spread) across sources ordered
-chronologically to test whether damage accumulates over time.
+chronologically to test whether damage metrics show an exploratory wear trend.
 
-If physical type was shared, we expect:
-- Damage metrics increase monotonically with publication date
-- Edge erosion correlates with chronological distance from earliest use
-- This constitutes strong evidence of shared physical materials
-
-Dates (from config):
-  BSB Munich    ~1609
-  HAB Wolf.     ~1610 (est.)
-  Tractatus     ~1613
-  GDZ Göttingen ~1614
+This script is diagnostic only. Even if some metrics increase across the configured
+source order, that pattern does not independently prove shared physical type.
+Use it only after source metadata has been reconciled.
 
 Usage:
     python scripts/damage_evolution.py
@@ -36,13 +29,37 @@ sys.path.append(str(Path(__file__).parent.parent))
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("damage_evolution")
 
-# Chronological ordering with approximate dates
 SOURCE_DATES = {
-    'bsb_munich_10057380': 1609,
-    'hab_wolfenbuettel_178_1_theol_1s': 1610,  # estimated 1600-1620, using midpoint
+    'gdz_goettingen_ppn777246686': 1609,
     'google_books_tractatus_brevis': 1613,
-    'gdz_goettingen_ppn777246686': 1614,
+    'bsb_munich_10057380': 1616,
+    'hab_wolfenbuettel_178_1_theol_1s': 1616,
 }
+
+
+def load_source_dates(config_path: str = "data/sources/config.yaml") -> dict:
+    """Load source dates from the shared source config when available."""
+    path = Path(config_path)
+    if not path.exists():
+        return SOURCE_DATES.copy()
+
+    try:
+        import yaml
+
+        with open(path) as handle:
+            config = yaml.safe_load(handle) or {}
+    except Exception as exc:
+        logger.warning("Could not load source dates from %s: %s", path, exc)
+        return SOURCE_DATES.copy()
+
+    source_dates = SOURCE_DATES.copy()
+    for source_name, fallback in SOURCE_DATES.items():
+        raw_date = str(config.get("sources", {}).get(source_name, {}).get("metadata", {}).get("date", fallback))
+        try:
+            source_dates[source_name] = int(raw_date[:4])
+        except ValueError:
+            source_dates[source_name] = fallback
+    return source_dates
 
 
 def compute_damage_metrics(crop_path: str) -> dict:
@@ -145,9 +162,10 @@ def gather_crop_paths(db_path="data/forensic.db"):
     return results
 
 
-def run_evolution_analysis():
+def run_evolution_analysis(db_path="data/forensic.db", output_dir="reports/damage_evolution"):
     logger.info("Gathering crop paths from database...")
-    all_crops = gather_crop_paths()
+    all_crops = gather_crop_paths(db_path=db_path)
+    source_dates = load_source_dates()
     
     # Filter to characters present in 3+ sources
     multi_source_chars = {c: srcs for c, srcs in all_crops.items() 
@@ -170,7 +188,7 @@ def run_evolution_analysis():
     
     # Aggregate: per-source mean damage metrics
     source_means = {}
-    for source in SOURCE_DATES:
+    for source in source_dates:
         if source not in source_damage:
             continue
         all_metrics = []
@@ -181,7 +199,7 @@ def run_evolution_analysis():
             continue
             
         source_means[source] = {
-            'date': SOURCE_DATES[source],
+            'date': source_dates[source],
             'n_samples': len(all_metrics),
             'n_characters': len(source_damage[source]),
             'edge_roughness': float(np.mean([m['edge_roughness'] for m in all_metrics])),
@@ -237,15 +255,15 @@ def run_evolution_analysis():
             'WEAK' if increasing_count >= 2 else 'INSUFFICIENT')),
         'interpretation': (
             f"{increasing_count}/{len(metrics_to_test)} damage metrics increase chronologically. "
-            "This is consistent with shared physical type experiencing progressive wear."
+            "This is exploratory support for a wear trend and still requires metadata scrutiny."
             if increasing_count >= 3
             else f"Only {increasing_count}/{len(metrics_to_test)} metrics show chronological increase. "
-                 "Damage evolution is inconclusive — may reflect scan quality differences."
+                 "Damage evolution remains diagnostic and may reflect scan quality or corpus heterogeneity."
         )
     }
     
     # Save results
-    output_dir = Path("reports/damage_evolution")
+    output_dir = Path(output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
     
     results = {
@@ -289,7 +307,7 @@ td { padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 .bar { display: inline-block; height: 16px; background: #c9a94e; border-radius: 3px; }
 </style></head><body><div class="container">
 <h1>🔬 Damage Evolution Analysis</h1>
-<p style="text-align:center;color:#888;">Chronological tracking of type wear across publications</p>
+<p style="text-align:center;color:#888;">Exploratory chronology check; not a standalone attribution test</p>
 """
     
     # Source summary table
@@ -375,4 +393,13 @@ td { padding: 8px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); }
 
 
 if __name__ == "__main__":
-    run_evolution_analysis()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run exploratory damage-evolution analysis")
+    parser.add_argument("--db-path", default="data/forensic.db",
+                        help="SQLite database path to analyze")
+    parser.add_argument("--output-dir", default="reports/damage_evolution",
+                        help="Output directory for damage analysis artifacts")
+    args = parser.parse_args()
+
+    run_evolution_analysis(db_path=args.db_path, output_dir=args.output_dir)

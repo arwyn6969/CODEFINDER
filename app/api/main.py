@@ -27,8 +27,8 @@ logger = logging.getLogger(__name__)
 
 # Create FastAPI application
 app = FastAPI(
-    title="Ancient Text Analysis API",
-    description="Comprehensive API for analyzing ancient texts, detecting patterns, and generating reports",
+    title="CODEFINDER API",
+    description="API for document ingestion, OCR-driven analysis, and historical-print research workflows",
     version="1.0.0",
     docs_url="/api/docs",
     redoc_url="/api/redoc",
@@ -53,7 +53,7 @@ route_specs = [
     (search.router, "/search", "Search"),
     (reports.router, "/reports", "Reports"),
     (visualizations.router, "/visualizations", "Visualizations"),
-    (research.router, "/research", "Research"),
+    (research.router, "/research", "Research (Legacy/Internal)"),
     (relationships.router, "/relationships", "Relationships"),
     (websocket.router, "/ws", "WebSocket"),
 ]
@@ -77,7 +77,7 @@ async def health_check():
     """Health check endpoint"""
     return {
         "status": "healthy",
-        "service": "Ancient Text Analysis API",
+        "service": "CODEFINDER API",
         "version": "1.0.0"
     }
 
@@ -102,9 +102,9 @@ async def serve_frontend():
         return HTMLResponse(
             content="""
             <html>
-                <head><title>Ancient Text Analysis</title></head>
+                <head><title>CODEFINDER API</title></head>
                 <body>
-                    <h1>Ancient Text Analysis API</h1>
+                    <h1>CODEFINDER API</h1>
                     <p>Frontend not built. Visit <a href="/api/docs">/api/docs</a> for API documentation.</p>
                 </body>
             </html>

@@ -1,6 +1,8 @@
 # CODEFINDER User Guide
 
-> **All-in-one OCR, analysis, and geometric/cipher exploration pipeline for historical texts**
+> **Status**: Legacy product guide retained for historical context
+> **Current source of truth**: Start with `README.md`, `docs/REPO_INDEX.md`, and `docs/REPO_CONTRACT.md`
+> **Important**: This guide predates the March 7, 2026 repo-lane cleanup and still describes exploratory capabilities that are no longer part of the active roadmap
 
 ---
 

@@ -18,6 +18,8 @@ import argparse
 import sys
 import yaml
 import logging
+import shutil
+import re
 from pathlib import Path
 
 # Add app to path
@@ -36,7 +38,7 @@ def load_config(config_path: Path):
     with open(config_path) as f:
         return yaml.safe_load(f)
 
-def run_extraction(source_key: str, config: dict, limit: int = None):
+def run_extraction(source_key: str, config: dict, limit: int = None, output_root: Path = None):
     """Run extraction for a specific source."""
     source_path = config.get("path")
     if not source_path:
@@ -45,22 +47,45 @@ def run_extraction(source_key: str, config: dict, limit: int = None):
 
     base_dir = Path(__file__).parent.parent
     input_dir = base_dir / "data/sources" / source_path
-    output_dir = base_dir / "reports/ornaments" / source_key
+    output_root = output_root or (base_dir / "reports/ornaments")
+    output_dir = output_root / source_key
     
     if not input_dir.exists():
         logger.error(f"Input directory not found: {input_dir}")
         return
 
+    if output_dir.exists():
+        shutil.rmtree(output_dir)
+
     logger.info(f"Processing {source_key} from {input_dir}")
     
     extractor = OrnamentExtractor(debug_output=output_dir / "debug")
-    extractor.run_batch(input_dir, output_dir)
+    image_files = []
+    for pattern in ("*.jpg", "*.jpeg", "*.png", "*.tif", "*.tiff"):
+        image_files.extend(input_dir.glob(pattern))
+    image_files = sorted(
+        set(image_files),
+        key=lambda path: (
+            int(re.findall(r"\d+", path.name)[-1]) if re.findall(r"\d+", path.name) else -1,
+            path.name,
+        ),
+    )
+    if limit:
+        image_files = image_files[:limit]
+
+    logger.info(f"Scanning {len(image_files)} page images")
+    for image_path in image_files:
+        candidates = extractor.extract_from_page(image_path)
+        if candidates:
+            extractor.save_candidates(candidates, output_dir)
     logger.info(f"Finished extraction for {source_key}. Results in {output_dir}")
 
 def main():
     parser = argparse.ArgumentParser(description="Extract ornaments from source images")
     parser.add_argument("--source", help="Specific source key")
     parser.add_argument("--limit", type=int, help="Limit number of pages")
+    parser.add_argument("--output-root", default="reports/ornaments",
+                        help="Root output directory for extracted ornament candidates")
     args = parser.parse_args()
     
     base_dir = Path(__file__).parent.parent
@@ -88,7 +113,7 @@ def main():
             
         src_config = sources[key]
         if src_config.get("type") in ["iiif_images", "html_scrape"]:
-            run_extraction(key, src_config, args.limit)
+            run_extraction(key, src_config, args.limit, base_dir / args.output_root)
         else:
             logger.info(f"Skipping {key} (type {src_config.get('type')} not supported yet)")
 

@@ -1,6 +1,10 @@
 # FEASIBILITY STUDY: Next Steps for Forensic Print Block Analysis
 ## Compiled: February 5, 2026
 
+> **Status**: Historical working note
+> **Scope**: Early Shakespeare/Wright-Aspley pipeline audit
+> **Current role**: Background context only; not the active repo roadmap
+
 ---
 
 ## 🔍 CURRENT PIPELINE AUDIT: WEAK POINTS IDENTIFIED

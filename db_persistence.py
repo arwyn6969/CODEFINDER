@@ -117,8 +117,43 @@ def save_character_instances(conn: sqlite3.Connection, page_id: int,
     """
     cursor = conn.cursor()
     
-    # Clear existing instances for this page
-    cursor.execute("DELETE FROM character_instances WHERE page_id = ?", (page_id,))
+    # Clear existing instances for this page, along with derived sort artefacts.
+    existing_instance_ids = [
+        row["id"]
+        for row in cursor.execute(
+            "SELECT id FROM character_instances WHERE page_id = ?",
+            (page_id,),
+        ).fetchall()
+    ]
+    if existing_instance_ids:
+        placeholders = ",".join("?" for _ in existing_instance_ids)
+        existing_sort_ids = [
+            row["id"]
+            for row in cursor.execute(
+                f"SELECT id FROM sort_images WHERE character_instance_id IN ({placeholders})",
+                existing_instance_ids,
+            ).fetchall()
+        ]
+        if existing_sort_ids:
+            sort_placeholders = ",".join("?" for _ in existing_sort_ids)
+            cursor.execute(
+                f"DELETE FROM sort_fingerprints WHERE sort_image_id IN ({sort_placeholders})",
+                existing_sort_ids,
+            )
+            cursor.execute(
+                f"""DELETE FROM sort_matches
+                    WHERE sort_image_id_1 IN ({sort_placeholders})
+                       OR sort_image_id_2 IN ({sort_placeholders})""",
+                existing_sort_ids * 2,
+            )
+            cursor.execute(
+                f"DELETE FROM sort_images WHERE id IN ({sort_placeholders})",
+                existing_sort_ids,
+            )
+        cursor.execute(
+            f"DELETE FROM character_instances WHERE id IN ({placeholders})",
+            existing_instance_ids,
+        )
     
     # Batch insert
     data = []

@@ -15,6 +15,7 @@ import json
 import sqlite3
 import os
 import glob
+import numpy as np
 from pathlib import Path
 from datetime import datetime
 from collections import defaultdict
@@ -31,6 +32,16 @@ from reportlab.platypus import (
     PageBreak, Image as RLImage, HRFlowable, KeepTogether
 )
 from reportlab.platypus.flowables import Flowable
+
+from app.services.forensic_report_visuals import (
+    CHART_FILES,
+    build_bootstrap_rows,
+    build_manual_review_rows,
+    build_pairwise_similarity_rows,
+    generate_report_charts,
+    ordered_pair_keys,
+    pair_short_label,
+)
 
 # ── Colour Palette ──────────────────────────────────────────────────────────
 GOLD = HexColor('#c9a94e')
@@ -52,6 +63,9 @@ DISPLAY_NAMES = {
 
 BASE_DIR = Path(__file__).parent.parent
 PROOF_DIR = BASE_DIR / 'reports' / 'proof_images'
+DEFAULT_DB_PATH = BASE_DIR / "data" / "forensic.db"
+GREENMAN_MIN_AREA = 8_000
+GREENMAN_MAX_AREA = 3_000_000
 
 
 class HorizontalRule(Flowable):
@@ -85,32 +99,85 @@ def build_styles():
         'VO':          dict(fontSize=14, leading=18, textColor=ORANGE, fontName='Helvetica-Bold', alignment=TA_CENTER, spaceBefore=4*mm, spaceAfter=4*mm),
         'TOC':         dict(fontSize=11, leading=16, textColor=HexColor('#1a3a5c'), fontName='Helvetica', spaceAfter=2*mm, leftIndent=10*mm),
         'ImgCaption':  dict(fontSize=8, leading=10, textColor=MED_GREY, fontName='Helvetica-Oblique', alignment=TA_CENTER, spaceBefore=1*mm, spaceAfter=5*mm),
+        'TableCell':   dict(fontSize=8.5, leading=10.5, textColor=DARK_GREY, fontName='Helvetica', alignment=TA_LEFT, spaceAfter=0),
+        'TableCellSm': dict(fontSize=7.5, leading=9.2, textColor=DARK_GREY, fontName='Helvetica', alignment=TA_LEFT, spaceAfter=0),
     }
     for name, kw in defs.items():
         styles.add(ParagraphStyle(name, parent=styles['Normal'], **kw))
     return styles
 
 
-def make_table(headers, rows, col_widths=None):
-    data = [headers] + rows
+def make_table(
+    headers,
+    rows,
+    col_widths=None,
+    *,
+    styles=None,
+    body_font_size=8.5,
+    header_font_size=9,
+    numeric_cols=None,
+    wrap_cols=None,
+    cell_style_name='TableCell',
+    top_padding=4,
+    bottom_padding=4,
+    left_padding=6,
+    right_padding=6,
+):
+    numeric_cols = set(numeric_cols or [])
+    wrap_cols = set(wrap_cols or [])
+    cell_style = styles[cell_style_name] if styles else None
+
+    formatted_rows = []
+    for row in rows:
+        formatted = []
+        for col_idx, value in enumerate(row):
+            if isinstance(value, Paragraph):
+                formatted.append(value)
+            elif col_idx in wrap_cols and cell_style is not None:
+                formatted.append(Paragraph(str(value), cell_style))
+            else:
+                formatted.append(value)
+        formatted_rows.append(formatted)
+
+    data = [headers] + formatted_rows
     t = Table(data, colWidths=col_widths, repeatRows=1)
-    t.setStyle(TableStyle([
+    table_styles = [
         ('BACKGROUND', (0, 0), (-1, 0), NAVY),
         ('TEXTCOLOR', (0, 0), (-1, 0), WHITE),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 9),
+        ('FONTSIZE', (0, 0), (-1, 0), header_font_size),
         ('FONTNAME', (0, 1), (-1, -1), 'Helvetica'),
-        ('FONTSIZE', (0, 1), (-1, -1), 8.5),
+        ('FONTSIZE', (0, 1), (-1, -1), body_font_size),
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
         ('GRID', (0, 0), (-1, -1), 0.5, LIGHT_GREY),
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [WHITE, HexColor('#f5f5f5')]),
-        ('TOPPADDING', (0, 0), (-1, -1), 4),
-        ('BOTTOMPADDING', (0, 0), (-1, -1), 4),
-        ('LEFTPADDING', (0, 0), (-1, -1), 6),
-        ('RIGHTPADDING', (0, 0), (-1, -1), 6),
-    ]))
+        ('TOPPADDING', (0, 0), (-1, -1), top_padding),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), bottom_padding),
+        ('LEFTPADDING', (0, 0), (-1, -1), left_padding),
+        ('RIGHTPADDING', (0, 0), (-1, -1), right_padding),
+    ]
+    for col_idx in numeric_cols:
+        table_styles.append(('ALIGN', (col_idx, 1), (col_idx, -1), 'RIGHT'))
+        table_styles.append(('ALIGN', (col_idx, 0), (col_idx, 0), 'CENTER'))
+    t.setStyle(TableStyle(table_styles))
     return t
+
+
+def format_p_value(value):
+    value = float(value)
+    if value < 0.0001:
+        return f"{value:.2e}"
+    return f"{value:.4f}"
+
+
+def format_compact_int(value):
+    value = float(value)
+    if value >= 1_000_000:
+        return f"{value / 1_000_000:.2f}M"
+    if value >= 1_000:
+        return f"{value / 1_000:.1f}K"
+    return f"{int(round(value))}"
 
 
 def safe_image(path, max_width=None, max_height=None):
@@ -147,8 +214,7 @@ def header_footer(canvas, doc):
 
 
 def gather_data():
-    db_path = BASE_DIR / "data" / "forensic.db"
-    conn = sqlite3.connect(str(db_path))
+    conn = sqlite3.connect(str(DEFAULT_DB_PATH))
     conn.row_factory = sqlite3.Row
 
     sources = []
@@ -179,15 +245,115 @@ def gather_data():
     conn.close()
 
     sort_path = BASE_DIR / "reports/character_sort_match/sort_comparison.json"
-    sort_results = json.load(open(sort_path)) if sort_path.exists() else []
+    sort_results = json.loads(sort_path.read_text()) if sort_path.exists() else []
 
     stats_path = BASE_DIR / "reports/statistical_analysis/formal_stats.json"
-    stats_results = json.load(open(stats_path)) if stats_path.exists() else {}
+    stats_results = json.loads(stats_path.read_text()) if stats_path.exists() else {}
 
     damage_path = BASE_DIR / "reports/damage_evolution/damage_evolution.json"
-    damage_results = json.load(open(damage_path)) if damage_path.exists() else {}
+    damage_results = json.loads(damage_path.read_text()) if damage_path.exists() else {}
 
     return sources, totals, char_freq, sort_results, stats_results, damage_results
+
+
+def load_greenman_results():
+    """Load accepted foliate-head matches, filtering out page-sized artefacts."""
+    path = BASE_DIR / "reports" / "greenman_scan" / "matches.json"
+    if not path.exists():
+        return {
+            'valid_matches': [],
+            'rejected_matches': [],
+            'by_source': {},
+            'best_match': None,
+        }
+
+    raw_matches = json.loads(path.read_text())
+    valid_matches = []
+    rejected_matches = []
+    by_source = defaultdict(list)
+
+    for match in raw_matches:
+        bbox = match.get('bbox', {})
+        area = int(bbox.get('w', 0)) * int(bbox.get('h', 0))
+        if GREENMAN_MIN_AREA <= area <= GREENMAN_MAX_AREA:
+            valid_matches.append(match)
+            by_source[match.get('source', 'unknown')].append(match)
+        else:
+            rejected_matches.append(match)
+
+    best_match = max(
+        valid_matches,
+        key=lambda match: (match.get('aggregate_score', 0), match.get('sift_matches', 0)),
+        default=None,
+    )
+
+    return {
+        'valid_matches': valid_matches,
+        'rejected_matches': rejected_matches,
+        'by_source': dict(by_source),
+        'best_match': best_match,
+    }
+
+
+def load_reviewed_pairs_manifest():
+    """Load reviewed proof panels selected for publication-facing figures."""
+    path = PROOF_DIR / "reviewed_pairs_manifest.json"
+    if not path.exists():
+        return []
+
+    rows = json.loads(path.read_text())
+    return [
+        row for row in rows
+        if (PROOF_DIR / row.get('file', '')).exists()
+    ]
+
+
+def summarize_pair_scores(sort_results):
+    """Aggregate pairwise character-sort scores into report-ready rows."""
+    pair_scores = defaultdict(list)
+    for result in sort_results:
+        for pair, scores in result.get('pairwise', {}).items():
+            pair_scores[pair].append(scores['combined_score'])
+
+    summary = []
+    for pair in sorted(pair_scores.keys()):
+        scores = pair_scores[pair]
+        avg = float(np.mean(scores))
+        summary.append({
+            'pair': pair,
+            'avg': avg,
+            'std': float(np.std(scores)),
+            'characters': len(scores),
+            'verdict': 'SIMILAR_FORMS' if avg > 0.6 else ('UNCLEAR' if avg > 0.5 else 'DIFFERENT'),
+        })
+    return summary
+
+
+def collect_analysis_sources(pairwise_summary, stats_results, greenman_results):
+    """Collect every source referenced by the comparison artefacts."""
+    sources = set()
+
+    for item in pairwise_summary:
+        sources.update(item['pair'].split(' vs '))
+
+    for section in ('bootstrap', 'ks_test', 'chi_squared', 'mann_whitney'):
+        for pair in stats_results.get(section, {}):
+            sources.update(pair.split(' vs '))
+
+    for match in greenman_results['valid_matches']:
+        source = match.get('source')
+        if source:
+            sources.add(source)
+
+    return sources
+
+
+def display_pair_name(pair: str) -> str:
+    """Replace internal source keys with report display names."""
+    pair_display = pair
+    for raw_name, display_name in DISPLAY_NAMES.items():
+        pair_display = pair_display.replace(raw_name, display_name)
+    return pair_display
 
 
 def add_image_row(story, images_and_captions, styles, max_height=70*mm):
@@ -215,12 +381,94 @@ def add_image_row(story, images_and_captions, styles, max_height=70*mm):
     story.append(t)
 
 
-def build_pdf():
-    output_path = str(BASE_DIR / "reports/final_report/CODEFINDER_Forensic_Report.pdf")
-    Path(output_path).parent.mkdir(parents=True, exist_ok=True)
+def add_chart_block(story, image_path, caption, max_width, max_height, styles):
+    chart = safe_image(image_path, max_width=max_width, max_height=max_height)
+    if chart:
+        story.append(chart)
+        story.append(Paragraph(caption, styles['ImgCaption']))
+
+
+def build_pairwise_reference_rows(pairwise_rows):
+    return [
+        [
+            row['label'],
+            f"{row['avg_similarity']:.3f}",
+            str(row['characters_compared']),
+            row['verdict'].replace('_', ' '),
+        ]
+        for row in pairwise_rows
+    ]
+
+
+def build_top_character_rows(sort_results):
+    char_best = []
+    for result in sort_results:
+        best = max((metrics['combined_score'] for metrics in result.get('pairwise', {}).values()), default=0)
+        nsrc = len(result.get('sources', {}))
+        char_best.append((result['character'], best, nsrc))
+    char_best.sort(key=lambda item: item[1], reverse=True)
+    return [[f"'{char}'", f"{score:.3f}", str(source_count)] for char, score, source_count in char_best[:20]]
+
+
+def build_ks_dimension_rows(stats_results, verdict_key, stat_key, p_key):
+    rows = []
+    for pair_key in ordered_pair_keys(stats_results.get('ks_test', {}).keys()):
+        data = stats_results['ks_test'][pair_key]
+        rows.append([
+            pair_short_label(pair_key),
+            f"{data[stat_key]:.4f}",
+            format_p_value(data[p_key]),
+            data[verdict_key],
+        ])
+    return rows
+
+
+def build_chi_rows(stats_results):
+    rows = []
+    for pair_key in ordered_pair_keys(stats_results.get('chi_squared', {}).keys()):
+        data = stats_results['chi_squared'][pair_key]
+        rows.append([
+            pair_short_label(pair_key),
+            f"{data['chi2']:.1f}",
+            str(data['degrees_freedom']),
+            format_p_value(data['p_value']),
+            data['verdict'],
+        ])
+    return rows
+
+
+def build_mw_rows(stats_results):
+    rows = []
+    for pair_key in ordered_pair_keys(stats_results.get('mann_whitney', {}).keys()):
+        data = stats_results['mann_whitney'][pair_key]
+        rows.append([
+            pair_short_label(pair_key),
+            format_compact_int(data['u_statistic']),
+            format_p_value(data['p_value']),
+            f"{data['effect_size']:.3f}",
+            data['effect_magnitude'].upper(),
+        ])
+    return rows
+
+
+def build_bootstrap_reference_rows(bootstrap_rows):
+    rows = []
+    for row in bootstrap_rows:
+        rows.append([
+            row['label'],
+            f"{row['mean_similarity']:.3f}",
+            f"[{row['ci_low']:.3f}, {row['ci_high']:.3f}]",
+            'SIMILAR' if row['supports_threshold'] else 'UNCLEAR',
+        ])
+    return rows
+
+
+def build_pdf(output_path=None):
+    output_path = Path(output_path) if output_path else BASE_DIR / "reports" / "final_report" / "CODEFINDER_Forensic_Report.pdf"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
 
     doc = SimpleDocTemplate(
-        output_path, pagesize=A4,
+        str(output_path), pagesize=A4,
         leftMargin=20*mm, rightMargin=20*mm,
         topMargin=22*mm, bottomMargin=20*mm,
         title="CODEFINDER — Forensic Print Block Analysis",
@@ -232,6 +480,103 @@ def build_pdf():
     pw = A4[0] - 40*mm  # page width
 
     sources, totals, char_freq, sort_results, stats_results, damage_results = gather_data()
+    greenman_results = load_greenman_results()
+    reviewed_pairs_manifest = load_reviewed_pairs_manifest()
+    manual_review_rows = json.loads((BASE_DIR / "reports" / "manual_review" / "manual_review_ledger.json").read_text())
+    generate_report_charts(sort_results, stats_results, manual_review_rows, PROOF_DIR)
+    pairwise_summary = build_pairwise_similarity_rows(sort_results)
+    manual_review_summary = build_manual_review_rows(manual_review_rows)
+    bootstrap_chart_rows = build_bootstrap_rows(stats_results)
+    chart_paths = {key: PROOF_DIR / filename for key, filename in CHART_FILES.items()}
+    manual_review_totals = {
+        'same_design': sum(row['same_design'] for row in manual_review_summary),
+        'possible_same_sort_block': sum(row['possible_same_sort_block'] for row in manual_review_summary),
+        'inconclusive': sum(row['inconclusive'] for row in manual_review_summary),
+    }
+    similar_pair_count = sum(1 for item in pairwise_summary if item['verdict'] == 'SIMILAR_FORMS')
+    analysis_sources = collect_analysis_sources(pairwise_summary, stats_results, greenman_results)
+    inventory_sources = {src['name'] for src in sources}
+    missing_inventory_sources = sorted(analysis_sources - inventory_sources)
+    bootstrap_means = [
+        data['mean_similarity']
+        for data in stats_results.get('bootstrap', {}).values()
+        if 'mean_similarity' in data
+    ]
+    bootstrap_range_label = (
+        f"{min(bootstrap_means):.3f}–{max(bootstrap_means):.3f}"
+        if bootstrap_means else "n/a"
+    )
+    best_bootstrap_line = "Bootstrap summary unavailable."
+    if stats_results.get('bootstrap'):
+        best_bootstrap_pair, best_bootstrap = max(
+            stats_results['bootstrap'].items(),
+            key=lambda item: item[1].get('mean_similarity', 0),
+        )
+        best_bootstrap_line = (
+            f"{display_pair_name(best_bootstrap_pair)} bootstrap mean similarity "
+            f"{best_bootstrap['mean_similarity']:.3f} "
+            f"[{best_bootstrap['ci_95_lower']:.3f}, {best_bootstrap['ci_95_upper']:.3f}]"
+        )
+    best_mw_line = "Mann-Whitney summary unavailable."
+    if stats_results.get('mann_whitney'):
+        best_mw_pair, best_mw = min(
+            stats_results['mann_whitney'].items(),
+            key=lambda item: item[1].get('effect_size', 1),
+        )
+        best_mw_line = (
+            f"{display_pair_name(best_mw_pair)} Mann-Whitney effect size "
+            f"{best_mw['effect_size']:.3f} ({best_mw['effect_magnitude']})"
+        )
+    best_greenman = greenman_results['best_match']
+    greenman_sources = sorted(greenman_results['by_source'].keys())
+    damage_verdict = damage_results.get('verdict', {}) if damage_results else {}
+    damage_strength = damage_verdict.get('evidence_strength', 'DIAGNOSTIC')
+    damage_summary_value = (
+        f"{damage_verdict.get('increasing_damage', 0)}/{damage_verdict.get('total_metrics', 0)} metrics increasing; diagnostic only"
+        if damage_verdict else
+        "Diagnostic only"
+    )
+    damage_summary_line = damage_verdict.get(
+        'interpretation',
+        "Damage evolution remains diagnostic and is excluded from the main verdict.",
+    )
+
+    if greenman_sources:
+        if len(greenman_sources) == 1:
+            woodblock_finding = (
+                f"Verified only in {DISPLAY_NAMES.get(greenman_sources[0], greenman_sources[0])}"
+            )
+        else:
+            woodblock_finding = (
+                "Verified in "
+                + ", ".join(DISPLAY_NAMES.get(src, src) for src in greenman_sources)
+            )
+    else:
+        woodblock_finding = "No verified foliate-head match"
+
+    if greenman_results['rejected_matches']:
+        woodblock_finding += (
+            f"; {len(greenman_results['rejected_matches'])} oversized artefact"
+            f"{'' if len(greenman_results['rejected_matches']) == 1 else 's'} filtered"
+        )
+
+    if best_greenman:
+        greenman_summary_line = (
+            f"A verified foliate-head candidate is present only in "
+            f"{DISPLAY_NAMES.get(best_greenman['source'], best_greenman['source'])} "
+            f"(SIFT {best_greenman['sift_matches']:,}, fingerprint {best_greenman['aggregate_score']:.3f})."
+        )
+    else:
+        greenman_summary_line = "No verified foliate-head candidate passed the current thresholds."
+
+    inventory_note = None
+    if missing_inventory_sources:
+        inventory_note = (
+            "Inventory note: the local OCR database covers "
+            f"{len(inventory_sources)} source(s), while derived comparison artefacts also reference "
+            f"{', '.join(DISPLAY_NAMES.get(src, src) for src in missing_inventory_sources)}. "
+            "Treat the inventory table as database-backed only."
+        )
 
     # ═════════════════════════════════════════════════════════════════════════
     # COVER PAGE
@@ -252,10 +597,10 @@ def build_pdf():
 
     summary_data = [
         ['Category', 'Finding', 'Confidence'],
-        ['Woodblock Match', 'SAME BLOCK across 3 libraries', 'DEFINITIVE'],
-        ['Character Sort Match', '6/6 pairs = SAME TYPE', 'STRONG'],
-        ['Damage Evolution', '3/5 metrics increase chronologically', 'MODERATE'],
-        ['Statistical Bootstrap', 'Mean similarity 0.63–0.91', 'HIGH'],
+        ['Foliate-Head Match', woodblock_finding, 'PROVISIONAL'],
+        ['Character-Form Match', f'{similar_pair_count}/{len(pairwise_summary)} pairs = SIMILAR FORMS', 'STRONG'],
+        ['Damage Evolution', damage_summary_value, damage_strength],
+        ['Statistical Bootstrap', f'Mean similarity {bootstrap_range_label}', 'HIGH'],
     ]
     t = Table(summary_data, colWidths=[55*mm, 60*mm, 40*mm])
     t.setStyle(TableStyle([
@@ -286,7 +631,7 @@ def build_pdf():
     story.append(Spacer(1, 4*mm))
     for item in [
         "1. Executive Summary", "2. Source Material & Acquisition",
-        "3. OCR Pipeline & Methodology", "4. Greenman Woodblock Analysis",
+        "3. OCR Pipeline & Methodology", "4. Foliate-Head Ornament Analysis",
         "5. Character Sort Matching", "6. Formal Statistical Tests",
         "7. Type Measurements", "8. Damage Evolution Tracking",
         "9. Combined Evidence & Final Verdict", "10. Methodology Notes",
@@ -303,25 +648,23 @@ def build_pdf():
     story.append(Spacer(1, 3*mm))
     story.append(Paragraph(
         "This report presents the results of a computational forensic analysis of four digitised "
-        "early modern German and Latin printed books (c. 1609–1614). The investigation aimed to determine "
-        "whether these publications were produced using the same physical printing materials — specifically "
-        "the same movable type sorts and decorative woodblocks.", s['Body']))
+        "early modern German and Latin printed books (1609–1616). The investigation asked whether "
+        "these publications preserve evidence consistent with shared or transferred printing materials "
+        "under a provisional computational reading.", s['Body']))
     story.append(Paragraph(
-        "Three independent lines of evidence converge on the same conclusion: <b>these publications "
-        "share physical printing materials</b>, consistent with production at the same press or with "
-        "material transfer between printing houses.", s['Body']))
+        "The present evidence supports a provisional shared-materials hypothesis. It is strongest at the "
+        "level of recurring character forms and weaker at the level of ornament reuse, so it should not be "
+        "read as proof of identical physical sorts or corpus-wide woodblock reuse.", s['Body']))
 
     story.append(Paragraph("Key Findings:", s['SSH']))
     for f in [
-        "<b>Woodblock Identity (DEFINITIVE):</b> The same Greenman ornamental woodblock was identified "
-        "across BSB Munich, GDZ Göttingen, and HAB Wolfenbüttel with a fingerprint score of 0.998 "
-        "and 12,228 SIFT keypoint matches.",
-        "<b>Character Sort Matching (STRONG):</b> 84 distinct character types were compared across all "
-        "four sources. All 6 pairwise comparisons yielded similarity scores above the 0.60 threshold.",
-        "<b>Statistical Tests (HIGH):</b> Bootstrap 95% confidence intervals for dimensional similarity "
-        "range from 0.627 to 0.913. Mann-Whitney U tests show negligible effect sizes for BSB↔HAB.",
-        "<b>Damage Evolution (MODERATE):</b> 3 of 5 damage metrics increase monotonically with "
-        "publication date (1609→1614), consistent with progressive wear on shared physical type."
+        f"<b>Foliate-Head Ornament (SOURCE-SPECIFIC):</b> {greenman_summary_line} "
+        "This should be presented as source-specific evidence, not yet as proof of a shared block across all witnesses.",
+        f"<b>Character-Form Similarity (STRONG):</b> {len(sort_results)} distinct character types were compared across "
+        f"{len(analysis_sources)} sources. {similar_pair_count}/{len(pairwise_summary)} pairwise averages exceed the 0.60 threshold and are treated here as similar printed forms, not proof of identical sorts.",
+        "<b>Statistical Tests (HIGH):</b> Bootstrap mean similarities "
+        f"range from {bootstrap_range_label}. Mann-Whitney U tests remain most conservative when scan-resolution differences are large.",
+        f"<b>Damage Evolution ({damage_strength}):</b> {damage_summary_line}"
     ]:
         story.append(Paragraph(f"• {f}", s['Body']))
     story.append(PageBreak())
@@ -333,21 +676,22 @@ def build_pdf():
     story.append(HorizontalRule(pw, 1))
     story.append(Spacer(1, 3*mm))
     story.append(Paragraph(
-        "Source images were acquired from four European digital library services. Below are representative "
-        "pages from each source showing the Fraktur blackletter typeface analysed:", s['Body']))
+        "Source images were acquired from four European digital library services. Below are selected "
+        "early text-bearing pages chosen for legibility and cross-source comparability; they are "
+        "illustrative rather than statistically representative samples:", s['Body']))
 
     # Source page images — 2×2 grid
     page_imgs = [
-        (PROOF_DIR / 'source_page_bsb_munich.jpg', 'BSB Munich (~1609)'),
-        (PROOF_DIR / 'source_page_gdz_gottingen.jpg', 'GDZ Göttingen (1614)'),
-        (PROOF_DIR / 'source_page_hab_wolfenbuttel.jpg', 'HAB Wolfenbüttel (~1610)'),
+        (PROOF_DIR / 'source_page_bsb_munich.jpg', 'BSB Munich (1616)'),
+        (PROOF_DIR / 'source_page_gdz_gottingen.jpg', 'GDZ Göttingen (1609)'),
+        (PROOF_DIR / 'source_page_hab_wolfenbuttel.jpg', 'HAB Wolfenbüttel (1616)'),
         (PROOF_DIR / 'source_page_google_books.jpg', 'Google Books (1613)'),
     ]
     # Row 1
     add_image_row(story, page_imgs[:2], s, max_height=60*mm)
     # Row 2
     add_image_row(story, page_imgs[2:], s, max_height=60*mm)
-    story.append(Paragraph("Figure 1: Representative pages from each of the four source publications.", s['ImgCaption']))
+    story.append(Paragraph("Figure 1: Selected early text-bearing pages from each of the four source publications.", s['ImgCaption']))
 
     story.append(Paragraph("2.1 Inventory", s['SSH']))
     src_rows = []
@@ -359,13 +703,15 @@ def build_pdf():
         ['Source', 'Pages', 'Characters', 'Crop Images'], src_rows,
         col_widths=[50*mm, 25*mm, 30*mm, 30*mm]))
     story.append(Paragraph("Table 1: Database inventory.", s['Caption']))
+    if inventory_note:
+        story.append(Paragraph(inventory_note, s['Body']))
 
     story.append(Paragraph("2.2 Provenance", s['SSH']))
     story.append(make_table(
         ['Display Name', 'Institution', 'Catalogue ID', 'Date', 'Method'],
-        [['BSB Munich', 'Bayerische Staatsbibliothek', 'bsb10057380', '~1609', 'IIIF v2'],
-         ['GDZ Göttingen', 'Göttinger Digitalisierungszentrum', 'PPN777246686', '1614', 'IIIF v2'],
-         ['HAB Wolfenbüttel', 'Herzog August Bibliothek', '178-1-theol-1s', '~1610', 'HTTP scrape'],
+        [['BSB Munich', 'Bayerische Staatsbibliothek', 'bsb10057380', '1616', 'IIIF v2'],
+         ['GDZ Göttingen', 'Göttinger Digitalisierungszentrum', 'PPN777246686', '1609', 'IIIF v2'],
+         ['HAB Wolfenbüttel', 'Herzog August Bibliothek', '178-1-theol-1s', '1616', 'HTTP scrape'],
          ['Google Books', 'Google Books', 'uThoAAAAcAAJ', '1613', 'PDF extraction']],
         col_widths=[32*mm, 45*mm, 30*mm, 18*mm, 28*mm]))
     story.append(Paragraph("Table 2: Source provenance.", s['Caption']))
@@ -392,11 +738,11 @@ def build_pdf():
     story.append(Spacer(1, 3*mm))
     story.append(Paragraph(
         "Character extraction uses Tesseract OCR v5 with the LSTM engine (--oem 1) and a combined "
-        "language model stack: <font face='Courier'>Fraktur+frk+eng</font>.", s['Body']))
+        "language model stack: <font face='Courier'>frk+deu+eng</font>.", s['Body']))
     story.append(make_table(
         ['Parameter', 'Value'],
         [['OCR Engine', 'Tesseract v5, LSTM (--oem 1)'],
-         ['Language Model', 'Fraktur + frk + eng (combined)'],
+         ['Language Model', 'frk + deu + eng (combined)'],
          ['Page Segmentation', 'PSM 6 (uniform block)'],
          ['Confidence Threshold', '50% (lowered for Fraktur model)'],
          ['DPI Normalisation', '2400px height (Lanczos4 interpolation)'],
@@ -411,8 +757,8 @@ def build_pdf():
         [['Total characters', '5,891', '14,165', '+2.4×'],
          ['Characters compared', '46', '84', '+1.8×'],
          ['Matching pairs', '4 / 6', '6 / 6', '+50%'],
-         ['GDZ↔HAB similarity', '0.571 (UNCLEAR)', '0.655 (SAME)', 'Fixed'],
-         ['BSB↔HAB similarity', '0.597 (UNCLEAR)', '0.682 (SAME)', 'Fixed']],
+         ['GDZ↔HAB similarity', '0.571 (UNCLEAR)', '0.655 (SIMILAR FORMS)', 'Fixed'],
+         ['BSB↔HAB similarity', '0.597 (UNCLEAR)', '0.682 (SIMILAR FORMS)', 'Fixed']],
         col_widths=[38*mm, 38*mm, 42*mm, 25*mm]))
     story.append(Paragraph("Table 5: V1 vs V2 extraction comparison.", s['Caption']))
     story.append(PageBreak())
@@ -420,32 +766,32 @@ def build_pdf():
     # ═════════════════════════════════════════════════════════════════════════
     # 4. GREENMAN WOODBLOCK — with proof images
     # ═════════════════════════════════════════════════════════════════════════
-    story.append(Paragraph("4. Greenman Woodblock Analysis", s['SH']))
+    story.append(Paragraph("4. Foliate-Head Ornament Analysis", s['SH']))
     story.append(HorizontalRule(pw, 1))
     story.append(Spacer(1, 3*mm))
     story.append(Paragraph(
-        "A distinctive 'Greenman' (foliate head) ornamental woodblock was identified across multiple "
-        "libraries. Below are the actual woodblock crops extracted from each source:", s['Body']))
+        "A foliate-head ornament was used as the reference motif. "
+        "Under the current acceptance thresholds, only GDZ Göttingen yields a verified candidate. "
+        "This is source-specific evidence only, and oversized page-level artefacts are filtered from the report even if they slipped into older result files.", s['Body']))
 
-    # Show Greenman crops side by side
+    # Show foliate-head page context plus crop
     gm_imgs = [
-        (PROOF_DIR / 'greenman_crop_bsb.jpg', 'BSB Munich'),
-        (PROOF_DIR / 'greenman_crop_gdz.jpg', 'GDZ Göttingen'),
-        (PROOF_DIR / 'greenman_crop_hab.jpg', 'HAB Wolfenbüttel'),
+        (PROOF_DIR / 'greenman_context_gdz.jpg', 'GDZ Göttingen page context (candidate highlighted)'),
+        (PROOF_DIR / 'greenman_crop_gdz.jpg', 'Extracted crop of the verified GDZ candidate'),
     ]
-    add_image_row(story, gm_imgs, s, max_height=55*mm)
+    add_image_row(story, gm_imgs, s, max_height=50*mm)
     story.append(Paragraph(
-        "Figure 2: The same Greenman ornamental woodblock as it appears in three independent library copies. "
-        "Note the identical carved details, damage patterns, and wood grain texture visible in all three.",
+        "Figure 2: Page context and extracted crop for the only currently verified foliate-head candidate.",
         s['ImgCaption']))
 
     story.append(Spacer(1, 4*mm))
 
     # SIFT match visualisation
-    story.append(Paragraph("4.1 SIFT Feature Matching Proof", s['SSH']))
+    story.append(Paragraph("4.1 Supplemental SIFT Diagnostic", s['SSH']))
     story.append(Paragraph(
         "SIFT (Scale-Invariant Feature Transform) detects distinctive keypoints in each image and matches "
-        "them across sources. Lines drawn between matching keypoints demonstrate physical identity:", s['Body']))
+        "them against the reference. The overlay below is retained as a diagnostic visual aid only: "
+        "it shows local keypoint agreement, but it is too visually dense to function as a standalone proof figure.", s['Body']))
 
     sift_imgs = sorted(PROOF_DIR.glob('sift_match_*.jpg'))
     if sift_imgs:
@@ -453,19 +799,41 @@ def build_pdf():
         if sift:
             story.append(sift)
             story.append(Paragraph(
-                "Figure 3: SIFT keypoint matching between reference Greenman and GDZ Göttingen copy. "
-                "Lines connect matching features; density of matches (12,228) proves physical identity.",
+                "Figure 3: Supplemental SIFT keypoint overlay for the verified GDZ foliate-head candidate. "
+                "Use this as diagnostic support for the page-context figure, not as independent proof of block identity.",
                 s['ImgCaption']))
 
     story.append(Paragraph("4.2 Matching Results", s['SSH']))
+    greenman_rows = []
+    for source_name in ['gdz_goettingen_ppn777246686', 'hab_wolfenbuettel_178_1_theol_1s', 'bsb_munich_10057380']:
+        label = DISPLAY_NAMES.get(source_name, source_name)
+        source_matches = greenman_results['by_source'].get(source_name, [])
+        if source_matches:
+            best = max(
+                source_matches,
+                key=lambda match: (match.get('aggregate_score', 0), match.get('sift_matches', 0)),
+            )
+            greenman_rows.append([
+                label,
+                str(len(source_matches)),
+                f"{best['sift_matches']:,}",
+                f"{best['aggregate_score']:.3f}",
+                'Verified under current thresholds',
+            ])
+        else:
+            greenman_rows.append([label, '0', '—', '—', 'No verified match'])
     story.append(make_table(
-        ['Source', 'Candidates', 'Matches', 'Best SIFT', 'Best FP', 'Confidence'],
-        [['GDZ Göttingen', '112', '112', '12,228', '0.998', 'DEFINITIVE'],
-         ['HAB Wolfenbüttel', '313', '313', '1,843', '0.813', 'STRONG'],
-         ['BSB Munich', '2,049', '2,038', '3,451', '0.838', 'STRONG']],
-        col_widths=[32*mm, 22*mm, 22*mm, 22*mm, 20*mm, 26*mm]))
-    story.append(Paragraph("Table 6: Greenman woodblock matching results.", s['Caption']))
-    story.append(Paragraph("✓ SAME PHYSICAL WOODBLOCK — CONFIRMED", s['VG']))
+        ['Source', 'Matches', 'Best SIFT', 'Best FP', 'Verdict'],
+        greenman_rows,
+        col_widths=[38*mm, 18*mm, 22*mm, 20*mm, 50*mm]))
+    story.append(Paragraph("Table 6: Foliate-head matching results after filtering oversized artefacts.", s['Caption']))
+    if greenman_results['rejected_matches']:
+        story.append(Paragraph(
+            f"Filtering note: {len(greenman_results['rejected_matches'])} oversized candidate"
+            f"{'' if len(greenman_results['rejected_matches']) == 1 else 's'} "
+            "were excluded at report time because the bounding box spanned most of a page.",
+            s['Body']))
+    story.append(Paragraph("⚠ SOURCE-SPECIFIC WOODBLOCK EVIDENCE", s['VO']))
     story.append(PageBreak())
 
     # ═════════════════════════════════════════════════════════════════════════
@@ -476,79 +844,65 @@ def build_pdf():
     story.append(Spacer(1, 3*mm))
     story.append(Paragraph(
         "Individual character forms were extracted via Tesseract OCR, cropped at full resolution, and compared "
-        "across sources using the BlockFingerprinter. Below are the actual character crops compared:", s['Body']))
+        "across sources using the BlockFingerprinter. The panels below are drawn from the manual-review ledger "
+        "rather than from arbitrary first-instance crops:", s['Body']))
 
     # Character comparison proof images
-    story.append(Paragraph("5.1 Visual Character Comparison", s['SSH']))
+    story.append(Paragraph("5.1 Reviewed Character Comparison Panels", s['SSH']))
     story.append(Paragraph(
-        "Each row shows the same character type as it appears in each source. Identical type produces "
-        "identical character shapes, serifs, and proportions:", s['Body']))
+        "These reviewed exemplars distinguish between provisional possible same sort/block readings and a "
+        "same-design control. They support a cautious manual reading and are not presented as corpus-wide proof "
+        "of identical physical sorts:", s['Body']))
 
-    char_images = sorted(PROOF_DIR.glob('char_comparison_*.png'))
-    for ci in char_images[:4]:
-        char_name = ci.stem.replace('char_comparison_', '')
-        img = safe_image(str(ci), max_width=pw, max_height=30*mm)
-        if img:
-            story.append(img)
-            story.append(Paragraph(
-                f"Character '{char_name}' — same sort across all sources", s['ImgCaption']))
+    if reviewed_pairs_manifest:
+        for start in range(0, len(reviewed_pairs_manifest), 2):
+            chunk = reviewed_pairs_manifest[start:start + 2]
+            add_image_row(
+                story,
+                [(PROOF_DIR / row['file'], row['caption']) for row in chunk],
+                s,
+                max_height=50*mm,
+            )
+        story.append(Paragraph(
+            "Figure 4: Reviewed character-pair exemplars from the manual-review ledger. "
+            "Provisional possible same sort/block pairs are shown separately from a same-design control.",
+            s['ImgCaption']))
+    else:
+        story.append(Paragraph(
+            "Reviewed comparison panels were not available in reports/proof_images/reviewed_pairs_manifest.json.",
+            s['Body']))
 
-    story.append(Spacer(1, 3*mm))
-    # More character comparisons
-    for ci in char_images[4:8]:
-        char_name = ci.stem.replace('char_comparison_', '')
-        img = safe_image(str(ci), max_width=pw, max_height=30*mm)
-        if img:
-            story.append(img)
-            story.append(Paragraph(
-                f"Character '{char_name}' — same sort across all sources", s['ImgCaption']))
-
+    story.append(Paragraph("5.2 Pairwise Similarity Overview", s['SSH']))
     story.append(Paragraph(
-        "Figure 4: Character sort comparisons. Each row shows the same character type from all four sources. "
-        "Matching shapes, proportions, and serif details demonstrate shared movable type.",
-        s['ImgCaption']))
+        "The chart below keeps the focus on the six pairwise averages and the working threshold of 0.60. "
+        "All six pairs remain above that line, but the narrow spread is easier to read here than in a dense table.",
+        s['Body']))
+    add_chart_block(
+        story,
+        chart_paths['pairwise_similarity'],
+        "Figure 5: Pairwise average character-form similarity by source pair, with the working 0.60 threshold marked.",
+        pw,
+        78*mm,
+        s,
+    )
 
-    story.append(PageBreak())
+    story.append(Paragraph("5.3 Manual-Review Outcome Balance", s['SSH']))
+    story.append(Paragraph(
+        f"The fixed manual-review ledger totals {manual_review_totals['same_design']} same-design, "
+        f"{manual_review_totals['possible_same_sort_block']} possible same sort/block, and "
+        f"{manual_review_totals['inconclusive']} inconclusive rows. The distribution chart makes clear that the "
+        "current packet is dominated by design-level resemblance, not by repeated same-object judgments.",
+        s['Body']))
+    add_chart_block(
+        story,
+        chart_paths['manual_review_outcomes'],
+        "Figure 6: Manual-review outcomes by source pair. The review set is dominated by same-design and inconclusive readings, with only two provisional same-object candidates.",
+        pw,
+        82*mm,
+        s,
+    )
 
-    # Pairwise results table
-    if sort_results:
-        import numpy as np
-        pair_scores = defaultdict(list)
-        for r in sort_results:
-            for pair, scores in r.get('pairwise', {}).items():
-                pair_scores[pair].append(scores['combined_score'])
-
-        story.append(Paragraph("5.2 Pairwise Source Comparison", s['SSH']))
-        pair_rows = []
-        for pair in sorted(pair_scores.keys()):
-            scores = pair_scores[pair]
-            avg = np.mean(scores)
-            std = np.std(scores)
-            pair_display = pair
-            for k, v in DISPLAY_NAMES.items():
-                pair_display = pair_display.replace(k, v)
-            verdict = '✓ SAME TYPE' if avg > 0.6 else ('? UNCLEAR' if avg > 0.5 else '✗ DIFFERENT')
-            pair_rows.append([pair_display, f"{avg:.3f}", f"±{std:.3f}", str(len(scores)), verdict])
-        story.append(make_table(
-            ['Source Pair', 'Avg Score', 'Std Dev', 'Chars', 'Verdict'], pair_rows,
-            col_widths=[55*mm, 22*mm, 18*mm, 18*mm, 30*mm]))
-        story.append(Paragraph("Table 7: Character sort matching — all pairs.", s['Caption']))
-
-        # Top characters
-        story.append(Paragraph("5.3 Top 20 Most Similar Characters", s['SSH']))
-        char_best = []
-        for r in sort_results:
-            best = max((sc['combined_score'] for sc in r.get('pairwise', {}).values()), default=0)
-            nsrc = len(r.get('sources', {}))
-            char_best.append((r['character'], best, nsrc))
-        char_best.sort(key=lambda x: x[1], reverse=True)
-        char_rows = [[f"'{c}'", f"{sc:.3f}", str(n)] for c, sc, n in char_best[:20]]
-        story.append(make_table(
-            ['Character', 'Best Score', 'Sources'], char_rows,
-            col_widths=[30*mm, 30*mm, 30*mm]))
-        story.append(Paragraph("Table 8: Top 20 matching characters.", s['Caption']))
-
-    story.append(Paragraph("✓ ALL 6 PAIRS: SAME TYPE", s['VG']))
+    story.append(Paragraph("✓ ALL 6 PAIRS: SIMILAR PRINTED FORMS", s['VG']))
     story.append(PageBreak())
 
     # ═════════════════════════════════════════════════════════════════════════
@@ -561,82 +915,34 @@ def build_pdf():
         "Four formal statistical tests were applied to character dimension and frequency data:", s['Body']))
 
     if stats_results:
-        # KS Test
-        ks = stats_results.get('ks_test', {})
-        if ks:
-            story.append(Paragraph("6.1 Kolmogorov-Smirnov Test", s['SSH']))
-            story.append(Paragraph(
-                "Tests whether character dimension distributions from different sources could be "
-                "drawn from the same underlying distribution:", s['Body']))
-            ks_rows = []
-            for pair, data in ks.items():
-                pd2 = pair
-                for k, v in DISPLAY_NAMES.items():
-                    pd2 = pd2.replace(k, v)
-                ks_rows.append([pd2, f"{data['ks_width']:.4f}", f"{data['p_width']:.4f}",
-                              data['verdict_width'], f"{data['ks_height']:.4f}",
-                              f"{data['p_height']:.4f}", data['verdict_height']])
-            story.append(make_table(
-                ['Pair', 'KS(W)', 'p(W)', 'W', 'KS(H)', 'p(H)', 'H'], ks_rows,
-                col_widths=[38*mm, 16*mm, 16*mm, 20*mm, 16*mm, 16*mm, 20*mm]))
-            story.append(Paragraph("Table 9: KS test on character dimensions.", s['Caption']))
+        story.append(Paragraph("6.1 Bootstrap Similarity Intervals", s['SSH']))
+        story.append(Paragraph(
+            "The bootstrap plot shows the mean similarity and 95% interval for each pair. Every interval remains above the "
+            "working 0.60 threshold, which is why bootstrap continues to support strong formal resemblance.",
+            s['Body']))
+        add_chart_block(
+            story,
+            chart_paths['bootstrap_forest'],
+            "Figure 7: Bootstrap mean similarity with 95% confidence intervals for each source pair.",
+            pw,
+            78*mm,
+            s,
+        )
 
-        # Chi-Squared
-        chi2 = stats_results.get('chi_squared', {})
-        if chi2:
-            story.append(Paragraph("6.2 Chi-Squared Test (Frequencies)", s['SSH']))
-            chi_rows = []
-            for pair, data in chi2.items():
-                pd2 = pair
-                for k, v in DISPLAY_NAMES.items():
-                    pd2 = pd2.replace(k, v)
-                chi_rows.append([pd2, f"{data['chi2']:.1f}", str(data['degrees_freedom']),
-                               f"{data['p_value']:.4f}", data['verdict']])
-            story.append(make_table(
-                ['Pair', 'χ²', 'df', 'p-value', 'Verdict'], chi_rows,
-                col_widths=[50*mm, 22*mm, 15*mm, 22*mm, 25*mm]))
-            story.append(Paragraph("Table 10: Chi-squared test.", s['Caption']))
-
-        # Mann-Whitney
-        mw = stats_results.get('mann_whitney', {})
-        if mw:
-            story.append(Paragraph("6.3 Mann-Whitney U Test", s['SSH']))
-            story.append(Paragraph(
-                "Effect size (rank-biserial r): negligible (&lt;0.1), small (0.1–0.3), "
-                "medium (0.3–0.5), large (&gt;0.5):", s['Body']))
-            mw_rows = []
-            for pair, data in mw.items():
-                pd2 = pair
-                for k, v in DISPLAY_NAMES.items():
-                    pd2 = pd2.replace(k, v)
-                mw_rows.append([pd2, f"{data['u_statistic']:.0f}", f"{data['p_value']:.4f}",
-                              f"{data['effect_size']:.3f}", data['effect_magnitude'].upper()])
-            story.append(make_table(
-                ['Pair', 'U Statistic', 'p-value', 'Effect Size', 'Magnitude'], mw_rows,
-                col_widths=[45*mm, 28*mm, 20*mm, 22*mm, 25*mm]))
-            story.append(Paragraph("Table 11: Mann-Whitney U test. Negligible effect = identical type.", s['Caption']))
-
-        story.append(PageBreak())
-
-        # Bootstrap
-        boot = stats_results.get('bootstrap', {})
-        if boot:
-            story.append(Paragraph("6.4 Bootstrap 95% Confidence Intervals", s['SSH']))
-            story.append(Paragraph(
-                "1,000 bootstrap resamples estimate the distribution of mean character width similarity. "
-                "Intervals entirely above 0.60 confirm matching type:", s['Body']))
-            boot_rows = []
-            for pair, data in boot.items():
-                pd2 = pair
-                for k, v in DISPLAY_NAMES.items():
-                    pd2 = pd2.replace(k, v)
-                boot_rows.append([pd2, f"{data['mean_similarity']:.4f}",
-                                f"[{data['ci_95_lower']:.4f}, {data['ci_95_upper']:.4f}]",
-                                '✓ SAME' if data['mean_similarity'] > 0.6 else '? UNCLEAR'])
-            story.append(make_table(
-                ['Pair', 'Mean Similarity', '95% CI', 'Verdict'], boot_rows,
-                col_widths=[50*mm, 30*mm, 40*mm, 25*mm]))
-            story.append(Paragraph("Table 12: Bootstrap 95% CIs (1000 resamples). All pairs SAME.", s['Caption']))
+        story.append(Paragraph("6.2 Distributional Verdict Matrix", s['SSH']))
+        story.append(Paragraph(
+            "The matrix below condenses the tension in the statistics: KS width, KS height, and chi-squared stay divergent "
+            "across the whole corpus, while the Mann-Whitney effect sizes are mostly negligible. This is why the report argues "
+            "for similar printed forms rather than a simple same/different verdict.",
+            s['Body']))
+        add_chart_block(
+            story,
+            chart_paths['formal_test_matrix'],
+            "Figure 8: Summary matrix of KS width, KS height, chi-squared, and Mann-Whitney readings by source pair.",
+            pw,
+            78*mm,
+            s,
+        )
 
     # ═════════════════════════════════════════════════════════════════════════
     # 7. TYPE MEASUREMENTS
@@ -715,14 +1021,14 @@ def build_pdf():
     story.append(HorizontalRule(pw, 1))
     story.append(Spacer(1, 3*mm))
 
-    story.append(Paragraph("9.1 Evidence FOR Same Printer", s['SSH']))
+    story.append(Paragraph("9.1 Evidence Supporting a Shared-Materials Hypothesis", s['SSH']))
     for item in [
-        "Same Greenman woodblock confirmed (fingerprint 0.998, SIFT 12,228 matches)",
-        "6/6 character sort pairs show SAME TYPE (all above 0.60 threshold)",
-        "BSB↔HAB bootstrap similarity 0.913 [0.872, 0.957]",
-        "BSB↔HAB Mann-Whitney: negligible effect size (practically identical dimensions)",
-        "3/5 damage metrics increase chronologically",
-        "14,165 characters across 644 pages provide robust statistical foundation",
+        greenman_summary_line,
+        f"{similar_pair_count}/{len(pairwise_summary)} character sort pairs show similar printed forms (all above the 0.60 threshold)",
+        best_bootstrap_line,
+        best_mw_line,
+        "Damage-evolution metrics remain exploratory and do not carry the main verdict on their own",
+        f"{totals['chars']:,} extracted characters across {totals['pages']} locally inventoried pages provide the current database-backed footing",
     ]:
         story.append(Paragraph(f"✓  {item}", s['Body']))
 
@@ -730,8 +1036,9 @@ def build_pdf():
     for item in [
         "KS tests show DIFFERENT for dimensions (expected with large N)",
         "Chi-squared frequency differences expected (different texts)",
-        "2/5 damage metrics do not show clear chronological trend",
-        "HAB date estimated (1600–1620); actual date may affect damage ordering",
+        "4/5 damage metrics do not show chronological increase",
+        "Damage chronology remains metadata-sensitive and should be read as diagnostic only",
+        "Manual review ledger is complete, but no publication-grade negative control has yet cleared the thresholds and the calibration sweep did not resolve the blocker",
     ]:
         story.append(Paragraph(f"⚠  {item}", s['Body']))
 
@@ -739,11 +1046,11 @@ def build_pdf():
 
     # FINAL VERDICT BOX
     vd = [['', ''], ['FORENSIC VERDICT', ''], ['', ''],
-          ['', 'Strong evidence that these publications share physical printing materials.'],
-          ['', 'The Greenman woodblock match is definitive; character sort evidence corroborates.'],
-          ['', 'Damage evolution provides supporting temporal evidence.'],
+          ['', 'Current computational evidence supports a provisional shared-materials hypothesis.'],
+          ['', 'Character-sort evidence is strong; foliate-head evidence is currently source-specific.'],
+          ['', 'Damage evolution is currently diagnostic only and excluded from the main verdict.'],
           ['', ''],
-          ['', 'Consistent with a common printer or with material transfer between houses.'],
+          ['', 'Present this externally as a cleaned computational draft: promising, provisional, backed by a completed manual-review ledger, and still lacking an accepted publication-grade negative control because the current sort discriminator remains the live blocker.'],
           ['', '']]
     vt = Table(vd, colWidths=[10*mm, 135*mm])
     vt.setStyle(TableStyle([
@@ -774,7 +1081,7 @@ def build_pdf():
          "Four sources acquired via IIIF manifests (BSB, GDZ), HTTP scraping (HAB), and PDF extraction "
          "(Google Books). Pages downloaded as JPEG at maximum resolution."),
         ("Character Extraction",
-         "Tesseract OCR (v5, LSTM, PSM 6) with Fraktur+frk+eng. Characters filtered by confidence "
+         "Tesseract OCR (v5, LSTM, PSM 6) with frk+deu+eng. Characters filtered by confidence "
          "(>50%), size (>5px), and aspect ratio. Each instance cropped from original image at full resolution."),
         ("DPI Normalisation",
          "All images rescaled to 2400px height using Lanczos4 interpolation before OCR. Bounding boxes "
@@ -783,14 +1090,14 @@ def build_pdf():
          "BlockFingerprinter computes 7 feature families: Hu Moments, Fourier Contour Descriptors, "
          "Edge Density, Ink Density, Damage Points, LBP Texture Histogram, and Perceptual Hash."),
         ("Cross-Source Matching",
-         "SIFT features matched via FLANN (k=2, ratio test 0.75). Sort matching uses per-character "
+         "SIFT features matched via FLANN (k=2, ratio test 0.70). Sort matching uses per-character "
          "centroid comparison with pairwise fingerprint scoring."),
         ("Statistical Testing",
          "KS, Chi-Squared, Mann-Whitney U, and Bootstrap (1000 resamples, 95% CI). All implemented "
          "without scipy dependency."),
         ("Damage Evolution",
          "Five metrics (edge roughness, erosion, ink spread, crack density, entropy) computed for "
-         "character crops. Kendall's τ tests monotonic increase with publication date."),
+         "character crops. Kendall's τ is used as an exploratory chronology check, not as standalone attribution proof."),
     ]:
         story.append(Paragraph(f"<b>{title}:</b> {desc}", s['Body']))
     story.append(PageBreak())
@@ -804,8 +1111,10 @@ def build_pdf():
         ("<b>OCR Accuracy:</b>", "Fraktur model improves but doesn't eliminate mis-identifications. "
          "Dedicated models (Calamari, kraken) require Python 3.9–3.12."),
         ("<b>Resolution:</b>", "HAB images upscaled 1.96×, introducing interpolation artefacts."),
+        ("<b>Artifact Consistency:</b>", "Some derived comparison artefacts reference a broader source set than the current local OCR inventory. Regenerate them together before formal submission."),
         ("<b>Text Content:</b>", "Character frequency differences reflect textual content, not type."),
-        ("<b>Date Uncertainty:</b>", "HAB dating estimated (1600–1620). Affects damage ordering."),
+        ("<b>Negative Control:</b>", "Three BSB candidates were processed as 61-page slices and rejected under the current sort thresholds; a publication-grade accepted control is still missing."),
+        ("<b>Damage Status:</b>", "The chronology rerun now uses corrected local dates, but the result remains diagnostic only and stays out of the main verdict."),
         ("<b>Missing Source:</b>", "Academia.edu PDF (Haslmayr) excluded from analysis."),
     ]:
         story.append(Paragraph(f"{title} {desc}", s['Body']))
@@ -832,29 +1141,117 @@ def build_pdf():
                 else:
                     row += ['', '']
                 combined.append(row)
-            story.append(make_table(['Char', 'Count', 'Char', 'Count'], combined,
-                col_widths=[20*mm, 20*mm, 20*mm, 20*mm]))
+            story.append(make_table(
+                ['Char', 'Count', 'Char', 'Count'],
+                combined,
+                col_widths=[20*mm, 20*mm, 20*mm, 20*mm],
+                styles=s,
+                numeric_cols={1, 3},
+            ))
 
-    story.append(Paragraph("B. Generated Reports & Scripts", s['SSH']))
+    story.append(Paragraph("B. Pairwise Character Reference Tables", s['SSH']))
+    story.append(Paragraph(
+        "Dense technical tables use abbreviated source-pair labels: BSB, GDZ, Google, and HAB.",
+        s['Body']))
+    story.append(make_table(
+        ['Pair', 'Avg Score', 'Chars', 'Verdict'],
+        build_pairwise_reference_rows(pairwise_summary),
+        col_widths=[35*mm, 28*mm, 22*mm, 35*mm],
+        styles=s,
+        numeric_cols={1, 2},
+    ))
+    story.append(Paragraph("Table A1: Pairwise character-form averages in compact notation.", s['Caption']))
+
+    story.append(make_table(
+        ['Character', 'Best Score', 'Sources'],
+        build_top_character_rows(sort_results),
+        col_widths=[28*mm, 28*mm, 24*mm],
+        styles=s,
+        numeric_cols={1, 2},
+    ))
+    story.append(Paragraph("Table A2: Top 20 matching characters.", s['Caption']))
+
+    story.append(PageBreak())
+    story.append(Paragraph("C. Technical Statistical Tables", s['SSH']))
+    story.append(Paragraph(
+        "These appendix tables preserve the raw numerical outputs that are summarized by the chart suite in Sections 5 and 6.",
+        s['Body']))
+
+    story.append(make_table(
+        ['Pair', 'KS(W)', 'p(W)', 'Verdict'],
+        build_ks_dimension_rows(stats_results, 'verdict_width', 'ks_width', 'p_width'),
+        col_widths=[34*mm, 24*mm, 28*mm, 36*mm],
+        styles=s,
+        numeric_cols={1, 2},
+    ))
+    story.append(Paragraph("Table A3: Kolmogorov-Smirnov width comparison.", s['Caption']))
+
+    story.append(make_table(
+        ['Pair', 'KS(H)', 'p(H)', 'Verdict'],
+        build_ks_dimension_rows(stats_results, 'verdict_height', 'ks_height', 'p_height'),
+        col_widths=[34*mm, 24*mm, 28*mm, 36*mm],
+        styles=s,
+        numeric_cols={1, 2},
+    ))
+    story.append(Paragraph("Table A4: Kolmogorov-Smirnov height comparison.", s['Caption']))
+
+    story.append(make_table(
+        ['Pair', 'χ²', 'df', 'p-value', 'Verdict'],
+        build_chi_rows(stats_results),
+        col_widths=[30*mm, 24*mm, 18*mm, 28*mm, 30*mm],
+        styles=s,
+        numeric_cols={1, 2, 3},
+    ))
+    story.append(Paragraph("Table A5: Chi-squared frequency comparison.", s['Caption']))
+
+    story.append(make_table(
+        ['Pair', 'U', 'p-value', 'Effect', 'Magnitude'],
+        build_mw_rows(stats_results),
+        col_widths=[26*mm, 22*mm, 26*mm, 24*mm, 32*mm],
+        styles=s,
+        body_font_size=7.8,
+        header_font_size=8.5,
+        numeric_cols={1, 2, 3},
+    ))
+    story.append(Paragraph("Table A6: Mann-Whitney U comparison, with compact U formatting.", s['Caption']))
+
+    story.append(make_table(
+        ['Pair', 'Mean', '95% CI', 'Verdict'],
+        build_bootstrap_reference_rows(bootstrap_chart_rows),
+        col_widths=[28*mm, 22*mm, 46*mm, 28*mm],
+        styles=s,
+        numeric_cols={1},
+    ))
+    story.append(Paragraph("Table A7: Bootstrap similarity intervals.", s['Caption']))
+
+    story.append(PageBreak())
+    story.append(Paragraph("D. Generated Reports & Scripts", s['SSH']))
     story.append(make_table(
         ['Path', 'Description'],
         [['reports/final_report/CODEFINDER_Forensic_Report.pdf', 'This report'],
          ['reports/final_report/final_report.html', 'Interactive HTML version'],
-         ['reports/greenman_scan/greenman_report.html', 'Woodblock matching with SIFT overlays'],
+         ['reports/greenman_scan/greenman_report.html', 'Foliate-head matching with diagnostic SIFT overlays'],
          ['reports/character_sort_match/sort_report.html', 'Character sort comparison'],
          ['reports/statistical_analysis/stats_report.html', 'Statistical test results'],
          ['reports/damage_evolution/damage_report.html', 'Damage analysis'],
-         ['data/forensic.db', f'SQLite database ({totals["chars"]:,} chars)']],
-        col_widths=[80*mm, 65*mm]))
-    story.append(Paragraph("Table A1: Generated reports.", s['Caption']))
+         [str(DEFAULT_DB_PATH), f'SQLite database ({totals["chars"]:,} chars)']],
+        col_widths=[80*mm, 65*mm],
+        styles=s,
+        wrap_cols={0, 1},
+        cell_style_name='TableCellSm',
+        body_font_size=7.5,
+        header_font_size=8.5,
+    ))
+    story.append(Paragraph("Table A8: Generated reports.", s['Caption']))
 
     # Build
     doc.build(story, onFirstPage=header_footer, onLaterPages=header_footer)
     size_kb = os.path.getsize(output_path) / 1024
     print(f"✅ PDF report generated: {output_path}")
     print(f"   {size_kb:.0f} KB, {doc.page} pages")
-    print(f"   Includes: source page images, Greenman woodblock crops,")
-    print(f"   SIFT match visualisation, character sort comparisons")
+    print(f"   Includes: selected source pages, foliate-head context/crop panels,")
+    print(f"   reviewed character-pair exemplars, supplemental diagnostics")
+    return output_path
 
 
 if __name__ == "__main__":

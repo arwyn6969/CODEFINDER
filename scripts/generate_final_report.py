@@ -25,10 +25,14 @@ from datetime import datetime
 
 sys.path.append(str(Path(__file__).parent.parent))
 
+DEFAULT_DB_PATH = Path("data/forensic.db")
+GREENMAN_MIN_AREA = 8_000
+GREENMAN_MAX_AREA = 3_000_000
 
-def gather_full_inventory(db_path="data/forensic.db"):
+
+def gather_full_inventory(db_path=DEFAULT_DB_PATH):
     """Gather complete DB inventory."""
-    conn = sqlite3.connect(db_path)
+    conn = sqlite3.connect(str(db_path))
     conn.row_factory = sqlite3.Row
     
     sources = []
@@ -87,6 +91,87 @@ def load_stats_results():
     return {}
 
 
+def load_greenman_results():
+    """Load accepted Greenman matches, filtering oversized page-level artefacts."""
+    path = Path("reports/greenman_scan/matches.json")
+    if not path.exists():
+        return {
+            'valid_matches': [],
+            'rejected_matches': [],
+            'by_source': {},
+            'best_match': None,
+        }
+
+    with open(path) as f:
+        raw_matches = json.load(f)
+
+    valid_matches = []
+    rejected_matches = []
+    by_source = defaultdict(list)
+
+    for match in raw_matches:
+        bbox = match.get('bbox', {})
+        area = int(bbox.get('w', 0)) * int(bbox.get('h', 0))
+        if GREENMAN_MIN_AREA <= area <= GREENMAN_MAX_AREA:
+            valid_matches.append(match)
+            by_source[match.get('source', 'unknown')].append(match)
+        else:
+            rejected_matches.append(match)
+
+    best_match = max(
+        valid_matches,
+        key=lambda match: (match.get('aggregate_score', 0), match.get('sift_matches', 0)),
+        default=None,
+    )
+
+    return {
+        'valid_matches': valid_matches,
+        'rejected_matches': rejected_matches,
+        'by_source': dict(by_source),
+        'best_match': best_match,
+    }
+
+
+def summarize_pair_scores(sort_results):
+    """Aggregate pairwise character-sort scores into report-ready rows."""
+    pair_scores = defaultdict(list)
+    for result in sort_results:
+        for pair, scores in result.get('pairwise', {}).items():
+            pair_scores[pair].append(scores['combined_score'])
+
+    summary = []
+    for pair in sorted(pair_scores.keys()):
+        scores = pair_scores[pair]
+        avg = float(np.mean(scores))
+        summary.append({
+            'pair': pair,
+            'avg': avg,
+            'std': float(np.std(scores)),
+            'characters': len(scores),
+            'verdict': 'SIMILAR_FORMS' if avg > 0.6 else ('UNCLEAR' if avg > 0.5 else 'DIFFERENT'),
+        })
+    return summary
+
+
+def collect_analysis_sources(pairwise_summary, stats_results, greenman_results):
+    """Collect every source referenced by the comparison artefacts."""
+    sources = set()
+
+    for item in pairwise_summary:
+        sources.update(item['pair'].split(' vs '))
+
+    for section in ('bootstrap', 'ks_test', 'chi_squared', 'mann_whitney'):
+        for pair in stats_results.get(section, {}):
+            sources.update(pair.split(' vs '))
+
+    for match in greenman_results['valid_matches']:
+        source = match.get('source')
+        if source:
+            sources.add(source)
+
+    return sources
+
+
 def generate_report():
     output_dir = Path("reports/final_report")
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -95,6 +180,7 @@ def generate_report():
     sources, totals = gather_full_inventory()
     sort_results = load_sort_results()
     stats_results = load_stats_results()
+    greenman_results = load_greenman_results()
     
     # Source display names
     display_names = {
@@ -103,6 +189,75 @@ def generate_report():
         'hab_wolfenbuettel_178_1_theol_1s': 'HAB Wolfenbüttel',
         'google_books_tractatus_brevis': 'Google Books (Tractatus)',
     }
+
+    pairwise_summary = summarize_pair_scores(sort_results)
+    similar_pair_count = sum(1 for item in pairwise_summary if item['verdict'] == 'SIMILAR_FORMS')
+    analysis_sources = collect_analysis_sources(pairwise_summary, stats_results, greenman_results)
+    inventory_sources = {src['name'] for src in sources}
+    missing_inventory_sources = sorted(analysis_sources - inventory_sources)
+    bootstrap_means = [
+        data['mean_similarity']
+        for data in stats_results.get('bootstrap', {}).values()
+        if 'mean_similarity' in data
+    ]
+    bootstrap_range_label = (
+        f"{min(bootstrap_means):.3f}–{max(bootstrap_means):.3f}"
+        if bootstrap_means else "n/a"
+    )
+    best_greenman = greenman_results['best_match']
+    greenman_sources = sorted(greenman_results['by_source'].keys())
+
+    if greenman_sources:
+        if len(greenman_sources) == 1:
+            woodblock_value = "GDZ ONLY"
+            woodblock_label = (
+                f"One verified Greenman candidate in "
+                f"{display_names.get(greenman_sources[0], greenman_sources[0])} "
+                f"under the current thresholds"
+            )
+        else:
+            woodblock_value = f"{len(greenman_sources)} SOURCES"
+            woodblock_label = (
+                "Verified Greenman candidates in "
+                + ", ".join(display_names.get(src, src) for src in greenman_sources)
+            )
+    else:
+        woodblock_value = "NO MATCH"
+        woodblock_label = "No verified Greenman match under the current thresholds"
+
+    if greenman_results['rejected_matches']:
+        woodblock_label += (
+            f"; {len(greenman_results['rejected_matches'])} oversized artefact"
+            f"{'' if len(greenman_results['rejected_matches']) == 1 else 's'} filtered"
+        )
+
+    type_value = (
+        f"{similar_pair_count}/{len(pairwise_summary)} SIMILAR FORMS"
+        if pairwise_summary else "NO DATA"
+    )
+    type_label = (
+        f"{len(sort_results)} characters compared across {len(analysis_sources)} sources"
+        if sort_results and analysis_sources else
+        "No character sort comparison data loaded"
+    )
+
+    inventory_note = ""
+    if missing_inventory_sources:
+        inventory_note = (
+            "<p><strong>Inventory note:</strong> The local OCR database currently contains "
+            f"{len(inventory_sources)} source(s), while derived comparison artefacts also reference "
+            f"{', '.join(display_names.get(src, src) for src in missing_inventory_sources)}. "
+            "Treat the inventory counts below as database-backed only, not as the full analytical corpus.</p>"
+        )
+
+    if best_greenman:
+        greenman_summary_line = (
+            f"High-confidence Greenman candidate verified in "
+            f"{display_names.get(best_greenman['source'], best_greenman['source'])} "
+            f"(SIFT {best_greenman['sift_matches']:,}, fingerprint {best_greenman['aggregate_score']:.3f})."
+        )
+    else:
+        greenman_summary_line = "No verified Greenman candidate passed the current thresholds."
     
     html = """<!DOCTYPE html>
 <html lang="en">
@@ -252,20 +407,20 @@ def generate_report():
     html += """
 <h2 id="executive">1. Executive Summary</h2>
 <p>This report presents the results of a forensic analysis of four digitised early modern German/Latin printed books 
-(c. 1600–1614) using computational methods modelled on bibliographical analysis techniques. The investigation aimed 
-to determine whether multiple publications were produced using the same physical printing materials — specifically 
-the same type sorts and decorative woodblocks.</p>
+(1609–1616) using computational methods modelled on bibliographical analysis techniques. The investigation asked 
+whether multiple publications preserve evidence consistent with shared or transferred printing materials under a 
+provisional computational reading.</p>
 
 <div class="evidence-grid">
     <div class="evidence-card">
         <h4>🌿 Woodblock Evidence</h4>
-        <div class="value score-high">CONFIRMED</div>
-        <div class="label">Same Greenman woodblock identified across 3 libraries (BSB, GDZ, HAB)</div>
+        <div class="value score-med">""" + woodblock_value + """</div>
+        <div class="label">""" + woodblock_label + """</div>
     </div>
     <div class="evidence-card">
         <h4>🔤 Type Sort Evidence</h4>
-        <div class="value score-high">STRONG</div>
-        <div class="label">46 characters compared across 4 sources; 4 of 6 pairs show positive match</div>
+        <div class="value score-high">""" + type_value + """</div>
+        <div class="label">""" + type_label + """</div>
     </div>
 </div>
 """
@@ -277,6 +432,7 @@ the same type sorts and decorative woodblocks.</p>
     html += f'<div class="stat-box"><div class="number">{totals["chars"]:,}</div><div class="label">Characters Extracted</div></div>'
     html += f'<div class="stat-box"><div class="number">{totals["crops"]:,}</div><div class="label">Character Crops Saved</div></div>'
     html += '</div>'
+    html += inventory_note
     
     html += '<table><tr><th>Source</th><th>Library</th><th>Pages</th><th>Characters</th><th>Crops</th></tr>'
     for src in sources:
@@ -294,25 +450,47 @@ the same type sorts and decorative woodblocks.</p>
 cross-source matching. The analysis used dual-scoring: <strong>SIFT feature matching</strong> (keypoint correspondence) 
 and <strong>BlockFingerprinter</strong> (Hu moments, Fourier descriptors, LBP texture, damage points, perceptual hash).</p>
 
-<div class="verdict-box verdict-same">
-    ✅ SAME PHYSICAL WOODBLOCK CONFIRMED<br>
+<div class="verdict-box verdict-unclear">
+    ⚠️ CURRENTLY VERIFIED IN ONE SOURCE ONLY<br>
     <span style="font-size: 0.7em; font-weight: 400;">
-        Identical Greenman device detected across BSB Munich, GDZ Göttingen, and HAB Wolfenbüttel
+        """ + greenman_summary_line + """
     </span>
 </div>
-
-<table>
-<tr><th>Source</th><th>Ornament Candidates</th><th>Greenman Matches</th><th>Best SIFT Score</th><th>Best Fingerprint</th></tr>
-<tr><td>GDZ Göttingen</td><td>112</td><td>112</td><td class="score-high">12,228</td><td class="score-high">0.998</td></tr>
-<tr><td>HAB Wolfenbüttel</td><td>313</td><td>313</td><td>1,843</td><td>0.813</td></tr>
-<tr><td>BSB Munich</td><td>2,049</td><td>2,038</td><td>3,451</td><td>0.838</td></tr>
-</table>
-
-<p><strong>Key Finding:</strong> The GDZ Göttingen copy achieved a near-perfect fingerprint score of 0.998 with 
-12,228 SIFT keypoint matches. This level of correspondence is only possible if the same physical woodblock 
-was pressed onto paper in both the reference and target images. The slightly lower scores for HAB and BSB 
-are consistent with different scan resolutions and image processing, not different woodblocks.</p>
 """
+    html += '<table><tr><th>Source</th><th>Verified Matches</th><th>Best SIFT Score</th><th>Best Fingerprint</th><th>Notes</th></tr>'
+    for source_name in ['gdz_goettingen_ppn777246686', 'hab_wolfenbuettel_178_1_theol_1s', 'bsb_munich_10057380']:
+        label = display_names.get(source_name, source_name)
+        source_matches = greenman_results['by_source'].get(source_name, [])
+        if source_matches:
+            best = max(
+                source_matches,
+                key=lambda match: (match.get('aggregate_score', 0), match.get('sift_matches', 0)),
+            )
+            html += (
+                f'<tr><td>{label}</td><td>{len(source_matches)}</td>'
+                f'<td class="score-high">{best["sift_matches"]:,}</td>'
+                f'<td class="score-high">{best["aggregate_score"]:.3f}</td>'
+                f'<td>Verified candidate under current thresholds</td></tr>'
+            )
+        else:
+            html += (
+                f'<tr><td>{label}</td><td>0</td><td>—</td><td>—</td>'
+                f'<td>No verified match in current results</td></tr>'
+            )
+    html += '</table>'
+
+    if greenman_results['rejected_matches']:
+        html += (
+            f'<p><strong>Filtering note:</strong> '
+            f'{len(greenman_results["rejected_matches"])} oversized candidate'
+            f'{" was" if len(greenman_results["rejected_matches"]) == 1 else "s were"} '
+            'discarded at report time because the bounding box spanned most of a page and therefore cannot represent a discrete ornament.</p>'
+        )
+
+    html += (
+        f'<p><strong>Key Finding:</strong> {greenman_summary_line} '
+        'This should be presented as source-specific evidence, not yet as proof of a shared woodblock across all witnesses.</p>'
+    )
     
     html += '<div class="section-divider"></div>'
     
@@ -336,7 +514,7 @@ are consistent with different scan resolutions and image processing, not differe
             avg = np.mean(scores)
             std = np.std(scores)
             sc = 'score-high' if avg > 0.6 else ('score-med' if avg > 0.5 else 'score-low')
-            vtext = '✅ Same Type' if avg > 0.6 else ('⚠️ Inconclusive' if avg > 0.5 else '❌ Different')
+            vtext = '✅ Similar Printed Forms' if avg > 0.6 else ('⚠️ Inconclusive' if avg > 0.5 else '❌ Different')
             vcls = 'finding-positive' if avg > 0.6 else ('finding-neutral' if avg > 0.5 else 'finding-negative')
             # Shorten pair names
             pair_display = pair
@@ -461,33 +639,36 @@ are consistent with different scan resolutions and image processing, not differe
 
 <div class="evidence-grid">
     <div class="evidence-card">
-        <h4>Evidence FOR Same Printer</h4>
+        <h4>Evidence Supporting A Shared-Materials Hypothesis</h4>
         <ul>
-            <li class="finding-positive">✅ Same Greenman woodblock (FP score 0.998)</li>
-            <li class="finding-positive">✅ 12,228 SIFT keypoint matches (near-identical)</li>
-            <li class="finding-positive">✅ 4/6 source pairs show matching character sorts (>0.6)</li>
-            <li class="finding-positive">✅ BSB↔Google Books: bootstrap similarity 0.969 [0.916, 0.998]</li>
-            <li class="finding-positive">✅ BSB↔Google Books: negligible Mann-Whitney effect (p=0.667)</li>
-            <li class="finding-positive">✅ Ligature 'fi' matches across all 4 sources (0.784)</li>
+            <li class="finding-positive">✅ """ + greenman_summary_line + """</li>
+            <li class="finding-positive">✅ """ + type_value + """ pairwise character-sort averages above the 0.60 threshold</li>
+            <li class="finding-positive">✅ Bootstrap mean similarities fall in the """ + bootstrap_range_label + """ range</li>
+            <li class="finding-positive">✅ Several high-frequency ligatures and punctuation forms cluster above 0.70 similarity</li>
         </ul>
     </div>
     <div class="evidence-card">
         <h4>Evidence Requiring Caution</h4>
         <ul>
-            <li class="finding-neutral">⚠️ KS test shows dimensional differences (expected: different scan resolutions)</li>
+            <li class="finding-neutral">⚠️ The Greenman evidence is source-specific at present, not cross-library</li>
+            <li class="finding-neutral">⚠️ KS test shows dimensional differences (expected under differing scan resolutions)</li>
             <li class="finding-neutral">⚠️ Chi-squared shows frequency differences (expected: different texts)</li>
-            <li class="finding-neutral">⚠️ HAB dimensions significantly smaller (lower scan resolution)</li>
-            <li class="finding-neutral">⚠️ 2/6 character sort pairs inconclusive (0.57–0.59)</li>
+            <li class="finding-neutral">⚠️ """ + (
+                "Local OCR inventory and derived comparison artefacts do not yet cover the identical source set"
+                if missing_inventory_sources else
+                "The report depends on multiple derived artefacts that should be regenerated together before submission"
+            ) + """</li>
+            <li class="finding-neutral">⚠️ Manual review of the top 60 pairwise matches is complete, but no publication-grade negative control has yet cleared the thresholds, and a 0.05-step calibration sweep did not resolve the blocker</li>
         </ul>
     </div>
 </div>
 
-<div class="verdict-box verdict-same">
-    🏛️ FORENSIC VERDICT<br><br>
-    Strong evidence that these publications share physical printing materials.<br>
-    The Greenman woodblock match is definitive; character sort evidence corroborates.<br>
+<div class="verdict-box verdict-unclear">
+    🏛️ WORKING VERDICT<br><br>
+    Current computational results support a working hypothesis of shared or transferred printing materials.<br>
+    Character-sort evidence is strong, while the Greenman evidence is presently verified only in GDZ.<br>
     <span style="font-size: 0.65em; font-weight: 400; display: block; margin-top: 1em;">
-        Consistent with a common printer or with material transfer between printing houses.
+        Safe phrasing for external readers: promising, provisional, and now backed by a clean rerun plus a completed manual-review ledger; still lacks an accepted publication-grade negative control, and the current sort discriminator remains the live blocker.
     </span>
 </div>
 """
@@ -506,8 +687,9 @@ Pages downloaded as JPEG images at maximum available resolution.</p>
 
 <div class="methodology">
 <h4>Character Extraction (Phase 2)</h4>
-<p>Tesseract OCR (PSM 6, default English model) used for character detection and segmentation.
-Characters filtered by confidence (>60%), size (>5px), and reasonable aspect ratio.
+<p>Tesseract OCR (PSM 6, LSTM engine) used for character detection and segmentation with a Fraktur-aware
+language stack (<span class="mono">frk+deu+eng</span>).
+Characters filtered by confidence (>50%), size (>5px), and reasonable aspect ratio.
 Each character instance cropped and saved as a PNG sort image.</p>
 </div>
 
@@ -526,7 +708,7 @@ Combined into a feature vector for cosine similarity comparison.</p>
 
 <div class="methodology">
 <h4>Cross-Source Matching (Phase 4)</h4>
-<p>SIFT feature matching with FLANN-based nearest neighbour (ratio test 0.75) for keypoint correspondence.
+<p>SIFT feature matching with FLANN-based nearest neighbour (ratio test 0.70) for keypoint correspondence.
 Fingerprint comparison using aggregate scoring (weighted: shape 0.3, texture 0.2, damage 0.3, hash 0.2).
 Sort matching: per-character centroid comparison + pairwise fingerprint scoring.</p>
 </div>
@@ -547,10 +729,10 @@ dependency using manual implementations.</p>
 
 <h3>Known Limitations</h3>
 <ul>
-    <li><strong>OCR accuracy</strong>: Tesseract's default English model is not trained on historical German blackletter (Fraktur).
-    Many character detections are misidentified glyphs. A Fraktur-trained OCR model would significantly improve extraction quality.</li>
+    <li><strong>OCR accuracy</strong>: The current <span class="mono">frk+deu+eng</span> stack improves Fraktur handling, but many glyphs are still ambiguous or low-confidence.</li>
     <li><strong>Resolution variation</strong>: Different source libraries provide images at different resolutions (HAB notably lower).
     This affects absolute dimension measurements and the KS test results.</li>
+    <li><strong>Artifact consistency</strong>: Some comparison artefacts were generated from a broader source set than the current local OCR inventory and should be regenerated together before formal submission.</li>
     <li><strong>Text differences</strong>: The chi-squared frequency test reflects textual content differences, not typographic ones.
     Different books naturally have different character frequency distributions.</li>
     <li><strong>Missing source</strong>: The Academia.edu PDF (Haslmayr) was not successfully downloaded and could not be included.</li>
@@ -560,9 +742,9 @@ dependency using manual implementations.</p>
 <ul>
     <li><strong>Fraktur OCR</strong>: Train or use a specialised model (e.g. Calamari, kraken) for blackletter typefaces</li>
     <li><strong>DPI normalisation</strong>: Normalise all images to a common DPI before extraction</li>
-    <li><strong>Damage evolution tracking</strong>: Compare damage patterns chronologically to establish printing sequence</li>
+    <li><strong>Damage evolution tracking</strong>: Revisit chronology-sensitive wear analysis only after source metadata is fully reconciled</li>
     <li><strong>Expand character coverage</strong>: Extract full-line character sequences for compositor analysis</li>
-    <li><strong>More sources</strong>: Add VD17 catalogue sources for broader printer attribution</li>
+    <li><strong>Negative control</strong>: Three BSB candidates have now been rejected under the current thresholds; the next control should prioritize stronger typographic distance</li>
 </ul>
 """
     
@@ -573,7 +755,7 @@ dependency using manual implementations.</p>
 <table>
 <tr><th>Report</th><th>Path</th><th>Description</th></tr>
 <tr><td>Greenman Scan</td><td class="mono">reports/greenman_scan/greenman_report.html</td><td>Woodblock matching results with SIFT overlays</td></tr>
-<tr><td>Character Sort Match</td><td class="mono">reports/character_sort_match/sort_report.html</td><td>46-character cross-source comparison</td></tr>
+<tr><td>Character Sort Match</td><td class="mono">reports/character_sort_match/sort_report.html</td><td>Cross-source character-form comparison</td></tr>
 <tr><td>Statistical Analysis</td><td class="mono">reports/statistical_analysis/stats_report.html</td><td>KS, χ², Mann-Whitney, Bootstrap tests</td></tr>
 <tr><td>This Report</td><td class="mono">reports/final_report/final_report.html</td><td>Comprehensive consolidated analysis</td></tr>
 <tr><td>Sort Comparison Data</td><td class="mono">reports/character_sort_match/sort_comparison.json</td><td>Raw character matching scores (JSON)</td></tr>
@@ -585,7 +767,7 @@ dependency using manual implementations.</p>
 <tr><th>Script</th><th>Purpose</th></tr>
 <tr><td class="mono">scripts/extract_characters.py</td><td>OCR-based character extraction to database</td></tr>
 <tr><td class="mono">scripts/extract_ornaments.py</td><td>Ornamental block extraction</td></tr>
-<tr><td class="mono">scripts/scan_greenman_all.py</td><td>Cross-source woodblock matching</td></tr>
+<tr><td class="mono">scripts/scan_greenman_all.py</td><td>Thresholded woodblock candidate matching</td></tr>
 <tr><td class="mono">scripts/match_character_sorts.py</td><td>Cross-source character sort comparison</td></tr>
 <tr><td class="mono">scripts/formal_stats.py</td><td>KS, χ², Mann-Whitney, Bootstrap tests</td></tr>
 <tr><td class="mono">scripts/generate_final_report.py</td><td>This consolidated report generator</td></tr>
@@ -599,7 +781,7 @@ dependency using manual implementations.</p>
 </div>
 <footer>
     <p>CODEFINDER — Forensic Print Block Analysis Pipeline</p>
-    <p>Database: data/forensic.db | """ + f"{totals['chars']:,} characters across {totals['pages']} pages from {len(sources)} sources" + """</p>
+    <p>Database: """ + str(DEFAULT_DB_PATH) + """ | """ + f"{totals['chars']:,} characters across {totals['pages']} pages from {len(sources)} sources" + """</p>
     <p>Report generated """ + datetime.now().strftime("%Y-%m-%d %H:%M:%S") + """</p>
 </footer>
 </body>
@@ -628,28 +810,26 @@ DATA INVENTORY
     summary += f"""
 GREENMAN WOODBLOCK ANALYSIS
 {'-'*40}
-  Verdict: SAME WOODBLOCK across BSB, GDZ, HAB
-  Best SIFT: 12,228 keypoint matches (GDZ)
-  Best Fingerprint: 0.998 (GDZ)
-  Total ornament matches: 2,463
+  Verdict: {woodblock_label}
+"""
+    if best_greenman:
+        best_greenman_source = display_names.get(best_greenman['source'], best_greenman['source'])
+        summary += f"  Best SIFT: {best_greenman['sift_matches']:,} keypoint matches ({best_greenman_source})\n"
+        summary += f"  Best Fingerprint: {best_greenman['aggregate_score']:.3f} ({best_greenman_source})\n"
+    if greenman_results['rejected_matches']:
+        summary += f"  Oversized artefacts filtered: {len(greenman_results['rejected_matches'])}\n"
 
+    summary += f"""
 CHARACTER SORT MATCHING  
 {'-'*40}
-  Characters compared: 46
+  Characters compared: {len(sort_results)}
 """
-    if sort_results:
-        pair_scores = defaultdict(list)
-        for r in sort_results:
-            for pair, scores in r.get('pairwise', {}).items():
-                pair_scores[pair].append(scores['combined_score'])
-        for pair in sorted(pair_scores.keys()):
-            scores = pair_scores[pair]
-            avg = np.mean(scores)
-            pair_display = pair
-            for k, v in display_names.items():
-                pair_display = pair_display.replace(k, v)
-            verdict = "SAME" if avg > 0.6 else ("UNCLEAR" if avg > 0.5 else "DIFFERENT")
-            summary += f"  {pair_display:50s} {avg:.3f}  {verdict}\n"
+    for item in pairwise_summary:
+        pair_display = item['pair']
+        for k, v in display_names.items():
+            pair_display = pair_display.replace(k, v)
+        verdict_label = item['verdict'].replace('_', ' ')
+        summary += f"  {pair_display:50s} {item['avg']:.3f}  {verdict_label}\n"
     
     summary += f"""
 STATISTICAL TESTS
@@ -665,9 +845,10 @@ STATISTICAL TESTS
     summary += f"""
 FINAL VERDICT
 {'-'*40}
-  Strong evidence that these publications share physical printing materials.
-  The Greenman woodblock match is definitive.
-  Character sort evidence corroborates.
+  Current computational evidence supports a provisional shared-materials hypothesis.
+  Character sort evidence is strong; woodblock evidence is currently source-specific.
+  Manual review of the top 60 matches is complete, but no publication-grade negative control has yet been accepted and the calibration sweep did not resolve the blocker.
+  Present this as a cleaned computational draft, not a settled attribution claim.
   
 REPORTS
 {'-'*40}

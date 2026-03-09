@@ -1,203 +1,117 @@
-# CODEFINDER 🔍
+# CODEFINDER
 
-> **All-in-one OCR, analysis, and geometric/cipher exploration pipeline for historical texts**
+CODEFINDER is a single repository with two active purposes:
 
-[![CI](https://github.com/arwyn6969/CODEFINDER/actions/workflows/ci.yml/badge.svg)](https://github.com/arwyn6969/CODEFINDER/actions)
+1. A FastAPI + React application for document ingestion, OCR-driven analysis, and report delivery.
+2. A historical-print research workflow, currently centered on the German/Kempten corpus.
 
----
+This repository is no longer positioned as a general-purpose cipher or prophetic-analysis sandbox. Exploratory gematria, ELS, and related material is preserved for audit history, but it is not part of the active roadmap.
 
-## 🌟 Overview
+## Active Lanes
 
-CODEFINDER is a specialized research platform for analyzing **historical and ancient texts** to discover hidden patterns, cryptographic encodings, and mathematical relationships. It combines modern OCR technology with advanced cipher detection, numerological analysis, and geometric pattern recognition.
+| Lane | Status | Scope | Canonical outputs |
+| --- | --- | --- | --- |
+| Product | Active | FastAPI backend, React frontend, API routes under `/api/*` | Running app, API docs, tests |
+| German/Kempten research | Active priority | Four-source early modern German/Latin print comparison | `reports/shareable/CODEFINDER_Discord_Summary.pdf`, `reports/final_report/summary.txt`, `docs/BOOK_HISTORY_MANUSCRIPT.md`, `docs/BOOK_HISTORY_METHODS_APPENDIX.md` |
+| Shakespeare research | Secondary cleanup | Wright/Aspley and related forensic comparisons | Internal critique and legacy reports only until consolidated |
+| Exploratory archive | Archived | Gematria, ELS, prophetic, and related exploratory work | Preserved for history only; not safe to circulate as active findings |
 
-### Key Features
+## Runtime Contract
 
-| Feature | Description |
-|---------|-------------|
-| 🔤 **OCR Processing** | Extract text from PDF and image documents using Tesseract |
-| 🔢 **Gematria Engine** | Calculate numerical values across 8+ cipher systems (Simple, Reverse, Sumerian, Bacon, Kay, Hebrew, Greek) |
-| 🔍 **ELS Analyzer** | Equidistant Letter Sequence search with built-in Torah corpus |
-| 🧩 **Cipher Detection** | Identify and solve Caesar, Atbash, and substitution ciphers |
-| 📐 **Geometric Analysis** | Detect sacred geometry, mathematical constants (π, φ), and Pythagorean relationships |
-| 🌍 **BardCode Engine** | Alan Green-style sacred geometry detection |
-| 🕸️ **Cross-Document Analysis** | Find hidden connections between documents in your library |
-| 🐸 **Prophetic Analysis** | Detect triple-term convergences in Torah (e.g. PEPE-MEME-FROG) with visualization |
+- Canonical backend entrypoint: `app.api.main:app`
+- Public API surface: `/api/*`
+- API docs: `http://localhost:8000/api/docs`
+- Health endpoint: `http://localhost:8000/api/health`
+- Frontend workspace: `frontend/`
+- One-click local launcher: `./run_dashboard.sh`
 
----
+Legacy routes or legacy research files may still exist in the tree for compatibility or auditability, but they are not the source of truth for current repo identity.
 
-## 🚀 Quick Start
+## Quick Start
 
-### Prerequisites
-
-- [Docker](https://docs.docker.com/get-docker/) and Docker Compose
-- Git
-
-### 1. Clone & Start
+### Local Python + Node
 
 ```bash
-git clone https://github.com/arwyn6969/CODEFINDER.git
-cd CODEFINDER
-
-# Start all services
-docker-compose up -d
-```
-
-### 2. Access the Application
-
-| Service | URL |
-|---------|-----|
-| **Frontend Dashboard** | http://localhost:3000 |
-| **API Docs (Swagger)** | http://localhost:8000/api/docs |
-| **Health Check** | http://localhost:8000/api/health |
-
-### 3. First Steps
-
-1. **Login** – Use demo credentials or register a new account
-2. **Upload a Document** – PDF, image, or text file
-3. **View Analysis** – Automatic pattern detection runs in background
-4. **Research Tools** – Use Gematria, ELS, or Cipher tools interactively
-
----
-
-## 📋 Documentation
-
-- **[📘 User Guide](./CODEFINDER_USER_GUIDE.md)** – Comprehensive feature documentation
-- **[🔬 Research Compendium](./docs/RESEARCH_COMPENDIUM.md)** – Consolidated research findings
-- **[🧭 Repo Audit (2026-02-15)](./docs/REPO_AUDIT_2026-02-15.md)** – Runtime consistency and cleanup status
-- **[🔧 API Reference](http://localhost:8000/api/docs)** – Interactive Swagger UI
-
----
-
-## 🏗️ Architecture
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│                        FRONTEND                                  │
-│               React + D3 + Ant Design                           │
-│                    Port 3000                                     │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                      API LAYER                                   │
-│              FastAPI + SQLAlchemy + Alembic                     │
-│                    Port 8000                                     │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    SERVICES (40+)                                │
-│  OCR • PDF • Image • Text • Grid • Geometry • Etymology         │
-│  Gematria • ELS • Cipher • BardCode • Cross-Document            │
-│  Anomaly Detection • Pattern Ranking • Visualization            │
-└─────────────────────────────────────────────────────────────────┘
-                              │
-                              ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                    DATA LAYER                                    │
-│  PostgreSQL (Port 5432) / SQLite (local default)                │
-│  Documents • Pages • Patterns • Analysis metadata               │
-└─────────────────────────────────────────────────────────────────┘
-```
-
----
-
-## 🧪 Testing
-
-```bash
-# Run all tests
-pytest
-
-# Run with verbose output
-pytest -v
-
-# Run specific test file
-pytest tests/test_api_endpoints.py
-
-# Run with coverage
-pytest --cov=app --cov-report=html
-```
-
-**Current test snapshot (February 15, 2026)**: `679` collected, `668` passed, `11` skipped.
-**GitHub CI gates**: backend tests on Python `3.9` and `3.11`, plus frontend production build.
-
----
-
-## 🛠️ Development
-
-### Local Development (Without Docker)
-
-```bash
-# Install dependencies
+python3 -m venv .venv
+source .venv/bin/activate
 pip install -r requirements.txt
-
-# Set environment variables
-export DATABASE_URL="postgresql://analyzer:analyzer_pass@localhost:5432/ancient_text_analyzer"
-
-# Run the API server
 uvicorn app.api.main:app --reload --port 8000
+```
 
-# Run frontend (separate terminal)
+In a second terminal:
+
+```bash
 cd frontend
 npm install
 npm start
 ```
 
-### Tech Stack
+### Docker
 
-- **Backend**: FastAPI + SQLAlchemy + Alembic
-- **OCR**: Tesseract (via pytesseract)
-- **Frontend**: React + D3.js + Ant Design
-- **Database**: PostgreSQL (Docker) or SQLite (local default)
-- **CI/CD**: GitHub Actions
-
----
-
-## 📂 Project Structure
-
-```
-CODEFINDER/
-├── app/                    # Main application
-│   ├── agents/             # Specialized OCR/analysis agents
-│   ├── api/                # FastAPI routes and middleware
-│   ├── core/               # Database and config
-│   ├── models/             # SQLAlchemy models
-│   ├── services/           # Business logic (41 service modules)
-│   └── templates/          # Report templates
-├── archive/                # Archived research scripts
-├── docs/                   # Research documentation
-├── frontend/               # React application
-├── tests/                  # Pytest test suite (679 collected)
-├── alembic/                # Database migrations
-└── docker-compose.yml      # Container orchestration
+```bash
+docker-compose up -d
 ```
 
----
+## What To Read First
 
-## 🤝 Contributing
+- `docs/REPO_INDEX.md` - where active code, reports, archives, and generated artifacts live
+- `docs/REPO_CONTRACT.md` - locked runtime, organization, and documentation rules
+- `docs/CODEFINDER_ROADMAP.md` - current implementation phases and remaining blockers
+- `docs/REBUILD_AND_RETENTION_MANIFEST.md` - canonical rebuild paths and artifact retention rules
+- `docs/architecture.md` - current product and research architecture
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## Research Outputs
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+### German/Kempten
 
----
+- Shareable summary: `reports/shareable/CODEFINDER_Discord_Summary.pdf`
+- Research archive summary: `reports/final_report/summary.txt`
+- External-facing manuscript draft: `docs/BOOK_HISTORY_MANUSCRIPT.md`
+- Methods and reproducibility appendix: `docs/BOOK_HISTORY_METHODS_APPENDIX.md`
 
-## 📄 License
+### Shakespeare
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- Current control document: `docs/forensic_methodology_critique.md`
+- Canonical internal summary: `docs/SHAKESPEARE_INTERNAL_SUMMARY.md`
+- Status: not yet consolidated into a single external-safe summary package
 
----
+### Archived exploratory work
 
-## 🙏 Acknowledgments
+- Internal notebook only: `docs/RESEARCH_COMPENDIUM.md`
+- Historical archive scripts: `archive/`
 
-- **Alan Green** – Inspiration for BardCode-style sacred geometry analysis
-- **Tesseract OCR** – Open-source OCR engine
-- **FastAPI** – Modern Python web framework
+## Repository Layout
 
----
+```text
+app/         FastAPI application and service layer
+frontend/    React application
+scripts/     Research, rebuild, and maintenance entrypoints
+tests/       Pytest suite and targeted research checks
+docs/        Contracts, architecture, roadmaps, and research writing
+reports/     Generated reports and human-readable summaries
+data/        Local corpora, source configuration, and forensic databases
+archive/     Preserved exploratory and retired research material
+```
 
-*Built with ❤️ for historical text researchers and cipher enthusiasts*
+Root-level one-off Python files outside `app/` and `scripts/` are retained for history or transition work. They are not the canonical place to add new functionality.
+
+## Testing
+
+```bash
+pytest -q
+cd frontend && npm run build
+```
+
+The GitHub Actions workflow currently checks backend tests on Python `3.9` and `3.11`, plus a frontend production build on Node `18`.
+
+## Contribution Rules
+
+- Preserve the runtime contract around `app.api.main:app` and `/api/*`.
+- Treat German/Kempten as the active research lane.
+- Do not present Shakespeare or archived exploratory outputs as settled external findings.
+- Do not add new research scripts at repo root.
+- Prefer regenerating report artifacts from scripts rather than editing outputs by hand.
+
+## License
+
+This project is licensed under the MIT License. See `LICENSE`.

@@ -1,6 +1,6 @@
 """
-Comprehensive Reporting System for Ancient Text Analysis
-Generates detailed analysis reports with multiple export formats (PDF, CSV, JSON, HTML)
+Comprehensive reporting system for CODEFINDER.
+Generates detailed analysis reports with multiple export formats (PDF, CSV, JSON, HTML).
 """
 from typing import Dict, List, Any, Optional, Union
 from dataclasses import dataclass, field
@@ -877,7 +877,7 @@ class ReportGenerator:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ancient Text Analysis Report</title>
+    <title>CODEFINDER Report</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
         .header { border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 30px; }
@@ -893,7 +893,7 @@ class ReportGenerator:
 </head>
 <body>
     <div class="header">
-        <h1>Ancient Text Analysis Report</h1>
+        <h1>CODEFINDER Report</h1>
         <p><strong>Document:</strong> {{ data.document_info.filename }}</p>
         <p><strong>Generated:</strong> {{ generation_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
     </div>

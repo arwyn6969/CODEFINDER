@@ -619,14 +619,14 @@ p > 0.05 means we cannot reject the null hypothesis that the samples come from t
         
         ratio = pass_count / total_count if total_count > 0 else 0
         if ratio > 0.6:
-            html += '<div class="verdict-box verdict-same">✅ Statistical evidence SUPPORTS common printer attribution<br>'
-            html += f'{pass_count}/{total_count} tests consistent with same type</div>'
+            html += '<div class="verdict-box verdict-same">✅ Statistical evidence shows strong formal similarity under this workflow<br>'
+            html += f'{pass_count}/{total_count} tests remain consistent with similar printed forms</div>'
         elif ratio > 0.3:
             html += '<div class="verdict-box verdict-unclear">⚠️ Statistical evidence is MIXED<br>'
-            html += f'{pass_count}/{total_count} tests consistent with same type</div>'
+            html += f'{pass_count}/{total_count} tests remain consistent with similar printed forms</div>'
         else:
-            html += '<div class="verdict-box verdict-diff">❌ Statistical evidence AGAINST common printer attribution<br>'
-            html += f'{pass_count}/{total_count} tests consistent with same type</div>'
+            html += '<div class="verdict-box verdict-diff">❌ Statistical evidence does not support a simple same/different attribution claim<br>'
+            html += f'{pass_count}/{total_count} tests remain consistent with similar printed forms</div>'
         
         html += "</body></html>"
         
@@ -637,8 +637,17 @@ p > 0.05 means we cannot reject the null hypothesis that the samples come from t
 
 
 def main():
-    output_dir = Path("reports/statistical_analysis")
-    stats = ForensicStatistics()
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Run formal statistical tests on extracted forensic data")
+    parser.add_argument("--db-path", default="data/forensic.db",
+                        help="SQLite database path to analyze")
+    parser.add_argument("--output-dir", default="reports/statistical_analysis",
+                        help="Output directory for formal statistics artifacts")
+    args = parser.parse_args()
+
+    output_dir = Path(args.output_dir)
+    stats = ForensicStatistics(db_path=args.db_path)
     stats.run_all(output_dir)
 
 

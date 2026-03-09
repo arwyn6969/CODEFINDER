@@ -248,7 +248,7 @@ class FullSonnetMapper:
                 # Check similarity of first 40 chars
                 score = similarity(normalized[:40], search_phrase)
                 
-                if score > best_score and score > 0.45:  # Lower threshold
+                if score > best_score and score > 0.58:  # Accurate threshold
                     best_score = score
                     best_match = {
                         'page': line_data['page'],

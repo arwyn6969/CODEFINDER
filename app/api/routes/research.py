@@ -1,3 +1,11 @@
+"""
+Legacy/internal exploratory research endpoints.
+
+These routes remain available for continuity, but they are not part of the
+active German/Kempten roadmap and should not be treated as the repo's primary
+research surface.
+"""
+
 from fastapi import APIRouter, Depends, HTTPException, Body
 from typing import List, Optional, Dict, Any, Union
 from pydantic import BaseModel
@@ -65,7 +73,8 @@ async def calculate_gematria(
     db: Session = Depends(get_db)
 ):
     """
-    Calculate Gematria values. Optionally save significant findings to a document.
+    Legacy/internal endpoint for Gematria values.
+    Optionally save significant findings to a document.
     """
     if not request.text:
         raise HTTPException(status_code=400, detail="Text is required")
@@ -118,7 +127,7 @@ async def transliterate_term(
     current_user: User = Depends(get_current_active_user)
 ):
     """
-    Get Hebrew candidates for an English term.
+    Legacy/internal helper for ELS-oriented transliteration.
     """
     try:
         candidates = transliteration_service.get_hebrew_candidates(request.text)
@@ -150,7 +159,8 @@ async def find_els(
     db: Session = Depends(get_db)
 ):
     """
-    Search for ELS. Optionally persist matches to a document.
+    Legacy/internal ELS search endpoint.
+    Optionally persist matches to a document.
     """
     try:
         search_text = ""
@@ -225,7 +235,7 @@ async def visualize_els(
     db: Session = Depends(get_db)
 ):
     """
-    Generate a 2D character grid to visualize an ELS match.
+    Legacy/internal visualization helper for an ELS match.
     """
     try:
         search_text = ""
@@ -362,7 +372,7 @@ async def find_prophetic_convergence(
     current_user: User = Depends(get_current_active_user)
 ):
     """
-    Find triple/multiple convergence zones in the Torah.
+    Legacy/internal convergence search in the Torah corpus.
     Returns top zones and optional visualization for the best one.
     """
     try:
