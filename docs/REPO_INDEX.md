@@ -6,6 +6,7 @@ Use this document as the first-stop map for the repository.
 
 | Need | Open this |
 | --- | --- |
+| Understand current branch status and handoff state | `docs/DEVELOPER_HANDOFF.md` |
 | Run the backend | `app.api.main:app` |
 | Run the full local stack | `run_dashboard.sh` |
 | Understand repo rules | `docs/REPO_CONTRACT.md` |
@@ -14,7 +15,9 @@ Use this document as the first-stop map for the repository.
 | See rebuild and retention rules | `docs/REBUILD_AND_RETENTION_MANIFEST.md` |
 | Read the current German/Kempten manuscript | `docs/BOOK_HISTORY_MANUSCRIPT.md` |
 | Read German/Kempten methods and reproducibility | `docs/BOOK_HISTORY_METHODS_APPENDIX.md` |
-| Assess Shakespeare cleanup status | `docs/SHAKESPEARE_INTERNAL_SUMMARY.md` |
+| Read the Shakespeare manuscript | `docs/SHAKESPEARE_MANUSCRIPT.md` |
+| Read Shakespeare methods and reproducibility | `docs/SHAKESPEARE_METHODS_APPENDIX.md` |
+| Assess Shakespeare lane status | `docs/SHAKESPEARE_INTERNAL_SUMMARY.md` |
 
 ## Active, Secondary, and Archived Lanes
 
@@ -37,10 +40,10 @@ Use this document as the first-stop map for the repository.
 
 ### Shakespeare lane
 
-- Source: legacy and transitional scripts in `scripts/`, older report folders in `reports/`, `docs/forensic_methodology_critique.md`, and `docs/SHAKESPEARE_INTERNAL_SUMMARY.md`
-- Status: secondary cleanup track
+- Source: `scripts/research/generate_shakespeare_canonical_artifacts.py`, `scripts/maintenance/rebuild_shakespeare_lane.py`, `reports/shakespeare/`, `docs/SHAKESPEARE_MANUSCRIPT.md`, `docs/SHAKESPEARE_METHODS_APPENDIX.md`, `docs/forensic_methodology_critique.md`
+- Status: secondary canonical track
 - Internal source of truth: `docs/SHAKESPEARE_INTERNAL_SUMMARY.md`
-- External-safe package: not yet available
+- External-safe package: available under `reports/shakespeare/` plus `reports/shareable/CODEFINDER_Shakespeare_Summary.pdf`
 
 ### Archive lane
 
@@ -66,7 +69,7 @@ Use this document as the first-stop map for the repository.
 | Lane | Shareable | Archive / control |
 | --- | --- | --- |
 | German/Kempten | `reports/shareable/CODEFINDER_Discord_Summary.pdf` | `reports/final_report/summary.txt`, `docs/BOOK_HISTORY_MANUSCRIPT.md`, `docs/BOOK_HISTORY_METHODS_APPENDIX.md` |
-| Shakespeare | None until cleanup completes | `docs/SHAKESPEARE_INTERNAL_SUMMARY.md` plus `docs/forensic_methodology_critique.md` |
+| Shakespeare | `reports/shareable/CODEFINDER_Shakespeare_Summary.pdf` | `reports/shakespeare/summary.txt`, `docs/SHAKESPEARE_MANUSCRIPT.md`, `docs/SHAKESPEARE_METHODS_APPENDIX.md`, `docs/SHAKESPEARE_INTERNAL_SUMMARY.md`, `docs/forensic_methodology_critique.md` |
 | Exploratory archive | None | `docs/RESEARCH_COMPENDIUM.md`, `archive/` |
 
 ## Things Not To Treat As Canonical

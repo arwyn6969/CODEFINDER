@@ -1,0 +1,2601 @@
+{
+  "generated_at": "2026-03-10T00:05:04.420666+00:00",
+  "report_date": "March 9, 2026",
+  "generator_version": "1.0.0",
+  "status": "canonical",
+  "normalization_rule": {
+    "shared_sequence_definition": "Use the shared 53-image Folger folio sequence as the pairing spine for Wright and Aspley.",
+    "included_definition": "Shared-sequence image with a signed folio opening or mixed folio/edge content.",
+    "excluded_paratext_definition": "Shared-sequence image dominated by cover, endleaf, or spine material.",
+    "unmatched_definition": "Source-specific extra capture outside the shared 53-image sequence."
+  },
+  "summary": {
+    "wright": {
+      "total_images": 53,
+      "included": 41,
+      "excluded_paratext": 12,
+      "unmatched": 0
+    },
+    "aspley": {
+      "total_images": 67,
+      "included": 41,
+      "excluded_paratext": 12,
+      "unmatched": 14
+    },
+    "shared_sequence": {
+      "paired_images": 53,
+      "included_pairs": 41,
+      "paratext_pairs": 12
+    },
+    "legacy_sonnet_mapping": {
+      "wright_found": 4,
+      "aspley_found": 16,
+      "same_page": 1,
+      "different_page": 0
+    }
+  },
+  "pairs": [
+    {
+      "shared_sequence_index": 1,
+      "pair_status": "excluded_paratext",
+      "wright": {
+        "sequence_number": 1,
+        "filename": "001_front_outside_cover.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 1,
+        "filename": "001_front_outside_cover.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 2,
+      "pair_status": "excluded_paratext",
+      "wright": {
+        "sequence_number": 2,
+        "filename": "002_front_inside_cover_front_endleaf_1_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 2,
+        "filename": "002_front_inside_cover_-_front_endleaf_1_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 3,
+      "pair_status": "excluded_paratext",
+      "wright": {
+        "sequence_number": 3,
+        "filename": "003_front_endleaf_1_verso_front_endleaf_2_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 3,
+        "filename": "003_front_endleaf_1_verso_-_front_endleaf_2_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 4,
+      "pair_status": "excluded_paratext",
+      "wright": {
+        "sequence_number": 4,
+        "filename": "004_front_endleaf_2_verso_front_endleaf_3_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 4,
+        "filename": "004_front_endleaf_2_verso_-_front_endleaf_3_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 5,
+      "pair_status": "excluded_paratext",
+      "wright": {
+        "sequence_number": 5,
+        "filename": "005_front_endleaf_3_verso_front_endleaf_4_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 5,
+        "filename": "005_front_endleaf_3_verso_-_front_endleaf_4_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 6,
+      "pair_status": "excluded_paratext",
+      "wright": {
+        "sequence_number": 6,
+        "filename": "006_front_endleaf_4_verso_front_endleaf_5_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 6,
+        "filename": "006_front_endleaf_4_verso_-_front_endleaf_5_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 7,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 7,
+        "filename": "007_front_endleaf_5_verso_a1_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 7,
+        "filename": "007_front_endleaf_5_verso_-_leaf_A1_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 8,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 8,
+        "filename": "008_a1_verso_a2_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 8,
+        "filename": "008_leaf_A1_verso_-_leaf_A2_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 9,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 9,
+        "filename": "009_a2_verso_b1_recto.jpg",
+        "legacy_sonnet_ids": [
+          1,
+          2
+        ]
+      },
+      "aspley": {
+        "sequence_number": 9,
+        "filename": "009_leaf_A2_verso_-_leaf_B1_recto.jpg",
+        "legacy_sonnet_ids": [
+          2
+        ]
+      }
+    },
+    {
+      "shared_sequence_index": 10,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 10,
+        "filename": "010_b1_verso_b2_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 10,
+        "filename": "010_leaf_B1_verso_-_leaf_B2_recto.jpg",
+        "legacy_sonnet_ids": [
+          6,
+          7
+        ]
+      }
+    },
+    {
+      "shared_sequence_index": 11,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 11,
+        "filename": "011_b2_verso_b3_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 11,
+        "filename": "011_leaf_B2_verso_-_leaf_B3_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 12,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 12,
+        "filename": "012_b3_verso_b4_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 12,
+        "filename": "012_leaf_B3_verso_-_leaf_B4_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 13,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 13,
+        "filename": "013_b4_verso_c1_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 13,
+        "filename": "013_leaf_B4_verso_-_leaf_C1_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 14,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 14,
+        "filename": "014_c1_verso_c2_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 14,
+        "filename": "014_leaf_C1_verso_-_leaf_C2_recto.jpg",
+        "legacy_sonnet_ids": [
+          24,
+          25
+        ]
+      }
+    },
+    {
+      "shared_sequence_index": 15,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 15,
+        "filename": "015_c2_verso_c3_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 15,
+        "filename": "015_leaf_C2_verso_-_leaf_C3_recto.jpg",
+        "legacy_sonnet_ids": [
+          29
+        ]
+      }
+    },
+    {
+      "shared_sequence_index": 16,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 16,
+        "filename": "016_c3_verso_c4_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 16,
+        "filename": "016_leaf_C3_verso_-_leaf_C4_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 17,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 17,
+        "filename": "017_c4_verso_d1_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 17,
+        "filename": "017_leaf_C4_verso_-_leaf_D1_recto.jpg",
+        "legacy_sonnet_ids": [
+          41
+        ]
+      }
+    },
+    {
+      "shared_sequence_index": 18,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 18,
+        "filename": "018_d1_verso_d2_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 18,
+        "filename": "018_leaf_D1_verso_-_leaf_D2_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 19,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 19,
+        "filename": "019_d2_verso_d3_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 19,
+        "filename": "019_leaf_D2_verso_-_leaf_D3_recto.jpg",
+        "legacy_sonnet_ids": [
+          48
+        ]
+      }
+    },
+    {
+      "shared_sequence_index": 20,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 20,
+        "filename": "020_d3_verso_d4_recto.jpg",
+        "legacy_sonnet_ids": [
+          53
+        ]
+      },
+      "aspley": {
+        "sequence_number": 20,
+        "filename": "020_leaf_D3_verso_-_leaf_D4_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 21,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 21,
+        "filename": "021_d4_verso_e1_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 21,
+        "filename": "021_leaf_D4_verso_-_leaf_E1_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 22,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 22,
+        "filename": "022_e1_verso_e2_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 22,
+        "filename": "022_leaf_E1_verso_-_leaf_E2_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 23,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 23,
+        "filename": "023_e2_verso_e3_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 23,
+        "filename": "023_leaf_E2_verso_-_leaf_E3_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 24,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 24,
+        "filename": "024_e3_verso_e4_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 24,
+        "filename": "024_leaf_E3_verso_-_leaf_E4_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 25,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 25,
+        "filename": "025_e4_verso_f1_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 25,
+        "filename": "025_leaf_E4_verso_-_leaf_F1_recto.jpg",
+        "legacy_sonnet_ids": [
+          79,
+          91
+        ]
+      }
+    },
+    {
+      "shared_sequence_index": 26,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 26,
+        "filename": "026_f1_verso_f2_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 26,
+        "filename": "026_leaf_F1_verso_-_leaf_F2_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 27,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 27,
+        "filename": "027_f2_verso_f3_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 27,
+        "filename": "027_leaf_F2_verso_-_leaf_F3_recto.jpg",
+        "legacy_sonnet_ids": [
+          87
+        ]
+      }
+    },
+    {
+      "shared_sequence_index": 28,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 28,
+        "filename": "028_f3_verso_f4_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 28,
+        "filename": "028_leaf_F3_verso_-_leaf_F4_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 29,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 29,
+        "filename": "029_f4_verso_g1_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 29,
+        "filename": "029_leaf_F4_verso_-_leaf_G1_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 30,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 30,
+        "filename": "030_g1_verso_g2_recto.jpg",
+        "legacy_sonnet_ids": [
+          99
+        ]
+      },
+      "aspley": {
+        "sequence_number": 30,
+        "filename": "030_leaf_G1_verso_-_leaf_G2_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 31,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 31,
+        "filename": "031_g2_verso_g3_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 31,
+        "filename": "031_leaf_G2_verso_-_leaf_G3_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 32,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 32,
+        "filename": "032_g3_verso_g4_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 32,
+        "filename": "032_leaf_G3_verso_-_leaf_G4_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 33,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 33,
+        "filename": "033_g4_verso_h1_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 33,
+        "filename": "033_leaf_G4_verso_-_leaf_H1_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 34,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 34,
+        "filename": "034_h1_verso_h2_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 34,
+        "filename": "034_leaf_H1_verso_-_leaf_H2_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 35,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 35,
+        "filename": "035_h2_verso_h3_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 35,
+        "filename": "035_leaf_H2_verso_-_leaf_H3_recto.jpg",
+        "legacy_sonnet_ids": [
+          123
+        ]
+      }
+    },
+    {
+      "shared_sequence_index": 36,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 36,
+        "filename": "036_h3_verso_h4_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 36,
+        "filename": "036_leaf_H3_verso_-_leaf_H4_recto.jpg",
+        "legacy_sonnet_ids": [
+          130
+        ]
+      }
+    },
+    {
+      "shared_sequence_index": 37,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 37,
+        "filename": "037_h4_verso_i1_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 37,
+        "filename": "037_leaf_H4_verso_-_leaf_I1_recto.jpg",
+        "legacy_sonnet_ids": [
+          133
+        ]
+      }
+    },
+    {
+      "shared_sequence_index": 38,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 38,
+        "filename": "038_i1_verso_i2_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 38,
+        "filename": "038_leaf_I1_verso_-_leaf_I2_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 39,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 39,
+        "filename": "039_i2_verso_i3_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 39,
+        "filename": "039_leaf_I2_verso_-_leaf_I3_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 40,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 40,
+        "filename": "040_i3_verso_i4_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 40,
+        "filename": "040_leaf_I3_verso_-_leaf_I4_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 41,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 41,
+        "filename": "041_i4_verso_k1_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 41,
+        "filename": "041_leaf_I4_verso_-_leaf_K1_recto.jpg",
+        "legacy_sonnet_ids": [
+          152
+        ]
+      }
+    },
+    {
+      "shared_sequence_index": 42,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 42,
+        "filename": "042_k1_verso_k2_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 42,
+        "filename": "042_leaf_K1_verso_-_leaf_K2_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 43,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 43,
+        "filename": "043_k2_verso_k3_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 43,
+        "filename": "043_leaf_K2_verso_-_leaf_K3_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 44,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 44,
+        "filename": "044_k3_verso_k4_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 44,
+        "filename": "044_leaf_K3_verso_-_leaf_K4_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 45,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 45,
+        "filename": "045_k4_verso_l1_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 45,
+        "filename": "045_leaf_K4_verso_-_leaf_L1_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 46,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 46,
+        "filename": "046_l1_verso_l2_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 46,
+        "filename": "046_leaf_L1_verso_-_leaf_L2_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 47,
+      "pair_status": "included",
+      "wright": {
+        "sequence_number": 47,
+        "filename": "047_l2_verso_back_endleaf_1_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 47,
+        "filename": "047_leaf_L2_verso_-_back_endleaf_1_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 48,
+      "pair_status": "excluded_paratext",
+      "wright": {
+        "sequence_number": 48,
+        "filename": "048_back_endleaf_1_verso_back_endleaf_2_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 48,
+        "filename": "048_back_endleaf_1_verso_-_back_endleaf_2_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 49,
+      "pair_status": "excluded_paratext",
+      "wright": {
+        "sequence_number": 49,
+        "filename": "049_back_endleaf_2_verso_back_endleaf_3_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 49,
+        "filename": "049_back_endleaf_2_verso_-_back_endleaf_3_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 50,
+      "pair_status": "excluded_paratext",
+      "wright": {
+        "sequence_number": 50,
+        "filename": "050_back_endleaf_3_verso_back_endleaf_4_recto.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 50,
+        "filename": "050_back_endleaf_3_verso_-_back_endleaf_4_recto.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 51,
+      "pair_status": "excluded_paratext",
+      "wright": {
+        "sequence_number": 51,
+        "filename": "051_back_endleaf_4_verso_back_inside_cover.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 51,
+        "filename": "051_back_endleaf_4_verso_-_back_inside_cover.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 52,
+      "pair_status": "excluded_paratext",
+      "wright": {
+        "sequence_number": 52,
+        "filename": "052_back_outside_cover.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 52,
+        "filename": "052_back_outside_cover.jpg",
+        "legacy_sonnet_ids": []
+      }
+    },
+    {
+      "shared_sequence_index": 53,
+      "pair_status": "excluded_paratext",
+      "wright": {
+        "sequence_number": 53,
+        "filename": "053_spine.jpg",
+        "legacy_sonnet_ids": []
+      },
+      "aspley": {
+        "sequence_number": 53,
+        "filename": "053_spine.jpg",
+        "legacy_sonnet_ids": []
+      }
+    }
+  ],
+  "witness_pages": {
+    "wright": [
+      {
+        "sequence_number": 1,
+        "filename": "001_front_outside_cover.jpg",
+        "human_label": "front outside cover",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 1,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 1,
+          "filename": "001_front_outside_cover.jpg"
+        }
+      },
+      {
+        "sequence_number": 2,
+        "filename": "002_front_inside_cover_front_endleaf_1_recto.jpg",
+        "human_label": "front inside cover front endleaf 1 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 2,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 2,
+          "filename": "002_front_inside_cover_-_front_endleaf_1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 3,
+        "filename": "003_front_endleaf_1_verso_front_endleaf_2_recto.jpg",
+        "human_label": "front endleaf 1 verso front endleaf 2 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 3,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 3,
+          "filename": "003_front_endleaf_1_verso_-_front_endleaf_2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 4,
+        "filename": "004_front_endleaf_2_verso_front_endleaf_3_recto.jpg",
+        "human_label": "front endleaf 2 verso front endleaf 3 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 4,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 4,
+          "filename": "004_front_endleaf_2_verso_-_front_endleaf_3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 5,
+        "filename": "005_front_endleaf_3_verso_front_endleaf_4_recto.jpg",
+        "human_label": "front endleaf 3 verso front endleaf 4 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 5,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 5,
+          "filename": "005_front_endleaf_3_verso_-_front_endleaf_4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 6,
+        "filename": "006_front_endleaf_4_verso_front_endleaf_5_recto.jpg",
+        "human_label": "front endleaf 4 verso front endleaf 5 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 6,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 6,
+          "filename": "006_front_endleaf_4_verso_-_front_endleaf_5_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 7,
+        "filename": "007_front_endleaf_5_verso_a1_recto.jpg",
+        "human_label": "front endleaf 5 verso a1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 7,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 7,
+          "filename": "007_front_endleaf_5_verso_-_leaf_A1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 8,
+        "filename": "008_a1_verso_a2_recto.jpg",
+        "human_label": "a1 verso a2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 8,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 8,
+          "filename": "008_leaf_A1_verso_-_leaf_A2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 9,
+        "filename": "009_a2_verso_b1_recto.jpg",
+        "human_label": "a2 verso b1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 9,
+        "legacy_sonnet_ids": [
+          1,
+          2
+        ],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 9,
+          "filename": "009_leaf_A2_verso_-_leaf_B1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 10,
+        "filename": "010_b1_verso_b2_recto.jpg",
+        "human_label": "b1 verso b2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 10,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 10,
+          "filename": "010_leaf_B1_verso_-_leaf_B2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 11,
+        "filename": "011_b2_verso_b3_recto.jpg",
+        "human_label": "b2 verso b3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 11,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 11,
+          "filename": "011_leaf_B2_verso_-_leaf_B3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 12,
+        "filename": "012_b3_verso_b4_recto.jpg",
+        "human_label": "b3 verso b4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 12,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 12,
+          "filename": "012_leaf_B3_verso_-_leaf_B4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 13,
+        "filename": "013_b4_verso_c1_recto.jpg",
+        "human_label": "b4 verso c1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 13,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 13,
+          "filename": "013_leaf_B4_verso_-_leaf_C1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 14,
+        "filename": "014_c1_verso_c2_recto.jpg",
+        "human_label": "c1 verso c2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 14,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 14,
+          "filename": "014_leaf_C1_verso_-_leaf_C2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 15,
+        "filename": "015_c2_verso_c3_recto.jpg",
+        "human_label": "c2 verso c3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 15,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 15,
+          "filename": "015_leaf_C2_verso_-_leaf_C3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 16,
+        "filename": "016_c3_verso_c4_recto.jpg",
+        "human_label": "c3 verso c4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 16,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 16,
+          "filename": "016_leaf_C3_verso_-_leaf_C4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 17,
+        "filename": "017_c4_verso_d1_recto.jpg",
+        "human_label": "c4 verso d1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 17,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 17,
+          "filename": "017_leaf_C4_verso_-_leaf_D1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 18,
+        "filename": "018_d1_verso_d2_recto.jpg",
+        "human_label": "d1 verso d2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 18,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 18,
+          "filename": "018_leaf_D1_verso_-_leaf_D2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 19,
+        "filename": "019_d2_verso_d3_recto.jpg",
+        "human_label": "d2 verso d3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 19,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 19,
+          "filename": "019_leaf_D2_verso_-_leaf_D3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 20,
+        "filename": "020_d3_verso_d4_recto.jpg",
+        "human_label": "d3 verso d4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 20,
+        "legacy_sonnet_ids": [
+          53
+        ],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 20,
+          "filename": "020_leaf_D3_verso_-_leaf_D4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 21,
+        "filename": "021_d4_verso_e1_recto.jpg",
+        "human_label": "d4 verso e1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 21,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 21,
+          "filename": "021_leaf_D4_verso_-_leaf_E1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 22,
+        "filename": "022_e1_verso_e2_recto.jpg",
+        "human_label": "e1 verso e2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 22,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 22,
+          "filename": "022_leaf_E1_verso_-_leaf_E2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 23,
+        "filename": "023_e2_verso_e3_recto.jpg",
+        "human_label": "e2 verso e3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 23,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 23,
+          "filename": "023_leaf_E2_verso_-_leaf_E3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 24,
+        "filename": "024_e3_verso_e4_recto.jpg",
+        "human_label": "e3 verso e4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 24,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 24,
+          "filename": "024_leaf_E3_verso_-_leaf_E4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 25,
+        "filename": "025_e4_verso_f1_recto.jpg",
+        "human_label": "e4 verso f1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 25,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 25,
+          "filename": "025_leaf_E4_verso_-_leaf_F1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 26,
+        "filename": "026_f1_verso_f2_recto.jpg",
+        "human_label": "f1 verso f2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 26,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 26,
+          "filename": "026_leaf_F1_verso_-_leaf_F2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 27,
+        "filename": "027_f2_verso_f3_recto.jpg",
+        "human_label": "f2 verso f3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 27,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 27,
+          "filename": "027_leaf_F2_verso_-_leaf_F3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 28,
+        "filename": "028_f3_verso_f4_recto.jpg",
+        "human_label": "f3 verso f4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 28,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 28,
+          "filename": "028_leaf_F3_verso_-_leaf_F4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 29,
+        "filename": "029_f4_verso_g1_recto.jpg",
+        "human_label": "f4 verso g1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 29,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 29,
+          "filename": "029_leaf_F4_verso_-_leaf_G1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 30,
+        "filename": "030_g1_verso_g2_recto.jpg",
+        "human_label": "g1 verso g2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 30,
+        "legacy_sonnet_ids": [
+          99
+        ],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 30,
+          "filename": "030_leaf_G1_verso_-_leaf_G2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 31,
+        "filename": "031_g2_verso_g3_recto.jpg",
+        "human_label": "g2 verso g3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 31,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 31,
+          "filename": "031_leaf_G2_verso_-_leaf_G3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 32,
+        "filename": "032_g3_verso_g4_recto.jpg",
+        "human_label": "g3 verso g4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 32,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 32,
+          "filename": "032_leaf_G3_verso_-_leaf_G4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 33,
+        "filename": "033_g4_verso_h1_recto.jpg",
+        "human_label": "g4 verso h1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 33,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 33,
+          "filename": "033_leaf_G4_verso_-_leaf_H1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 34,
+        "filename": "034_h1_verso_h2_recto.jpg",
+        "human_label": "h1 verso h2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 34,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 34,
+          "filename": "034_leaf_H1_verso_-_leaf_H2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 35,
+        "filename": "035_h2_verso_h3_recto.jpg",
+        "human_label": "h2 verso h3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 35,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 35,
+          "filename": "035_leaf_H2_verso_-_leaf_H3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 36,
+        "filename": "036_h3_verso_h4_recto.jpg",
+        "human_label": "h3 verso h4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 36,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 36,
+          "filename": "036_leaf_H3_verso_-_leaf_H4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 37,
+        "filename": "037_h4_verso_i1_recto.jpg",
+        "human_label": "h4 verso i1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 37,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 37,
+          "filename": "037_leaf_H4_verso_-_leaf_I1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 38,
+        "filename": "038_i1_verso_i2_recto.jpg",
+        "human_label": "i1 verso i2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 38,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 38,
+          "filename": "038_leaf_I1_verso_-_leaf_I2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 39,
+        "filename": "039_i2_verso_i3_recto.jpg",
+        "human_label": "i2 verso i3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 39,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 39,
+          "filename": "039_leaf_I2_verso_-_leaf_I3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 40,
+        "filename": "040_i3_verso_i4_recto.jpg",
+        "human_label": "i3 verso i4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 40,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 40,
+          "filename": "040_leaf_I3_verso_-_leaf_I4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 41,
+        "filename": "041_i4_verso_k1_recto.jpg",
+        "human_label": "i4 verso k1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 41,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 41,
+          "filename": "041_leaf_I4_verso_-_leaf_K1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 42,
+        "filename": "042_k1_verso_k2_recto.jpg",
+        "human_label": "k1 verso k2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 42,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 42,
+          "filename": "042_leaf_K1_verso_-_leaf_K2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 43,
+        "filename": "043_k2_verso_k3_recto.jpg",
+        "human_label": "k2 verso k3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 43,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 43,
+          "filename": "043_leaf_K2_verso_-_leaf_K3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 44,
+        "filename": "044_k3_verso_k4_recto.jpg",
+        "human_label": "k3 verso k4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 44,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 44,
+          "filename": "044_leaf_K3_verso_-_leaf_K4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 45,
+        "filename": "045_k4_verso_l1_recto.jpg",
+        "human_label": "k4 verso l1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 45,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 45,
+          "filename": "045_leaf_K4_verso_-_leaf_L1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 46,
+        "filename": "046_l1_verso_l2_recto.jpg",
+        "human_label": "l1 verso l2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 46,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 46,
+          "filename": "046_leaf_L1_verso_-_leaf_L2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 47,
+        "filename": "047_l2_verso_back_endleaf_1_recto.jpg",
+        "human_label": "l2 verso back endleaf 1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 47,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 47,
+          "filename": "047_leaf_L2_verso_-_back_endleaf_1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 48,
+        "filename": "048_back_endleaf_1_verso_back_endleaf_2_recto.jpg",
+        "human_label": "back endleaf 1 verso back endleaf 2 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 48,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 48,
+          "filename": "048_back_endleaf_1_verso_-_back_endleaf_2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 49,
+        "filename": "049_back_endleaf_2_verso_back_endleaf_3_recto.jpg",
+        "human_label": "back endleaf 2 verso back endleaf 3 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 49,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 49,
+          "filename": "049_back_endleaf_2_verso_-_back_endleaf_3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 50,
+        "filename": "050_back_endleaf_3_verso_back_endleaf_4_recto.jpg",
+        "human_label": "back endleaf 3 verso back endleaf 4 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 50,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 50,
+          "filename": "050_back_endleaf_3_verso_-_back_endleaf_4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 51,
+        "filename": "051_back_endleaf_4_verso_back_inside_cover.jpg",
+        "human_label": "back endleaf 4 verso back inside cover",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 51,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 51,
+          "filename": "051_back_endleaf_4_verso_-_back_inside_cover.jpg"
+        }
+      },
+      {
+        "sequence_number": 52,
+        "filename": "052_back_outside_cover.jpg",
+        "human_label": "back outside cover",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 52,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 52,
+          "filename": "052_back_outside_cover.jpg"
+        }
+      },
+      {
+        "sequence_number": 53,
+        "filename": "053_spine.jpg",
+        "human_label": "spine",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 53,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "aspley",
+          "sequence_number": 53,
+          "filename": "053_spine.jpg"
+        }
+      }
+    ],
+    "aspley": [
+      {
+        "sequence_number": 1,
+        "filename": "001_front_outside_cover.jpg",
+        "human_label": "front outside cover",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 1,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 1,
+          "filename": "001_front_outside_cover.jpg"
+        }
+      },
+      {
+        "sequence_number": 2,
+        "filename": "002_front_inside_cover_-_front_endleaf_1_recto.jpg",
+        "human_label": "front inside cover   front endleaf 1 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 2,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 2,
+          "filename": "002_front_inside_cover_front_endleaf_1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 3,
+        "filename": "003_front_endleaf_1_verso_-_front_endleaf_2_recto.jpg",
+        "human_label": "front endleaf 1 verso   front endleaf 2 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 3,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 3,
+          "filename": "003_front_endleaf_1_verso_front_endleaf_2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 4,
+        "filename": "004_front_endleaf_2_verso_-_front_endleaf_3_recto.jpg",
+        "human_label": "front endleaf 2 verso   front endleaf 3 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 4,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 4,
+          "filename": "004_front_endleaf_2_verso_front_endleaf_3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 5,
+        "filename": "005_front_endleaf_3_verso_-_front_endleaf_4_recto.jpg",
+        "human_label": "front endleaf 3 verso   front endleaf 4 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 5,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 5,
+          "filename": "005_front_endleaf_3_verso_front_endleaf_4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 6,
+        "filename": "006_front_endleaf_4_verso_-_front_endleaf_5_recto.jpg",
+        "human_label": "front endleaf 4 verso   front endleaf 5 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 6,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 6,
+          "filename": "006_front_endleaf_4_verso_front_endleaf_5_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 7,
+        "filename": "007_front_endleaf_5_verso_-_leaf_A1_recto.jpg",
+        "human_label": "front endleaf 5 verso   leaf A1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 7,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 7,
+          "filename": "007_front_endleaf_5_verso_a1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 8,
+        "filename": "008_leaf_A1_verso_-_leaf_A2_recto.jpg",
+        "human_label": "leaf A1 verso   leaf A2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 8,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 8,
+          "filename": "008_a1_verso_a2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 9,
+        "filename": "009_leaf_A2_verso_-_leaf_B1_recto.jpg",
+        "human_label": "leaf A2 verso   leaf B1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 9,
+        "legacy_sonnet_ids": [
+          2
+        ],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 9,
+          "filename": "009_a2_verso_b1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 10,
+        "filename": "010_leaf_B1_verso_-_leaf_B2_recto.jpg",
+        "human_label": "leaf B1 verso   leaf B2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 10,
+        "legacy_sonnet_ids": [
+          6,
+          7
+        ],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 10,
+          "filename": "010_b1_verso_b2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 11,
+        "filename": "011_leaf_B2_verso_-_leaf_B3_recto.jpg",
+        "human_label": "leaf B2 verso   leaf B3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 11,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 11,
+          "filename": "011_b2_verso_b3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 12,
+        "filename": "012_leaf_B3_verso_-_leaf_B4_recto.jpg",
+        "human_label": "leaf B3 verso   leaf B4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 12,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 12,
+          "filename": "012_b3_verso_b4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 13,
+        "filename": "013_leaf_B4_verso_-_leaf_C1_recto.jpg",
+        "human_label": "leaf B4 verso   leaf C1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 13,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 13,
+          "filename": "013_b4_verso_c1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 14,
+        "filename": "014_leaf_C1_verso_-_leaf_C2_recto.jpg",
+        "human_label": "leaf C1 verso   leaf C2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 14,
+        "legacy_sonnet_ids": [
+          24,
+          25
+        ],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 14,
+          "filename": "014_c1_verso_c2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 15,
+        "filename": "015_leaf_C2_verso_-_leaf_C3_recto.jpg",
+        "human_label": "leaf C2 verso   leaf C3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 15,
+        "legacy_sonnet_ids": [
+          29
+        ],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 15,
+          "filename": "015_c2_verso_c3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 16,
+        "filename": "016_leaf_C3_verso_-_leaf_C4_recto.jpg",
+        "human_label": "leaf C3 verso   leaf C4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 16,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 16,
+          "filename": "016_c3_verso_c4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 17,
+        "filename": "017_leaf_C4_verso_-_leaf_D1_recto.jpg",
+        "human_label": "leaf C4 verso   leaf D1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 17,
+        "legacy_sonnet_ids": [
+          41
+        ],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 17,
+          "filename": "017_c4_verso_d1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 18,
+        "filename": "018_leaf_D1_verso_-_leaf_D2_recto.jpg",
+        "human_label": "leaf D1 verso   leaf D2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 18,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 18,
+          "filename": "018_d1_verso_d2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 19,
+        "filename": "019_leaf_D2_verso_-_leaf_D3_recto.jpg",
+        "human_label": "leaf D2 verso   leaf D3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 19,
+        "legacy_sonnet_ids": [
+          48
+        ],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 19,
+          "filename": "019_d2_verso_d3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 20,
+        "filename": "020_leaf_D3_verso_-_leaf_D4_recto.jpg",
+        "human_label": "leaf D3 verso   leaf D4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 20,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 20,
+          "filename": "020_d3_verso_d4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 21,
+        "filename": "021_leaf_D4_verso_-_leaf_E1_recto.jpg",
+        "human_label": "leaf D4 verso   leaf E1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 21,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 21,
+          "filename": "021_d4_verso_e1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 22,
+        "filename": "022_leaf_E1_verso_-_leaf_E2_recto.jpg",
+        "human_label": "leaf E1 verso   leaf E2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 22,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 22,
+          "filename": "022_e1_verso_e2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 23,
+        "filename": "023_leaf_E2_verso_-_leaf_E3_recto.jpg",
+        "human_label": "leaf E2 verso   leaf E3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 23,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 23,
+          "filename": "023_e2_verso_e3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 24,
+        "filename": "024_leaf_E3_verso_-_leaf_E4_recto.jpg",
+        "human_label": "leaf E3 verso   leaf E4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 24,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 24,
+          "filename": "024_e3_verso_e4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 25,
+        "filename": "025_leaf_E4_verso_-_leaf_F1_recto.jpg",
+        "human_label": "leaf E4 verso   leaf F1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 25,
+        "legacy_sonnet_ids": [
+          79,
+          91
+        ],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 25,
+          "filename": "025_e4_verso_f1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 26,
+        "filename": "026_leaf_F1_verso_-_leaf_F2_recto.jpg",
+        "human_label": "leaf F1 verso   leaf F2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 26,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 26,
+          "filename": "026_f1_verso_f2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 27,
+        "filename": "027_leaf_F2_verso_-_leaf_F3_recto.jpg",
+        "human_label": "leaf F2 verso   leaf F3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 27,
+        "legacy_sonnet_ids": [
+          87
+        ],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 27,
+          "filename": "027_f2_verso_f3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 28,
+        "filename": "028_leaf_F3_verso_-_leaf_F4_recto.jpg",
+        "human_label": "leaf F3 verso   leaf F4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 28,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 28,
+          "filename": "028_f3_verso_f4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 29,
+        "filename": "029_leaf_F4_verso_-_leaf_G1_recto.jpg",
+        "human_label": "leaf F4 verso   leaf G1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 29,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 29,
+          "filename": "029_f4_verso_g1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 30,
+        "filename": "030_leaf_G1_verso_-_leaf_G2_recto.jpg",
+        "human_label": "leaf G1 verso   leaf G2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 30,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 30,
+          "filename": "030_g1_verso_g2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 31,
+        "filename": "031_leaf_G2_verso_-_leaf_G3_recto.jpg",
+        "human_label": "leaf G2 verso   leaf G3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 31,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 31,
+          "filename": "031_g2_verso_g3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 32,
+        "filename": "032_leaf_G3_verso_-_leaf_G4_recto.jpg",
+        "human_label": "leaf G3 verso   leaf G4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 32,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 32,
+          "filename": "032_g3_verso_g4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 33,
+        "filename": "033_leaf_G4_verso_-_leaf_H1_recto.jpg",
+        "human_label": "leaf G4 verso   leaf H1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 33,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 33,
+          "filename": "033_g4_verso_h1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 34,
+        "filename": "034_leaf_H1_verso_-_leaf_H2_recto.jpg",
+        "human_label": "leaf H1 verso   leaf H2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 34,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 34,
+          "filename": "034_h1_verso_h2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 35,
+        "filename": "035_leaf_H2_verso_-_leaf_H3_recto.jpg",
+        "human_label": "leaf H2 verso   leaf H3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 35,
+        "legacy_sonnet_ids": [
+          123
+        ],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 35,
+          "filename": "035_h2_verso_h3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 36,
+        "filename": "036_leaf_H3_verso_-_leaf_H4_recto.jpg",
+        "human_label": "leaf H3 verso   leaf H4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 36,
+        "legacy_sonnet_ids": [
+          130
+        ],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 36,
+          "filename": "036_h3_verso_h4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 37,
+        "filename": "037_leaf_H4_verso_-_leaf_I1_recto.jpg",
+        "human_label": "leaf H4 verso   leaf I1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 37,
+        "legacy_sonnet_ids": [
+          133
+        ],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 37,
+          "filename": "037_h4_verso_i1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 38,
+        "filename": "038_leaf_I1_verso_-_leaf_I2_recto.jpg",
+        "human_label": "leaf I1 verso   leaf I2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 38,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 38,
+          "filename": "038_i1_verso_i2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 39,
+        "filename": "039_leaf_I2_verso_-_leaf_I3_recto.jpg",
+        "human_label": "leaf I2 verso   leaf I3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 39,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 39,
+          "filename": "039_i2_verso_i3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 40,
+        "filename": "040_leaf_I3_verso_-_leaf_I4_recto.jpg",
+        "human_label": "leaf I3 verso   leaf I4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 40,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 40,
+          "filename": "040_i3_verso_i4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 41,
+        "filename": "041_leaf_I4_verso_-_leaf_K1_recto.jpg",
+        "human_label": "leaf I4 verso   leaf K1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 41,
+        "legacy_sonnet_ids": [
+          152
+        ],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 41,
+          "filename": "041_i4_verso_k1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 42,
+        "filename": "042_leaf_K1_verso_-_leaf_K2_recto.jpg",
+        "human_label": "leaf K1 verso   leaf K2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 42,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 42,
+          "filename": "042_k1_verso_k2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 43,
+        "filename": "043_leaf_K2_verso_-_leaf_K3_recto.jpg",
+        "human_label": "leaf K2 verso   leaf K3 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 43,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 43,
+          "filename": "043_k2_verso_k3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 44,
+        "filename": "044_leaf_K3_verso_-_leaf_K4_recto.jpg",
+        "human_label": "leaf K3 verso   leaf K4 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 44,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 44,
+          "filename": "044_k3_verso_k4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 45,
+        "filename": "045_leaf_K4_verso_-_leaf_L1_recto.jpg",
+        "human_label": "leaf K4 verso   leaf L1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 45,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 45,
+          "filename": "045_k4_verso_l1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 46,
+        "filename": "046_leaf_L1_verso_-_leaf_L2_recto.jpg",
+        "human_label": "leaf L1 verso   leaf L2 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 46,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 46,
+          "filename": "046_l1_verso_l2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 47,
+        "filename": "047_leaf_L2_verso_-_back_endleaf_1_recto.jpg",
+        "human_label": "leaf L2 verso   back endleaf 1 recto",
+        "status": "included",
+        "content_role": "body_or_mixed",
+        "reason": "Part of the shared 53-image Folger folio sequence and contains a signed folio opening or mixed folio/edge content.",
+        "shared_sequence_index": 47,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 47,
+          "filename": "047_l2_verso_back_endleaf_1_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 48,
+        "filename": "048_back_endleaf_1_verso_-_back_endleaf_2_recto.jpg",
+        "human_label": "back endleaf 1 verso   back endleaf 2 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 48,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 48,
+          "filename": "048_back_endleaf_1_verso_back_endleaf_2_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 49,
+        "filename": "049_back_endleaf_2_verso_-_back_endleaf_3_recto.jpg",
+        "human_label": "back endleaf 2 verso   back endleaf 3 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 49,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 49,
+          "filename": "049_back_endleaf_2_verso_back_endleaf_3_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 50,
+        "filename": "050_back_endleaf_3_verso_-_back_endleaf_4_recto.jpg",
+        "human_label": "back endleaf 3 verso   back endleaf 4 recto",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 50,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 50,
+          "filename": "050_back_endleaf_3_verso_back_endleaf_4_recto.jpg"
+        }
+      },
+      {
+        "sequence_number": 51,
+        "filename": "051_back_endleaf_4_verso_-_back_inside_cover.jpg",
+        "human_label": "back endleaf 4 verso   back inside cover",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 51,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 51,
+          "filename": "051_back_endleaf_4_verso_back_inside_cover.jpg"
+        }
+      },
+      {
+        "sequence_number": 52,
+        "filename": "052_back_outside_cover.jpg",
+        "human_label": "back outside cover",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 52,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 52,
+          "filename": "052_back_outside_cover.jpg"
+        }
+      },
+      {
+        "sequence_number": 53,
+        "filename": "053_spine.jpg",
+        "human_label": "spine",
+        "status": "excluded_paratext",
+        "content_role": "paratext",
+        "reason": "Shared witness image but dominated by cover, endleaf, or spine material.",
+        "shared_sequence_index": 53,
+        "legacy_sonnet_ids": [],
+        "counterpart": {
+          "witness": "wright",
+          "sequence_number": 53,
+          "filename": "053_spine.jpg"
+        }
+      },
+      {
+        "sequence_number": 54,
+        "filename": "054_title_page.jpg",
+        "human_label": "title page",
+        "status": "unmatched",
+        "content_role": "paratext",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 55,
+        "filename": "055_dedication_page_directly_following_title_page.jpg",
+        "human_label": "dedication page directly following title page",
+        "status": "unmatched",
+        "content_role": "paratext",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 56,
+        "filename": "056_sonnet_126-_leaf_H3_recto.jpg",
+        "human_label": "sonnet 126  leaf H3 recto",
+        "status": "unmatched",
+        "content_role": "supplemental_capture",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [
+          126
+        ],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 57,
+        "filename": "057_168396.jpg",
+        "human_label": "168396",
+        "status": "unmatched",
+        "content_role": "supplemental_capture",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 58,
+        "filename": "058_168397.jpg",
+        "human_label": "168397",
+        "status": "unmatched",
+        "content_role": "supplemental_capture",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 59,
+        "filename": "059_168398.jpg",
+        "human_label": "168398",
+        "status": "unmatched",
+        "content_role": "supplemental_capture",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 60,
+        "filename": "060_168399.jpg",
+        "human_label": "168399",
+        "status": "unmatched",
+        "content_role": "supplemental_capture",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 61,
+        "filename": "061_168400.jpg",
+        "human_label": "168400",
+        "status": "unmatched",
+        "content_role": "supplemental_capture",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 62,
+        "filename": "062_168401.jpg",
+        "human_label": "168401",
+        "status": "unmatched",
+        "content_role": "supplemental_capture",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 63,
+        "filename": "063_168402.jpg",
+        "human_label": "168402",
+        "status": "unmatched",
+        "content_role": "supplemental_capture",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 64,
+        "filename": "064_168403.jpg",
+        "human_label": "168403",
+        "status": "unmatched",
+        "content_role": "supplemental_capture",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 65,
+        "filename": "065_168404.jpg",
+        "human_label": "168404",
+        "status": "unmatched",
+        "content_role": "supplemental_capture",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 66,
+        "filename": "066_168405.jpg",
+        "human_label": "168405",
+        "status": "unmatched",
+        "content_role": "supplemental_capture",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      },
+      {
+        "sequence_number": 67,
+        "filename": "067_168406.jpg",
+        "human_label": "168406",
+        "status": "unmatched",
+        "content_role": "supplemental_capture",
+        "reason": "Source-specific extra capture outside the shared 53-image Folger folio sequence.",
+        "shared_sequence_index": null,
+        "legacy_sonnet_ids": [],
+        "counterpart": null
+      }
+    ]
+  }
+}

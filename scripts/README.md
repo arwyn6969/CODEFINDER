@@ -30,7 +30,12 @@ The repository still contains a flat `scripts/` layout from earlier phases. This
 - `research/generate_manual_review_ledger.py`
 - `research/generate_greenman_review_sheet.py`
 
-### Secondary research: Shakespeare cleanup
+### Canonical research: Shakespeare lane
+
+- `research/generate_shakespeare_canonical_artifacts.py`
+- `maintenance/rebuild_shakespeare_lane.py`
+
+### Historical and diagnostic Shakespeare scripts
 
 - `compare_page.py`
 - `download_aspley_sonnets.py`

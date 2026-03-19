@@ -1,0 +1,204 @@
+{
+  "generated_at": "2026-03-10T00:05:04.422597+00:00",
+  "report_date": "March 9, 2026",
+  "generator_version": "1.0.0",
+  "scope": "matched_high_confidence",
+  "claim_level": "external_safe_diagnostic",
+  "matching_basis": {
+    "shared_sequence_images": 53,
+    "included_pairs": 41,
+    "paratext_pairs": 12,
+    "legacy_same_page_sonnets": 1
+  },
+  "source1": {
+    "witness_key": "wright",
+    "name": "Folger Shakespeare Library STC 22353a (Wright)",
+    "short_label": "Wright",
+    "catalog_id": "STC 22353a",
+    "variant": "Wright",
+    "seller": "John Wright",
+    "file": "data/sources/folger_sonnets_1609",
+    "catalog_url": "https://digitalcollections.folger.edu/bib169144-164315",
+    "manifest_url": "https://digitalcollections.folger.edu/node/70076/manifest",
+    "local_total_images": 53,
+    "pages_scanned": 53,
+    "total_characters": 38909,
+    "unique_characters": 75,
+    "average_confidence": 90.295947,
+    "long_s_count": 811,
+    "ligatures_found": 1890,
+    "anomalies_detected": 780,
+    "current_local_resolution": "2000px JPG cache",
+    "local_download_size_param": "2000,",
+    "local_download_format": "jpg"
+  },
+  "source2": {
+    "witness_key": "aspley",
+    "name": "Folger Shakespeare Library STC 22353 (Aspley)",
+    "short_label": "Aspley",
+    "catalog_id": "STC 22353",
+    "variant": "Aspley",
+    "seller": "William Aspley",
+    "file": "data/sources/folger_sonnets_1609_aspley",
+    "catalog_url": "https://digitalcollections.folger.edu/node/29467",
+    "manifest_url": "https://digitalcollections.folger.edu/node/29467/manifest",
+    "local_total_images": 67,
+    "pages_scanned": 53,
+    "total_characters": 48142,
+    "unique_characters": 81,
+    "average_confidence": 91.319555,
+    "long_s_count": 1305,
+    "ligatures_found": 2277,
+    "anomalies_detected": 459,
+    "current_local_resolution": "2000px JPG cache",
+    "local_download_size_param": "2000,",
+    "local_download_format": "jpg"
+  },
+  "deltas": {
+    "local_image_delta": 14,
+    "pages_scanned_delta": 0,
+    "character_delta": 9233,
+    "confidence_delta": 1.02,
+    "long_s_delta": 494,
+    "ligature_delta": 387,
+    "anomaly_delta": -321
+  },
+  "unique_characters": {
+    "only_in_source1": [],
+    "only_in_source2": [
+      "\"",
+      "&",
+      "U",
+      "[",
+      "~",
+      "\u2014"
+    ]
+  },
+  "top_character_deltas": [
+    {
+      "character": "e",
+      "category": "lowercase",
+      "source1_count": 5108,
+      "source2_count": 6291,
+      "delta": 1183,
+      "delta_percentage": 23.16
+    },
+    {
+      "character": "t",
+      "category": "lowercase",
+      "source1_count": 3252,
+      "source2_count": 4241,
+      "delta": 989,
+      "delta_percentage": 30.41
+    },
+    {
+      "character": "o",
+      "category": "lowercase",
+      "source1_count": 2920,
+      "source2_count": 3560,
+      "delta": 640,
+      "delta_percentage": 21.92
+    },
+    {
+      "character": "h",
+      "category": "lowercase",
+      "source1_count": 2828,
+      "source2_count": 3423,
+      "delta": 595,
+      "delta_percentage": 21.04
+    },
+    {
+      "character": "r",
+      "category": "lowercase",
+      "source1_count": 2056,
+      "source2_count": 2641,
+      "delta": 585,
+      "delta_percentage": 28.45
+    },
+    {
+      "character": "i",
+      "category": "lowercase",
+      "source1_count": 2320,
+      "source2_count": 2902,
+      "delta": 582,
+      "delta_percentage": 25.09
+    },
+    {
+      "character": "a",
+      "category": "lowercase",
+      "source1_count": 2328,
+      "source2_count": 2878,
+      "delta": 550,
+      "delta_percentage": 23.63
+    },
+    {
+      "character": "\u017f",
+      "category": "long_s",
+      "source1_count": 811,
+      "source2_count": 1305,
+      "delta": 494,
+      "delta_percentage": 60.91
+    },
+    {
+      "character": "n",
+      "category": "lowercase",
+      "source1_count": 2362,
+      "source2_count": 2828,
+      "delta": 466,
+      "delta_percentage": 19.73
+    },
+    {
+      "character": "l",
+      "category": "lowercase",
+      "source1_count": 1359,
+      "source2_count": 1778,
+      "delta": 419,
+      "delta_percentage": 30.83
+    },
+    {
+      "character": "d",
+      "category": "lowercase",
+      "source1_count": 1470,
+      "source2_count": 1745,
+      "delta": 275,
+      "delta_percentage": 18.71
+    },
+    {
+      "character": "u",
+      "category": "lowercase",
+      "source1_count": 1411,
+      "source2_count": 1657,
+      "delta": 246,
+      "delta_percentage": 17.43
+    },
+    {
+      "character": ",",
+      "category": "punctuation",
+      "source1_count": 863,
+      "source2_count": 1088,
+      "delta": 225,
+      "delta_percentage": 26.07
+    },
+    {
+      "character": "s",
+      "category": "lowercase",
+      "source1_count": 994,
+      "source2_count": 1214,
+      "delta": 220,
+      "delta_percentage": 22.13
+    },
+    {
+      "character": "m",
+      "category": "lowercase",
+      "source1_count": 1098,
+      "source2_count": 1312,
+      "delta": 214,
+      "delta_percentage": 19.49
+    }
+  ],
+  "notes": [
+    "Design similarity is not same-object proof.",
+    "This packet is external-safe and diagnostic; it does not claim typographic identity.",
+    "High-confidence comparison uses the surviving 80% confidence scan outputs and is anchored to the shared 53-image sequence."
+  ]
+}

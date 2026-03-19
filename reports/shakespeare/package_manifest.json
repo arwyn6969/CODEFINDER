@@ -1,0 +1,55 @@
+{
+  "generated_at": "2026-03-10T00:05:04.424923+00:00",
+  "report_date": "March 9, 2026",
+  "generator_version": "1.0.0",
+  "package_name": "CODEFINDER Shakespeare Canonical Packet",
+  "claim_level": "external_safe_diagnostic",
+  "primary_corpus": {
+    "witnesses": [
+      {
+        "name": "Folger Shakespeare Library STC 22353a (Wright)",
+        "catalog_id": "STC 22353a",
+        "local_images": 53
+      },
+      {
+        "name": "Folger Shakespeare Library STC 22353 (Aspley)",
+        "catalog_id": "STC 22353",
+        "local_images": 67
+      }
+    ],
+    "shared_sequence_images": 53,
+    "included_pairs": 41,
+    "paratext_pairs": 12,
+    "unmatched_aspley_extras": 14
+  },
+  "key_metrics": {
+    "whole_witness_characters": {
+      "wright": 89236,
+      "aspley": 99657
+    },
+    "high_confidence_characters": {
+      "wright": 38909,
+      "aspley": 48142
+    },
+    "page_variance_significant_pairs": 40,
+    "legacy_same_page_sonnets": 1,
+    "manual_review_counts": {
+      "same design": 2,
+      "inconclusive": 4
+    }
+  },
+  "artifacts": {
+    "summary_txt": "reports/shakespeare/summary.txt",
+    "page_equivalence_manifest": "reports/shakespeare/page_equivalence_manifest.json",
+    "whole_book_comparison": "reports/shakespeare/comparison/whole_book_comparison.json",
+    "high_confidence_comparison": "reports/shakespeare/comparison/high_confidence_comparison.json",
+    "page_variance_diagnostic": "reports/shakespeare/comparison/page_variance_diagnostic.json",
+    "manual_review_ledger": "reports/shakespeare/manual_review/manual_review_ledger.json",
+    "manual_review_summary": "reports/shakespeare/manual_review/manual_review_summary.md",
+    "archive_html": "reports/shakespeare/shakespeare_archive.html",
+    "archive_pdf": "reports/shakespeare/CODEFINDER_Shakespeare_Report.pdf",
+    "shareable_pdf": "reports/shareable/CODEFINDER_Shakespeare_Summary.pdf",
+    "manuscript": "docs/SHAKESPEARE_MANUSCRIPT.md",
+    "methods_appendix": "docs/SHAKESPEARE_METHODS_APPENDIX.md"
+  }
+}

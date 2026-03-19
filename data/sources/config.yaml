@@ -5,7 +5,9 @@
 
 sources:
   # PRIMARY SOURCE: Folger Shakespeare Library Digital Collections
-  # High-resolution IIIF-compliant facsimile with scholarly provenance
+  # The current local Shakespeare corpus caches both witnesses as 2000px JPG
+  # downloads from the same IIIF manifests. Native/full-size reacquisition
+  # remains possible from those manifests if a later rerun requires it.
   # WRIGHT VERSION (STC 22353a) - "to be solde by John Wright"
   folger_iiif:
     path: "folger_sonnets_1609/"
@@ -18,7 +20,7 @@ sources:
       manifest: "https://digitalcollections.folger.edu/node/70076/manifest"
       catalog_record: "https://catalog.folger.edu/record/169144"
       rights: "https://rightsstatements.org/page/NoC-US/1.0/"
-      download_date: null  # Set automatically during download
+      download_date: "2026-02-05"
     metadata:
       title: "Shake-speares sonnets : neuer before imprinted"
       date: "1609"
@@ -28,11 +30,12 @@ sources:
       seller: "Wright, John, -1646"
       place: "London"
     quality:
-      resolution: "native"  # ~7000x4700 pixels
-      format: "tiff"
+      resolution: "2000px"
+      format: "jpg"
       total_pages: 53
       includes_covers: true
       includes_endleaves: true
+      note: "Current local cache is a 2000px JPG corpus; native/full IIIF reacquisition remains available from the same manifest."
   
   # ASPLEY VERSION (STC 22353) - "to be solde by William Aspley"
   # Different seller imprint, same printer and publisher

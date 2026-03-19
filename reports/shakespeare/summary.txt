@@ -1,0 +1,30 @@
+CODEFINDER Shakespeare Canonical Archive Summary
+==============================================
+
+Status date: March 9, 2026
+Claim level: External-safe diagnostic packet
+
+This archive packet consolidates the Wright/Aspley Shakespeare lane into one cautious package.
+It preserves useful computational evidence while treating source-equivalence constraints as unresolved.
+
+Corpus normalization
+-------------------
+- Wright local images: 53
+- Aspley local images: 67
+- Shared folio-sequence images: 53
+- Included shared pairs: 41
+- Shared paratext pairs: 12
+- Unmatched Aspley extras: 14
+
+Key findings
+------------
+- High-confidence OCR totals remain asymmetric: Wright 38,909, Aspley 48,142.
+- Legacy page-variance diagnostics flag 40 of 53 shared-sequence pairs as significant.
+- The surviving canonical sonnet mapping remains partial: Wright 4 detections, Aspley 16, with 1 same-page match.
+- Manual review rows: 6 total, `same design`=2, `possible same sort/block`=0, `inconclusive`=4.
+
+Interpretation
+--------------
+- The current packet supports provisional computational evidence and diagnostic comparison only.
+- Design similarity should not be read as proof of shared physical type or settled print-state identity.
+- Legacy Shakespeare report folders remain useful as inputs, but not as canonical verdicts.

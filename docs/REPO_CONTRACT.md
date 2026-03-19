@@ -28,8 +28,18 @@ This document locks the operating rules for CODEFINDER as a combined product and
 
 ### Shakespeare
 
-- Shakespeare is a secondary cleanup lane until one canonical summary explicitly supersedes the current legacy report cluster.
-- `docs/forensic_methodology_critique.md` is the control document for deciding what survives into that future package.
+- One canonical shareable output:
+  - `reports/shareable/CODEFINDER_Shakespeare_Summary.pdf`
+- One canonical archive package:
+  - `reports/shakespeare/summary.txt`
+  - `reports/shakespeare/shakespeare_archive.html`
+  - `reports/shakespeare/CODEFINDER_Shakespeare_Report.pdf`
+  - `reports/shakespeare/package_manifest.json`
+  - `reports/shakespeare/page_equivalence_manifest.json`
+  - `docs/SHAKESPEARE_MANUSCRIPT.md`
+  - `docs/SHAKESPEARE_METHODS_APPENDIX.md`
+- `docs/forensic_methodology_critique.md` remains the control document for deciding what survives into future stronger claims.
+- No outward-facing Shakespeare report may imply typographic identity or same-object proof beyond the current external-safe diagnostic evidence.
 
 ### Archive
 
@@ -69,5 +79,5 @@ The repo-level cleanup represented by this contract is considered complete only 
 
 - A new contributor can tell what is active, what is secondary, and what is archived without opening legacy research reports.
 - German/Kempten shareable and archive outputs agree on dates, claims, and limitations.
-- Shakespeare has either a canonical summary or an explicit "not yet consolidated" status in the docs.
+- Shakespeare shareable and archive outputs agree on corpus counts, claim level, and limitations.
 - Artifact churn is reduced so `git status` is mostly code and doc changes rather than bulk generated files.

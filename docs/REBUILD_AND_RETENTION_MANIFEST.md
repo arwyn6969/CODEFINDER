@@ -12,6 +12,10 @@ This manifest defines what should be kept as canonical repo-tracked outputs and 
 - Manual review ledger only: `./.venv/bin/python scripts/research/generate_manual_review_ledger.py`
 - Greenman review sheet only: `./.venv/bin/python scripts/research/generate_greenman_review_sheet.py`
 
+### Shakespeare
+
+- Full report family rebuild: `./.venv/bin/python scripts/maintenance/rebuild_shakespeare_lane.py`
+
 ### Negative control
 
 - Repo-local control run: `./.venv/bin/python scripts/maintenance/run_negative_control.py`
@@ -40,7 +44,10 @@ This manifest defines what should be kept as canonical repo-tracked outputs and 
 | German archive | `reports/final_report/summary.txt` and companion HTML/PDF | `scripts/maintenance/rebuild_german_lane.py` |
 | German manual review | `reports/manual_review/manual_review_ledger.md`, `reports/manual_review/greenman_review.md`, `reports/manual_review/greenman_review_sheet.png` | `scripts/research/generate_manual_review_ledger.py`, `scripts/research/generate_greenman_review_sheet.py` |
 | Negative control | `reports/negative_control/negative_control_memo.md` | `scripts/maintenance/run_negative_control.py` |
-| Shakespeare internal control | `docs/SHAKESPEARE_INTERNAL_SUMMARY.md` | documentation-only synthesis from surviving artifacts |
+| Shakespeare shareable | `reports/shareable/CODEFINDER_Shakespeare_Summary.pdf` | `scripts/maintenance/rebuild_shakespeare_lane.py` |
+| Shakespeare archive | `reports/shakespeare/summary.txt` and companion HTML/PDF | `scripts/maintenance/rebuild_shakespeare_lane.py` |
+| Shakespeare manual review | `reports/shakespeare/manual_review/manual_review_ledger.json`, `reports/shakespeare/manual_review/manual_review_summary.md` | `scripts/maintenance/rebuild_shakespeare_lane.py` |
+| Shakespeare control docs | `docs/SHAKESPEARE_INTERNAL_SUMMARY.md`, `docs/forensic_methodology_critique.md` | durable docs, not generated artifacts |
 
 ## Operational Defaults
 

@@ -1,73 +1,75 @@
-# Shakespeare Internal Canonical Summary
+# Shakespeare Canonical Lane Index
 
-> Status: Internal control packet only
-> Audience: Repository contributors and internal research review
-> Role: Supersedes the contradictory Wright/Aspley report cluster as the single Shakespeare source of truth
+> Status: Internal lane index for the canonical Shakespeare packet
+> Date: March 9, 2026
+> Role: Points contributors to the canonical Shakespeare package and keeps older report clusters in their historical place
 
 ## Current Status
 
-The Shakespeare lane is not an external-facing research package. It remains a secondary cleanup track whose purpose is to preserve useful methods, identify which findings survive scrutiny, and quarantine stale claims that should not be reused.
+The Shakespeare lane now has a canonical package, but it remains an external-safe diagnostic packet rather than a finished attribution case. The correct reading is cautious: the lane preserves useful computational evidence and a normalized witness inventory, while explicitly stating that source-equivalence constraints remain unresolved.
 
-This document supersedes older Shakespeare prose reports that treated the lane as settled.
+## Canonical Shakespeare Package
 
-## Canonical Inputs
+Use these artifacts first:
 
-Use these artifacts as the only approved starting points for Shakespeare cleanup:
+- `docs/SHAKESPEARE_MANUSCRIPT.md`
+- `docs/SHAKESPEARE_METHODS_APPENDIX.md`
+- `reports/shakespeare/summary.txt`
+- `reports/shakespeare/package_manifest.json`
+- `reports/shakespeare/page_equivalence_manifest.json`
+- `reports/shakespeare/comparison/whole_book_comparison.json`
+- `reports/shakespeare/comparison/high_confidence_comparison.json`
+- `reports/shakespeare/comparison/page_variance_diagnostic.json`
+- `reports/shakespeare/manual_review/manual_review_ledger.json`
+- `reports/shakespeare/manual_review/manual_review_summary.md`
+- `reports/shareable/CODEFINDER_Shakespeare_Summary.pdf`
+
+## What Survives From The Older Cluster
+
+The following older artifacts still matter, but only as inputs to the new packet:
 
 - `docs/forensic_methodology_critique.md`
-- `reports/wright_vs_aspley_comparison/comparison_summary.json`
-- `reports/wright_vs_aspley_80conf/comparison_summary.json`
 - `reports/page_forensics/page_comparison.json`
+- `reports/full_sonnet_mapping.json`
 - `reports/scan_wright_fixed/statistics.json`
 - `reports/scan_aspley_fixed/statistics.json`
 - `reports/wright_80conf/statistics.json`
 - `reports/aspley_80conf/statistics.json`
-- `reports/full_sonnet_mapping.json`
 
-## Reusable Methods And Data
+## Reading Rules
 
-- The methodology critique remains valid as a control document. It correctly rejects the earlier habit of inferring typographic identity from averages alone.
-- The Wright/Aspley comparison summaries remain useful as inventory artifacts because they document source coverage mismatch and OCR-count deltas.
-- The page-forensics JSON remains useful as a diagnostic artifact because it shows that page-by-page variance is widespread and cannot be hand-waved away.
-- The surviving scan statistics remain useful as extraction baselines, not as attribution proof.
+- Treat `reports/shakespeare/page_equivalence_manifest.json` as the structural source of truth for the local Shakespeare corpus.
+- Treat the normalized Shakespeare comparison JSONs under `reports/shakespeare/comparison/` as the canonical quantitative outputs.
+- Treat the manual-review labels as narrow interpretive tags, not as a substitute for bibliographical judgement.
+- Treat design similarity as distinct from same-object proof.
 
-## Tentative Findings Worth Preserving
+## Archived Or Superseded Claims
 
-- Source coverage mismatch is real and unresolved in the older cluster. The comparison summaries still show a 53-page Wright source against a 67-page Aspley source, with a 14-page delta driven by different digitization coverage.
-- OCR-count deltas are large enough that simplistic "same text, same type, just scan quality" conclusions are not trustworthy without better controls.
-- Long-s and ligature counts diverge materially across the old runs and therefore remain signals worth rechecking under a cleaned workflow.
-- The page-forensics dataset reports `40` significant pages out of `53`, which is too much variance to dismiss without more careful alignment and per-page validation.
-- Full sonnet mapping remains incomplete. The current mapping summary reports only `4` Wright and `16` Aspley finds in the surviving JSON, which means the alignment tooling is not yet mature enough to support strong claims.
+These claims do not survive into the canonical packet:
 
-## Claims That Are Archived And Should Not Survive
+- that the Wright and Aspley witnesses are already proven typographically identical;
+- that the null hypothesis has been accepted and the alternative rejected;
+- that OCR-only explanations settle the full variance picture;
+- that the legacy page-forensics prose report remains a safe external summary.
 
-- Any claim that the Wright and Aspley witnesses are already proven typographically identical.
-- Any claim that the null hypothesis has been accepted and the alternative hypothesis rejected.
-- Any claim that the observed differences are fully explained by OCR quality without explicit controls.
-- Any prose report that treats the Shakespeare lane as a finished attribution case.
+## Legacy Outputs To Keep In Historical Context
 
-These archived claims remain preserved for audit history only.
+The following folders remain preserved, but they are no longer the canonical Shakespeare surface:
 
-## Superseded Legacy Outputs
-
-Treat the following as historical-only unless a future cleanup explicitly regenerates them from a controlled workflow:
-
-- `reports/page_forensics/FORENSIC_ANALYSIS_REPORT.md`
+- `reports/page_forensics/`
 - `reports/wright_vs_aspley_comparison/`
 - `reports/wright_vs_aspley_80conf/`
 - `reports/scan_wright_fixed/`
 - `reports/scan_aspley_fixed/`
 - `reports/wright_80conf/`
 - `reports/aspley_80conf/`
+- `reports/full_sonnet_mapping_report.md`
 
-## If Shakespeare Is Reactivated Later
+## If Shakespeare Is Reopened For A Deeper Rerun
 
-The next cleanup pass should do these things in order:
+The next higher bar is not new prose. It is tighter evidence:
 
-1. Normalize source coverage so the compared corpora are page- and witness-equivalent.
-2. Rebuild extraction and comparison under one consistent OCR and persistence workflow.
-3. Add explicit control comparisons before attributing variance to scan quality.
-4. Generate pair-level visual review artifacts before any prose verdict.
-5. Only then decide whether the lane deserves a cautious shareable summary.
-
-Until that happens, Shakespeare is considered complete enough only as an internal control packet.
+1. improve or complete the sonnet-level page map;
+2. rerun extraction from a documented resolution if stronger image-level claims are needed;
+3. keep page-variance outputs diagnostic until page equivalence improves;
+4. require explicit manual and bibliographical review before any stronger typographic claim is made.

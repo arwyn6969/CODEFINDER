@@ -1,0 +1,68 @@
+[
+  {
+    "review_id": "legacy-mapping-page-009-sonnet-002",
+    "artifact_type": "shared-sequence-sonnet-opening",
+    "wright_page": 9,
+    "aspley_page": 9,
+    "sonnet_ids": [
+      2
+    ],
+    "supporting_artifact": "reports/full_sonnet_mapping.json",
+    "manual_assessment": "same design",
+    "manual_notes": "This is the only same-page sonnet opening preserved in the surviving canonical JSON. It is useful as a continuity check for design-level similarity, not as proof of shared physical type."
+  },
+  {
+    "review_id": "page-017-variance-cluster",
+    "artifact_type": "page-variance-cluster",
+    "wright_page": 17,
+    "aspley_page": 17,
+    "sonnet_ids": [],
+    "supporting_artifact": "reports/page_forensics/page_comparison.json",
+    "manual_assessment": "inconclusive",
+    "manual_notes": "Large OCR-count divergence persists in the legacy diagnostic output, but the current packet cannot isolate whether the driver is content alignment, image quality, or typographic difference."
+  },
+  {
+    "review_id": "page-018-variance-cluster",
+    "artifact_type": "page-variance-cluster",
+    "wright_page": 18,
+    "aspley_page": 18,
+    "sonnet_ids": [
+      43
+    ],
+    "supporting_artifact": "reports/page_forensics/deep_analysis/page_18_summary.png",
+    "manual_assessment": "inconclusive",
+    "manual_notes": "The deep-analysis packet is still useful for showing how strongly page-level overlays can diverge, but it no longer supports a settled explanatory verdict."
+  },
+  {
+    "review_id": "page-033-variance-cluster",
+    "artifact_type": "page-variance-cluster",
+    "wright_page": 33,
+    "aspley_page": 33,
+    "sonnet_ids": [],
+    "supporting_artifact": "reports/page_forensics/outlier_summary.txt",
+    "manual_assessment": "inconclusive",
+    "manual_notes": "This remains one of the largest delta pages in the legacy output. The current package keeps it as a diagnostic review target only."
+  },
+  {
+    "review_id": "page-041-variance-cluster",
+    "artifact_type": "page-variance-cluster",
+    "wright_page": 41,
+    "aspley_page": 41,
+    "sonnet_ids": [],
+    "supporting_artifact": "reports/page_forensics/outlier_summary.txt",
+    "manual_assessment": "inconclusive",
+    "manual_notes": "The near-2x OCR ratio on this pair is too unstable to treat as design evidence without stronger page-equivalence control."
+  },
+  {
+    "review_id": "aspley-extra-page-056",
+    "artifact_type": "unmatched-extra-capture",
+    "wright_page": null,
+    "aspley_page": 56,
+    "sonnet_ids": [
+      126
+    ],
+    "supporting_artifact": "reports/full_sonnet_mapping.json",
+    "manual_assessment": "same design",
+    "manual_notes": "The Aspley-only Sonnet 126 extra capture is retained as source-specific evidence of the local corpus shape. It should not be forced into the paired sequence, but it does confirm that some Shakespeare content survives only in the unmatched Aspley extras."
+  }
+]

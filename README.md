@@ -13,7 +13,7 @@ This repository is no longer positioned as a general-purpose cipher or prophetic
 | --- | --- | --- | --- |
 | Product | Active | FastAPI backend, React frontend, API routes under `/api/*` | Running app, API docs, tests |
 | German/Kempten research | Active priority | Four-source early modern German/Latin print comparison | `reports/shareable/CODEFINDER_Discord_Summary.pdf`, `reports/final_report/summary.txt`, `docs/BOOK_HISTORY_MANUSCRIPT.md`, `docs/BOOK_HISTORY_METHODS_APPENDIX.md` |
-| Shakespeare research | Secondary cleanup | Wright/Aspley and related forensic comparisons | Internal critique and legacy reports only until consolidated |
+| Shakespeare research | Secondary canonical | Wright/Aspley witness normalization and diagnostic comparison | `reports/shareable/CODEFINDER_Shakespeare_Summary.pdf`, `reports/shakespeare/summary.txt`, `docs/SHAKESPEARE_MANUSCRIPT.md`, `docs/SHAKESPEARE_METHODS_APPENDIX.md` |
 | Exploratory archive | Archived | Gematria, ELS, prophetic, and related exploratory work | Preserved for history only; not safe to circulate as active findings |
 
 ## Runtime Contract
@@ -54,6 +54,7 @@ docker-compose up -d
 
 ## What To Read First
 
+- `docs/DEVELOPER_HANDOFF.md` - current branch picture, project stage, and next steps for the next developer
 - `docs/REPO_INDEX.md` - where active code, reports, archives, and generated artifacts live
 - `docs/REPO_CONTRACT.md` - locked runtime, organization, and documentation rules
 - `docs/CODEFINDER_ROADMAP.md` - current implementation phases and remaining blockers
@@ -71,9 +72,11 @@ docker-compose up -d
 
 ### Shakespeare
 
-- Current control document: `docs/forensic_methodology_critique.md`
-- Canonical internal summary: `docs/SHAKESPEARE_INTERNAL_SUMMARY.md`
-- Status: not yet consolidated into a single external-safe summary package
+- Shareable summary: `reports/shareable/CODEFINDER_Shakespeare_Summary.pdf`
+- Research archive summary: `reports/shakespeare/summary.txt`
+- External-facing manuscript draft: `docs/SHAKESPEARE_MANUSCRIPT.md`
+- Methods and reproducibility appendix: `docs/SHAKESPEARE_METHODS_APPENDIX.md`
+- Control document and lane index: `docs/forensic_methodology_critique.md`, `docs/SHAKESPEARE_INTERNAL_SUMMARY.md`
 
 ### Archived exploratory work
 

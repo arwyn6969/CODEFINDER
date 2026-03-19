@@ -56,6 +56,10 @@ reports/**/*
 !reports/**/
 !reports/**/*.md
 !reports/**/*.txt
+!reports/shakespeare/**/*.json
+!reports/shakespeare/**/*.html
+!reports/shakespeare/**/*.pdf
+!reports/shareable/CODEFINDER_Shakespeare_Summary.pdf
 
 # Generated visualizations
 *.svg

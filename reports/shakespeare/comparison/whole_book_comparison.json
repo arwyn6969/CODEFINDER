@@ -1,0 +1,198 @@
+{
+  "generated_at": "2026-03-10T00:05:04.421869+00:00",
+  "report_date": "March 9, 2026",
+  "generator_version": "1.0.0",
+  "scope": "whole_witness",
+  "claim_level": "external_safe_diagnostic",
+  "matching_basis": {
+    "shared_sequence_images": 53,
+    "included_pairs": 41,
+    "paratext_pairs": 12,
+    "legacy_same_page_sonnets": 1
+  },
+  "source1": {
+    "witness_key": "wright",
+    "name": "Folger Shakespeare Library STC 22353a (Wright)",
+    "short_label": "Wright",
+    "catalog_id": "STC 22353a",
+    "variant": "Wright",
+    "seller": "John Wright",
+    "file": "data/sources/folger_sonnets_1609",
+    "catalog_url": "https://digitalcollections.folger.edu/bib169144-164315",
+    "manifest_url": "https://digitalcollections.folger.edu/node/70076/manifest",
+    "local_total_images": 53,
+    "pages_scanned": 53,
+    "total_characters": 89236,
+    "unique_characters": 110,
+    "average_confidence": 63.110527,
+    "long_s_count": 593,
+    "ligatures_found": 0,
+    "anomalies_detected": 0,
+    "current_local_resolution": "2000px JPG cache",
+    "local_download_size_param": "2000,",
+    "local_download_format": "jpg"
+  },
+  "source2": {
+    "witness_key": "aspley",
+    "name": "Folger Shakespeare Library STC 22353 (Aspley)",
+    "short_label": "Aspley",
+    "catalog_id": "STC 22353",
+    "variant": "Aspley",
+    "seller": "William Aspley",
+    "file": "data/sources/folger_sonnets_1609_aspley",
+    "catalog_url": "https://digitalcollections.folger.edu/node/29467",
+    "manifest_url": "https://digitalcollections.folger.edu/node/29467/manifest",
+    "local_total_images": 67,
+    "pages_scanned": 67,
+    "total_characters": 99657,
+    "unique_characters": 110,
+    "average_confidence": 64.443943,
+    "long_s_count": 1005,
+    "ligatures_found": 0,
+    "anomalies_detected": 0,
+    "current_local_resolution": "2000px JPG cache",
+    "local_download_size_param": "2000,",
+    "local_download_format": "jpg"
+  },
+  "deltas": {
+    "local_image_delta": 14,
+    "pages_scanned_delta": 14,
+    "character_delta": 10421,
+    "confidence_delta": 1.33,
+    "long_s_delta": 412,
+    "ligature_delta": 0,
+    "anomaly_delta": 0
+  },
+  "unique_characters": {
+    "only_in_source1": [],
+    "only_in_source2": []
+  },
+  "top_character_deltas": [
+    {
+      "character": "e",
+      "category": "lowercase",
+      "source1_count": 12157,
+      "source2_count": 13484,
+      "delta": 1327,
+      "delta_percentage": 10.92
+    },
+    {
+      "character": "a",
+      "category": "lowercase",
+      "source1_count": 5531,
+      "source2_count": 6538,
+      "delta": 1007,
+      "delta_percentage": 18.21
+    },
+    {
+      "character": "i",
+      "category": "lowercase",
+      "source1_count": 6206,
+      "source2_count": 7163,
+      "delta": 957,
+      "delta_percentage": 15.42
+    },
+    {
+      "character": "t",
+      "category": "lowercase",
+      "source1_count": 6504,
+      "source2_count": 7311,
+      "delta": 807,
+      "delta_percentage": 12.41
+    },
+    {
+      "character": "|",
+      "category": "other",
+      "source1_count": 1884,
+      "source2_count": 1174,
+      "delta": -710,
+      "delta_percentage": -37.69
+    },
+    {
+      "character": "o",
+      "category": "lowercase",
+      "source1_count": 5554,
+      "source2_count": 6023,
+      "delta": 469,
+      "delta_percentage": 8.44
+    },
+    {
+      "character": ":",
+      "category": "punctuation",
+      "source1_count": 291,
+      "source2_count": 747,
+      "delta": 456,
+      "delta_percentage": 156.7
+    },
+    {
+      "character": "\u017f",
+      "category": "long_s",
+      "source1_count": 593,
+      "source2_count": 1005,
+      "delta": 412,
+      "delta_percentage": 69.48
+    },
+    {
+      "character": "s",
+      "category": "lowercase",
+      "source1_count": 2460,
+      "source2_count": 2850,
+      "delta": 390,
+      "delta_percentage": 15.85
+    },
+    {
+      "character": ".",
+      "category": "punctuation",
+      "source1_count": 342,
+      "source2_count": 721,
+      "delta": 379,
+      "delta_percentage": 110.82
+    },
+    {
+      "character": "h",
+      "category": "lowercase",
+      "source1_count": 4874,
+      "source2_count": 5159,
+      "delta": 285,
+      "delta_percentage": 5.85
+    },
+    {
+      "character": "r",
+      "category": "lowercase",
+      "source1_count": 4322,
+      "source2_count": 4562,
+      "delta": 240,
+      "delta_percentage": 5.55
+    },
+    {
+      "character": ";",
+      "category": "punctuation",
+      "source1_count": 113,
+      "source2_count": 331,
+      "delta": 218,
+      "delta_percentage": 192.92
+    },
+    {
+      "character": "E",
+      "category": "uppercase",
+      "source1_count": 157,
+      "source2_count": 358,
+      "delta": 201,
+      "delta_percentage": 128.03
+    },
+    {
+      "character": "A",
+      "category": "uppercase",
+      "source1_count": 482,
+      "source2_count": 674,
+      "delta": 192,
+      "delta_percentage": 39.83
+    }
+  ],
+  "notes": [
+    "Design similarity is not same-object proof.",
+    "This packet is external-safe and diagnostic; it does not claim typographic identity.",
+    "Whole-witness inventory includes shared-sequence paratext and the source-specific Aspley extras.",
+    "Page-scan totals remain asymmetric across witnesses and should be interpreted as an extraction constraint, not as proof of content difference."
+  ]
+}

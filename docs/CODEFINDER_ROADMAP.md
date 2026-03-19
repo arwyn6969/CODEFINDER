@@ -18,7 +18,7 @@ This roadmap turns the repo-wide cleanup plan into a working sequence. It is int
 | --- | --- | --- |
 | Phase 1 | In progress | Lock repo identity, lane labeling, runtime contract, and top-level docs |
 | Phase 2 | In progress | Finish German/Kempten to a stable shareable-plus-archive standard |
-| Phase 3 | Not started | Rebuild Shakespeare into one sober canonical package |
+| Phase 3 | In progress | Rebuild Shakespeare into one sober canonical package |
 | Phase 4 | Started | Reduce script and artifact sprawl, define storage and rebuild rules |
 | Phase 5 | Not started | Audit and narrow the product surface around supported workflows |
 
@@ -59,11 +59,25 @@ Stable means:
 
 ## Phase 3: Rebuild Shakespeare
 
-Required outcomes:
+Already in place:
 
-- One canonical Wright/Aspley summary replaces the contradictory legacy report cluster
-- Clear separation between reusable methods, tentative findings, and archived claims
-- A future shareable Shakespeare package is created only after that consolidation
+- Shareable summary: `reports/shareable/CODEFINDER_Shakespeare_Summary.pdf`
+- Archive package under `reports/shakespeare/`
+- External-safe manuscript draft: `docs/SHAKESPEARE_MANUSCRIPT.md`
+- Methods appendix: `docs/SHAKESPEARE_METHODS_APPENDIX.md`
+- Canonical rebuild entrypoint: `scripts/maintenance/rebuild_shakespeare_lane.py`
+- Page-equivalence manifest and manual-review artifacts under `reports/shakespeare/`
+
+Remaining blockers:
+
+- Improve or replace the partial sonnet-opening map
+- Decide whether a native-resolution rerun is required for later image-level claims
+- Obtain specialist bibliographical review for any row that might advance beyond design-level similarity
+
+Stable means:
+
+- Source metadata, page-equivalence manifest, comparison outputs, shareable summary, and manuscript language all agree
+- Shakespeare legacy folders are retained only as diagnostic inputs, not as canonical verdicts
 
 Control document:
 
