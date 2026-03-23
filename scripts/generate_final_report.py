@@ -5,7 +5,7 @@ CODEFINDER — Final Comprehensive Forensic Report
 
 Consolidates all analysis into a single, handoff-ready report:
 - Data acquisition summary
-- Greenman woodblock matching results
+- Foliate-head ornament matching results
 - Character sort matching results  
 - Formal statistical tests
 - Type measurements
@@ -92,7 +92,7 @@ def load_stats_results():
 
 
 def load_greenman_results():
-    """Load accepted Greenman matches, filtering oversized page-level artefacts."""
+    """Load accepted foliate-head matches, filtering oversized page-level artefacts."""
     path = Path("reports/greenman_scan/matches.json")
     if not path.exists():
         return {
@@ -211,19 +211,19 @@ def generate_report():
         if len(greenman_sources) == 1:
             woodblock_value = "GDZ ONLY"
             woodblock_label = (
-                f"One verified Greenman candidate in "
+                f"One verified foliate-head candidate in "
                 f"{display_names.get(greenman_sources[0], greenman_sources[0])} "
                 f"under the current thresholds"
             )
         else:
             woodblock_value = f"{len(greenman_sources)} SOURCES"
             woodblock_label = (
-                "Verified Greenman candidates in "
+                "Verified foliate-head candidates in "
                 + ", ".join(display_names.get(src, src) for src in greenman_sources)
             )
     else:
         woodblock_value = "NO MATCH"
-        woodblock_label = "No verified Greenman match under the current thresholds"
+        woodblock_label = "No verified foliate-head match under the current thresholds"
 
     if greenman_results['rejected_matches']:
         woodblock_label += (
@@ -252,12 +252,12 @@ def generate_report():
 
     if best_greenman:
         greenman_summary_line = (
-            f"High-confidence Greenman candidate verified in "
+            f"One verified foliate-head candidate is present only in "
             f"{display_names.get(best_greenman['source'], best_greenman['source'])} "
             f"(SIFT {best_greenman['sift_matches']:,}, fingerprint {best_greenman['aggregate_score']:.3f})."
         )
     else:
-        greenman_summary_line = "No verified Greenman candidate passed the current thresholds."
+        greenman_summary_line = "No verified foliate-head candidate passed the current thresholds."
     
     html = """<!DOCTYPE html>
 <html lang="en">
@@ -392,7 +392,7 @@ def generate_report():
 <ol>
     <li><a href="#executive">Executive Summary</a></li>
     <li><a href="#data">Data Acquisition & Inventory</a></li>
-    <li><a href="#woodblock">Greenman Woodblock Analysis</a></li>
+    <li><a href="#woodblock">Foliate-Head Ornament Analysis</a></li>
     <li><a href="#characters">Character Sort Matching</a></li>
     <li><a href="#statistics">Formal Statistical Tests</a></li>
     <li><a href="#measurements">Type Measurements</a></li>
@@ -445,10 +445,10 @@ provisional computational reading.</p>
     
     # WOODBLOCK SECTION
     html += """
-<h2 id="woodblock">3. Greenman Woodblock Analysis</h2>
-<p>A distinctive "Greenman" (foliate head) ornamental woodblock was used as the reference image for 
-cross-source matching. The analysis used dual-scoring: <strong>SIFT feature matching</strong> (keypoint correspondence) 
-and <strong>BlockFingerprinter</strong> (Hu moments, Fourier descriptors, LBP texture, damage points, perceptual hash).</p>
+<h2 id="woodblock">3. Foliate-Head Ornament Analysis</h2>
+<p>A foliate-head ornament was used as the reference image for cross-source matching. The analysis used dual-scoring:
+<strong>SIFT feature matching</strong> (keypoint correspondence) and <strong>BlockFingerprinter</strong>
+(Hu moments, Fourier descriptors, LBP texture, damage points, perceptual hash).</p>
 
 <div class="verdict-box verdict-unclear">
     ⚠️ CURRENTLY VERIFIED IN ONE SOURCE ONLY<br>
@@ -639,7 +639,7 @@ and <strong>BlockFingerprinter</strong> (Hu moments, Fourier descriptors, LBP te
 
 <div class="evidence-grid">
     <div class="evidence-card">
-        <h4>Evidence Supporting A Shared-Materials Hypothesis</h4>
+        <h4>Evidence Consistent With A Shared-Materials Hypothesis</h4>
         <ul>
             <li class="finding-positive">✅ """ + greenman_summary_line + """</li>
             <li class="finding-positive">✅ """ + type_value + """ pairwise character-sort averages above the 0.60 threshold</li>
@@ -650,7 +650,7 @@ and <strong>BlockFingerprinter</strong> (Hu moments, Fourier descriptors, LBP te
     <div class="evidence-card">
         <h4>Evidence Requiring Caution</h4>
         <ul>
-            <li class="finding-neutral">⚠️ The Greenman evidence is source-specific at present, not cross-library</li>
+            <li class="finding-neutral">⚠️ The foliate-head evidence is source-specific at present, not cross-library</li>
             <li class="finding-neutral">⚠️ KS test shows dimensional differences (expected under differing scan resolutions)</li>
             <li class="finding-neutral">⚠️ Chi-squared shows frequency differences (expected: different texts)</li>
             <li class="finding-neutral">⚠️ """ + (
@@ -665,8 +665,8 @@ and <strong>BlockFingerprinter</strong> (Hu moments, Fourier descriptors, LBP te
 
 <div class="verdict-box verdict-unclear">
     🏛️ WORKING VERDICT<br><br>
-    Current computational results support a working hypothesis of shared or transferred printing materials.<br>
-    Character-sort evidence is strong, while the Greenman evidence is presently verified only in GDZ.<br>
+    Current computational evidence is consistent with a provisional shared-materials hypothesis.<br>
+    Character-sort evidence is strongest at the level of recurring design similarity, while foliate-head evidence remains source-specific.<br>
     <span style="font-size: 0.65em; font-weight: 400; display: block; margin-top: 1em;">
         Safe phrasing for external readers: promising, provisional, and now backed by a clean rerun plus a completed manual-review ledger; still lacks an accepted publication-grade negative control, and the current sort discriminator remains the live blocker.
     </span>
@@ -754,7 +754,7 @@ dependency using manual implementations.</p>
 <h2>Appendix: Reports Generated</h2>
 <table>
 <tr><th>Report</th><th>Path</th><th>Description</th></tr>
-<tr><td>Greenman Scan</td><td class="mono">reports/greenman_scan/greenman_report.html</td><td>Woodblock matching results with SIFT overlays</td></tr>
+<tr><td>Foliate-head Scan</td><td class="mono">reports/greenman_scan/greenman_report.html</td><td>Foliate-head matching results with diagnostic overlays</td></tr>
 <tr><td>Character Sort Match</td><td class="mono">reports/character_sort_match/sort_report.html</td><td>Cross-source character-form comparison</td></tr>
 <tr><td>Statistical Analysis</td><td class="mono">reports/statistical_analysis/stats_report.html</td><td>KS, χ², Mann-Whitney, Bootstrap tests</td></tr>
 <tr><td>This Report</td><td class="mono">reports/final_report/final_report.html</td><td>Comprehensive consolidated analysis</td></tr>
@@ -808,7 +808,7 @@ DATA INVENTORY
     summary += f"  {'TOTAL':30s} {totals['pages']:>4} pages  {totals['chars']:>5} chars\n"
     
     summary += f"""
-GREENMAN WOODBLOCK ANALYSIS
+FOLIATE-HEAD ORNAMENT ANALYSIS
 {'-'*40}
   Verdict: {woodblock_label}
 """
@@ -845,8 +845,8 @@ STATISTICAL TESTS
     summary += f"""
 FINAL VERDICT
 {'-'*40}
-  Current computational evidence supports a provisional shared-materials hypothesis.
-  Character sort evidence is strong; woodblock evidence is currently source-specific.
+  Current computational evidence is consistent with a provisional shared-materials hypothesis.
+  Character sort evidence is strongest at the design-similarity level; foliate-head evidence remains source-specific.
   Manual review of the top 60 matches is complete, but no publication-grade negative control has yet been accepted and the calibration sweep did not resolve the blocker.
   Present this as a cleaned computational draft, not a settled attribution claim.
   

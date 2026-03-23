@@ -1,6 +1,6 @@
 # Forensic Analysis Methodology Critique
 
-> Status: Control document for the Shakespeare cleanup lane
+> Status: Control document for the secondary canonical Shakespeare lane
 > Companion summary: `docs/SHAKESPEARE_INTERNAL_SUMMARY.md`
 
 ## 📋 Document Purpose

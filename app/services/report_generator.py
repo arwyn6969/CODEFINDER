@@ -17,6 +17,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_, func
 
 from app.core.database import get_db
+from app.core.project_identity import DEFAULT_REPORT_TITLE
 from app.models.database_models import Document, Pattern, Page
 from app.services.pattern_significance_ranker import PatternSignificanceRanker
 from app.services.geometric_visualizer import GeometricVisualizer
@@ -877,7 +878,7 @@ class ReportGenerator:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CODEFINDER Report</title>
+    <title>__REPORT_TITLE__</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
         .header { border-bottom: 2px solid #333; padding-bottom: 20px; margin-bottom: 30px; }
@@ -893,7 +894,7 @@ class ReportGenerator:
 </head>
 <body>
     <div class="header">
-        <h1>CODEFINDER Report</h1>
+        <h1>__REPORT_TITLE__</h1>
         <p><strong>Document:</strong> {{ data.document_info.filename }}</p>
         <p><strong>Generated:</strong> {{ generation_time.strftime('%Y-%m-%d %H:%M:%S') }}</p>
     </div>
@@ -968,4 +969,4 @@ class ReportGenerator:
         
         template_path = self.templates_dir / template_name
         with open(template_path, 'w', encoding='utf-8') as f:
-            f.write(default_template.strip())
+            f.write(default_template.strip().replace("__REPORT_TITLE__", DEFAULT_REPORT_TITLE))

@@ -9,6 +9,7 @@ from unittest.mock import Mock, patch, MagicMock
 from datetime import datetime
 from sqlalchemy.orm import Session
 
+from app.core.project_identity import DEFAULT_REPORT_TITLE
 from app.services.report_generator import (
     ReportGenerator, ReportConfiguration, ReportData, GeneratedReport,
     ReportFormat, ReportType, ReportSection
@@ -608,7 +609,7 @@ class TestReportGenerator:
         
         # Verify template content
         content = template_path.read_text()
-        assert "Ancient Text Analysis Report" in content
+        assert DEFAULT_REPORT_TITLE in content
         assert "{{ data.document_info.filename }}" in content
         assert "{{ generation_time.strftime" in content
     

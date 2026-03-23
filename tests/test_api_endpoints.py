@@ -11,6 +11,7 @@ import io
 from datetime import datetime
 
 from app.api.main import app
+from app.core.project_identity import API_SERVICE_NAME
 from app.models.database_models import Document, Pattern, Page
 
 
@@ -43,7 +44,7 @@ class TestAuthEndpoints:
         assert response.status_code == 200
         data = response.json()
         assert data["status"] == "healthy"
-        assert data["service"] == "Ancient Text Analysis API"
+        assert data["service"] == API_SERVICE_NAME
     
     def test_login_success(self):
         """Test successful login"""

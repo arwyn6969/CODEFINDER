@@ -119,7 +119,25 @@ class TestCompletionArtifacts(unittest.TestCase):
 
         text = summary_path.read_text()
         self.assertIn("SIMILAR FORMS", text)
+        self.assertIn("FOLIATE-HEAD ORNAMENT ANALYSIS", text)
+        self.assertNotIn("GREENMAN WOODBLOCK ANALYSIS", text)
         self.assertNotIn("  SAME\n", text)
+
+    def test_final_report_artifacts_keep_cautious_claim_language(self):
+        summary_text = (ROOT / "reports" / "final_report" / "summary.txt").read_text().lower()
+        html_text = (ROOT / "reports" / "final_report" / "final_report.html").read_text().lower()
+        corpus = "\n".join([summary_text, html_text])
+
+        self.assertIn("publication-grade negative control", corpus)
+        self.assertIn("source-specific", corpus)
+        self.assertIn("not a settled attribution claim", summary_text)
+
+        for phrase in (
+            "demonstrate physical identity",
+            "identical type produces identical character shapes",
+            "same woodblock across all witnesses",
+        ):
+            self.assertNotIn(phrase, corpus)
 
 
 if __name__ == "__main__":

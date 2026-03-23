@@ -52,7 +52,7 @@ This document locks the operating rules for CODEFINDER as a combined product and
 - The active lanes are:
   - Product
   - German/Kempten research
-  - Shakespeare cleanup
+  - Shakespeare canonical research
   - Archive
 - New research scripts do not belong at repo root.
 - `scripts/` is the only approved home for new research entrypoints, rebuild helpers, and maintenance scripts.

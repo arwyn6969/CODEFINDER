@@ -19,6 +19,7 @@ from app.api.routes import (
     visualizations,
     websocket,
 )
+from app.core.project_identity import API_SERVICE_NAME, API_TITLE
 from app.core.database import init_db
 
 # Configure logging
@@ -27,7 +28,7 @@ logger = logging.getLogger(__name__)
 
 # Create FastAPI application
 app = FastAPI(
-    title="CODEFINDER API",
+    title=API_TITLE,
     description="API for document ingestion, OCR-driven analysis, and historical-print research workflows",
     version="1.0.0",
     docs_url="/api/docs",
@@ -77,7 +78,7 @@ async def health_check():
     """Health check endpoint"""
     return {
         "status": "healthy",
-        "service": "CODEFINDER API",
+        "service": API_SERVICE_NAME,
         "version": "1.0.0"
     }
 
@@ -100,11 +101,11 @@ async def serve_frontend():
         return HTMLResponse(content=frontend_path.read_text(), status_code=200)
     else:
         return HTMLResponse(
-            content="""
+            content=f"""
             <html>
-                <head><title>CODEFINDER API</title></head>
+                <head><title>{API_TITLE}</title></head>
                 <body>
-                    <h1>CODEFINDER API</h1>
+                    <h1>{API_TITLE}</h1>
                     <p>Frontend not built. Visit <a href="/api/docs">/api/docs</a> for API documentation.</p>
                 </body>
             </html>

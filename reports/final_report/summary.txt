@@ -1,6 +1,6 @@
 CODEFINDER — FORENSIC PRINT BLOCK ANALYSIS SUMMARY
 ============================================================
-Generated: 2026-03-08 19:44
+Generated: 2026-03-23 13:02
 
 DATA INVENTORY
 ----------------------------------------
@@ -10,9 +10,9 @@ DATA INVENTORY
   HAB Wolfenbüttel                298 pages   8571 chars
   TOTAL                          1237 pages  27713 chars
 
-GREENMAN WOODBLOCK ANALYSIS
+FOLIATE-HEAD ORNAMENT ANALYSIS
 ----------------------------------------
-  Verdict: One verified Greenman candidate in GDZ Göttingen under the current thresholds
+  Verdict: One verified foliate-head candidate in GDZ Göttingen under the current thresholds
   Best SIFT: 13,215 keypoint matches (GDZ Göttingen)
   Best Fingerprint: 1.000 (GDZ Göttingen)
 
@@ -37,8 +37,8 @@ STATISTICAL TESTS
 
 FINAL VERDICT
 ----------------------------------------
-  Current computational evidence supports a provisional shared-materials hypothesis.
-  Character sort evidence is strong; woodblock evidence is currently source-specific.
+  Current computational evidence is consistent with a provisional shared-materials hypothesis.
+  Character sort evidence is strongest at the design-similarity level; foliate-head evidence remains source-specific.
   Manual review of the top 60 matches is complete, but no publication-grade negative control has yet been accepted and the calibration sweep did not resolve the blocker.
   Present this as a cleaned computational draft, not a settled attribution claim.
   

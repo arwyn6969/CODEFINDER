@@ -652,7 +652,7 @@ def build_pdf(output_path=None):
         "these publications preserve evidence consistent with shared or transferred printing materials "
         "under a provisional computational reading.", s['Body']))
     story.append(Paragraph(
-        "The present evidence supports a provisional shared-materials hypothesis. It is strongest at the "
+        "The present evidence is consistent with a provisional shared-materials hypothesis. It is strongest at the "
         "level of recurring character forms and weaker at the level of ornament reuse, so it should not be "
         "read as proof of identical physical sorts or corpus-wide woodblock reuse.", s['Body']))
 
@@ -1021,7 +1021,7 @@ def build_pdf(output_path=None):
     story.append(HorizontalRule(pw, 1))
     story.append(Spacer(1, 3*mm))
 
-    story.append(Paragraph("9.1 Evidence Supporting a Shared-Materials Hypothesis", s['SSH']))
+    story.append(Paragraph("9.1 Evidence Consistent With a Shared-Materials Hypothesis", s['SSH']))
     for item in [
         greenman_summary_line,
         f"{similar_pair_count}/{len(pairwise_summary)} character sort pairs show similar printed forms (all above the 0.60 threshold)",
@@ -1046,8 +1046,8 @@ def build_pdf(output_path=None):
 
     # FINAL VERDICT BOX
     vd = [['', ''], ['FORENSIC VERDICT', ''], ['', ''],
-          ['', 'Current computational evidence supports a provisional shared-materials hypothesis.'],
-          ['', 'Character-sort evidence is strong; foliate-head evidence is currently source-specific.'],
+          ['', 'Current computational evidence is consistent with a provisional shared-materials hypothesis.'],
+          ['', 'Character-sort evidence is strongest at the design-similarity level; foliate-head evidence remains source-specific.'],
           ['', 'Damage evolution is currently diagnostic only and excluded from the main verdict.'],
           ['', ''],
           ['', 'Present this externally as a cleaned computational draft: promising, provisional, backed by a completed manual-review ledger, and still lacking an accepted publication-grade negative control because the current sort discriminator remains the live blocker.'],
@@ -1230,7 +1230,7 @@ def build_pdf(output_path=None):
         ['Path', 'Description'],
         [['reports/final_report/CODEFINDER_Forensic_Report.pdf', 'This report'],
          ['reports/final_report/final_report.html', 'Interactive HTML version'],
-         ['reports/greenman_scan/greenman_report.html', 'Foliate-head matching with diagnostic SIFT overlays'],
+         ['reports/greenman_scan/greenman_report.html', 'Foliate-head matching with diagnostic overlays'],
          ['reports/character_sort_match/sort_report.html', 'Character sort comparison'],
          ['reports/statistical_analysis/stats_report.html', 'Statistical test results'],
          ['reports/damage_evolution/damage_report.html', 'Damage analysis'],

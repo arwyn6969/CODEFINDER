@@ -11,7 +11,7 @@ This repository is a single monorepo with two active responsibilities:
 | --- | --- | --- | --- |
 | Product | Active | `app/`, `frontend/`, `tests/` | Canonical runtime stays `app.api.main:app` with API routes under `/api/*`. |
 | German/Kempten research | Active priority | `scripts/`, `docs/BOOK_HISTORY_MANUSCRIPT.md`, `docs/BOOK_HISTORY_METHODS_APPENDIX.md`, `reports/shareable/`, `reports/final_report/` | Current shareable and archive outputs must stay aligned. |
-| Shakespeare research | Secondary cleanup | `scripts/`, `docs/forensic_methodology_critique.md`, legacy report folders in `reports/` | Not yet a single external-safe package. |
+| Shakespeare research | Secondary canonical | `scripts/`, `reports/shakespeare/`, `docs/SHAKESPEARE_MANUSCRIPT.md`, `docs/SHAKESPEARE_METHODS_APPENDIX.md` | Canonical package exists, but it remains diagnostic-only rather than a finished attribution case. |
 | Exploratory archive | Archived | `archive/`, `docs/RESEARCH_COMPENDIUM.md` | Preserved for audit history; not part of the active roadmap. |
 
 ## Runtime Architecture
@@ -57,16 +57,20 @@ Active evidentiary base:
 - `docs/BOOK_HISTORY_MANUSCRIPT.md`
 - `docs/BOOK_HISTORY_METHODS_APPENDIX.md`
 
-Known blockers before the German lane is fully stable:
+Completed inputs now in place:
 
-- Manual validation of top character-sort matches
-- Negative-control corpus processed through the same pipeline
-- Corrected source chronology for damage analysis
-- Final wording pass so every outward-facing claim matches the cleaned artifacts
+- Manual review ledger completed for the top `60` character-sort rows
+- Damage chronology rerun updated to corrected local source dates and kept diagnostic-only
+
+Remaining blockers before the German lane is fully stable:
+
+- No publication-grade negative control has yet been accepted
+- Outward-facing figures and report wording still need to stay aligned with the manuscript's caution
+- Stronger same-object language still requires specialist bibliographical review
 
 ### Shakespeare lane
 
-The Shakespeare work remains important but secondary. It is currently a cleanup lane, not a finished external package. The control document is `docs/forensic_methodology_critique.md`, and any future shareable output must explicitly supersede the contradictory older report cluster.
+The Shakespeare work remains important but secondary. It now has a canonical external-safe diagnostic package under `reports/shakespeare/`, with `docs/forensic_methodology_critique.md` retained as the control document. Any future stronger claim still requires a better page map, a documented higher-resolution rerun if image-level claims matter, and specialist bibliographical review.
 
 ## Storage Model
 
