@@ -1,13 +1,12 @@
-"""
-Configuration settings for Ancient Text Analyzer
-"""
-from pydantic_settings import BaseSettings
+"""Application settings for CODEFINDER."""
+
 from typing import Optional
-import os
+
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class Settings(BaseSettings):
     # Database settings
-    database_url: str = "sqlite:///./test_ancient_text_analyzer.db"
+    database_url: str = "sqlite:///./data/codefinder_app.db"
     
     # Redis settings
     redis_url: str = "redis://localhost:6379"
@@ -26,17 +25,17 @@ class Settings(BaseSettings):
     max_workers: int = 4
     
     # Security settings
-    secret_key: str = "your-secret-key-change-in-production"
-    debug: bool = True
+    secret_key: str = "codefinder-change-me"
+    debug: bool = False
+    enable_demo_auth: bool = False
     allowed_origins: Optional[str] = None  # Comma-separated list
+    frontend_build_dir: str = "frontend/build"
     
     # Logging settings
     log_level: str = "INFO"
     log_file: str = "logs/app.log"
     
-    model_config = {
-        'env_file': '.env'
-    }
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 
 # Global settings instance
 settings = Settings()

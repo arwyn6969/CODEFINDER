@@ -17,7 +17,7 @@
 7. [Testing Guide](#testing-guide)
 8. [Axiomatic Analysis Protocol](#axiomatic-analysis-protocol)
 9. [API Reference](#api-reference)
-10. [Research Compendium](./docs/RESEARCH_COMPENDIUM.md) *(Consolidated Findings)*
+10. [Research Compendium](../RESEARCH_COMPENDIUM.md) *(Consolidated Findings)*
 
 ---
 

@@ -1,9 +1,14 @@
 """
 Pytest configuration and shared fixtures for CODEFINDER tests.
 """
+import os
 import pytest
 from unittest.mock import Mock
 import inspect
+
+os.environ.setdefault("DATABASE_URL", "sqlite:///./data/test_codefinder_suite.db")
+os.environ.setdefault("SECRET_KEY", "codefinder-test-secret-key")
+os.environ.setdefault("ENABLE_DEMO_AUTH", "true")
 
 
 def _maybe_patch_httpx_client_for_starlette():

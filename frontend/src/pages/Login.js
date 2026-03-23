@@ -60,10 +60,10 @@ const Login = ({ onLogin }) => {
         title={
           <div style={{ textAlign: 'center' }}>
             <h2 style={{ margin: 0, color: '#8B4513' }}>
-              Ancient Text Analyzer
+              CODEFINDER
             </h2>
             <p style={{ margin: '8px 0 0 0', color: '#666' }}>
-              Sign in to your account
+              Sign in to the document analysis workspace
             </p>
           </div>
         }
@@ -167,10 +167,10 @@ const Login = ({ onLogin }) => {
             color: '#666'
           }}>
             <li>📄 Document Upload & OCR</li>
-            <li>🔍 Pattern Detection</li>
-            <li>📐 Geometric Analysis</li>
-            <li>🔐 Cipher Detection</li>
-            <li>📊 Interactive Visualizations</li>
+            <li>🗂️ Source Library Management</li>
+            <li>🔍 OCR-Driven Findings Review</li>
+            <li>📐 Geometric and layout diagnostics</li>
+            <li>📊 Interactive visualizations</li>
             <li>📈 Comprehensive Reports</li>
           </ul>
         </div>

@@ -123,7 +123,7 @@ After scanning, import images using the existing IIIF-style workflow:
 cp *.tiff data/sources/high_res_scans/
 
 # Run the scanner with new source
-python3 sonnet_print_block_scanner.py --source data/sources/high_res_scans/
+python3 scripts/legacy/sonnet_print_block_scanner.py --source data/sources/high_res_scans/
 ```
 
 The `InkDotAnalyzer` can then be run on extracted characters:

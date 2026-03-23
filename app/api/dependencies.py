@@ -2,10 +2,10 @@
 FastAPI Dependencies
 Authentication, database sessions, and other shared dependencies
 """
-from fastapi import Depends, HTTPException, status
+from fastapi import Depends, HTTPException, Request, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from sqlalchemy.orm import Session
-from typing import Optional, Dict, Any, Generator
+from typing import Dict, Any, Generator, Optional
 import jwt
 from datetime import datetime, timedelta, timezone
 import logging
@@ -15,16 +15,11 @@ from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
-# Security scheme
-# In non-debug environments, enforce credentials strictly
-security = HTTPBearer(auto_error=not getattr(settings, 'debug', True))
+# Security scheme. Missing credentials are handled explicitly so the API
+# returns a consistent 401 instead of a framework-level 403.
+security = HTTPBearer(auto_error=False)
 
 # JWT settings
-SECRET_KEY = (
-    getattr(settings, 'secret_key', None)
-    or getattr(settings, 'SECRET_KEY', None)
-    or "ancient-text-analysis-secret-key"
-)
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
@@ -34,6 +29,15 @@ class User:
         self.username = username
         self.email = email
         self.is_active = is_active
+
+
+def _unauthorized(detail: str = "Not authenticated") -> HTTPException:
+    return HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail=detail,
+        headers={"WWW-Authenticate": "Bearer"},
+    )
+
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     """Create JWT access token"""
@@ -45,13 +49,13 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
         expire = now + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    encoded_jwt = jwt.encode(to_encode, settings.secret_key, algorithm=ALGORITHM)
     return encoded_jwt
 
 def verify_token(token: str) -> Optional[Dict[str, Any]]:
     """Verify JWT token and return payload"""
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        payload = jwt.decode(token, settings.secret_key, algorithms=[ALGORITHM])
         return payload
     except jwt.PyJWTError as e:
         logger.warning(f"Token verification failed: {str(e)}")
@@ -59,35 +63,19 @@ def verify_token(token: str) -> Optional[Dict[str, Any]]:
 
 async def get_current_user(
     credentials: Optional[HTTPAuthorizationCredentials] = Depends(security)
-) -> Optional[User]:
+) -> User:
     """Get current authenticated user"""
-    
-    # For development, allow anonymous access when debug is True
     if not credentials:
-        if getattr(settings, 'debug', True):
-            return User(username="anonymous", email="anonymous@example.com")
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Not authenticated",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise _unauthorized()
     
     # Verify token
     payload = verify_token(credentials.credentials)
     if not payload:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid authentication credentials",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise _unauthorized("Invalid authentication credentials")
     
     username = payload.get("sub")
     if not username:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token payload",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+        raise _unauthorized("Invalid token payload")
     
     # In a real application, you would fetch user from database
     # For now, return user from token payload
@@ -114,9 +102,11 @@ def get_database() -> Generator[Session, None, None]:
 # Rate limiting (simple in-memory implementation)
 request_counts = {}
 
-async def rate_limit_dependency(request_id: str = "default") -> bool:
+async def rate_limit_dependency(request: Request) -> bool:
     """Simple rate limiting dependency"""
     current_time = datetime.now(timezone.utc)
+    client_host = request.client.host if request.client else "unknown"
+    request_id = f"{client_host}:{request.url.path}"
     
     # Clean old entries (older than 1 minute)
     cutoff_time = current_time - timedelta(minutes=1)

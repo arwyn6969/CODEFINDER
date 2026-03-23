@@ -198,10 +198,10 @@ const DocumentUpload = () => {
     <div style={{ padding: '24px' }}>
       <div style={{ marginBottom: '24px' }}>
         <Title level={2} style={{ margin: 0, color: '#8B4513' }}>
-          Upload Document
+          Upload Source
         </Title>
         <Text type="secondary">
-          Upload ancient texts, manuscripts, or historical documents for analysis
+          Upload PDFs, images, and reference documents for OCR and report workflows
         </Text>
       </div>
 

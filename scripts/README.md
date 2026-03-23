@@ -12,6 +12,8 @@ The repository still contains a flat `scripts/` layout from earlier phases. This
 - `scripts/maintenance/` - setup, rebuild, migration, and environment helpers
 - `scripts/legacy/` - retired or superseded entrypoints kept for history
 
+Root-level historical scripts migrated out of repo root should go under `scripts/legacy/` or one of its subdirectories, not back into the repository root.
+
 ## Current Script Classification
 
 ### Active research: German/Kempten

@@ -12,6 +12,7 @@ This repository is a single monorepo with two active responsibilities:
 | Product | Active | `app/`, `frontend/`, `tests/` | Canonical runtime stays `app.api.main:app` with API routes under `/api/*`. |
 | German/Kempten research | Active priority | `scripts/`, `docs/BOOK_HISTORY_MANUSCRIPT.md`, `docs/BOOK_HISTORY_METHODS_APPENDIX.md`, `reports/shareable/`, `reports/final_report/` | Current shareable and archive outputs must stay aligned. |
 | Shakespeare research | Secondary canonical | `scripts/`, `reports/shakespeare/`, `docs/SHAKESPEARE_MANUSCRIPT.md`, `docs/SHAKESPEARE_METHODS_APPENDIX.md` | Canonical package exists, but it remains diagnostic-only rather than a finished attribution case. |
+| Legacy exploratory tools | Internal legacy | `app/api/routes/research.py`, `frontend/src/pages/research/`, `scripts/legacy/`, `archive/research_scripts/` | Preserved for auditability and secondary use, but not part of the default product workflow. |
 | Exploratory archive | Archived | `archive/`, `docs/RESEARCH_COMPENDIUM.md` | Preserved for audit history; not part of the active roadmap. |
 
 ## Runtime Architecture
@@ -36,6 +37,8 @@ graph TD
 - Docker stack: backend, frontend, PostgreSQL
 
 Existing compatibility routes may remain in code, but the contract above is the one contributors should treat as stable.
+
+The exploratory research surface under `/api/research/*` remains runnable as an internal legacy lane, but it should not drive product copy, primary navigation, or roadmap priorities.
 
 ## Research Architecture
 

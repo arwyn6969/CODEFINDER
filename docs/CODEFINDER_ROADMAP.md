@@ -10,7 +10,7 @@ This roadmap turns the repo-wide cleanup plan into a working sequence. It is int
 - Dual-track overall: product plus research
 - German/Kempten is the active research priority
 - Shakespeare is the secondary cleanup track
-- Exploratory gematria, ELS, cipher, and prophetic material is preserved but removed from the active roadmap
+- Exploratory gematria, ELS, cipher, prophetic, and geographic-style tooling is preserved as an internal legacy lane, not a primary product surface
 
 ## Phase Status
 
@@ -36,6 +36,7 @@ Still to do:
 
 - Continue removing outdated top-level messaging from legacy user-facing docs where needed
 - Audit route descriptions and product copy for language inherited from the older "ancient text / prophetic" framing
+- Keep internal legacy exploratory tools reachable without advertising them as the default workflow
 
 ## Phase 2: Finish German/Kempten
 
@@ -96,6 +97,7 @@ Implemented or started:
 Still to do:
 
 - Continue moving active script ownership into documented lanes
+- Move root-level legacy scripts and docs into `scripts/legacy/`, `docs/legacy/`, or `archive/`
 - Reduce tracked generated artifacts where practical
 - Add reproducible rebuild paths for each active report family
 
@@ -104,6 +106,7 @@ Still to do:
 Required outcomes:
 
 - Frontend and API surface match the supported roadmap
+- Legacy exploratory tooling is clearly labeled and no longer reads like the default product surface
 - Important verification scripts become tests where feasible
 - CI remains focused on backend runtime health, frontend build health, and a small research smoke-check set
 

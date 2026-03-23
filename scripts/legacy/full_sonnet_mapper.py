@@ -6,16 +6,20 @@ Creates a complete mapping of all 154 Sonnets between Wright and Aspley editions
 Uses canonical first lines to identify each Sonnet regardless of page number.
 
 Usage:
-    python3 full_sonnet_mapper.py
+    python3 scripts/legacy/full_sonnet_mapper.py
 """
 
 import logging
 import json
 import re
+import sys
 from pathlib import Path
 from collections import defaultdict
 from difflib import SequenceMatcher
-from character_database import CharacterDatabase
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
+from scripts.legacy.root_legacy.character_database import CharacterDatabase
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(message)s')
 logger = logging.getLogger(__name__)

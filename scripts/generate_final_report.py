@@ -773,7 +773,7 @@ dependency using manual implementations.</p>
 <tr><td class="mono">scripts/generate_final_report.py</td><td>This consolidated report generator</td></tr>
 <tr><td class="mono">app/services/block_fingerprinter.py</td><td>Forensic fingerprinting engine</td></tr>
 <tr><td class="mono">app/services/ornament_extractor.py</td><td>Ornament detection service</td></tr>
-<tr><td class="mono">db_persistence.py</td><td>SQLite persistence layer</td></tr>
+<tr><td class="mono">scripts/legacy/root_legacy/db_persistence.py</td><td>Historical SQLite persistence layer</td></tr>
 </table>
 """
     

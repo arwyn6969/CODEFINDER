@@ -27,6 +27,15 @@ class LazyClient:
 client = LazyClient()
 
 
+def _auth_headers():
+    login_response = client.post("/api/auth/login", json={
+        "username": "admin",
+        "password": "admin123"
+    })
+    token = login_response.json()["access_token"]
+    return {"Authorization": f"Bearer {token}"}
+
+
 def test_root_endpoint():
     """Test the root endpoint"""
     response = client.get("/")
@@ -43,11 +52,11 @@ def test_health_check():
 
 def test_upload_endpoint_no_file():
     """Test upload endpoint without file"""
-    response = client.post("/api/documents/upload")
+    response = client.post("/api/documents/upload", headers=_auth_headers())
     assert response.status_code == 422  # Validation error
 
 
 def test_api_routes():
     """Test basic API routes"""
-    response = client.get("/api/documents/")
+    response = client.get("/api/documents/", headers=_auth_headers())
     assert response.status_code == 200

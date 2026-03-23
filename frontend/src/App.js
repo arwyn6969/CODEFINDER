@@ -8,7 +8,8 @@ import {
   SettingOutlined,
   UserOutlined,
   LogoutOutlined,
-  HomeOutlined
+  HomeOutlined,
+  ExperimentOutlined
 } from '@ant-design/icons';
 
 import Dashboard from './pages/Dashboard';
@@ -144,7 +145,7 @@ function App() {
             color: '#8B4513',
             fontSize: collapsed ? '14px' : '16px'
           }}>
-            {collapsed ? 'ATA' : 'Ancient Text Analyzer'}
+            {collapsed ? 'CF' : 'CODEFINDER'}
           </h3>
         </div>
         
@@ -157,16 +158,20 @@ function App() {
             <Link to="/">Dashboard</Link>
           </Menu.Item>
           <Menu.Item key="upload" icon={<FileTextOutlined />}>
-            <Link to="/upload">Upload Document</Link>
+            <Link to="/upload">Upload Source</Link>
           </Menu.Item>
           <Menu.Item key="documents" icon={<FileTextOutlined />}>
-            <Link to="/documents">My Documents</Link>
+            <Link to="/documents">Source Library</Link>
           </Menu.Item>
           <Menu.Item key="search" icon={<SearchOutlined />}>
-            <Link to="/search">Search & Query</Link>
+            <Link to="/search">Catalog Search</Link>
           </Menu.Item>
           <Menu.Item key="analysis" icon={<BarChartOutlined />}>
-            <Link to="/analysis">Analysis Tools</Link>
+            <Link to="/analysis">Analysis Results</Link>
+          </Menu.Item>
+          <Menu.Divider />
+          <Menu.Item key="legacy" icon={<ExperimentOutlined />}>
+            <Link to="/research">Legacy Lab</Link>
           </Menu.Item>
         </Menu>
       </Sider>
@@ -181,7 +186,7 @@ function App() {
           alignItems: 'center'
         }}>
           <h2 style={{ margin: 0, color: '#8B4513' }}>
-            Ancient Text Analysis System
+            CODEFINDER Workspace
           </h2>
           
           <Dropdown overlay={userMenu} placement="bottomRight">

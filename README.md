@@ -1,11 +1,11 @@
 # CODEFINDER
 
-CODEFINDER is a single repository with two active purposes:
+CODEFINDER is a single repository with two primary responsibilities:
 
 1. A FastAPI + React application for document ingestion, OCR-driven analysis, and report delivery.
 2. A historical-print research workflow, currently centered on the German/Kempten corpus.
 
-This repository is no longer positioned as a general-purpose cipher or prophetic-analysis sandbox. Exploratory gematria, ELS, and related material is preserved for audit history, but it is not part of the active roadmap.
+This repository is no longer positioned as a general-purpose cipher or prophetic-analysis sandbox. Exploratory gematria, ELS, geographic-style scanning, and related tools are preserved as an internal legacy lane, but they are not the primary product surface or the active roadmap priority.
 
 ## Active Lanes
 
@@ -14,6 +14,7 @@ This repository is no longer positioned as a general-purpose cipher or prophetic
 | Product | Active | FastAPI backend, React frontend, API routes under `/api/*` | Running app, API docs, tests |
 | German/Kempten research | Active priority | Four-source early modern German/Latin print comparison | `reports/shareable/CODEFINDER_Discord_Summary.pdf`, `reports/final_report/summary.txt`, `docs/BOOK_HISTORY_MANUSCRIPT.md`, `docs/BOOK_HISTORY_METHODS_APPENDIX.md` |
 | Shakespeare research | Secondary canonical | Wright/Aspley witness normalization and diagnostic comparison | `reports/shareable/CODEFINDER_Shakespeare_Summary.pdf`, `reports/shakespeare/summary.txt`, `docs/SHAKESPEARE_MANUSCRIPT.md`, `docs/SHAKESPEARE_METHODS_APPENDIX.md` |
+| Legacy exploratory tools | Internal legacy | Preserved ELS, gematria, prophetic, and geographic-style tooling | `/api/research/*`, `frontend/src/pages/research/`, `scripts/legacy/`, `archive/research_scripts/` |
 | Exploratory archive | Archived | Gematria, ELS, prophetic, and related exploratory work | Preserved for history only; not safe to circulate as active findings |
 
 ## Runtime Contract
@@ -58,6 +59,7 @@ docker-compose up -d
 - `docs/REPO_INDEX.md` - where active code, reports, archives, and generated artifacts live
 - `docs/REPO_CONTRACT.md` - locked runtime, organization, and documentation rules
 - `docs/CODEFINDER_ROADMAP.md` - current implementation phases and remaining blockers
+- `docs/CONSOLIDATION_RETENTION_LOCK.md` - initial keep/archive/prune-later decisions for the cleanup pass
 - `docs/REBUILD_AND_RETENTION_MANIFEST.md` - canonical rebuild paths and artifact retention rules
 - `docs/architecture.md` - current product and research architecture
 
@@ -96,7 +98,7 @@ data/        Local corpora, source configuration, and forensic databases
 archive/     Preserved exploratory and retired research material
 ```
 
-Root-level one-off Python files outside `app/` and `scripts/` are retained for history or transition work. They are not the canonical place to add new functionality.
+Legacy docs now belong under `docs/legacy/`. Historical one-off scripts belong under `scripts/legacy/` or `archive/`, not at repo root.
 
 ## Testing
 

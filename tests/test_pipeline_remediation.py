@@ -8,6 +8,8 @@ from pathlib import Path
 # Add project root to path
 sys.path.append(str(Path(__file__).parent.parent))
 
+ROOT = Path(__file__).resolve().parent.parent
+
 from scripts.formal_stats import ForensicStatistics
 
 def test_geometric_normalization_ks():
@@ -77,7 +79,7 @@ def test_pagination_offset_validation():
     Since the ValueError is raised inside the main script logic, we'll verify the script file
     contains the specific ValueError logic.
     """
-    with open("full_sonnet_mapper.py", "r") as f:
+    with open(ROOT / "scripts" / "legacy" / "full_sonnet_mapper.py", "r") as f:
         content = f.read()
 
     assert "abs(offset) > 1" in content, "Strict 1:1 error checking not found in full_sonnet_mapper.py"

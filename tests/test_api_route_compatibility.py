@@ -23,6 +23,15 @@ class LazyClient:
 client = LazyClient()
 
 
+def _auth_headers():
+    login_response = client.post(
+        "/api/auth/login",
+        json={"username": "admin", "password": "admin123"},
+    )
+    token = login_response.json()["access_token"]
+    return {"Authorization": f"Bearer {token}"}
+
+
 def test_health_legacy_alias_maps_to_canonical_health():
     response = client.get("/health")
 
@@ -50,7 +59,11 @@ def test_auth_login_available_on_legacy_v1_prefix():
 
 def test_research_gematria_available_on_canonical_and_legacy_prefixes():
     for path in ("/api/research/gematria", "/api/v1/research/gematria"):
-        response = client.post(path, json={"text": "Francis Bacon"})
+        response = client.post(
+            path,
+            json={"text": "Francis Bacon"},
+            headers=_auth_headers(),
+        )
 
         assert response.status_code == 200
 

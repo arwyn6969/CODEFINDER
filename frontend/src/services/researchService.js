@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = '/api/research'; // Proxy setup in package.json handles the host
+const API_URL = '/api/research'; // Internal legacy exploratory surface
 const REL_API_URL = '/api/relationships';
 const ANALYSIS_API_URL = '/api/analysis';
 

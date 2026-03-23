@@ -1,10 +1,21 @@
 #!/bin/bash
+set -euo pipefail
 
 # CODEFINDER local launcher
 # =========================
 
+ROOT_DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$ROOT_DIR"
+
 echo "CODEFINDER Launcher"
 echo "==================="
+
+mkdir -p data logs uploads temp
+
+export DATABASE_URL="${DATABASE_URL:-sqlite:///./data/codefinder_app.db}"
+export DEBUG="${DEBUG:-true}"
+export ENABLE_DEMO_AUTH="${ENABLE_DEMO_AUTH:-true}"
+export SECRET_KEY="${SECRET_KEY:-codefinder-local-dev-secret-key}"
 
 # 1. Check Python Environment
 if [ ! -d ".venv" ]; then
@@ -30,7 +41,7 @@ npm start &
 FRONTEND_PID=$!
 
 # Cleanup on exit
-trap "kill $BACKEND_PID $FRONTEND_PID; exit" SIGINT SIGTERM
+trap "kill $BACKEND_PID $FRONTEND_PID 2>/dev/null || true; exit" SIGINT SIGTERM
 
 echo "CODEFINDER is running."
 echo "Dashboard: http://localhost:3000"

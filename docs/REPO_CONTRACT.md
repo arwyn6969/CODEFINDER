@@ -46,6 +46,12 @@ This document locks the operating rules for CODEFINDER as a combined product and
 - Archived exploratory material is preserved for internal reference only.
 - Archived work may not be presented in README-level messaging or as active roadmap functionality.
 
+### Internal legacy exploratory tools
+
+- `/api/research/*` remains available as an internal legacy surface.
+- `frontend/src/pages/research/` remains available as an internal legacy surface.
+- Legacy exploratory tools may stay runnable for auditability and secondary analysis, but they are not the default product workflow and must be labeled accordingly.
+
 ## 3. Organization Contract
 
 - The repo remains a single monorepo.
@@ -53,10 +59,11 @@ This document locks the operating rules for CODEFINDER as a combined product and
   - Product
   - German/Kempten research
   - Shakespeare canonical research
+  - Internal legacy exploratory tools
   - Archive
 - New research scripts do not belong at repo root.
 - `scripts/` is the only approved home for new research entrypoints, rebuild helpers, and maintenance scripts.
-- Root-level one-off Python files are transition or legacy material unless they are promoted into a documented lane.
+- Root-level one-off Python files are transition or legacy material unless they are promoted into a documented lane, and they should be migrated out of repo root during cleanup.
 
 ## 4. Documentation Contract
 
@@ -64,6 +71,7 @@ This document locks the operating rules for CODEFINDER as a combined product and
 - `docs/REPO_INDEX.md` is the first-stop navigation document for contributors.
 - `docs/architecture.md` explains the current runtime and research architecture without marketing archived exploratory work as an active subsystem.
 - `docs/RESEARCH_COMPENDIUM.md` remains an internal notebook only.
+- Historical contributor docs that are no longer source-of-truth belong under `docs/legacy/`.
 
 ## 5. Storage And Artifact Contract
 

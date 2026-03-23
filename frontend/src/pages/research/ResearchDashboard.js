@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Tabs } from 'antd';
+import { Alert, Layout, Tabs } from 'antd';
 import { SearchOutlined, ShareAltOutlined, BookOutlined, DesktopOutlined } from '@ant-design/icons';
 
 import TheScope from './components/TheScope';
@@ -21,7 +21,14 @@ const ResearchDashboard = () => {
   return (
     <Layout style={{ minHeight: '100vh', background: '#141414' }}>
       <Content style={{ padding: '24px' }}>
-        <h1 style={{ color: '#fff', marginBottom: '24px' }}>🔬 Research Dashboard</h1>
+        <h1 style={{ color: '#fff', marginBottom: '16px' }}>Legacy Exploratory Lab</h1>
+        <Alert
+          type="warning"
+          showIcon
+          style={{ marginBottom: '24px' }}
+          message="Internal legacy surface"
+          description="This area preserves ELS, gematria, prophetic, and geographic-style exploratory tools for auditability and secondary analysis. It is not the primary product workflow."
+        />
         
         <Tabs 
           activeKey={activeTab} 

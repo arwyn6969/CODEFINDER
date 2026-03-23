@@ -3,9 +3,7 @@ Authentication API Routes
 User login, logout, and session management
 """
 from fastapi import APIRouter, HTTPException, Depends, status
-from fastapi.security import HTTPBearer
 from pydantic import BaseModel
-from typing import Optional
 from datetime import timedelta
 import logging
 
@@ -13,6 +11,7 @@ from app.api.dependencies import (
     create_access_token, get_current_user, get_current_active_user,
     User, ACCESS_TOKEN_EXPIRE_MINUTES
 )
+from app.core.config import settings
 
 logger = logging.getLogger(__name__)
 
@@ -61,6 +60,19 @@ DEMO_USERS = {
     }
 }
 
+
+def ensure_demo_auth_enabled() -> None:
+    if settings.enable_demo_auth:
+        return
+
+    raise HTTPException(
+        status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+        detail=(
+            "Demo authentication is disabled. Set ENABLE_DEMO_AUTH=true for "
+            "local development or configure a real authentication backend."
+        ),
+    )
+
 @router.post("/login", response_model=LoginResponse)
 async def login(login_data: LoginRequest):
     """
@@ -68,6 +80,8 @@ async def login(login_data: LoginRequest):
     Returns JWT access token for authenticated requests
     """
     try:
+        ensure_demo_auth_enabled()
+
         # Validate credentials (in production, check against database with hashed passwords)
         user_data = DEMO_USERS.get(login_data.username)
         
@@ -123,6 +137,8 @@ async def register(register_data: RegisterRequest):
     Creates new user account (demo implementation)
     """
     try:
+        ensure_demo_auth_enabled()
+
         # Check if user already exists
         if register_data.username in DEMO_USERS:
             raise HTTPException(
@@ -168,7 +184,7 @@ async def get_current_user_info(current_user: User = Depends(get_current_active_
     )
 
 @router.post("/logout")
-async def logout(current_user: User = Depends(get_current_user)):
+async def logout(current_user: User = Depends(get_current_active_user)):
     """
     User logout endpoint
     In a stateless JWT system, logout is handled client-side by discarding the token
@@ -177,7 +193,7 @@ async def logout(current_user: User = Depends(get_current_user)):
     return {"message": "Successfully logged out"}
 
 @router.post("/refresh")
-async def refresh_token(current_user: User = Depends(get_current_user)):
+async def refresh_token(current_user: User = Depends(get_current_active_user)):
     """
     Refresh access token
     Issues a new token with extended expiration
@@ -206,12 +222,18 @@ async def refresh_token(current_user: User = Depends(get_current_user)):
             detail="Token refresh failed"
         )
 
-@router.get("/demo-users")
+@router.get("/demo-users", include_in_schema=False)
 async def get_demo_users():
     """
     Get list of demo users for development/testing
     Remove this endpoint in production!
     """
+    if not settings.enable_demo_auth:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Demo authentication is not enabled",
+        )
+
     return {
         "demo_users": [
             {

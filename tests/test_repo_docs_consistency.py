@@ -14,9 +14,11 @@ class TestRepoDocsConsistency(unittest.TestCase):
         readme = read_text("README.md")
         contract = read_text("docs/REPO_CONTRACT.md")
         architecture = read_text("docs/architecture.md")
+        retention_lock = read_text("docs/CONSOLIDATION_RETENTION_LOCK.md")
 
-        for text in (readme, contract, architecture):
+        for text in (readme, contract, architecture, retention_lock):
             self.assertIn("app.api.main:app", text)
+        for text in (readme, contract, architecture):
             self.assertIn("/api/*", text)
 
     def test_german_lane_remains_the_active_priority(self):
@@ -41,6 +43,19 @@ class TestRepoDocsConsistency(unittest.TestCase):
         self.assertIn("secondary canonical research lane", handoff.lower())
         self.assertIn("canonical package", architecture.lower())
         self.assertIn("canonical package", internal_summary.lower())
+
+    def test_internal_legacy_lane_is_documented_consistently(self):
+        readme = read_text("README.md")
+        repo_index = read_text("docs/REPO_INDEX.md")
+        contract = read_text("docs/REPO_CONTRACT.md")
+        architecture = read_text("docs/architecture.md")
+        roadmap = read_text("docs/CODEFINDER_ROADMAP.md")
+
+        self.assertIn("| Legacy exploratory tools | Internal legacy |", readme)
+        self.assertIn("Internal legacy exploratory lane", repo_index)
+        self.assertIn("Internal legacy exploratory tools", contract)
+        self.assertIn("| Legacy exploratory tools | Internal legacy |", architecture)
+        self.assertIn("internal legacy lane", roadmap.lower())
 
 
 if __name__ == "__main__":

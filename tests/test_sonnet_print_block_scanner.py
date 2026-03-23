@@ -26,7 +26,7 @@ from dataclasses import asdict
 
 # Import the scanner and its data classes
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from sonnet_print_block_scanner import (
+from scripts.legacy.sonnet_print_block_scanner import (
     SonnetPrintBlockScanner,
     CharacterInstance,
     CharacterCatalogueEntry,
@@ -281,7 +281,7 @@ class TestScannerInitialization:
         assert str(scanner.output_dir) == temp_output_dir
         assert len(scanner.image_files) == 3
     
-    @patch('sonnet_print_block_scanner.fitz')
+    @patch('scripts.legacy.sonnet_print_block_scanner.fitz')
     def test_init_with_pdf_source(self, mock_fitz, mock_pdf_path, temp_output_dir):
         """Scanner initializes correctly with PDF source."""
         # Mock the PDF document

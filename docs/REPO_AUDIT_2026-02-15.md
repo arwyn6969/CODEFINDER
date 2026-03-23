@@ -61,14 +61,14 @@ The project is functionally healthy (tests pass) but structurally noisy. The mai
 - Updated `run_dashboard.sh` to launch `app.api.main:app` and print `/api/docs` URL.
 
 3. Documentation updates
-- Updated `README.md` and `CODEFINDER_USER_GUIDE.md` for:
+- Updated `README.md` and `docs/legacy/CODEFINDER_USER_GUIDE.md` for:
   - correct API URLs
   - correct frontend command (`npm start`)
   - docker service naming alignment
   - current test snapshot
 
 4. Baseline refresh
-- Replaced stale `TEST_BASELINE.md` with current verified baseline.
+- Replaced stale `docs/legacy/TEST_BASELINE.md` with current verified baseline.
 
 5. Route-compatibility guardrails
 - Added `tests/test_api_route_compatibility.py` to lock canonical and legacy route behavior.

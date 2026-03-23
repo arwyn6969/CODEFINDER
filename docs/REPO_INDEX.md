@@ -10,6 +10,7 @@ Use this document as the first-stop map for the repository.
 | Run the backend | `app.api.main:app` |
 | Run the full local stack | `run_dashboard.sh` |
 | Understand repo rules | `docs/REPO_CONTRACT.md` |
+| Review cleanup retention decisions | `docs/CONSOLIDATION_RETENTION_LOCK.md` |
 | Understand current architecture | `docs/architecture.md` |
 | See active roadmap phases | `docs/CODEFINDER_ROADMAP.md` |
 | See rebuild and retention rules | `docs/REBUILD_AND_RETENTION_MANIFEST.md` |
@@ -45,6 +46,13 @@ Use this document as the first-stop map for the repository.
 - Internal source of truth: `docs/SHAKESPEARE_INTERNAL_SUMMARY.md`
 - External-safe package: available under `reports/shakespeare/` plus `reports/shareable/CODEFINDER_Shakespeare_Summary.pdf`
 
+### Internal legacy exploratory lane
+
+- Source: `app/api/routes/research.py`, `frontend/src/pages/research/`, `scripts/legacy/`, `archive/research_scripts/`
+- Status: internal legacy
+- Scope: preserved ELS, gematria, prophetic, and geographic-style exploratory tooling
+- Rule: keep runnable and documented, but do not treat it as the main product surface or the current research priority
+
 ### Archive lane
 
 - Source: `archive/`, `docs/RESEARCH_COMPENDIUM.md`
@@ -60,6 +68,7 @@ Use this document as the first-stop map for the repository.
 | `scripts/` | Research, rebuild, and maintenance entrypoints |
 | `tests/` | Backend tests and targeted research verification |
 | `docs/` | Durable contracts, architecture docs, manuscripts, and critiques |
+| `docs/legacy/` | Preserved historical docs that are no longer source-of-truth |
 | `reports/` | Generated reports, proof images, and summaries |
 | `data/` | Local corpora, source config, and forensic databases |
 | `archive/` | Retired exploratory scripts and archived project material |
@@ -75,6 +84,7 @@ Use this document as the first-stop map for the repository.
 ## Things Not To Treat As Canonical
 
 - Root-level one-off Python scripts outside `app/` and `scripts/`
+- Legacy docs or generated artifacts left at repo root after they have an approved home
 - Older report folders that predate the March 7, 2026 German/Kempten cleanup
 - `docs/RESEARCH_COMPENDIUM.md` for any external audience
 - Any outward-facing report that mixes stale dates, stale source metadata, or legacy verdict language

@@ -11,6 +11,7 @@ import io
 from datetime import datetime
 
 from app.api.main import app
+from app.core.config import settings
 from app.core.project_identity import API_SERVICE_NAME
 from app.models.database_models import Document, Pattern, Page
 
@@ -100,9 +101,7 @@ class TestAuthEndpoints:
     def test_get_current_user_anonymous(self):
         """Test getting current user without authentication"""
         response = client.get("/api/auth/me")
-        assert response.status_code == 200
-        data = response.json()
-        assert data["username"] == "anonymous"
+        assert response.status_code == 401
     
     def test_get_current_user_authenticated(self):
         """Test getting current user with authentication"""
@@ -123,7 +122,15 @@ class TestAuthEndpoints:
     
     def test_logout(self):
         """Test user logout"""
-        response = client.post("/api/auth/logout")
+        login_response = client.post("/api/auth/login", json={
+            "username": "admin",
+            "password": "admin123"
+        })
+        token = login_response.json()["access_token"]
+
+        response = client.post("/api/auth/logout", headers={
+            "Authorization": f"Bearer {token}"
+        })
         assert response.status_code == 200
         data = response.json()
         assert "message" in data
@@ -152,6 +159,18 @@ class TestAuthEndpoints:
         data = response.json()
         assert "demo_users" in data
         assert len(data["demo_users"]) > 0
+
+    def test_demo_auth_can_be_disabled(self, monkeypatch):
+        monkeypatch.setattr(settings, "enable_demo_auth", False)
+
+        login_response = client.post("/api/auth/login", json={
+            "username": "admin",
+            "password": "admin123"
+        })
+        demo_users_response = client.get("/api/auth/demo-users")
+
+        assert login_response.status_code == 503
+        assert demo_users_response.status_code == 404
 
 
 class TestDocumentEndpoints:

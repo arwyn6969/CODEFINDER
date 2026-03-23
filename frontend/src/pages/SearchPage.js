@@ -7,10 +7,11 @@ const SearchPage = () => {
   return (
     <div style={{ padding: '24px' }}>
       <Title level={2} style={{ color: '#8B4513' }}>
-        Search & Query
+        Catalog Search
       </Title>
       <Card>
-        <p>Advanced search and query interface will be implemented here.</p>
+        <p>Search, filtering, and report-oriented retrieval will be consolidated here.</p>
+        <p>The exploratory ELS and gematria tooling remains available through the Legacy Lab.</p>
       </Card>
     </div>
   );

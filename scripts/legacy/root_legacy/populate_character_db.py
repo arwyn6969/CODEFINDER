@@ -16,11 +16,12 @@ from pathlib import Path
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-# Add project root
-sys.path.insert(0, str(Path(__file__).parent))
+REPO_ROOT = Path(__file__).resolve().parents[3]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
-from character_database import CharacterDatabase
-from sonnet_print_block_scanner import SonnetPrintBlockScanner
+from scripts.legacy.root_legacy.character_database import CharacterDatabase
+from scripts.legacy.sonnet_print_block_scanner import SonnetPrintBlockScanner
 
 
 def populate_edition(db: CharacterDatabase, source_path: str, edition_name: str):

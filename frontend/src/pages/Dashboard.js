@@ -113,7 +113,7 @@ const Dashboard = () => {
       <div style={{ marginBottom: '24px' }}>
         <h1 style={{ margin: 0, color: '#8B4513' }}>Dashboard</h1>
         <p style={{ margin: '8px 0 0 0', color: '#666' }}>
-          Overview of your ancient text analysis projects
+          Overview of document ingestion, OCR processing, and supported analysis workflows
         </p>
       </div>
 
@@ -152,7 +152,7 @@ const Dashboard = () => {
         <Col xs={24} sm={12} lg={6}>
           <Card>
             <Statistic
-              title="Patterns Found"
+              title="Stored Findings"
               value={stats.totalPatterns}
               prefix={<BarChartOutlined />}
               valueStyle={{ color: '#722ed1' }}
@@ -233,7 +233,7 @@ const Dashboard = () => {
                 href="/upload"
                 style={{ backgroundColor: '#8B4513', borderColor: '#8B4513' }}
               >
-                Upload New Document
+                Upload New Source
               </Button>
               
               <Button 
@@ -241,7 +241,7 @@ const Dashboard = () => {
                 size="large"
                 href="/search"
               >
-                Search & Query
+                Catalog Search
               </Button>
               
               <Button 
@@ -249,7 +249,7 @@ const Dashboard = () => {
                 size="large"
                 href="/documents"
               >
-                View Analysis Results
+                Review Analysis Results
               </Button>
             </div>
           </Card>

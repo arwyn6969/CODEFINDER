@@ -10,9 +10,9 @@ Extracts, catalogues, and images all print blocks (typographical characters).
 Every mark is preserved as a high-fidelity data point.
 
 Usage:
-    python3 sonnet_print_block_scanner.py                    # Full scan
-    python3 sonnet_print_block_scanner.py --pages 1-5        # Test subset
-    python3 sonnet_print_block_scanner.py --pages 1-5 --test # Smoke test
+    python3 scripts/legacy/sonnet_print_block_scanner.py                    # Full scan
+    python3 scripts/legacy/sonnet_print_block_scanner.py --pages 1-5        # Test subset
+    python3 scripts/legacy/sonnet_print_block_scanner.py --pages 1-5 --test # Smoke test
 """
 
 import sys
@@ -29,7 +29,7 @@ from collections import defaultdict
 import logging
 
 # Add project root to path
-sys.path.insert(0, str(Path(__file__).parent))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 # Core dependencies
 try:
