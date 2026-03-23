@@ -371,7 +371,7 @@ class RelationshipAnalyzer:
             for doc_id in document_ids:
                 doc = self.db.query(Document).get(doc_id)
                 G.add_node(doc_id, 
-                          title=doc.title if doc else f"Document {doc_id}",
+                          title=(doc.filename if doc and getattr(doc, "filename", None) else f"Document {doc_id}"),
                           type='document')
             
             # Add edges (relationships)
@@ -960,7 +960,11 @@ class RelationshipAnalyzer:
             
             # Get pages
             pages = self.db.query(Page).filter(Page.document_id == document_id).all()
-            text_content = ' '.join([page.text for page in pages if page.text])
+            page_texts = [
+                (getattr(page, 'extracted_text', None) or getattr(page, 'text', None) or '').strip()
+                for page in pages
+            ]
+            text_content = ' '.join([text for text in page_texts if text])
             
             if not text_content:
                 return {}

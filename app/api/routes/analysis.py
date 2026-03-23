@@ -15,8 +15,8 @@ from app.models.database_models import Document, Pattern, Page
 from app.services.processing_pipeline import ProcessingPipeline
 from app.services.pattern_significance_ranker import PatternSignificanceRanker
 from app.services.anomaly_detector import AnomalyDetector
-from app.services.geometric_analyzer import GeometricAnalyzer
-from app.services.bardcode_analyzer import BardCodeAnalyzer
+from app.services.legacy_geometry_service import analyze_document_geometry
+from app.api.schemas.legacy_lab import GeometryAnalysisResponse
 
 logger = logging.getLogger(__name__)
 
@@ -64,15 +64,6 @@ class AnalysisRequest(BaseModel):
     include_cipher: bool = True
     include_anomalies: bool = True
     max_patterns: int = 50
-
-class GeometricAnalysisResponse(BaseModel):
-    document_id: int
-    total_measurements: int
-    angle_measurements: int
-    distance_measurements: int
-    sacred_geometry_patterns: int
-    mathematical_constants_found: List[str]
-    significance_scores: Dict[str, float]
 
 class CipherAnalysisResponse(BaseModel):
     document_id: int
@@ -223,20 +214,11 @@ async def analyze_document(
             confidence_threshold=request.confidence_threshold
         )
         
-        # Run BardCode Analysis if geometric analysis is requested
+        # Run legacy geometry analysis if geometric analysis is requested
         bardcode_data = None
         if request.include_geometric:
             try:
-                bard_analyzer = BardCodeAnalyzer()
-                # Run standard analysis
-                bardcode_results = bard_analyzer.analyze_page_layout(document_id)
-                # Run advanced coordinate extraction
-                measurements = [] # Need to fetch measurements or calculate them
-                # For now, just return the main results
-                bardcode_data = {
-                    "summary": bardcode_results, 
-                    "mathematical_constants": bard_analyzer.detect_mathematical_constants(bardcode_results.get('measurements', []) if isinstance(bardcode_results, dict) else [])
-                }
+                bardcode_data = analyze_document_geometry(db, document_id)
             except Exception as e:
                 logger.error(f"BardCode analysis failed for doc {document_id}: {e}")
                 bardcode_data = {"error": str(e)}
@@ -258,7 +240,7 @@ async def analyze_document(
             detail="Document analysis failed"
         )
 
-@router.get("/{document_id}/geometric", response_model=GeometricAnalysisResponse, dependencies=[Depends(rate_limit_dependency)])
+@router.get("/{document_id}/geometric", response_model=GeometryAnalysisResponse, dependencies=[Depends(rate_limit_dependency)])
 async def get_geometric_analysis(
     document_id: int,
     current_user: User = Depends(get_current_active_user),
@@ -268,52 +250,17 @@ async def get_geometric_analysis(
     Get geometric analysis results for a document
     """
     try:
-        # Do not 404 in tests; on any issue return zeroed response
-        try:
-            _ = db.query(Document).filter(Document.id == document_id).first()
-        except Exception:
-            pass
-
-        geometric_analyzer = GeometricAnalyzer()
-        try:
-            patterns = db.query(Pattern).filter(Pattern.document_id == document_id).all()
-        except Exception:
-            patterns = []
-
-        coordinates = []
-        for p in patterns or []:
-            if getattr(p, 'coordinates', None):
-                coordinates.extend(p.coordinates)
-
-        try:
-            measurements = geometric_analyzer.analyze_geometric_relationships(coordinates)
-        except Exception:
-            measurements = []
-
-        constants_found = []
-        for m in measurements or []:
-            if hasattr(m, 'mathematical_constant') and m.mathematical_constant:
-                constants_found.append(m.mathematical_constant)
-
-        return GeometricAnalysisResponse(
-            document_id=document_id,
-            total_measurements=len(measurements or []),
-            angle_measurements=len([m for m in (measurements or []) if hasattr(m, 'measurement_type') and m.measurement_type == 'angle']),
-            distance_measurements=len([m for m in (measurements or []) if hasattr(m, 'measurement_type') and m.measurement_type == 'distance']),
-            sacred_geometry_patterns=0,
-            mathematical_constants_found=list(set(constants_found)),
-            significance_scores={}
-        )
+        return GeometryAnalysisResponse(**analyze_document_geometry(db, document_id))
+    except LookupError as e:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=str(e)
+        ) from e
     except Exception as e:
         logger.error(f"Geometric analysis error: {e}")
-        return GeometricAnalysisResponse(
-            document_id=document_id,
-            total_measurements=0,
-            angle_measurements=0,
-            distance_measurements=0,
-            sacred_geometry_patterns=0,
-            mathematical_constants_found=[],
-            significance_scores={}
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Geometric analysis failed"
         )
 
 @router.get("/{document_id}/cipher", response_model=CipherAnalysisResponse, dependencies=[Depends(rate_limit_dependency)])

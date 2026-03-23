@@ -51,6 +51,7 @@ Use this document as the first-stop map for the repository.
 - Source: `app/api/routes/research.py`, `frontend/src/pages/research/`, `scripts/legacy/`, `archive/research_scripts/`
 - Status: internal legacy
 - Scope: preserved ELS, gematria, prophetic, and geographic-style exploratory tooling
+- Runbook: `docs/legacy/LEGACY_EXPLORATORY_LAB.md`
 - Rule: keep runnable and documented, but do not treat it as the main product surface or the current research priority
 
 ### Archive lane

@@ -57,6 +57,10 @@ def test_els_integration():
     
     assert "פפי" in found_terms
     assert results['found_count'] >= 1
+    match = next(m for m in matches if m['term'] == "פפי")
+    assert match["start_index"] == 3
+    assert match["end_index"] == 5
+    assert match["location"] == [3, 5]
 
 if __name__ == "__main__":
     test_transliteration()

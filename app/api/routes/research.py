@@ -6,7 +6,7 @@ active German/Kempten roadmap and should not be treated as the repo's primary
 research surface.
 """
 
-from fastapi import APIRouter, Depends, HTTPException, Body
+from fastapi import APIRouter, Depends, HTTPException
 from typing import List, Optional, Dict, Any, Union
 from pydantic import BaseModel
 from pathlib import Path
@@ -15,10 +15,19 @@ from app.services.gematria_engine import GematriaEngine
 from app.services.els_analyzer import ELSAnalyzer
 from app.services.els_visualizer import ELSVisualizer
 from app.api.dependencies import get_current_active_user, User
-# from app.models.user import User  <-- Removed incorrect import
 from sqlalchemy.orm import Session, joinedload
 from app.core.database import get_db
 from app.models.database_models import Pattern, Document
+from app.services.legacy_geometry_service import analyze_document_geometry
+from app.api.schemas.legacy_lab import (
+    CipherSolveResponse,
+    ELSAnalysisResponse,
+    ELSVisualizationResponse,
+    GematriaAnalysisResponse,
+    GeometryAnalysisResponse,
+    PropheticConvergenceResponse,
+    TransliterationCandidateResponse,
+)
 
 router = APIRouter()
 
@@ -66,7 +75,34 @@ class ELSRequest(BaseModel):
 class TransliterateRequest(BaseModel):
     text: str
 
-@router.post("/gematria", response_model=Dict[str, Any])
+def _build_gematria_response(results: Dict[str, Dict[str, Any]], persisted_patterns: int = 0) -> GematriaAnalysisResponse:
+    return GematriaAnalysisResponse(results=results, persisted_patterns=persisted_patterns)
+
+
+def _resolve_search_text(request_source: str, request_text: Optional[str], document_id: Optional[int], db: Session) -> str:
+    if request_source == "torah":
+        try:
+            return get_torah_text()
+        except FileNotFoundError as exc:
+            raise HTTPException(status_code=404, detail="Torah text file not found on server.") from exc
+
+    if request_source == "document":
+        if not document_id:
+            raise HTTPException(status_code=400, detail="document_id is required for document source")
+        doc = db.query(Document).options(joinedload(Document.pages)).get(document_id)
+        if not doc:
+            raise HTTPException(status_code=404, detail=f"Document {document_id} not found")
+        search_text = "".join([p.extracted_text or "" for p in doc.pages])
+        if not search_text.strip():
+            raise HTTPException(status_code=400, detail="Document has no extracted text")
+        return search_text
+
+    if not request_text:
+        raise HTTPException(status_code=400, detail="Text is required for custom source")
+    return request_text
+
+
+@router.post("/gematria", response_model=GematriaAnalysisResponse)
 async def calculate_gematria(
     request: GematriaRequest,
     current_user: User = Depends(get_current_active_user),
@@ -81,6 +117,7 @@ async def calculate_gematria(
     
     try:
         results = gematria_engine.calculate_all(request.text)
+        persisted_patterns = 0
         
         # Persistence Logic
         if request.save and request.document_id:
@@ -115,13 +152,13 @@ async def calculate_gematria(
                 
                 if saved_count > 0:
                     db.commit()
-                    results['persisted_patterns'] = saved_count
+                    persisted_patterns = saved_count
                     
-        return results
+        return _build_gematria_response(results, persisted_patterns)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@router.post("/transliterate", response_model=List[Dict[str, str]])
+@router.post("/transliterate", response_model=List[TransliterationCandidateResponse])
 async def transliterate_term(
     request: TransliterateRequest,
     current_user: User = Depends(get_current_active_user)
@@ -152,7 +189,7 @@ def get_torah_text() -> str:
         TORAH_TEXT_CACHE = f.read().strip()
     return TORAH_TEXT_CACHE
 
-@router.post("/els", response_model=Dict[str, Any])
+@router.post("/els", response_model=ELSAnalysisResponse)
 async def find_els(
     request: ELSRequest,
     current_user: User = Depends(get_current_active_user),
@@ -163,26 +200,7 @@ async def find_els(
     Optionally persist matches to a document.
     """
     try:
-        search_text = ""
-        
-        if request.source == "torah":
-            try:
-                search_text = get_torah_text()
-            except FileNotFoundError:
-                raise HTTPException(status_code=404, detail="Torah text file not found on server.")
-        elif request.source == "document":
-            if not request.document_id:
-                raise HTTPException(status_code=400, detail="document_id is required for document source")
-            doc = db.query(Document).options(joinedload(Document.pages)).get(request.document_id)
-            if not doc:
-                raise HTTPException(status_code=404, detail=f"Document {request.document_id} not found")
-            search_text = "".join([p.extracted_text or "" for p in doc.pages])
-            if not search_text.strip():
-                raise HTTPException(status_code=400, detail="Document has no extracted text")
-        else:
-            if not request.text:
-                raise HTTPException(status_code=400, detail="Text is required for custom source")
-            search_text = request.text
+        search_text = _resolve_search_text(request.source, request.text, request.document_id, db)
             
         analyzer = els_analyzer
         if request.terms:
@@ -196,6 +214,7 @@ async def find_els(
         )
         
         # Persistence Logic
+        persisted_patterns = 0
         if request.save and request.document_id and results.get('matches'):
             doc = db.query(Document).get(request.document_id)
             if doc:
@@ -212,9 +231,14 @@ async def find_els(
                     )
                     db.add(pattern)
                 db.commit()
-                results['persisted_patterns'] = len(results['matches'])
+                persisted_patterns = len(results['matches'])
                 
-        return results
+        return ELSAnalysisResponse(
+            total_length=results["total_length"],
+            found_count=results["found_count"],
+            matches=results["matches"],
+            persisted_patterns=persisted_patterns,
+        )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -228,7 +252,7 @@ class ELSVisRequest(BaseModel):
     cols: int = 20
     term_length: int = 5  # Added for highlighting
 
-@router.post("/els/visualize", response_model=Dict[str, Any])
+@router.post("/els/visualize", response_model=ELSVisualizationResponse)
 async def visualize_els(
     request: ELSVisRequest,
     current_user: User = Depends(get_current_active_user),
@@ -238,25 +262,7 @@ async def visualize_els(
     Legacy/internal visualization helper for an ELS match.
     """
     try:
-        search_text = ""
-        if request.source == "torah":
-            try:
-                search_text = get_torah_text()
-            except FileNotFoundError:
-                raise HTTPException(status_code=404, detail="Torah text file not found")
-        elif request.source == "document":
-            if not request.document_id:
-                raise HTTPException(status_code=400, detail="document_id is required for document source")
-            doc = db.query(Document).options(joinedload(Document.pages)).get(request.document_id)
-            if not doc:
-                raise HTTPException(status_code=404, detail=f"Document {request.document_id} not found")
-            search_text = "".join([p.extracted_text or "" for p in doc.pages])
-            if not search_text.strip():
-                raise HTTPException(status_code=400, detail="Document has no extracted text")
-        else:
-            if not request.text:
-                raise HTTPException(status_code=400, detail="Text is required for custom source")
-            search_text = request.text
+        search_text = _resolve_search_text(request.source, request.text, request.document_id, db)
             
         # Generate Grid (centered on the requested index)
         grid_data = ELSVisualizer.generate_grid(
@@ -279,7 +285,7 @@ async def visualize_els(
         )
         
         grid_data['highlights'] = highlights
-        return grid_data
+        return ELSVisualizationResponse(**grid_data)
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Visualizer Error: {str(e)}")
 
@@ -291,7 +297,7 @@ class CipherSolveRequest(BaseModel):
     method: str  # 'substitution', 'caesar', 'atbash', 'reverse'
     key: Optional[Union[str, int, Dict[str, str]]] = None
 
-@router.post("/cipher/solve", response_model=Dict[str, Any])
+@router.post("/cipher/solve", response_model=CipherSolveResponse)
 async def solve_cipher(
     request: CipherSolveRequest,
     current_user: User = Depends(get_current_active_user)
@@ -307,8 +313,6 @@ async def solve_cipher(
     text = request.text
     method = request.method.lower()
     result = ""
-    error = None
-
     try:
         if method == 'reverse':
             result = text[::-1]
@@ -354,19 +358,19 @@ async def solve_cipher(
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
         
-    return {
-        "original": text,
-        "method": method,
-        "key": request.key,
-        "result": result
-    }
+    return CipherSolveResponse(
+        original=text,
+        method=method,
+        key=request.key,
+        result=result,
+    )
 
 class PropheticConvergenceRequest(BaseModel):
     terms: List[Dict[str, Any]]
     max_spread: int = 500
     generate_visual: bool = True
 
-@router.post("/prophetic/convergence", response_model=Dict[str, Any])
+@router.post("/prophetic/convergence", response_model=PropheticConvergenceResponse)
 async def find_prophetic_convergence(
     request: PropheticConvergenceRequest,
     current_user: User = Depends(get_current_active_user)
@@ -430,7 +434,25 @@ async def find_prophetic_convergence(
                 
             response["top_zones"].append(zone_data)
             
-        return response
+        return PropheticConvergenceResponse(**response)
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/geometry/{document_id}", response_model=GeometryAnalysisResponse)
+async def get_legacy_geometry_analysis(
+    document_id: int,
+    current_user: User = Depends(get_current_active_user),
+    db: Session = Depends(get_db),
+):
+    """
+    Legacy/internal geometry summary backed by stored pattern coordinates and
+    BardCode-style geographic extraction.
+    """
+    try:
+        return GeometryAnalysisResponse(**analyze_document_geometry(db, document_id))
+    except LookupError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    except Exception as exc:
+        raise HTTPException(status_code=500, detail=str(exc)) from exc

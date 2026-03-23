@@ -11,6 +11,14 @@ const TheMap = ({ onOpenDocument }) => {
     const [networkData, setNetworkData] = useState({ nodes: [], links: [] });
     const [metrics, setMetrics] = useState({});
     const [dimensions, setDimensions] = useState({ width: 800, height: 600 });
+    const [documentsById, setDocumentsById] = useState({});
+    const communityCount =
+        metrics.community_count ??
+        new Set(
+            networkData.nodes
+                .map((node) => node.group)
+                .filter((group) => group !== undefined && group !== null)
+        ).size;
 
     useEffect(() => {
         // Adjust dimensions to fit container
@@ -39,6 +47,7 @@ const TheMap = ({ onOpenDocument }) => {
             // 1. Get all documents first
             const docsData = await researchService.listDocuments();
             const allDocs = docsData.documents || [];
+            setDocumentsById(Object.fromEntries(allDocs.map((doc) => [doc.id, doc])));
             
             if (allDocs.length < 2) {
                 message.warning("Need at least 2 documents for network analysis");
@@ -107,7 +116,7 @@ const TheMap = ({ onOpenDocument }) => {
                         backgroundColor="#000000"
                         onNodeClick={node => {
                             if (onOpenDocument) {
-                                onOpenDocument(node.id);
+                                onOpenDocument(documentsById[node.id] || { id: node.id, filename: node.name });
                                 message.info(`Opening ${node.name}`);
                             }
                         }}
@@ -162,7 +171,7 @@ const TheMap = ({ onOpenDocument }) => {
                 </Row>
                 
                 <div style={{ marginTop: 24, color: '#aaa' }}>
-                   <p><ClusterOutlined /> Detected Communities: {metrics.community_count || 0}</p>
+                   <p><ClusterOutlined /> Detected Communities: {communityCount}</p>
                 </div>
             </Sider>
         </Layout>

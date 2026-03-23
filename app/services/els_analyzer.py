@@ -78,6 +78,8 @@ class ELSAnalyzer:
                 {
                     "term": m.term,
                     "skip": m.skip,
+                    "start_index": m.start_index,
+                    "end_index": m.end_index,
                     "location": [m.start_index, m.end_index],
                     "direction": "forward" if m.skip > 0 else "backward"
                 }

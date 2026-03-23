@@ -68,6 +68,74 @@ def test_research_gematria_available_on_canonical_and_legacy_prefixes():
         assert response.status_code == 200
 
 
+def test_research_transliteration_available_on_canonical_and_legacy_prefixes():
+    for path in ("/api/research/transliterate", "/api/v1/research/transliterate"):
+        response = client.post(
+            path,
+            json={"text": "PEPE"},
+            headers=_auth_headers(),
+        )
+
+        assert response.status_code == 200
+
+
+def test_research_els_available_on_canonical_and_legacy_prefixes():
+    payload = {
+        "text": "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG",
+        "terms": ["FOX"],
+        "min_skip": 1,
+        "max_skip": 5,
+    }
+
+    for path in ("/api/research/els", "/api/v1/research/els"):
+        response = client.post(
+            path,
+            json=payload,
+            headers=_auth_headers(),
+        )
+
+        assert response.status_code == 200
+
+
+def test_research_els_visualization_available_on_canonical_and_legacy_prefixes():
+    payload = {
+        "text": "THEQUICKBROWNFOXJUMPSOVERTHELAZYDOG",
+        "center_index": 13,
+        "skip": 1,
+        "rows": 5,
+        "cols": 5,
+        "term_length": 3,
+    }
+
+    for path in ("/api/research/els/visualize", "/api/v1/research/els/visualize"):
+        response = client.post(
+            path,
+            json=payload,
+            headers=_auth_headers(),
+        )
+
+        assert response.status_code == 200
+
+
+def test_research_geometry_alias_is_mounted_on_canonical_and_legacy_prefixes():
+    for path in ("/api/research/geometry/999999", "/api/v1/research/geometry/999999"):
+        response = client.get(
+            path,
+            headers=_auth_headers(),
+        )
+
+        assert response.status_code == 404
+
+
+def test_analysis_geometry_route_remains_available():
+    response = client.get(
+        "/api/analysis/999999/geometric",
+        headers=_auth_headers(),
+    )
+
+    assert response.status_code == 404
+
+
 def test_relationships_network_route_mounted_on_both_prefixes():
     payload = {"document_ids": [1, 2]}
 

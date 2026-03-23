@@ -34,11 +34,17 @@ class NetworkGraph(BaseModel):
     nodes: List[NetworkNode]
     edges: List[NetworkEdge]
 
+class CentralDocumentSummary(BaseModel):
+    document_id: int
+    centrality_score: float
+    degree: int
+    connections: List[int]
+
 class RelationshipNetworkResponse(BaseModel):
     network: NetworkGraph
     metrics: Dict[str, Any]
     communities: Dict[int, int]
-    central_documents: List[int]
+    central_documents: List[CentralDocumentSummary]
     summary: Dict[str, Any]
 
 class CorrelationMatrixResponse(BaseModel):

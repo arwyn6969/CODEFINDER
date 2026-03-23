@@ -344,66 +344,6 @@ class BardCodeAnalyzer:
         
         return coordinate_analysis
     
-    def extract_geographic_coordinates_advanced(self, geometric_measurements: List[Dict[str, Any]], 
-                                              tolerance: float = 0.01) -> Dict[str, Any]:
-        """
-        Advanced geographic coordinate extraction from geometric measurements
-        Based on Alan Green's BardCode research methodology
-        """
-        coordinate_analysis = {
-            'potential_coordinates': [],
-            'coordinate_pairs': [],
-            'historical_sites': [],
-            'accuracy_scores': [],
-            'extraction_method': 'bardcode_geometric_analysis'
-        }
-        
-        # Extract angles and ratios from geometric measurements
-        angles = []
-        ratios = []
-        distances = []
-        
-        for measurement in geometric_measurements:
-            if measurement.get('type') == 'angle':
-                angles.append(measurement.get('value', 0))
-            elif measurement.get('type') == 'ratio':
-                ratios.append(measurement.get('value', 0))
-            elif measurement.get('type') == 'distance':
-                distances.append(measurement.get('value', 0))
-        
-        # Method 1: Direct angle interpretation as coordinates
-        direct_coordinates = self._extract_direct_angle_coordinates(angles, tolerance)
-        coordinate_analysis['potential_coordinates'].extend(direct_coordinates)
-        
-        # Method 2: Ratio-based coordinate extraction
-        ratio_coordinates = self._extract_ratio_based_coordinates(ratios, tolerance)
-        coordinate_analysis['potential_coordinates'].extend(ratio_coordinates)
-        
-        # Method 3: Triangulation-based coordinate extraction
-        triangulation_coordinates = self._extract_triangulation_coordinates(angles, distances, tolerance)
-        coordinate_analysis['potential_coordinates'].extend(triangulation_coordinates)
-        
-        # Method 4: Mathematical constant coordinate relationships
-        constant_coordinates = self._extract_constant_based_coordinates(angles, ratios, tolerance)
-        coordinate_analysis['potential_coordinates'].extend(constant_coordinates)
-        
-        # Find coordinate pairs (lat/lon combinations)
-        coordinate_analysis['coordinate_pairs'] = self._find_coordinate_pairs(
-            coordinate_analysis['potential_coordinates']
-        )
-        
-        # Match against historical sites
-        coordinate_analysis['historical_sites'] = self._match_historical_sites(
-            coordinate_analysis['coordinate_pairs'], tolerance
-        )
-        
-        # Calculate accuracy scores
-        coordinate_analysis['accuracy_scores'] = self._calculate_coordinate_accuracy(
-            coordinate_analysis['coordinate_pairs']
-        )
-        
-        return coordinate_analysis
-    
     def _extract_direct_angle_coordinates(self, angles: List[float], tolerance: float) -> List[Dict[str, Any]]:
         """Extract coordinates by interpreting angles directly as lat/lon values"""
         coordinates = []

@@ -85,6 +85,14 @@ const TheDesk = ({ currentDocument, onSetDocument }) => {
      }
   };
 
+  const gematriaResults = gematriaData?.results || gematriaData || {};
+  const getGematriaDisplayValue = (value) => {
+    if (value && typeof value === 'object') {
+      return value.score ?? 0;
+    }
+    return value;
+  };
+
   const renderDocumentList = () => (
     <div style={{ padding: 40, maxWidth: 800, margin: '0 auto', color: '#fff' }}>
       <div style={{ textAlign: 'center', marginBottom: 40 }}>
@@ -175,11 +183,11 @@ const TheDesk = ({ currentDocument, onSetDocument }) => {
                    "{selectedText}"
                 </Text>
                 {loadingGematria ? <Spin /> : (
-                   gematriaData && Object.entries(gematriaData).map(([cipher, value]) => (
+                   gematriaData && Object.entries(gematriaResults).map(([cipher, value]) => (
                       <Card key={cipher} size="small" style={{ background: '#222', borderColor: '#444', marginBottom: 8 }}>
                          <Statistic 
                             title={<span style={{ color: '#888' }}>{cipher.replace(/_/g, ' ')}</span>}
-                            value={value.score || value}
+                            value={getGematriaDisplayValue(value)}
                             valueStyle={{ color: '#faad14' }}
                          />
                       </Card>
@@ -193,8 +201,8 @@ const TheDesk = ({ currentDocument, onSetDocument }) => {
           <div style={{ borderTop: '1px solid #333', marginTop: 24, paddingTop: 24 }}>
              <Title level={5} style={{ color: '#fff' }}>Document Stats</Title>
              <p style={{ color: '#888' }}>ID: <span style={{ color: '#fff' }}>{currentDocument.id}</span></p>
-             <p style={{ color: '#888' }}>Pages: <span style={{ color: '#fff' }}>{currentDocument.page_count}</span></p>
-             <p style={{ color: '#888' }}>Status: <Tag color="green">{currentDocument.c_status || 'Ready'}</Tag></p>
+             <p style={{ color: '#888' }}>Pages: <span style={{ color: '#fff' }}>{currentDocument.total_pages ?? currentDocument.page_count ?? 'Unknown'}</span></p>
+             <p style={{ color: '#888' }}>Status: <Tag color="green">{currentDocument.processing_status || currentDocument.c_status || 'Ready'}</Tag></p>
           </div>
        </Sider>
     </Layout>

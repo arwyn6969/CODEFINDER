@@ -26,6 +26,8 @@ const TheScope = () => {
   const [convergenceZones, setConvergenceZones] = useState([]);
   const [convergenceLoading, setConvergenceLoading] = useState(false);
 
+  const getMatchStartIndex = (record) => record.start_index ?? record.location?.[0];
+
   const handlePropheticSearch = async () => {
     // Validate inputs
     const validTerms = propheticTerms.filter(t => t.term.trim() !== '');
@@ -113,7 +115,7 @@ const TheScope = () => {
     try {
       const data = await researchService.getELSVisualization({
         source: record.source || 'torah',
-        centerIndex: record.start_index, // Using start index as center
+        centerIndex: getMatchStartIndex(record),
         skip: record.skip,
         termLength: record.term.length
       });
@@ -128,7 +130,11 @@ const TheScope = () => {
   const regularColumns = [
     { title: 'Term', dataIndex: 'term', key: 'term' },
     { title: 'Skip', dataIndex: 'skip', key: 'skip', render: (val) => <Tag color={val > 0 ? "blue" : "red"}>{val}</Tag> },
-    { title: 'Start', dataIndex: 'start_index', key: 'start' },
+    {
+      title: 'Start',
+      key: 'start',
+      render: (_, record) => getMatchStartIndex(record)
+    },
     { title: 'Direction', dataIndex: 'direction', key: 'dir' },
     { 
       title: 'Action', 
@@ -189,7 +195,7 @@ const TheScope = () => {
                 <Table 
                   dataSource={elsResults} 
                   columns={regularColumns} 
-                  rowKey={(r) => `${r.start_index}_${r.skip}`}
+                  rowKey={(r) => `${getMatchStartIndex(r)}_${r.skip}`}
                   pagination={{ pageSize: 8 }}
                 />
               </Card>

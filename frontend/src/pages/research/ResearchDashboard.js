@@ -6,6 +6,7 @@ import TheScope from './components/TheScope';
 import TheDesk from './components/TheDesk';
 import TheMap from './components/TheMap';
 import TheLibrary from './components/TheLibrary';
+import TheGeometry from './components/TheGeometry';
 
 const { Content } = Layout;
 
@@ -45,6 +46,11 @@ const ResearchDashboard = () => {
               label: <span><DesktopOutlined />The Desk</span>,
               key: 'desk',
               children: <TheDesk currentDocument={currentDocument} onSetDocument={setCurrentDocument} />
+            },
+            {
+              label: <span><DesktopOutlined />Geometry</span>,
+              key: 'geometry',
+              children: <TheGeometry currentDocument={currentDocument} onOpenDocument={handleOpenDocument} />
             },
             {
               label: <span><ShareAltOutlined />The Map</span>,

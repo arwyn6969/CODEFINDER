@@ -2,7 +2,6 @@ import axios from 'axios';
 
 const API_URL = '/api/research'; // Internal legacy exploratory surface
 const REL_API_URL = '/api/relationships';
-const ANALYSIS_API_URL = '/api/analysis';
 
 const researchService = {
   // --- Documents ---
@@ -82,7 +81,7 @@ const researchService = {
   
   // --- Geometric ---
   getGeometricAnalysis: async (documentId) => {
-    const response = await axios.get(`${ANALYSIS_API_URL}/${documentId}/geometric`);
+    const response = await axios.get(`${API_URL}/geometry/${documentId}`);
     return response.data;
   },
 
