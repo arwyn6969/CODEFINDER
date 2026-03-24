@@ -42,6 +42,13 @@ The exploratory research surface under `/api/research/*` remains runnable as an 
 
 ## Research Architecture
 
+The repo now has a shared corpus-registry foundation above the existing
+research-specific stores. That registry is responsible for metadata ingestion,
+lane routing (`printed_european` vs `manuscript_ancient`), OCR-profile planning,
+and corpus-level similarity candidates. The older forensic SQLite workflows
+remain derived feature stores for the printed-book lane rather than the master
+corpus model.
+
 ### German/Kempten pipeline
 
 ```mermaid

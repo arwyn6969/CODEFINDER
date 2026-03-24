@@ -56,6 +56,7 @@ Root-level historical scripts migrated out of repo root should go under `scripts
 
 - `setup_env.py`
 - `test_visualizer_integration.py`
+- `maintenance/bootstrap_corpus_registry.py`
 - `maintenance/rebuild_german_lane.py`
 - `maintenance/run_negative_control.py`
 

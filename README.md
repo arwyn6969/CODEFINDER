@@ -21,6 +21,7 @@ This repository is no longer positioned as a general-purpose cipher or prophetic
 
 - Canonical backend entrypoint: `app.api.main:app`
 - Public API surface: `/api/*`
+- Shared corpus-registry surface: `/api/corpus/*`
 - API docs: `http://localhost:8000/api/docs`
 - Health endpoint: `http://localhost:8000/api/health`
 - Frontend workspace: `frontend/`
@@ -62,6 +63,14 @@ docker-compose up -d
 - `docs/CONSOLIDATION_RETENTION_LOCK.md` - initial keep/archive/prune-later decisions for the cleanup pass
 - `docs/REBUILD_AND_RETENTION_MANIFEST.md` - canonical rebuild paths and artifact retention rules
 - `docs/architecture.md` - current product and research architecture
+
+## Corpus Registry
+
+The repo now includes a shared corpus-registry foundation for scaling beyond the
+current German/Kempten benchmark. Use `/api/corpus/*` or
+`scripts/maintenance/bootstrap_corpus_registry.py` to ingest metadata-driven
+records, route them into `printed_european` or `manuscript_ancient` lanes, and
+generate corpus-level cluster candidates ahead of forensic drill-down work.
 
 ## Research Outputs
 

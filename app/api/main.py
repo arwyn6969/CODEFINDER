@@ -12,6 +12,7 @@ from app.api.middleware import setup_middleware
 from app.api.routes import (
     analysis,
     auth,
+    corpus,
     documents,
     patterns,
     relationships,
@@ -73,6 +74,7 @@ def create_app(frontend_build_dir: Optional[Union[str, Path]] = None) -> FastAPI
     route_specs = [
         (auth.router, "/auth", "Authentication"),
         (documents.router, "/documents", "Documents"),
+        (corpus.router, "/corpus", "Corpus Registry"),
         (analysis.router, "/analysis", "Analysis"),
         (patterns.router, "/patterns", "Patterns"),
         (search.router, "/search", "Search"),

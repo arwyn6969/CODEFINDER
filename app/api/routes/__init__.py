@@ -26,6 +26,12 @@ except ImportError:
     pass
 
 try:
+    from .corpus import router as corpus_router
+    router.include_router(corpus_router, prefix="/corpus", tags=["corpus"])
+except ImportError:
+    pass
+
+try:
     from .visualizations import router as visualizations_router
     router.include_router(visualizations_router, prefix="/visualizations", tags=["visualizations"])
 except ImportError:
